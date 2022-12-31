@@ -35,6 +35,7 @@
 		8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B3296073AF001815B4 /* StringLiterals.swift */; };
 		8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B5296073C6001815B4 /* ImageLiterals.swift */; };
 		8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */; };
+		8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B929607714001815B4 /* downloadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		8E81F3B3296073AF001815B4 /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		8E81F3B5296073C6001815B4 /* ImageLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiterals.swift; sourceTree = "<group>"; };
 		8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "addPadding+UITextField.swift"; sourceTree = "<group>"; };
+		8E81F3B929607714001815B4 /* downloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				8E81F3B129605F7F001815B4 /* applyShadow.swift */,
+				8E81F3B929607714001815B4 /* downloadImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 			files = (
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
+				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
