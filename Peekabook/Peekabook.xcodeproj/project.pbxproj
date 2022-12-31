@@ -40,6 +40,7 @@
 		8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */; };
 		8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BF2960788F001815B4 /* makeAlert.swift */; };
 		8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C1296078BC001815B4 /* makeVibrate.swift */; };
+		8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C329607AA5001815B4 /* showToastMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showNetworkAlert.swift; sourceTree = "<group>"; };
 		8E81F3BF2960788F001815B4 /* makeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeAlert.swift; sourceTree = "<group>"; };
 		8E81F3C1296078BC001815B4 /* makeVibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeVibrate.swift; sourceTree = "<group>"; };
+		8E81F3C329607AA5001815B4 /* showToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showToastMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				8E81F3BF2960788F001815B4 /* makeAlert.swift */,
 				8E81F3C1296078BC001815B4 /* makeVibrate.swift */,
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
+				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
