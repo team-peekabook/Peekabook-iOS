@@ -30,6 +30,7 @@
 		8E81F3AB29605991001815B4 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3A729605991001815B4 /* Montserrat-Bold.ttf */; };
 		8E81F3AC29605991001815B4 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3A829605991001815B4 /* Montserrat-Regular.ttf */; };
 		8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3AD29605A83001815B4 /* FontLiterals.swift */; };
+		8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3AF29605C93001815B4 /* ColorLiterals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		8E81F3A729605991001815B4 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		8E81F3A829605991001815B4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		8E81F3AD29605A83001815B4 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
+		8E81F3AF29605C93001815B4 /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
+				8E81F3AF29605C93001815B4 /* ColorLiterals.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -452,10 +455,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
+				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 			);
