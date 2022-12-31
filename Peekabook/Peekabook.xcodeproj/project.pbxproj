@@ -56,6 +56,16 @@
 		8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E1296082FB001815B4 /* UIViewController+.swift */; };
 		8E81F3E42960835A001815B4 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E32960835A001815B4 /* UIView+.swift */; };
 		8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E729608421001815B4 /* UIStackView+.swift */; };
+		8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3F0296089F7001815B4 /* EditMyPickVC.swift */; };
+		8E81F3F329608A37001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3F229608A37001815B4 /* .gitkeep */; };
+		8E81F3F829608A78001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3F729608A78001815B4 /* .gitkeep */; };
+		8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3F929608A83001815B4 /* BookDetailVC.swift */; };
+		8E81F40129608AF5001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40029608AF5001815B4 /* .gitkeep */; };
+		8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40229608B00001815B4 /* MyNotificationVC.swift */; };
+		8E81F40729608B2A001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40629608B2A001815B4 /* .gitkeep */; };
+		8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40829608B36001815B4 /* UserSearchVC.swift */; };
+		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
+		8E81F40F29608B82001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40E29608B82001815B4 /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +124,16 @@
 		8E81F3E1296082FB001815B4 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		8E81F3E32960835A001815B4 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		8E81F3E729608421001815B4 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		8E81F3F0296089F7001815B4 /* EditMyPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPickVC.swift; sourceTree = "<group>"; };
+		8E81F3F229608A37001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8E81F3F729608A78001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8E81F3F929608A83001815B4 /* BookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailVC.swift; sourceTree = "<group>"; };
+		8E81F40029608AF5001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8E81F40229608B00001815B4 /* MyNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationVC.swift; sourceTree = "<group>"; };
+		8E81F40629608B2A001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8E81F40829608B36001815B4 /* UserSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchVC.swift; sourceTree = "<group>"; };
+		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
+		8E81F40E29608B82001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,8 +179,13 @@
 			children = (
 				8E10BA1F295FF61E00BCF58B /* TabBar */,
 				8E10BA20295FF62500BCF58B /* BookShelf */,
+				8E81F3ED296089CB001815B4 /* EditMyPick */,
+				8E81F3FC29608AAB001815B4 /* AddBook */,
+				8E81F3F429608A41001815B4 /* BookDetail */,
+				8E81F3FB29608A9F001815B4 /* UserSearch */,
 				8E10BA22295FF65700BCF58B /* Recommend */,
 				8E10BA21295FF64700BCF58B /* MyPage */,
+				8E81F3FD29608ACD001815B4 /* MyNotification */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -400,6 +425,131 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		8E81F3ED296089CB001815B4 /* EditMyPick */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3EF296089E4001815B4 /* Views */,
+				8E81F3EE296089DF001815B4 /* VC */,
+			);
+			path = EditMyPick;
+			sourceTree = "<group>";
+		};
+		8E81F3EE296089DF001815B4 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3F0296089F7001815B4 /* EditMyPickVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		8E81F3EF296089E4001815B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3F229608A37001815B4 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E81F3F429608A41001815B4 /* BookDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3F629608A6C001815B4 /* Views */,
+				8E81F3F529608A65001815B4 /* VC */,
+			);
+			path = BookDetail;
+			sourceTree = "<group>";
+		};
+		8E81F3F529608A65001815B4 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3F929608A83001815B4 /* BookDetailVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		8E81F3F629608A6C001815B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3F729608A78001815B4 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E81F3FB29608A9F001815B4 /* UserSearch */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40529608B1F001815B4 /* Views */,
+				8E81F40429608B19001815B4 /* VC */,
+			);
+			path = UserSearch;
+			sourceTree = "<group>";
+		};
+		8E81F3FC29608AAB001815B4 /* AddBook */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40B29608B51001815B4 /* Views */,
+				8E81F40A29608B49001815B4 /* VC */,
+			);
+			path = AddBook;
+			sourceTree = "<group>";
+		};
+		8E81F3FD29608ACD001815B4 /* MyNotification */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F3FF29608AE6001815B4 /* Views */,
+				8E81F3FE29608AE0001815B4 /* VC */,
+			);
+			path = MyNotification;
+			sourceTree = "<group>";
+		};
+		8E81F3FE29608AE0001815B4 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40229608B00001815B4 /* MyNotificationVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		8E81F3FF29608AE6001815B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40029608AF5001815B4 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E81F40429608B19001815B4 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40829608B36001815B4 /* UserSearchVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		8E81F40529608B1F001815B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40629608B2A001815B4 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E81F40A29608B49001815B4 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40C29608B66001815B4 /* AddBookVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		8E81F40B29608B51001815B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E81F40E29608B82001815B4 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -479,10 +629,15 @@
 				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
 				8E81F3A4296058CC001815B4 /* NotoSansKR-Light.otf in Resources */,
 				8E81F3AA29605991001815B4 /* Montserrat-Medium.ttf in Resources */,
+				8E81F3F329608A37001815B4 /* .gitkeep in Resources */,
 				8E81F3A929605991001815B4 /* Montserrat-SemiBold.ttf in Resources */,
 				8E81F3A3296058CC001815B4 /* NotoSansKR-Regular.otf in Resources */,
+				8E81F40F29608B82001815B4 /* .gitkeep in Resources */,
 				8E81F3AB29605991001815B4 /* Montserrat-Bold.ttf in Resources */,
+				8E81F40129608AF5001815B4 /* .gitkeep in Resources */,
 				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
+				8E81F3F829608A78001815B4 /* .gitkeep in Resources */,
+				8E81F40729608B2A001815B4 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,10 +677,12 @@
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
+				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
+				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
@@ -536,6 +693,8 @@
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
+				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
+				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
@@ -544,6 +703,7 @@
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
+				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
