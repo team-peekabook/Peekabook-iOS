@@ -16,6 +16,7 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         setViewControllers()
         setTabBar()
+        setupStyle()
     }
     
     // MARK: - Custom Methods
@@ -31,7 +32,7 @@ final class TabBarController: UITabBarController {
         let recommendNVC = makeNavigationController(
             unselectedImage: UIImage(named: "icn_recom"),
             selectedImage: UIImage(named: "icn_recom_fill"),
-            rootViewController: RecommendVC(), title: "추천")
+            rootViewController: RecommendVC(), title: "추천 ")
         
         let myPageNVC = makeNavigationController(
             unselectedImage: UIImage(named: "icn_my"),
@@ -41,16 +42,10 @@ final class TabBarController: UITabBarController {
         viewControllers = [bookShelfNVC, recommendNVC, myPageNVC]
     }
     
-    private func setTabBar() {
-        let appearance = UITabBar.appearance()
-        
-        appearance.backgroundImage = UIImage()
-        appearance.shadowImage = UIImage()
-        appearance.clipsToBounds = true
-        
+    private func setTabBar() {        
         tabBar.backgroundColor = .white
-        tabBar.tintColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1)
-        tabBar.unselectedItemTintColor = UIColor(red: 0.642, green: 0.642, blue: 0.642, alpha: 1)
+        tabBar.tintColor = .peekaRed
+        tabBar.unselectedItemTintColor = .peekaGray1
     }
     
     private func makeNavigationController(unselectedImage: UIImage?, selectedImage: UIImage?, rootViewController: UIViewController, title: String) -> UINavigationController {
@@ -59,13 +54,25 @@ final class TabBarController: UITabBarController {
         nav.tabBarItem.image = unselectedImage
         nav.tabBarItem.selectedImage = selectedImage
         nav.tabBarItem.title = title
+        
         nav.navigationBar.tintColor = .black
         nav.navigationBar.backgroundColor = .white
         nav.isNavigationBarHidden = true
         nav.navigationBar.isHidden = true
-        
+        nav.tabBarItem.setTitleTextAttributes([.font: UIFont.font(.notoSansMedium, ofSize: 11)], for: .normal)
         nav.navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
         nav.navigationItem.backBarButtonItem?.tintColor = .black
         return nav
+    }
+    
+    private func setupStyle() {
+        clearShadow()
+        tabBar.layer.applyShadow(color: .black, alpha: 0.1, x: 0, y: 0, blur: 10)
+    }
+    
+    private func clearShadow() {
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = UIColor.white
     }
 }
