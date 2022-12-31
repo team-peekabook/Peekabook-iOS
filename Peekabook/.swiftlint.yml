@@ -1,23 +1,31 @@
 disabled_rules:
-    - trailing_whitespace # 후행 공백
-    - nesting # 중첩
-    - redundant_optional_initialization # 옵셔널 타입을 nil로 초기화 중복
-    - unused_closure_parameter # 미사용 클로저 파라미터 _ 대체
+    - trailing_whitespace
+    - nesting
+    - redundant_optional_initialization
+    - unused_closure_parameter
     - identifier_name
     - line_length
-    - file_length
-    - type_name
-    - legacy_constructor
     - function_parameter_count
-    - unused_setter_value
-    - force_cast
-    - force_unwrapping
+    - function_body_length
 
 opt_in_rules:
-    - empty_count # count보다 isEmpty 선호
-    - empty_string # 빈 String 문자열과 비교하는 것 보다는 .isEmpty 선호
-    - closure_end_indentation # 클로저의 끝 괄호를 시작한 행과의 들여쓰기 맞춤
+    - empty_count
+    - empty_string
+    - closure_end_indentation
+    - let_var_whitespace
     
-excluded: # SwiftLint 검사에서 제외할 파일 경로
+excluded:
   - Peekabook/Application/AppDelegate.swift
   - Peekabook/Application/SceneDelegate.swift
+
+file_length:
+    warning: 400
+    error: 500
+
+type_name:
+    min_length: 2
+    
+identifier_name:
+    min_length: 2
+
+force_cast: warning
