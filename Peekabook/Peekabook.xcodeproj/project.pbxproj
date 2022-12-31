@@ -63,7 +63,6 @@
 		8E10BA28295FF77E00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA2A295FF78700BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA2C295FF79200BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8E10BA30295FF7BE00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
 		8E10BA36295FF81F00BCF58B /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
@@ -158,11 +157,10 @@
 		8E10BA0F295FF43A00BCF58B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				8E10BA27295FF73200BCF58B /* Components */,
-				8E10BA1F295FF61E00BCF58B /* TabBarScene */,
-				8E10BA20295FF62500BCF58B /* BookShelfScene */,
-				8E10BA22295FF65700BCF58B /* RecommendScene */,
-				8E10BA21295FF64700BCF58B /* MyPageScene */,
+				8E10BA1F295FF61E00BCF58B /* TabBar */,
+				8E10BA20295FF62500BCF58B /* BookShelf */,
+				8E10BA22295FF65700BCF58B /* Recommend */,
+				8E10BA21295FF64700BCF58B /* MyPage */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -250,39 +248,39 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		8E10BA1F295FF61E00BCF58B /* TabBarScene */ = {
+		8E10BA1F295FF61E00BCF58B /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
 				8E10BA32295FF80C00BCF58B /* TabBarController.swift */,
 			);
-			path = TabBarScene;
+			path = TabBar;
 			sourceTree = "<group>";
 		};
-		8E10BA20295FF62500BCF58B /* BookShelfScene */ = {
+		8E10BA20295FF62500BCF58B /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
 				8E10BA39295FF86400BCF58B /* Views */,
 				8E10BA38295FF85900BCF58B /* VC */,
 			);
-			path = BookShelfScene;
+			path = BookShelf;
 			sourceTree = "<group>";
 		};
-		8E10BA21295FF64700BCF58B /* MyPageScene */ = {
+		8E10BA21295FF64700BCF58B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
 				8E10BA3F295FF8BE00BCF58B /* Views */,
 				8E10BA3E295FF8B600BCF58B /* VC */,
 			);
-			path = MyPageScene;
+			path = MyPage;
 			sourceTree = "<group>";
 		};
-		8E10BA22295FF65700BCF58B /* RecommendScene */ = {
+		8E10BA22295FF65700BCF58B /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
 				8E10BA3D295FF89E00BCF58B /* Views */,
 				8E10BA3C295FF89A00BCF58B /* VC */,
 			);
-			path = RecommendScene;
+			path = Recommend;
 			sourceTree = "<group>";
 		};
 		8E10BA23295FF6CB00BCF58B /* Base */ = {
@@ -307,14 +305,6 @@
 				8E10BA2C295FF79200BCF58B /* .gitkeep */,
 			);
 			path = DTO;
-			sourceTree = "<group>";
-		};
-		8E10BA27295FF73200BCF58B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				8E10BA30295FF7BE00BCF58B /* .gitkeep */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		8E10BA38295FF85900BCF58B /* VC */ = {
