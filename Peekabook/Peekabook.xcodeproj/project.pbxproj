@@ -15,7 +15,6 @@
 		8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA34295FF81700BCF58B /* BookShelfVC.swift */; };
 		8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA36295FF81F00BCF58B /* RecommendVC.swift */; };
 		8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA43295FF95D00BCF58B /* MyPageVC.swift */; };
-		8E10BA49295FF9FB00BCF58B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA48295FF9FB00BCF58B /* ViewController.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -38,7 +37,6 @@
 		8E10BA40295FF8C800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA43295FF95D00BCF58B /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		8E10BA45295FF96C00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8E10BA48295FF9FB00BCF58B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8E10BA4A295FFABA00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -291,12 +289,11 @@
 		8E5A30A0295DAE6D00285A15 /* Peekabook */ = {
 			isa = PBXGroup;
 			children = (
-				8E5A30AF295DAE6F00285A15 /* Info.plist */,
 				8E10BA0D295FF42400BCF58B /* Global */,
 				8E10BA10295FF44800BCF58B /* Network */,
 				8E10BA0E295FF42D00BCF58B /* Application */,
 				8E10BA0F295FF43A00BCF58B /* Presentation */,
-				8E10BA48295FF9FB00BCF58B /* ViewController.swift */,
+				8E5A30AF295DAE6F00285A15 /* Info.plist */,
 			);
 			path = Peekabook;
 			sourceTree = "<group>";
@@ -371,8 +368,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
 				8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */,
+				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
 				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +385,6 @@
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
-				8E10BA49295FF9FB00BCF58B /* ViewController.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 			);
