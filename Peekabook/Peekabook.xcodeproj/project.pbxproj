@@ -160,7 +160,7 @@
 		8E10BA1F295FF61E00BCF58B /* TabBarScene */ = {
 			isa = PBXGroup;
 			children = (
-				8E10BA47295FF97900BCF58B /* Controller */,
+				8E10BA32295FF80C00BCF58B /* TabBarController.swift */,
 			);
 			path = TabBarScene;
 			sourceTree = "<group>";
@@ -270,14 +270,6 @@
 				8E10BA40295FF8C800BCF58B /* .gitkeep */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		8E10BA47295FF97900BCF58B /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				8E10BA32295FF80C00BCF58B /* TabBarController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		8E5A3095295DAE6D00285A15 = {
