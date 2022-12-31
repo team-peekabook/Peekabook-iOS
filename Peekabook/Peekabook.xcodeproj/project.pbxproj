@@ -54,6 +54,7 @@
 		8E81F3DE29608284001815B4 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DD29608284001815B4 /* String+.swift */; };
 		8E81F3E0296082C1001815B4 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DF296082C1001815B4 /* URL+.swift */; };
 		8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E1296082FB001815B4 /* UIViewController+.swift */; };
+		8E81F3E42960835A001815B4 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E32960835A001815B4 /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		8E81F3DD29608284001815B4 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		8E81F3DF296082C1001815B4 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		8E81F3E1296082FB001815B4 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		8E81F3E32960835A001815B4 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 				8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */,
 				8E81F3DD29608284001815B4 /* String+.swift */,
 				8E81F3DF296082C1001815B4 /* URL+.swift */,
+				8E81F3E32960835A001815B4 /* UIView+.swift */,
 				8E81F3E1296082FB001815B4 /* UIViewController+.swift */,
 			);
 			path = Extension;
@@ -531,6 +534,7 @@
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
+				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
