@@ -57,15 +57,10 @@
 		8E81F3E42960835A001815B4 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E32960835A001815B4 /* UIView+.swift */; };
 		8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3E729608421001815B4 /* UIStackView+.swift */; };
 		8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3F0296089F7001815B4 /* EditMyPickVC.swift */; };
-		8E81F3F329608A37001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3F229608A37001815B4 /* .gitkeep */; };
-		8E81F3F829608A78001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3F729608A78001815B4 /* .gitkeep */; };
 		8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3F929608A83001815B4 /* BookDetailVC.swift */; };
-		8E81F40129608AF5001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40029608AF5001815B4 /* .gitkeep */; };
 		8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40229608B00001815B4 /* MyNotificationVC.swift */; };
-		8E81F40729608B2A001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40629608B2A001815B4 /* .gitkeep */; };
 		8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40829608B36001815B4 /* UserSearchVC.swift */; };
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
-		8E81F40F29608B82001815B4 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F40E29608B82001815B4 /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -621,23 +616,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E81F3AC29605991001815B4 /* Montserrat-Regular.ttf in Resources */,
+				8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */,
+				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
+				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
 				8E81F3A1296058CC001815B4 /* NotoSansKR-Medium.otf in Resources */,
 				8E81F3A2296058CC001815B4 /* NotoSansKR-Bold.otf in Resources */,
 				8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */,
-				8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */,
-				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
+				8E81F3A3296058CC001815B4 /* NotoSansKR-Regular.otf in Resources */,
 				8E81F3A4296058CC001815B4 /* NotoSansKR-Light.otf in Resources */,
 				8E81F3AA29605991001815B4 /* Montserrat-Medium.ttf in Resources */,
-				8E81F3F329608A37001815B4 /* .gitkeep in Resources */,
 				8E81F3A929605991001815B4 /* Montserrat-SemiBold.ttf in Resources */,
-				8E81F3A3296058CC001815B4 /* NotoSansKR-Regular.otf in Resources */,
-				8E81F40F29608B82001815B4 /* .gitkeep in Resources */,
+				8E81F3AC29605991001815B4 /* Montserrat-Regular.ttf in Resources */,
 				8E81F3AB29605991001815B4 /* Montserrat-Bold.ttf in Resources */,
-				8E81F40129608AF5001815B4 /* .gitkeep in Resources */,
-				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
-				8E81F3F829608A78001815B4 /* .gitkeep in Resources */,
-				8E81F40729608B2A001815B4 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
