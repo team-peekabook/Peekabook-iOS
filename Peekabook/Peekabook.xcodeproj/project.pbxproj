@@ -29,6 +29,7 @@
 		8E81F3AA29605991001815B4 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3A629605991001815B4 /* Montserrat-Medium.ttf */; };
 		8E81F3AB29605991001815B4 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3A729605991001815B4 /* Montserrat-Bold.ttf */; };
 		8E81F3AC29605991001815B4 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F3A829605991001815B4 /* Montserrat-Regular.ttf */; };
+		8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3AD29605A83001815B4 /* FontLiterals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		8E81F3A629605991001815B4 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		8E81F3A729605991001815B4 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		8E81F3A829605991001815B4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		8E81F3AD29605A83001815B4 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +156,7 @@
 		8E10BA15295FF4A700BCF58B /* Literals */ = {
 			isa = PBXGroup;
 			children = (
-				8E10BA17295FF51500BCF58B /* .gitkeep */,
+				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
