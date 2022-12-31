@@ -47,6 +47,7 @@
 		8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CD29607C0F001815B4 /* addToolBar.swift */; };
 		8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CF29607C61001815B4 /* calculatePastTime.swift */; };
 		8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */; };
+		8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		8E81F3CD29607C0F001815B4 /* addToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addToolBar.swift; sourceTree = "<group>"; };
 		8E81F3CF29607C61001815B4 /* calculatePastTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calculatePastTime.swift; sourceTree = "<group>"; };
 		8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
+		8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setTextLineHeight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,13 +169,14 @@
 				8E81F3CB29607BB2001815B4 /* adjusted+.swift */,
 				8E81F3B129605F7F001815B4 /* applyShadow.swift */,
 				8E81F3CF29607C61001815B4 /* calculatePastTime.swift */,
+				8E81F3C529607B14001815B4 /* delayWithSeconds.swift */,
 				8E81F3B929607714001815B4 /* downloadImage.swift */,
 				8E81F3BB2960778B001815B4 /* getClassName.swift */,
 				8E81F3BF2960788F001815B4 /* makeAlert.swift */,
 				8E81F3C1296078BC001815B4 /* makeVibrate.swift */,
+				8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */,
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
-				8E81F3C529607B14001815B4 /* delayWithSeconds.swift */,
 				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
 			);
 			path = Utils;
@@ -502,6 +505,7 @@
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
+				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
