@@ -1,0 +1,24 @@
+disabled_rules:
+    - trailing_whitespace # 후행 공백
+    - nesting # 중첩
+    - redundant_optional_initialization # 옵셔널 타입을 nil로 초기화 중복
+    - unused_closure_parameter # 미사용 클로저 파라미터 _ 대체
+    - identifier_name
+    - line_length
+    - file_length
+    - type_name
+    - legacy_constructor
+    - function_parameter_count
+    - unused_setter_value
+    - force_cast
+    - force_unwrapping
+
+opt_in_rules:
+    - indentation_width # 인덴트 룰 적용
+    - empty_count # count보다 isEmpty 선호
+    - empty_string # 빈 String 문자열과 비교하는 것 보다는 .isEmpty 선호
+    - closure_end_indentation # 클로저의 끝 괄호를 시작한 행과의 들여쓰기 맞춤
+    
+excluded: # SwiftLint 검사에서 제외할 파일 경로
+  - Peekabook/Application/AppDelegate.swift
+  - Peekabook/Application/SceneDelegate.swift
