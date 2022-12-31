@@ -23,21 +23,22 @@ final class TabBarController: UITabBarController {
     private func setViewControllers() {
         
         let bookShelfNVC = makeNavigationController(
-            unselectedImage: UIImage(systemName: "house"),
-            selectedImage: UIImage(systemName: "house.fill"),
+            
+            unselectedImage: UIImage(named: "icn_bookshelf"),
+            selectedImage: UIImage(named: "icn_bookshelf_fill"),
             rootViewController: BookShelfVC(), title: "책장")
         
         let recommendNVC = makeNavigationController(
-            unselectedImage: UIImage(systemName: "hand.thumbsup"),
-            selectedImage: UIImage(systemName: "hand.thumbsup.fill"),
+            unselectedImage: UIImage(named: "icn_recom"),
+            selectedImage: UIImage(named: "icn_recom_fill"),
             rootViewController: RecommendVC(), title: "추천")
         
         let myPageNVC = makeNavigationController(
-            unselectedImage: UIImage(systemName: "person"),
-            selectedImage: UIImage(systemName: "person.fill"),
+            unselectedImage: UIImage(named: "icn_my"),
+            selectedImage: UIImage(named: "icn_my_fill"),
             rootViewController: MyPageVC(), title: "MY")
         
-        viewControllers = [bookShelfNVC,recommendNVC, myPageNVC]
+        viewControllers = [bookShelfNVC, recommendNVC, myPageNVC]
     }
     
     private func setTabBar() {
@@ -48,8 +49,8 @@ final class TabBarController: UITabBarController {
         appearance.clipsToBounds = true
         
         tabBar.backgroundColor = .white
-        tabBar.tintColor = .red
-        tabBar.unselectedItemTintColor = .gray
+        tabBar.tintColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1)
+        tabBar.unselectedItemTintColor = UIColor(red: 0.642, green: 0.642, blue: 0.642, alpha: 1)
     }
     
     private func makeNavigationController(unselectedImage: UIImage?, selectedImage: UIImage?, rootViewController: UIViewController, title: String) -> UINavigationController {
