@@ -48,6 +48,7 @@
 		8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CF29607C61001815B4 /* calculatePastTime.swift */; };
 		8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */; };
 		8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */; };
+		8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		8E81F3CF29607C61001815B4 /* calculatePastTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calculatePastTime.swift; sourceTree = "<group>"; };
 		8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setTextLineHeight.swift; sourceTree = "<group>"; };
+		8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setStatusBarBackgroundColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				8E81F3BB2960778B001815B4 /* getClassName.swift */,
 				8E81F3BF2960788F001815B4 /* makeAlert.swift */,
 				8E81F3C1296078BC001815B4 /* makeVibrate.swift */,
+				8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */,
 				8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */,
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
@@ -521,6 +524,7 @@
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
+				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
