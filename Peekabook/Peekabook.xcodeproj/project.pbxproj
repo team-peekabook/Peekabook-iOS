@@ -36,6 +36,7 @@
 		8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B5296073C6001815B4 /* ImageLiterals.swift */; };
 		8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */; };
 		8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B929607714001815B4 /* downloadImage.swift */; };
+		8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BB2960778B001815B4 /* getClassName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		8E81F3B5296073C6001815B4 /* ImageLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiterals.swift; sourceTree = "<group>"; };
 		8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "addPadding+UITextField.swift"; sourceTree = "<group>"; };
 		8E81F3B929607714001815B4 /* downloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadImage.swift; sourceTree = "<group>"; };
+		8E81F3BB2960778B001815B4 /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			children = (
 				8E81F3B129605F7F001815B4 /* applyShadow.swift */,
 				8E81F3B929607714001815B4 /* downloadImage.swift */,
+				8E81F3BB2960778B001815B4 /* getClassName.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
+				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
