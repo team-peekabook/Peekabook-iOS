@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UIViewController {
+extension UIViewController {
     
     /**
      - Description: 화면 터치시 작성 종료
