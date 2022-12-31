@@ -22,10 +22,22 @@ final class MyPageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.929, green: 0.922, blue: 0.875, alpha: 1)
+        setUI()
+        setLayout()
     }
 }
 
 // MARK: - UI & Layout
+
+extension MyPageVC {
+    
+    private func setUI() {
+        self.view.backgroundColor = .peekaBeige
+    }
+    
+    private func setLayout() {
+        
+    }
+}
 
 // MARK: - Methods
