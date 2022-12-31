@@ -43,6 +43,7 @@
 		8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C329607AA5001815B4 /* showToastMessage.swift */; };
 		8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C529607B14001815B4 /* delayWithSeconds.swift */; };
 		8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C929607B74001815B4 /* addSubviews.swift */; };
+		8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CB29607BB2001815B4 /* adjusted+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		8E81F3C329607AA5001815B4 /* showToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showToastMessage.swift; sourceTree = "<group>"; };
 		8E81F3C529607B14001815B4 /* delayWithSeconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delayWithSeconds.swift; sourceTree = "<group>"; };
 		8E81F3C929607B74001815B4 /* addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addSubviews.swift; sourceTree = "<group>"; };
+		8E81F3CB29607BB2001815B4 /* adjusted+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "adjusted+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
 				8E81F3C529607B14001815B4 /* delayWithSeconds.swift */,
 				8E81F3C929607B74001815B4 /* addSubviews.swift */,
+				8E81F3CB29607BB2001815B4 /* adjusted+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
+				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
