@@ -50,6 +50,7 @@
 		8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */; };
 		8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */; };
 		8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D929608037001815B4 /* setTextStyle.swift */; };
+		8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DB296080D3001815B4 /* setClearButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setTextLineHeight.swift; sourceTree = "<group>"; };
 		8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setStatusBarBackgroundColor.swift; sourceTree = "<group>"; };
 		8E81F3D929608037001815B4 /* setTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setTextStyle.swift; sourceTree = "<group>"; };
+		8E81F3DB296080D3001815B4 /* setClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setClearButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
 				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
+				8E81F3DB296080D3001815B4 /* setClearButton.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
+				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
