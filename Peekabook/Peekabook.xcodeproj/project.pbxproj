@@ -52,6 +52,7 @@
 		8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D929608037001815B4 /* setTextStyle.swift */; };
 		8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DB296080D3001815B4 /* setClearButton.swift */; };
 		8E81F3DE29608284001815B4 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DD29608284001815B4 /* String+.swift */; };
+		8E81F3E0296082C1001815B4 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3DF296082C1001815B4 /* URL+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		8E81F3D929608037001815B4 /* setTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setTextStyle.swift; sourceTree = "<group>"; };
 		8E81F3DB296080D3001815B4 /* setClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setClearButton.swift; sourceTree = "<group>"; };
 		8E81F3DD29608284001815B4 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		8E81F3DF296082C1001815B4 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 			children = (
 				8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */,
 				8E81F3DD29608284001815B4 /* String+.swift */,
+				8E81F3DF296082C1001815B4 /* URL+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
+				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
