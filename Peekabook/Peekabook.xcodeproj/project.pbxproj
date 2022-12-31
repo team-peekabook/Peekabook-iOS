@@ -46,6 +46,7 @@
 		8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CB29607BB2001815B4 /* adjusted+.swift */; };
 		8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CD29607C0F001815B4 /* addToolBar.swift */; };
 		8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3CF29607C61001815B4 /* calculatePastTime.swift */; };
+		8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,7 @@
 		8E81F3CB29607BB2001815B4 /* adjusted+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "adjusted+.swift"; sourceTree = "<group>"; };
 		8E81F3CD29607C0F001815B4 /* addToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addToolBar.swift; sourceTree = "<group>"; };
 		8E81F3CF29607C61001815B4 /* calculatePastTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calculatePastTime.swift; sourceTree = "<group>"; };
+		8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
 				8E81F3C529607B14001815B4 /* delayWithSeconds.swift */,
+				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
