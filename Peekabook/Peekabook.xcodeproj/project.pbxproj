@@ -239,8 +239,8 @@
 		8E10BA15295FF4A700BCF58B /* Literals */ = {
 			isa = PBXGroup;
 			children = (
-				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
 				8E81F3AF29605C93001815B4 /* ColorLiterals.swift */,
+				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
 				8E81F3B5296073C6001815B4 /* ImageLiterals.swift */,
 				8E81F3B3296073AF001815B4 /* StringLiterals.swift */,
 			);
