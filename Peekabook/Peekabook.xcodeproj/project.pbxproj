@@ -37,6 +37,9 @@
 		8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */; };
 		8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3B929607714001815B4 /* downloadImage.swift */; };
 		8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BB2960778B001815B4 /* getClassName.swift */; };
+		8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */; };
+		8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3BF2960788F001815B4 /* makeAlert.swift */; };
+		8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F3C1296078BC001815B4 /* makeVibrate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +80,9 @@
 		8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "addPadding+UITextField.swift"; sourceTree = "<group>"; };
 		8E81F3B929607714001815B4 /* downloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadImage.swift; sourceTree = "<group>"; };
 		8E81F3BB2960778B001815B4 /* getClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getClassName.swift; sourceTree = "<group>"; };
+		8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showNetworkAlert.swift; sourceTree = "<group>"; };
+		8E81F3BF2960788F001815B4 /* makeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeAlert.swift; sourceTree = "<group>"; };
+		8E81F3C1296078BC001815B4 /* makeVibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeVibrate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,9 @@
 				8E81F3B129605F7F001815B4 /* applyShadow.swift */,
 				8E81F3B929607714001815B4 /* downloadImage.swift */,
 				8E81F3BB2960778B001815B4 /* getClassName.swift */,
+				8E81F3BF2960788F001815B4 /* makeAlert.swift */,
+				8E81F3C1296078BC001815B4 /* makeVibrate.swift */,
+				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -468,9 +477,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
+				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
@@ -479,6 +490,7 @@
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
+				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
