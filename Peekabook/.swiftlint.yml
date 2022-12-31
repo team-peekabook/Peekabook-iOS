@@ -14,7 +14,6 @@ disabled_rules:
     - force_unwrapping
 
 opt_in_rules:
-    - indentation_width # 인덴트 룰 적용
     - empty_count # count보다 isEmpty 선호
     - empty_string # 빈 String 문자열과 비교하는 것 보다는 .isEmpty 선호
     - closure_end_indentation # 클로저의 끝 괄호를 시작한 행과의 들여쓰기 맞춤
