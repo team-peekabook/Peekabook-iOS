@@ -25,19 +25,19 @@ final class TabBarController: UITabBarController {
         
         let bookShelfNVC = makeNavigationController(
             
-            unselectedImage: UIImage(named: "icn_bookshelf"),
-            selectedImage: UIImage(named: "icn_bookshelf_fill"),
-            rootViewController: BookShelfVC(), title: "책장")
+            unselectedImage: ImageLiterals.TabBar.bookshelf,
+            selectedImage: ImageLiterals.TabBar.bookshelfSelected,
+            rootViewController: BookShelfVC(), title: I18N.Tabbar.bookshelf)
         
         let recommendNVC = makeNavigationController(
-            unselectedImage: UIImage(named: "icn_recom"),
-            selectedImage: UIImage(named: "icn_recom_fill"),
-            rootViewController: RecommendVC(), title: "추천 ")
+            unselectedImage: ImageLiterals.TabBar.recommend,
+            selectedImage: ImageLiterals.TabBar.recommendSelected,
+            rootViewController: RecommendVC(), title: I18N.Tabbar.recommend)
         
         let myPageNVC = makeNavigationController(
-            unselectedImage: UIImage(named: "icn_my"),
-            selectedImage: UIImage(named: "icn_my_fill"),
-            rootViewController: MyPageVC(), title: "MY")
+            unselectedImage: ImageLiterals.TabBar.myPage,
+            selectedImage: ImageLiterals.TabBar.myPageSelected,
+            rootViewController: MyPageVC(), title: I18N.Tabbar.mypage)
         
         viewControllers = [bookShelfNVC, recommendNVC, myPageNVC]
     }
