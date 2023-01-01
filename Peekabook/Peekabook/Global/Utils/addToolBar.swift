@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UIViewController {
+extension UIViewController {
     
     func addToolbar(textfields: [UITextField]) {
         let toolBarKeyboard = UIToolbar()
