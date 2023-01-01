@@ -1,0 +1,31 @@
+disabled_rules:
+    - trailing_whitespace
+    - nesting
+    - redundant_optional_initialization
+    - unused_closure_parameter
+    - identifier_name
+    - line_length
+    - function_parameter_count
+    - function_body_length
+
+opt_in_rules:
+    - empty_count
+    - empty_string
+    - closure_end_indentation
+    - let_var_whitespace
+    
+excluded:
+  - Peekabook/Application/AppDelegate.swift
+  - Peekabook/Application/SceneDelegate.swift
+
+file_length:
+    warning: 400
+    error: 500
+
+type_name:
+    min_length: 2
+    
+identifier_name:
+    min_length: 2
+
+force_cast: warning
