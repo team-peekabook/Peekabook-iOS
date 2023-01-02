@@ -18,6 +18,11 @@ final class RecommendVC: UIViewController {
 
     // MARK: - UI Components
     
+    private let headerView = UIView()
+    private let logoImage = UIImageView().then {
+        $0.image = UIImage(named: "peekabook_logo")
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -36,7 +41,19 @@ extension RecommendVC {
     }
     
     private func setLayout() {
+        view.addSubview(headerView)
+        headerView.addSubview(logoImage)
         
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
+        }
+        logoImage.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(150)
+            $0.height.equalTo(18)
+        }
     }
 }
 
