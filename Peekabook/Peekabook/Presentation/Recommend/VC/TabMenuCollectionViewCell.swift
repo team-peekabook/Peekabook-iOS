@@ -15,19 +15,20 @@ class TabMenuCollectionViewCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            menuLabel.textColor = isSelected ? .peekaRed : .black
+            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            menuLabel.textColor = isSelected ? .peekaRed : .black
+            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
         }
     }
     
     private var menuLabel = UILabel().then {
         $0.text = "book"
         $0.font = .systemFont(ofSize: 14, weight: .bold)
+        $0.textColor = .peekaGray2
     }
     
     override init(frame: CGRect) {
