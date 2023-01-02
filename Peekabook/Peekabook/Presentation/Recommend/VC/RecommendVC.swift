@@ -35,6 +35,9 @@ final class RecommendVC: UIViewController {
     private let logoImage = UIImageView().then {
         $0.image = UIImage(named: "peekabook_logo")
     }
+    private let headerUnderlineView = UIView().then {
+        $0.backgroundColor = .peekaRed
+    }
     
     // Menu Tab
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
