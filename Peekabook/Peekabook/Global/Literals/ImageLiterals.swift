@@ -30,4 +30,19 @@ struct ImageLiterals {
         static let friend = UIImage(named: "icn_friend")
         static let notification = UIImage(named: "icn_notification")
     }
+    
+    struct Sample {
+        static let book1 = UIImage(named: "bookSample1")
+        static let book2 = UIImage(named: "bookSample2")
+        static let book3 = UIImage(named: "bookSample3")
+        static let book4 = UIImage(named: "bookSample4")
+        static let book5 = UIImage(named: "bookSample5")
+        
+        static let profile1 = UIImage(named: "profileSample1")
+        static let profile2 = UIImage(named: "profileSample2")
+        static let profile3 = UIImage(named: "profileSample3")
+        static let profile4 = UIImage(named: "profileSample4")
+        static let profile5 = UIImage(named: "profileSample5")
+        static let profile6 = UIImage(named: "profileSample6")
+    }
 }
