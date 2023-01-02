@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    public func setStatusBarBackgroundColor(_ color: UIColor?) {
+    func setStatusBarBackgroundColor(_ color: UIColor?) {
         if #available(iOS 13.0, *) {
             let window = UIApplication.shared.windows.first
             let statusBarManager = window?.windowScene?.statusBarManager

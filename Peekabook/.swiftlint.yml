@@ -15,6 +15,7 @@ opt_in_rules:
     - let_var_whitespace
     
 excluded:
+  - Peekabook/Global/Extension/UILabel+.swift
   - Peekabook/Application/AppDelegate.swift
   - Peekabook/Application/SceneDelegate.swift
 

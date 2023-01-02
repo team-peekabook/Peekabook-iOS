@@ -19,7 +19,7 @@ import UIKit
 
 extension UIViewController {
     
-    public func makeVibrate(degree: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
+    func makeVibrate(degree: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
         let generator = UIImpactFeedbackGenerator(style: degree)
         generator.impactOccurred()
     }
@@ -27,7 +27,7 @@ extension UIViewController {
 
 extension UIView {
     
-    public func makeVibrate(degree: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
+    func makeVibrate(degree: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
         let generator = UIImpactFeedbackGenerator(style: degree)
         generator.impactOccurred()
     }
