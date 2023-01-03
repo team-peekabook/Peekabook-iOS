@@ -40,6 +40,20 @@ final class AddBookVC: UIViewController {
         $0.backgroundColor = .clear
     }
     
+    private let bookImgView = UIImageView()
+    
+    private var nameLabel = UILabel().then {
+        $0.text = "아무튼, 여름"
+        $0.font = .h3
+        $0.textColor = .peekaRed
+    }
+    
+    private var authorLabel = UILabel().then {
+        $0.text = "김신회"
+        $0.font = .h2
+        $0.textColor = .peekaRed
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -47,6 +61,7 @@ final class AddBookVC: UIViewController {
         setUI()
         setLayout()
         configButton()
+        configImageView()
     }
 }
 
@@ -65,6 +80,10 @@ extension AddBookVC {
         
         [touchBackButton, headerTitle, touchCheckButton].forEach {
             headerView.addSubview($0)
+        }
+        
+        [bookImgView, nameLabel, authorLabel].forEach {
+            containerView.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -91,6 +110,21 @@ extension AddBookVC {
             make.trailing.equalToSuperview()
         }
         
+        bookImgView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.centerX.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(bookImgView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+        }
+        
+        authorLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+        }
+        
     }
     
     @objc private func popToSearchView() {
@@ -105,6 +139,10 @@ extension AddBookVC {
     private func configButton() {
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
         touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
+    }
+    
+    private func configImageView(){
+        bookImgView.image = ImageLiterals.Sample.book1
     }
 }
 
