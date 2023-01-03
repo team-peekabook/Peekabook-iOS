@@ -50,7 +50,6 @@ class RecommendTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.textColor = .peekaWhite
     }
-    
     private let bookImage = UIImageView().then {
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.masksToBounds = false
@@ -58,8 +57,10 @@ class RecommendTableViewCell: UITableViewCell {
         $0.layer.shadowRadius = 4
         $0.layer.shadowOpacity = 0.3
     }
-    
-    private let bookRecommendToLabel = UILabel().then {
+    private let bookRecommendedPersonImage = UIImageView().then {
+        $0.layer.cornerRadius = 50
+    }
+    private let bookRecommendedPersonLabel = UILabel().then {
         $0.text = "인영케이"
         $0.font = .systemFont(ofSize: 10, weight: .medium)
         $0.textColor = .peekaRed
@@ -81,7 +82,7 @@ class RecommendTableViewCell: UITableViewCell {
         $0.backgroundColor = .peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.setTitle("\(bookRecommendToLabel.text ?? "누구세요")님의 책장 보러가기 →", for: .normal)
+        $0.setTitle("\(bookRecommendedPersonLabel.text ?? "누구세요")님의 책장 보러가기 →", for: .normal)
         $0.setTitleColor(UIColor.peekaRed, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 10, weight: .bold)
         $0.contentHorizontalAlignment = .right
@@ -116,7 +117,8 @@ extension RecommendTableViewCell {
         bookCommentsContainerView.addSubview(toFriendBookShelfButton)
         bookImageContainerView.addSubview(bookImage)
         bookCommentsContainerView.addSubviews([
-            bookRecommendToLabel,
+            bookRecommendedPersonImage,
+            bookRecommendedPersonLabel,
             bookRecommendDateLabel,
             bookRecommendTextLabel
         ])
@@ -153,11 +155,16 @@ extension RecommendTableViewCell {
             $0.width.equalTo(92)
             $0.height.equalTo(150)
         }
-        bookRecommendToLabel.snp.makeConstraints {
+        bookRecommendedPersonImage.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(14)
+            $0.width.height.equalTo(15)
+        }
+        bookRecommendedPersonLabel.snp.makeConstraints {
+            $0.top.equalTo(bookRecommendedPersonImage)
+            $0.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
         bookRecommendDateLabel.snp.makeConstraints {
-            $0.top.equalTo(bookRecommendToLabel)
+            $0.top.equalTo(bookRecommendedPersonLabel)
             $0.trailing.equalToSuperview().inset(18)
         }
         bookRecommendTextLabel.snp.makeConstraints {
@@ -176,10 +183,11 @@ extension RecommendTableViewCell {
     
     func dataBind(model: RecommendModel) {
         bookImage.image = model.image
-        bookNameLabel.text = model.name
+        bookNameLabel.text = model.bookName
         bookWriterLabel.text = model.writer
-        bookRecommendToLabel.text = model.recommendedTo
+        bookRecommendedPersonImage.image = model.recommendedPersonImage
+        bookRecommendedPersonLabel.text = model.recommendedPerson
         bookRecommendTextLabel.text = model.memo
-        changeNameToButton(name: model.recommendedTo)
+        changeNameToButton(name: model.recommendedPerson)
     }
 }

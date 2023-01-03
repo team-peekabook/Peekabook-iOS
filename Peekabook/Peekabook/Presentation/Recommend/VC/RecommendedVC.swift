@@ -12,9 +12,9 @@ class RecommendedVC: UIViewController {
     // MARK: - Properties
     
     var recommendedDummy: [RecommendModel] = [
-        RecommendModel(image: ImageLiterals.Sample.book1, name: "아무튼, 여름", writer: "김신회", recommendedTo: "김인영", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"),
-        RecommendModel(image: ImageLiterals.Sample.book1, name: "아무튼, 여름", writer: "김신회", recommendedTo: "윤수빈", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"),
-        RecommendModel(image: ImageLiterals.Sample.book1, name: "아무튼, 여름", writer: "김신회", recommendedTo: "두두", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요! ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 후")
+        RecommendModel(image: ImageLiterals.Sample.book1, bookName: "아무튼, 여름", writer: "김신회", recommendedPersonImage: ImageLiterals.Sample.profile3, recommendedPerson: "김인영", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"),
+        RecommendModel(image: ImageLiterals.Sample.book1, bookName: "아무튼, 여름", writer: "김신회", recommendedPersonImage: ImageLiterals.Sample.profile2, recommendedPerson: "윤수빈", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"),
+        RecommendModel(image: ImageLiterals.Sample.book1, bookName: "아무튼, 여름", writer: "김신회", recommendedPersonImage: ImageLiterals.Sample.profile1, recommendedPerson: "두두", memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요! ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 후")
     ]
     
     // MARK: - UI Components

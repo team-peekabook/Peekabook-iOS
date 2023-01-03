@@ -9,8 +9,9 @@ import UIKit
 
 struct RecommendModel {
     let image: UIImage!
-    let name: String
+    let bookName: String
     let writer: String
-    let recommendedTo: String
+    let recommendedPersonImage: UIImage!
+    let recommendedPerson: String
     let memo: String
 }
