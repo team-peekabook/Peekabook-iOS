@@ -98,6 +98,7 @@ final class RecommendVC: UIViewController {
         setLayout()
         configButton()
         configImageView()
+        setDelegate()
     }
 }
 
@@ -211,6 +212,7 @@ extension RecommendVC {
 
 extension RecommendVC {
     private func setDelegate() {
+        recommendView.delegate = self
     }
     
     @objc private func popToSearchView() {
@@ -229,5 +231,35 @@ extension RecommendVC {
     
     private func configImageView() {
         bookImgView.image = ImageLiterals.Sample.book1
+    }
+}
+
+extension RecommendVC: UITextViewDelegate {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        let currentComment = recommendView.text ?? ""
+        guard let commentRange = Range(range, in: currentComment)
+        else { return false }
+        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+        recommendMaxLabel.text = "\(changedComment.count)/200"
+        
+        return (changedComment.count < 200)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (textView.text == recommendViewPlaceholder) {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if recommendView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            recommendView.text = recommendViewPlaceholder
+            recommendView.textColor = .lightGray
+        }
     }
 }
