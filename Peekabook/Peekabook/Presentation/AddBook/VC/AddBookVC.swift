@@ -322,17 +322,17 @@ extension AddBookVC {
 
 extension AddBookVC: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText1 = commentView.text ?? ""
-        guard let stringRange1 = Range(range, in: currentText1) else { return false }
-        let changedText1 = currentText1.replacingCharacters(in: stringRange1, with: text)
-        commentMaxLabel.text = "\(changedText1.count)/200"
+        let currentComment = commentView.text ?? ""
+        guard let commentRange = Range(range, in: currentComment) else { return false }
+        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+        commentMaxLabel.text = "\(changedComment.count)/200"
         
-        let currentText2 = memoView.text ?? ""
-        guard let stringRange2 = Range(range, in: currentText2) else { return false }
-        let changedText2 = currentText2.replacingCharacters(in: stringRange2, with: text)
-        memoMaxLabel.text = "\(changedText2.count)/50"
+        let currentMemo = memoView.text ?? ""
+        guard let memoRange = Range(range, in: currentMemo) else { return false }
+        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
+        memoMaxLabel.text = "\(changedMemo.count)/50"
         
-        return (changedText1.count < 200) && (changedText2.count < 50)
+        return (changedComment.count < 200) && (changedMemo.count < 50)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -352,3 +352,6 @@ extension AddBookVC: UITextViewDelegate {
         }
     }
 }
+
+// TODO: - 아무 화면 터치시 EndEditing 구현 필요
+
