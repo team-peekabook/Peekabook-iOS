@@ -36,6 +36,20 @@ final class RecommendVC: UIViewController {
         $0.addTarget(AddBookVC.self, action: #selector(pushToDetailView), for: .touchUpInside)
     }
     
+    private let bookImgView = UIImageView()
+    
+    private var nameLabel = UILabel().then {
+        $0.text = "아무튼, 여름"
+        $0.font = .h3
+        $0.textColor = .peekaRed
+    }
+    
+    private var authorLabel = UILabel().then {
+        $0.text = "김신회"
+        $0.font = .h2
+        $0.textColor = .peekaRed
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -43,6 +57,7 @@ final class RecommendVC: UIViewController {
         setUI()
         setLayout()
         configButton()
+        configImageView()
     }
 }
 
@@ -59,6 +74,10 @@ extension RecommendVC {
         
         [touchBackButton, headerTitle, touchCheckButton].forEach {
             headerView.addSubview($0)
+        }
+        
+        [bookImgView, nameLabel, authorLabel].forEach {
+            view.addSubview($0)
         }
         
         headerView.snp.makeConstraints { make in
@@ -78,6 +97,21 @@ extension RecommendVC {
         touchCheckButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
+        }
+        
+        bookImgView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookImgView.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        authorLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
         }
     }
 }
@@ -100,5 +134,9 @@ extension RecommendVC {
     private func configButton() {
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
         touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
+    }
+    
+    private func configImageView() {
+        bookImgView.image = ImageLiterals.Sample.book1
     }
 }
