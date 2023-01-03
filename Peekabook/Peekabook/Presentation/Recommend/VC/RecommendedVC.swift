@@ -53,9 +53,9 @@ extension RecommendedVC {
     private func setLayout() {
         view.addSubview(tableView)
         
-        tableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        tableView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

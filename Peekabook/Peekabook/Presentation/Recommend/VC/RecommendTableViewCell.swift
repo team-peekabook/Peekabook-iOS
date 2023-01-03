@@ -127,53 +127,53 @@ extension RecommendTableViewCell {
     func setLayout() {
         self.backgroundColor = .peekaBeige
         
-        bookHeaderView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(30)
+        bookHeaderView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(30)
         }
-        bookNameLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalTo(15)
+        bookNameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(15)
         }
-        bookDividerLabel.snp.makeConstraints {
-            $0.centerY.equalTo(bookNameLabel)
-            $0.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
+        bookDividerLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(bookNameLabel)
+            make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
-        bookWriterLabel.snp.makeConstraints {
-            $0.centerY.equalTo(bookDividerLabel)
-            $0.leading.equalTo(bookDividerLabel.snp.trailing).offset(7)
+        bookWriterLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(bookDividerLabel)
+            make.leading.equalTo(bookDividerLabel.snp.trailing).offset(7)
         }
-        recommendStackView.snp.makeConstraints {
-            $0.top.equalTo(bookHeaderView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+        recommendStackView.snp.makeConstraints { make in
+            make.top.equalTo(bookHeaderView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
-        bookImageContainerView.snp.makeConstraints {
-            $0.width.equalTo(122)
+        bookImageContainerView.snp.makeConstraints { make in
+            make.width.equalTo(122)
         }
-        bookImage.snp.makeConstraints {
-            $0.centerY.centerX.equalToSuperview()
-            $0.width.equalTo(92)
-            $0.height.equalTo(150)
+        bookImage.snp.makeConstraints { make in
+            make.centerY.centerX.equalToSuperview()
+            make.width.equalTo(92)
+            make.height.equalTo(150)
         }
-        bookRecommendedPersonImage.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(14)
-            $0.width.height.equalTo(15)
+        bookRecommendedPersonImage.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().inset(14)
+            make.width.height.equalTo(15)
         }
-        bookRecommendedPersonLabel.snp.makeConstraints {
-            $0.top.equalTo(bookRecommendedPersonImage)
-            $0.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
+        bookRecommendedPersonLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookRecommendedPersonImage)
+            make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
-        bookRecommendDateLabel.snp.makeConstraints {
-            $0.top.equalTo(bookRecommendedPersonLabel)
-            $0.trailing.equalToSuperview().inset(18)
+        bookRecommendDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookRecommendedPersonLabel)
+            make.trailing.equalToSuperview().inset(18)
         }
-        bookRecommendTextLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(40)
-            $0.leading.trailing.equalToSuperview().inset(20)
+        bookRecommendTextLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(40)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
-        toFriendBookShelfButton.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(29)
+        toFriendBookShelfButton.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(29)
         }
     }
     

@@ -67,6 +67,7 @@ final class RecommendVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        addSubviews()
         setLayout()
         register()
         setFirstIndexSelected()
@@ -102,40 +103,42 @@ extension RecommendVC {
         self.view.backgroundColor = .peekaBeige
     }
     
-    private func setLayout() {
+    private func addSubviews() {
         view.addSubviews([
             headerView,
             menuCollectionView,
             pageViewController.view
         ])
         headerView.addSubviews([logoImage, headerUnderlineView])
-        
-        headerView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
+    }
+    
+    private func setLayout() {
+        headerView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(52)
         }
-        logoImage.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(150)
-            $0.height.equalTo(18)
+        logoImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.width.equalTo(150)
+            make.height.equalTo(18)
         }
-        headerUnderlineView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        menuCollectionView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(50)
+        headerUnderlineView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(2)
         }
         
-        pageViewController.view.snp.makeConstraints {
-            $0.top.equalTo(menuCollectionView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        menuCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        pageViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(menuCollectionView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

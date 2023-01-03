@@ -44,8 +44,8 @@ class TabMenuCollectionViewCell: UICollectionViewCell {
 extension TabMenuCollectionViewCell {
     private func setLayout() {
         contentView.addSubview(menuLabel)
-        menuLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+        menuLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
     }
     
