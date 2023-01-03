@@ -122,6 +122,8 @@ final class AddBookVC: UIViewController {
         setLayout()
         configButton()
         configImageView()
+        commentView.delegate = self
+        memoView.delegate = self
     }
 }
 
@@ -316,4 +318,37 @@ extension AddBookVC {
     override func viewWillDisappear(_ animated: Bool) {
         self.removeRegisterForKeyboardNotification()
         }
+}
+
+extension AddBookVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText1 = commentView.text ?? ""
+        guard let stringRange1 = Range(range, in: currentText1) else { return false }
+        let changedText1 = currentText1.replacingCharacters(in: stringRange1, with: text)
+        commentMaxLabel.text = "\(changedText1.count)/200"
+        
+        let currentText2 = memoView.text ?? ""
+        guard let stringRange2 = Range(range, in: currentText2) else { return false }
+        let changedText2 = currentText2.replacingCharacters(in: stringRange2, with: text)
+        memoMaxLabel.text = "\(changedText2.count)/50"
+        
+        return (changedText1.count < 200) && (changedText2.count < 50)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (textView.text == commentViewPlaceholder) || (textView.text == memoViewPlaceholder) {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            commentView.text = commentViewPlaceholder
+            commentView.textColor = .lightGray
+        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            memoView.text = memoViewPlaceholder
+            memoView.textColor = .lightGray
+        }
+    }
 }
