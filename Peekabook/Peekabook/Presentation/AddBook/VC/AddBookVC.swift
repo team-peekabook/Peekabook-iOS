@@ -290,13 +290,19 @@ extension AddBookVC {
     }
     
     private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(keyBoardShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(keyboardHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil)
         }
 
     private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardWillHideNotification, object: nil)
         }
     
     // TODO: - 박스에 따른 키보드 처리 필요
@@ -321,14 +327,20 @@ extension AddBookVC {
 }
 
 extension AddBookVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         let currentComment = commentView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment) else { return false }
+        guard let commentRange = Range(range, in: currentComment)
+        else { return false }
         let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
         commentMaxLabel.text = "\(changedComment.count)/200"
         
         let currentMemo = memoView.text ?? ""
-        guard let memoRange = Range(range, in: currentMemo) else { return false }
+        guard let memoRange = Range(range, in: currentMemo)
+        else { return false }
         let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
         memoMaxLabel.text = "\(changedMemo.count)/50"
         
@@ -354,4 +366,3 @@ extension AddBookVC: UITextViewDelegate {
 }
 
 // TODO: - 아무 화면 터치시 EndEditing 구현 필요
-
