@@ -50,6 +50,46 @@ final class RecommendVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
+    private let recommendBox = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+        
+    private let recommendHeader = UIView().then {
+        $0.backgroundColor = .peekaRed
+    }
+        
+    private let recommendLabel = UILabel().then {
+        $0.text = "받는사람"
+        $0.font = .h1
+        $0.textColor = .white
+    }
+        
+    private let lineView = UIView().then {
+        $0.backgroundColor = .white
+    }
+        
+    private var personName = UILabel().then {
+        $0.text = "고두영"
+        $0.font = .h1
+        $0.textColor = .white
+    }
+        
+    private let recommendViewPlaceholder = "추천사를 적어주세요."
+    private lazy var recommendView = UITextView().then {
+        $0.font = .h2
+        $0.textColor = .peekaGray1
+        $0.text = recommendViewPlaceholder
+        $0.backgroundColor = .clear
+    }
+        
+    lazy var recommendMaxLabel = UILabel().then {
+        $0.text = "0/200"
+        $0.font = .h2
+        $0.textColor = .peekaGray2
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -76,8 +116,16 @@ extension RecommendVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, recommendBox, recommendMaxLabel].forEach {
             view.addSubview($0)
+        }
+        
+        [recommendHeader, recommendView].forEach {
+            recommendBox.addSubview($0)
+        }
+        
+        [recommendLabel, lineView, personName].forEach {
+            recommendHeader.addSubview($0)
         }
         
         headerView.snp.makeConstraints { make in
@@ -112,6 +160,49 @@ extension RecommendVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+        }
+        
+        recommendBox.snp.makeConstraints { make in
+            make.top.equalTo(authorLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(335)
+            make.height.equalTo(229)
+        }
+        
+        recommendHeader.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(36)
+        }
+                
+        recommendLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(14)
+        }
+                
+        lineView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(recommendLabel.snp.trailing).offset(8)
+            make.width.equalTo(1)
+            make.height.equalTo(12)
+        }
+                
+        personName.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(lineView.snp.trailing).offset(8)
+        }
+                
+        recommendView.snp.makeConstraints { make in
+            make.top.equalTo(recommendHeader.snp.bottom).offset(10)
+            make.leading.equalTo(recommendLabel)
+            make.width.equalTo(307)
+            make.height.equalTo(169)
+        }
+                
+        recommendMaxLabel.snp.makeConstraints { make in
+            make.top.equalTo(recommendBox.snp.bottom).offset(8)
+            make.trailing.equalTo(recommendBox.snp.trailing)
         }
     }
 }
