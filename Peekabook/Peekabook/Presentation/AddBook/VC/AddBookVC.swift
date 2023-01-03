@@ -75,12 +75,41 @@ final class AddBookVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = commentViewPlaceholder
-        $0.layer.borderColor = UIColor.black.cgColor
         $0.backgroundColor = .clear
     }
     
     lazy var commentMaxLabel = UILabel().then {
         $0.text = "0/200"
+        $0.font = .h2
+        $0.textColor = .peekaGray2
+    }
+    
+    private let memoBox = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
+    }
+    
+    private let memoHeader = UIView().then {
+        $0.backgroundColor = .peekaRed
+    }
+    
+    private let memoLabel = UILabel().then {
+        $0.text = "메모"
+        $0.font = .h1
+        $0.textColor = .white
+    }
+    
+    private let memoViewPlaceholder = "메모를 남겨주세요."
+    private lazy var memoView = UITextView().then {
+        $0.font = .h2
+        $0.textColor = .peekaGray1
+        $0.text = commentViewPlaceholder
+        $0.backgroundColor = .clear
+    }
+    
+    lazy var memoMaxLabel = UILabel().then {
+        $0.text = "0/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -113,7 +142,7 @@ extension AddBookVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, commentBox, commentMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, commentBox, commentMaxLabel, memoBox, memoMaxLabel].forEach {
             containerView.addSubview($0)
         }
         
@@ -123,6 +152,14 @@ extension AddBookVC {
         
         [commentLabel].forEach {
             commentHeader.addSubview($0)
+        }
+        
+        [memoHeader, memoView].forEach {
+            memoBox.addSubview($0)
+        }
+        
+        [memoLabel].forEach {
+            memoHeader.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -185,7 +222,6 @@ extension AddBookVC {
         
         commentView.snp.makeConstraints {
             $0.top.equalTo(commentHeader.snp.bottom).offset(10)
-//            $0.centerX.equalToSuperview()
             $0.leading.equalTo(commentLabel)
             $0.width.equalTo(307)
             $0.height.equalTo(169)
@@ -194,6 +230,38 @@ extension AddBookVC {
         commentMaxLabel.snp.makeConstraints {
             $0.top.equalTo(commentBox.snp.bottom).offset(8)
             $0.trailing.equalTo(commentBox.snp.trailing)
+        }
+        
+        memoBox.snp.makeConstraints {
+            $0.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
+            $0.height.equalTo(101)
+        }
+        
+        memoHeader.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(36)
+        }
+        
+        memoLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(14)
+        }
+        
+        memoView.snp.makeConstraints {
+            $0.top.equalTo(memoHeader.snp.bottom).offset(10)
+            $0.leading.equalTo(commentLabel)
+            $0.width.equalTo(307)
+            $0.height.equalTo(41)
+        }
+        
+        memoMaxLabel.snp.makeConstraints {
+            $0.top.equalTo(memoBox.snp.bottom).offset(8)
+            $0.trailing.equalTo(memoBox.snp.trailing)
+            $0.bottom.equalToSuperview().offset(-8)
         }
     }
     
