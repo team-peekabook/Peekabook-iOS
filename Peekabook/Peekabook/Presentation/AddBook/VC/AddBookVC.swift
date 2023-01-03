@@ -264,12 +264,16 @@ extension AddBookVC {
             make.bottom.equalToSuperview().offset(-8)
         }
     }
-    
+}
+
+// MARK: - Methods
+
+extension AddBookVC {
     @objc private func popToSearchView() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    // TODO: - push 함수 작성
+    // TODO: - push 함수 작성 필요
     @objc private func pushToDetailView() {
         // doSomething()
     }
@@ -313,5 +317,3 @@ extension AddBookVC {
         self.removeRegisterForKeyboardNotification()
         }
 }
-
-// MARK: - Methods
