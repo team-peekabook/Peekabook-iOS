@@ -8,9 +8,31 @@
 import UIKit
 
 class RecommendingVC: UIViewController {
+    
+    // MARK: - Properties
+
+    // MARK: - UI Components
+    
+    // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .peekaGray2
+        setUI()
+        setLayout()
     }
 }
+
+// MARK: - UI & Layout
+
+extension RecommendingVC {
+    
+    private func setUI() {
+        self.view.backgroundColor = .peekaBeige
+    }
+    
+    private func setLayout() {
+        
+    }
+}
+
+// MARK: - Methods
