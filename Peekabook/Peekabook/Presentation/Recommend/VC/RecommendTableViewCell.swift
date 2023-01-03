@@ -71,9 +71,9 @@ class RecommendTableViewCell: UITableViewCell {
     }
     
     private let bookRecommendTextLabel = UILabel().then {
-        $0.numberOfLines = 5
+        $0.numberOfLines = 8
         $0.text = "추천문구샬라샬라"
-        $0.font = .systemFont(ofSize: 9, weight: .medium)
+        $0.font = .systemFont(ofSize: 10, weight: .medium)
         $0.textColor = .peekaRed
     }
     
