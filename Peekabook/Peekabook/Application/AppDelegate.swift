@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -32,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            UITabBar.appearance().standardAppearance = appearance
 //            UITabBar.appearance().scrollEdgeAppearance = appearance
 //        }
-        Thread.sleep(forTimeInterval: 2.0)
+        Thread.sleep(forTimeInterval: 1.0)
         return true
     }
 
