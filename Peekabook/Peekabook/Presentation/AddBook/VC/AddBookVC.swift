@@ -186,82 +186,82 @@ extension AddBookVC {
             make.trailing.equalToSuperview()
         }
         
-        bookImgView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(24)
-            $0.centerX.equalToSuperview()
+        bookImgView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.centerX.equalToSuperview()
         }
         
-        nameLabel.snp.makeConstraints {
-            $0.top.equalTo(bookImgView.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookImgView.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
         }
         
-        authorLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
-            $0.centerX.equalToSuperview()
+        authorLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
         }
         
-        commentBox.snp.makeConstraints {
-            $0.top.equalTo(authorLabel.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(229)
+        commentBox.snp.makeConstraints { make in
+            make.top.equalTo(authorLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(335)
+            make.height.equalTo(229)
         }
         
-        commentHeader.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.height.equalTo(36)
+        commentHeader.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(36)
         }
         
-        commentLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(14)
+        commentLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(14)
         }
         
-        commentView.snp.makeConstraints {
-            $0.top.equalTo(commentHeader.snp.bottom).offset(10)
-            $0.leading.equalTo(commentLabel)
-            $0.width.equalTo(307)
-            $0.height.equalTo(169)
+        commentView.snp.makeConstraints { make in
+            make.top.equalTo(commentHeader.snp.bottom).offset(10)
+            make.leading.equalTo(commentLabel)
+            make.width.equalTo(307)
+            make.height.equalTo(169)
         }
         
-        commentMaxLabel.snp.makeConstraints {
-            $0.top.equalTo(commentBox.snp.bottom).offset(8)
-            $0.trailing.equalTo(commentBox.snp.trailing)
+        commentMaxLabel.snp.makeConstraints { make in
+            make.top.equalTo(commentBox.snp.bottom).offset(8)
+            make.trailing.equalTo(commentBox.snp.trailing)
         }
         
-        memoBox.snp.makeConstraints {
-            $0.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(101)
+        memoBox.snp.makeConstraints { make in
+            make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(335)
+            make.height.equalTo(101)
         }
         
-        memoHeader.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.height.equalTo(36)
+        memoHeader.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(36)
         }
         
-        memoLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(14)
+        memoLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(14)
         }
         
-        memoView.snp.makeConstraints {
-            $0.top.equalTo(memoHeader.snp.bottom).offset(10)
-            $0.leading.equalTo(commentLabel)
-            $0.width.equalTo(307)
-            $0.height.equalTo(41)
+        memoView.snp.makeConstraints { make in
+            make.top.equalTo(memoHeader.snp.bottom).offset(10)
+            make.leading.equalTo(commentLabel)
+            make.width.equalTo(307)
+            make.height.equalTo(41)
         }
         
-        memoMaxLabel.snp.makeConstraints {
-            $0.top.equalTo(memoBox.snp.bottom).offset(8)
-            $0.trailing.equalTo(memoBox.snp.trailing)
-            $0.bottom.equalToSuperview().offset(-8)
+        memoMaxLabel.snp.makeConstraints { make in
+            make.top.equalTo(memoBox.snp.bottom).offset(8)
+            make.trailing.equalTo(memoBox.snp.trailing)
+            make.bottom.equalToSuperview().offset(-8)
         }
     }
     
