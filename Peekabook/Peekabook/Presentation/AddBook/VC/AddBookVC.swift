@@ -271,7 +271,7 @@ extension AddBookVC {
     
     // TODO: - push 함수 작성
     @objc private func pushToDetailView() {
-        
+        // doSomething()
     }
     
     private func configButton() {
@@ -279,9 +279,39 @@ extension AddBookVC {
         touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
     }
     
-    private func configImageView(){
+    private func configImageView() {
         bookImgView.image = ImageLiterals.Sample.book1
     }
+    
+    private func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+
+    private func removeRegisterForKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+    
+    // TODO: - 박스에 따른 키보드 처리 필요
+    @objc private func keyBoardShow(notification: NSNotification) {
+        // 만약 첫번째 뷰에 포커스가 간다면
+        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
+        // 두번째 뷰에 포커스가 간다면
+        self.view.transform = CGAffineTransform(translationX: 0, y: -270)
+    }
+
+    @objc private func keyboardHide(notification: NSNotification) {
+        self.view.transform = .identity
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.registerForKeyboardNotification()
+        }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeRegisterForKeyboardNotification()
+        }
 }
 
 // MARK: - Methods
