@@ -100,12 +100,19 @@ final class RecommendVC: UIViewController {
         configImageView()
         setDelegate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.registerForKeyboardNotification()
+        }
+    
+    deinit {
+        self.removeRegisterForKeyboardNotification()
+    }
 }
 
 // MARK: - UI & Layout
 
 extension RecommendVC {
-    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
     }
@@ -231,6 +238,31 @@ extension RecommendVC {
     
     private func configImageView() {
         bookImgView.image = ImageLiterals.Sample.book1
+    }
+    
+    private func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(keyBoardShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(keyboardHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+
+    private func removeRegisterForKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+    
+    // TODO: - 기종에 따른 테스트 필요
+    @objc private func keyBoardShow(notification: NSNotification) {
+        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
+    }
+
+    @objc private func keyboardHide(notification: NSNotification) {
+        self.view.transform = .identity
     }
 }
 
