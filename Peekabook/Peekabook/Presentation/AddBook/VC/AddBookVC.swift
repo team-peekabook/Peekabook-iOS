@@ -57,7 +57,7 @@ final class AddBookVC: UIViewController {
     private let commentBox = UIView().then {
         $0.backgroundColor = .white
         $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     
     private let commentHeader = UIView().then {
@@ -87,7 +87,7 @@ final class AddBookVC: UIViewController {
     private let memoBox = UIView().then {
         $0.backgroundColor = .white
         $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     
     private let memoHeader = UIView().then {
@@ -122,9 +122,17 @@ final class AddBookVC: UIViewController {
         setLayout()
         configButton()
         configImageView()
-        commentView.delegate = self
-        memoView.delegate = self
+        setDelegate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.registerForKeyboardNotification()
+        }
+    
+    deinit {
+        self.removeRegisterForKeyboardNotification()
+    }
+    
 }
 
 // MARK: - UI & Layout
@@ -271,6 +279,11 @@ extension AddBookVC {
 // MARK: - Methods
 
 extension AddBookVC {
+    private func setDelegate() {
+        commentView.delegate = self
+        memoView.delegate = self
+    }
+    
     @objc private func popToSearchView() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -310,20 +323,12 @@ extension AddBookVC {
         // 만약 첫번째 뷰에 포커스가 간다면
         self.view.transform = CGAffineTransform(translationX: 0, y: -121)
         // 두번째 뷰에 포커스가 간다면
-        self.view.transform = CGAffineTransform(translationX: 0, y: -270)
+        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
     }
 
     @objc private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
-        }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.removeRegisterForKeyboardNotification()
-        }
 }
 
 extension AddBookVC: UITextViewDelegate {
