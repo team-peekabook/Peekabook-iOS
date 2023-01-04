@@ -21,6 +21,9 @@
 		8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30AA295DAE6F00285A15 /* Assets.xcassets */; };
 		8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30AC295DAE6F00285A15 /* LaunchScreen.storyboard */; };
 		8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5E088F29630F86000A8A3F /* UILabel+.swift */; };
+		8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */; };
+		8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B86296496590013F744 /* SampleBookModel.swift */; };
+		8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8929649A920013F744 /* BookShelfCVC.swift */; };
 		8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */; };
 		8E81F3A1296058CC001815B4 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */; };
 		8E81F3A2296058CC001815B4 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */; };
@@ -72,7 +75,6 @@
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
 		8E10BA36295FF81F00BCF58B /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
-		8E10BA3A295FF89500BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA40295FF8C800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA43295FF95D00BCF58B /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		8E10BA45295FF96C00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -85,6 +87,9 @@
 		8E5A30AD295DAE6F00285A15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E5A30AF295DAE6F00285A15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E5E088F29630F86000A8A3F /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBookShelfVC.swift; sourceTree = "<group>"; };
+		8E6F7B86296496590013F744 /* SampleBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBookModel.swift; sourceTree = "<group>"; };
+		8E6F7B8929649A920013F744 /* BookShelfCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCVC.swift; sourceTree = "<group>"; };
 		8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
@@ -282,6 +287,7 @@
 		8E10BA20295FF62500BCF58B /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
+				8E6F7B85296496430013F744 /* Model */,
 				8E10BA39295FF86400BCF58B /* Views */,
 				8E10BA38295FF85900BCF58B /* VC */,
 			);
@@ -334,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA34295FF81700BCF58B /* BookShelfVC.swift */,
+				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -341,7 +348,7 @@
 		8E10BA39295FF86400BCF58B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8E10BA3A295FF89500BCF58B /* .gitkeep */,
+				8E6F7B8829649A6D0013F744 /* CVC */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -405,6 +412,22 @@
 				8E5A30AF295DAE6F00285A15 /* Info.plist */,
 			);
 			path = Peekabook;
+			sourceTree = "<group>";
+		};
+		8E6F7B85296496430013F744 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E6F7B86296496590013F744 /* SampleBookModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8E6F7B8829649A6D0013F744 /* CVC */ = {
+			isa = PBXGroup;
+			children = (
+				8E6F7B8929649A920013F744 /* BookShelfCVC.swift */,
+			);
+			path = CVC;
 			sourceTree = "<group>";
 		};
 		8E81F39829605779001815B4 /* Fonts */ = {
@@ -668,6 +691,7 @@
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
+				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
@@ -684,6 +708,7 @@
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
 				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
+				8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
@@ -694,6 +719,7 @@
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
+				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
