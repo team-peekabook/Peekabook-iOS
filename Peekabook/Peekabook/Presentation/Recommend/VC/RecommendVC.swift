@@ -259,7 +259,10 @@ extension RecommendVC {
     
     // TODO: - 기종에 따른 테스트 필요
     @objc private func keyBoardShow(notification: NSNotification) {
-        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBox.frame.maxY - 36))
     }
 
     @objc private func keyboardHide(notification: NSNotification) {
