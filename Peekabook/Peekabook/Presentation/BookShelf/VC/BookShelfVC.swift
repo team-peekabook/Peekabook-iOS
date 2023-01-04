@@ -24,6 +24,7 @@ final class BookShelfVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        addBottomSheetView()
     }
 }
 
@@ -38,6 +39,23 @@ extension BookShelfVC {
         
     }
 }
-}
 
 // MARK: - Methods
+
+extension BookShelfVC {
+    private func addBottomSheetView(scrollable: Bool? = true) {
+        let bottomShelfVC = BottomBookShelfVC()
+        
+        self.view.addSubview(bottomShelfVC.view)
+        
+        self.addChild(bottomShelfVC)
+        
+        bottomShelfVC.didMove(toParent: self)
+
+        let height = view.frame.height
+        let width = view.frame.width
+        
+        bottomShelfVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+    }
+
+}
