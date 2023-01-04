@@ -23,17 +23,17 @@ final class RecommendVC: UIViewController {
     }
     
     private let touchBackButton = UIButton().then {
-        $0.addTarget(AddBookVC.self, action: #selector(popToSearchView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(popToSearchView), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
-        $0.text = "책 등록하기"
+        $0.text = "책 추천하기"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private let touchCheckButton = UIButton().then {
-        $0.addTarget(AddBookVC.self, action: #selector(pushToDetailView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(presentToPopUpView), for: .touchUpInside)
     }
     
     private let bookImgView = UIImageView()
@@ -227,8 +227,10 @@ extension RecommendVC {
     }
     
     // TODO: - push 함수 작성 필요
-    @objc private func pushToDetailView() {
-        // doSomething()
+    @objc private func presentToPopUpView() {
+        let popupViewController = ConfirmPopUpViewController()
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
     }
     
     private func configButton() {
