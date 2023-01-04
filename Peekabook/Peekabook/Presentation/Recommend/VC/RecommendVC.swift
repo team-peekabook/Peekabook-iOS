@@ -14,21 +14,22 @@ import Moya
 
 final class RecommendVC: UIViewController {
 
-    // MARK: - Properties
-
-    var menuName: [String] = ["추천받은 책", "추천한 책"]
+    private var recommendTypes: [String] = ["추천받은 책", "추천한 책"]
     
-    let recommendedVC = RecommendedVC()
-    let recommendingVC = RecommendingVC()
-    lazy var dataViewControllers: [UIViewController] = {
+    // MARK: - Properties
+    
+    private let recommendedVC = RecommendedVC()
+    private let recommendingVC = RecommendingVC()
+    private lazy var dataViewControllers: [UIViewController] = {
         return [recommendedVC, recommendingVC]
     }()
 
-    var currentPage: Int = 0 {
+    private var currentPage: Int = 0 {
         didSet {
             bind(newValue: currentPage)
         }
     }
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -36,7 +37,7 @@ final class RecommendVC: UIViewController {
         $0.image = UIImage(named: "peekabook_logo")
     }
     private let headerUnderlineView = UIView().then {
-        $0.backgroundColor = .peekaRed
+        $0.backgroundColor = UIColor.peekaRed
     }
     
     // Menu Tab
@@ -46,8 +47,8 @@ final class RecommendVC: UIViewController {
         $0.sectionInset = UIEdgeInsets(top: 16, left: 22, bottom: 24, right: 22)
     }
 
-    lazy var menuCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.backgroundColor = .clear
+    private lazy var recommendCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+        $0.backgroundColor = UIColor.clear
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
         $0.allowsMultipleSelection = false
@@ -55,7 +56,7 @@ final class RecommendVC: UIViewController {
         $0.dataSource = self
     }
     
-    lazy var pageViewController: UIPageViewController = {
+    private lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         vc.delegate = self
         vc.dataSource = self
@@ -77,13 +78,13 @@ final class RecommendVC: UIViewController {
         currentPage = indexPath.item
     }
     
-    func bind(newValue: Int) {
-        menuCollectionView.selectItem(at: IndexPath(item: currentPage, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    private func bind(newValue: Int) {
+        recommendCollectionView.selectItem(at: IndexPath(item: currentPage, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     private func setFirstIndexSelected() {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
-        menuCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .bottom)
+        recommendCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .bottom)
         
         if let recommendedVC = dataViewControllers.first {
             pageViewController.setViewControllers([recommendedVC], direction: .forward, animated: true, completion: nil)
@@ -96,17 +97,17 @@ final class RecommendVC: UIViewController {
 extension RecommendVC {
     
     private func register() {
-        menuCollectionView.register(TabMenuCollectionViewCell.self, forCellWithReuseIdentifier: TabMenuCollectionViewCell.identifier)
+        recommendCollectionView.register(RecommendCollectionViewCell.self, forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
     }
     
     private func setUI() {
-        self.view.backgroundColor = .peekaBeige
+        self.view.backgroundColor = UIColor.peekaBeige
     }
     
     private func addSubviews() {
         view.addSubviews([
             headerView,
-            menuCollectionView,
+            recommendCollectionView,
             pageViewController.view
         ])
         headerView.addSubviews([logoImage, headerUnderlineView])
@@ -129,14 +130,14 @@ extension RecommendVC {
             make.height.equalTo(2)
         }
         
-        menuCollectionView.snp.makeConstraints { make in
+        recommendCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
         }
         
         pageViewController.view.snp.makeConstraints { make in
-            make.top.equalTo(menuCollectionView.snp.bottom)
+            make.top.equalTo(recommendCollectionView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -151,8 +152,8 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabMenuCollectionViewCell.identifier, for: indexPath) as? TabMenuCollectionViewCell else { return UICollectionViewCell() }
-        cell.dataBind(menuLabel: menuName[indexPath.item])
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell else { return UICollectionViewCell() }
+        cell.dataBind(menuLabel: recommendTypes[indexPath.item])
         return cell
     }
     

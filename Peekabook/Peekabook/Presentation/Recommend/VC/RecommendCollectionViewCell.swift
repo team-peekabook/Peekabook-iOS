@@ -1,5 +1,5 @@
 //
-//  TabMenuCollectionViewCell.swift
+//  RecommendCollectionViewCell.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/01/03.
@@ -9,26 +9,18 @@ import UIKit
 import Then
 import SnapKit
 
-class TabMenuCollectionViewCell: UICollectionViewCell {
-    
-    static let identifier = "TabMenuCollectionViewCell"
-    
-    override var isHighlighted: Bool {
-        didSet {
-            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
-        }
-    }
+class RecommendCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
+            menuLabel.textColor = isSelected ? UIColor.peekaRed : UIColor.peekaGray2
         }
     }
     
     private var menuLabel = UILabel().then {
         $0.text = "book"
         $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = .peekaGray2
+        $0.textColor = UIColor.peekaGray2
     }
     
     override init(frame: CGRect) {
@@ -41,7 +33,7 @@ class TabMenuCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension TabMenuCollectionViewCell {
+extension RecommendCollectionViewCell {
     private func setLayout() {
         contentView.addSubview(menuLabel)
         menuLabel.snp.makeConstraints { make in
