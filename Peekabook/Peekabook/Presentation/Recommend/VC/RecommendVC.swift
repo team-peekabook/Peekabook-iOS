@@ -18,9 +18,7 @@ final class RecommendVC: UIViewController {
 
     // MARK: - UI Components
     
-    private let headerView = UIView().then {
-        $0.backgroundColor = .clear
-    }
+    private let headerView = UIView()
     
     private let touchBackButton = UIButton().then {
         $0.addTarget(self, action: #selector(popToSearchView), for: .touchUpInside)
@@ -51,14 +49,11 @@ final class RecommendVC: UIViewController {
     }
     
     private let recommendBox = UIView().then {
-        $0.backgroundColor = .white
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
         
-    private let recommendHeader = UIView().then {
-        $0.backgroundColor = .peekaRed
-    }
+    private let recommendHeader = UIView()
         
     private let recommendLabel = UILabel().then {
         $0.text = "받는사람"
@@ -66,9 +61,7 @@ final class RecommendVC: UIViewController {
         $0.textColor = .white
     }
         
-    private let lineView = UIView().then {
-        $0.backgroundColor = .white
-    }
+    private let lineView = UIView()
         
     private var personName = UILabel().then {
         $0.text = "고두영"
@@ -81,7 +74,6 @@ final class RecommendVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = recommendViewPlaceholder
-        $0.backgroundColor = .clear
     }
         
     lazy var recommendMaxLabel = UILabel().then {
@@ -115,6 +107,11 @@ final class RecommendVC: UIViewController {
 extension RecommendVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
+        headerView.backgroundColor = .clear
+        recommendBox.backgroundColor = .white
+        recommendHeader.backgroundColor = .peekaRed
+        lineView.backgroundColor = .white
+        recommendView.backgroundColor = .clear
     }
     
     private func setLayout() {
