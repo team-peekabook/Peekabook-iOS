@@ -19,4 +19,9 @@ struct I18N {
         static let recommend = "추천 "
         static let mypage = "MY"
     }
+    
+    struct Confirm {
+        static let cancel = "취소하기"
+        static let recommend = "추천하기"
+    }
 }

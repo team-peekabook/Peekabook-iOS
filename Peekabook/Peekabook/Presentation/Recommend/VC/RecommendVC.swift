@@ -226,7 +226,6 @@ extension RecommendVC {
         self.navigationController?.popViewController(animated: true)
     }
     
-    // TODO: - push 함수 작성 필요
     @objc private func presentToPopUpView() {
         let popupViewController = ConfirmPopUpViewController()
         popupViewController.modalPresentationStyle = .overFullScreen

@@ -30,16 +30,16 @@ final class ConfirmPopUpViewController: UIViewController {
     }
     
     private lazy var cancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchCancelButton), for: .touchUpInside)
-        $0.setTitle("취소하기", for: .normal)
+        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
+        $0.setTitle(I18N.Confirm.cancel, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaRed
     }
     
-    private lazy var okButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchOkButton), for: .touchUpInside)
-        $0.setTitle("추천하기", for: .normal)
+    private lazy var confirmButton = UIButton().then {
+        $0.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
+        $0.setTitle(I18N.Confirm.recommend, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaGray2
@@ -64,7 +64,7 @@ extension ConfirmPopUpViewController {
     private func setLayout() {
         view.addSubview(popUpView)
         
-        [confirmLabel, cancelButton, okButton].forEach {
+        [confirmLabel, cancelButton, confirmButton].forEach {
             popUpView.addSubview($0)
         }
         
@@ -86,7 +86,7 @@ extension ConfirmPopUpViewController {
             make.height.equalTo(40)
         }
         
-        okButton.snp.makeConstraints { make in
+        confirmButton.snp.makeConstraints { make in
             make.top.equalTo(confirmLabel.snp.bottom).offset(14)
             make.trailing.equalToSuperview().offset(-16)
             make.width.height.equalTo(cancelButton)
@@ -97,12 +97,12 @@ extension ConfirmPopUpViewController {
 // MARK: - Methods
 
 extension ConfirmPopUpViewController {
-    @objc private func touchCancelButton() {
+    @objc private func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
     
     // TODO: - 현재는 그냥 dismiss됨. 추후 수정 필요
-    @objc private func touchOkButton() {
+    @objc private func touchConfirmButtonDipTap() {
         self.dismiss(animated: false, completion: nil)
     }
 }
