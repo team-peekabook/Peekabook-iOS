@@ -17,8 +17,8 @@ final class ConfirmPopUpViewController: UIViewController {
     // MARK: - Properties
 
     // MARK: - UI Components
-    private let bigView = UIView().then {
-        $0.backgroundColor = .white
+    private let popUpView = UIView().then {
+        $0.backgroundColor = .peekaBeige
     }
 
     // MARK: - View Life Cycle
@@ -38,9 +38,9 @@ extension ConfirmPopUpViewController {
     }
     
     private func setLayout() {
-        view.addSubview(bigView)
+        view.addSubview(popUpView)
         
-        bigView.snp.makeConstraints { make in
+        popUpView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalTo(295)
             make.height.equalTo(136)

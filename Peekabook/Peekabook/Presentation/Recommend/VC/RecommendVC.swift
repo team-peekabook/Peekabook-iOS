@@ -286,14 +286,14 @@ extension RecommendVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if (textView.text == recommendViewPlaceholder) {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = .peekaRed
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if recommendView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             recommendView.text = recommendViewPlaceholder
-            recommendView.textColor = .lightGray
+            recommendView.textColor = .peekaGray1
         }
     }
 }
