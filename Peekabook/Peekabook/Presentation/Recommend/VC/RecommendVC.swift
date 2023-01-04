@@ -20,7 +20,7 @@ final class RecommendVC: UIViewController {
     
     private let headerView = UIView()
     
-    private let touchBackButton = UIButton().then {
+    private lazy var touchBackButton = UIButton().then {
         $0.addTarget(self, action: #selector(popToSearchView), for: .touchUpInside)
     }
     
@@ -30,7 +30,7 @@ final class RecommendVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let touchCheckButton = UIButton().then {
+    private lazy var touchCheckButton = UIButton().then {
         $0.addTarget(self, action: #selector(presentToPopUpView), for: .touchUpInside)
     }
     
@@ -63,20 +63,19 @@ final class RecommendVC: UIViewController {
         
     private let lineView = UIView()
         
-    private var personName = UILabel().then {
+    private var personNameLabel = UILabel().then {
         $0.text = "고두영"
         $0.font = .h1
         $0.textColor = .white
     }
-        
-    private let recommendViewPlaceholder = "추천사를 적어주세요."
+    
     private lazy var recommendView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = recommendViewPlaceholder
+        $0.text = I18N.PlaceHolder.recommend
     }
         
-    lazy var recommendMaxLabel = UILabel().then {
+    private lazy var recommendMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -88,8 +87,6 @@ final class RecommendVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configButton()
-        configImageView()
         setDelegate()
     }
     
@@ -112,6 +109,11 @@ extension RecommendVC {
         recommendHeader.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
         recommendView.backgroundColor = .clear
+        
+        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
+        
+        bookImgView.image = ImageLiterals.Sample.book1
     }
     
     private func setLayout() {
@@ -129,7 +131,7 @@ extension RecommendVC {
             recommendBox.addSubview($0)
         }
         
-        [recommendLabel, lineView, personName].forEach {
+        [recommendLabel, lineView, personNameLabel].forEach {
             recommendHeader.addSubview($0)
         }
         
@@ -193,7 +195,7 @@ extension RecommendVC {
             make.height.equalTo(12)
         }
                 
-        personName.snp.makeConstraints { make in
+        personNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(lineView.snp.trailing).offset(8)
         }
@@ -229,15 +231,6 @@ extension RecommendVC {
         self.present(popupViewController, animated: false)
     }
     
-    private func configButton() {
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
-    }
-    
-    private func configImageView() {
-        bookImgView.image = ImageLiterals.Sample.book1
-    }
-    
     private func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
             selector: #selector(keyBoardShow),
@@ -254,15 +247,18 @@ extension RecommendVC {
             name: UIResponder.keyboardWillHideNotification, object: nil)
         }
     
-    // TODO: - 기종에 따른 테스트 필요
-    @objc private func keyBoardShow(notification: NSNotification) {
+    // MARK: - @objc Function
+    
+    @objc
+    private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBox.frame.maxY - 36))
     }
 
-    @objc private func keyboardHide(notification: NSNotification) {
+    @objc
+    private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
 }
@@ -283,7 +279,7 @@ extension RecommendVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == recommendViewPlaceholder) {
+        if (textView.text == I18N.PlaceHolder.recommend) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -291,7 +287,7 @@ extension RecommendVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if recommendView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            recommendView.text = recommendViewPlaceholder
+            recommendView.text = I18N.PlaceHolder.recommend
             recommendView.textColor = .peekaGray1
         }
     }
