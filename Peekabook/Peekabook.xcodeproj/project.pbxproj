@@ -176,6 +176,7 @@
 		8E10BA0F295FF43A00BCF58B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				98A042052966469800081B8E /* Proposal */,
 				8E10BA1F295FF61E00BCF58B /* TabBar */,
 				8E10BA20295FF62500BCF58B /* BookShelf */,
 				8E81F3ED296089CB001815B4 /* EditMyPick */,
@@ -549,6 +550,29 @@
 				8E81F40E29608B82001815B4 /* .gitkeep */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		98A042052966469800081B8E /* Proposal */ = {
+			isa = PBXGroup;
+			children = (
+				98A04206296646CD00081B8E /* Views */,
+				98A04207296646D100081B8E /* VC */,
+			);
+			path = Proposal;
+			sourceTree = "<group>";
+		};
+		98A04206296646CD00081B8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		98A04207296646D100081B8E /* VC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
