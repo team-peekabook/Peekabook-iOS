@@ -12,7 +12,7 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - Properties
     
     private var bookModelList = SampleBookModel.data
-    private let fullView: CGFloat = 50
+    private let fullView: CGFloat = 100
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200
 
     // MARK: - UI Components
