@@ -20,6 +20,8 @@
 		8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA34295FF81700BCF58B /* BookShelfVC.swift */; };
 		8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA36295FF81F00BCF58B /* RecommendVC.swift */; };
 		8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA43295FF95D00BCF58B /* MyPageVC.swift */; };
+		8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */; };
+		8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -97,6 +99,8 @@
 		8E10BA43295FF95D00BCF58B /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		8E10BA45295FF96C00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA4D2960026600BCF58B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHeaderLineView.swift; sourceTree = "<group>"; };
+		8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleBottomLineView.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
 				98A042052966469800081B8E /* Proposal */,
+				8E13F66D2966BDBA00E61B47 /* UIComponents */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -418,6 +423,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8E13F66D2966BDBA00E61B47 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */,
+				8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
 		8E5A3095295DAE6D00285A15 = {
 			isa = PBXGroup;
 			children = (
@@ -461,9 +475,9 @@
 		8E6F7B8829649A6D0013F744 /* CVC */ = {
 			isa = PBXGroup;
 			children = (
-				8E6F7B8929649A920013F744 /* BookShelfCVC.swift */,
 				8E6F7B8B29651B360013F744 /* FriendsCVC.swift */,
 				8E6F7B94296533000013F744 /* PickCVC.swift */,
+				8E6F7B8929649A920013F744 /* BookShelfCVC.swift */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -768,6 +782,7 @@
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
+				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
@@ -791,6 +806,7 @@
 				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
+				8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */,
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
