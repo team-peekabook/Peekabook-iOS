@@ -125,6 +125,7 @@ final class BookShelfVC: UIViewController {
         setUI()
         setLayout()
         setDelegate()
+        setTapGesture()
         registerCells()
         addBottomSheetView()
     }
@@ -144,6 +145,10 @@ final class BookShelfVC: UIViewController {
     @objc
     private func editPickButtonDidTap() {
         print("editPickButtonDidTap")
+    }
+    
+    @objc private func myProfileViewDidTap() {
+        print("myProfileViewDidTap")
     }
 }
 
@@ -345,6 +350,11 @@ extension BookShelfVC {
         friendsCollectionView.register(FriendsCVC.self, forCellWithReuseIdentifier: FriendsCVC.className)
         pickCollectionView.register(PickCVC.self, forCellWithReuseIdentifier: PickCVC.className)
     }
+    
+    private func setTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(myProfileViewDidTap))
+        myProfileView.addGestureRecognizer(tap)
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -378,6 +388,12 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         return UICollectionViewCell()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == friendsCollectionView {
+            print("\(indexPath.item) click")
+        }
+    }
 }
 
 // MARK: - UICollectionViewFlowLayout
@@ -405,5 +421,3 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         return 15
     }
 }
-
-// TODO:- 셀 클릭 추가
