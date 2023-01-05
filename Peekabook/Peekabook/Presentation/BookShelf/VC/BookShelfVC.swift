@@ -25,13 +25,15 @@ final class BookShelfVC: UIViewController {
     private let containerScrollView = UIScrollView()
     private let naviContainerView = UIView()
     private let friendsListContainerView = UIView()
-    private let profileContainerView = UIView()
-    private let myProfileView = UIView() // 상단 스토리 프로필 부분 탭제스처 넣기
-    private let pickContainerView = UIView() // 한줄 소개 보더라인용
-    private let introProfileView = UIView() // 한줄소개 프로필
+    private let introProfileView = UIView()
+    private let pickContainerView = UIView()
+
+    private let myProfileView = UIView()
     private let horizontalLine1 = UIView()
     private let horizontalLine2 = UIView()
     private let verticalLine = UIView()
+    private let doubleheaderLine = DoubleHeaderLineView()
+    private let doubleBottomLine = DoubleBottomLineView()
         
     private let logoImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -73,15 +75,18 @@ final class BookShelfVC: UIViewController {
         $0.text = "윤수빈"
         $0.font = .s1
         $0.textColor = .peekaRed
+        $0.textAlignment = .center
     }
     
-    private let profileNameLabel = UILabel().then {
+    private let introNameLabel = UILabel().then {
+        $0.text = "윤수빈"
         $0.font = .nameBold
         $0.textColor = .peekaRed
         $0.textAlignment = .center
     }
     
-    private let profileIntroductionLabel = UILabel().then {
+    private let introductionLabel = UILabel().then {
+        $0.text = "수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈"
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.textAlignment = .center
@@ -121,10 +126,11 @@ final class BookShelfVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
-//        addBottomSheetView()
+        addBottomSheetView()
     }
     
     // MARK: - @objc Function
+    
     @objc
     private func addFriendButtonDidTap() {
         print("addFriendButtonDidTap")
@@ -149,24 +155,30 @@ extension BookShelfVC {
         horizontalLine1.backgroundColor = .peekaRed
         horizontalLine2.backgroundColor = .peekaRed
         verticalLine.backgroundColor = .peekaRed
-        profileContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        
+        myProfileView.backgroundColor = .peekaBeige
+
+        introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        
         editPickButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
-//        containerScrollView.showsVerticalScrollIndicator = false
+        pickCollectionView.backgroundColor = .peekaBeige
+        containerScrollView.showsVerticalScrollIndicator = false
+        containerScrollView.bounces = false
     }
     
     private func setLayout() {
         view.addSubviews(naviContainerView, containerScrollView)
-        containerScrollView.addSubviews(friendsListContainerView, profileContainerView, pickContainerView)
         naviContainerView.addSubviews(logoImage, notificationButton, addFriendButton, horizontalLine1)
+        containerScrollView.addSubviews(friendsListContainerView, introProfileView, pickContainerView)
+
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
-        profileContainerView.addSubviews(introProfileView) // outline border용, 색 white0.4
-        introProfileView.addSubviews(profileNameLabel, profileIntroductionLabel) // 색 clear
+        
+        introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
+        
         pickContainerView.addSubviews(pickLabel, editPickButton, pickCollectionView)
-        
-        // 큰 영역 레이이아웃
-        
+                
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(52)
@@ -175,41 +187,29 @@ extension BookShelfVC {
         containerScrollView.snp.makeConstraints { make in
             make.top.equalTo(naviContainerView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(150)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
         }
         
-        
-        
-        
-        
         friendsListContainerView.snp.makeConstraints { make in
-            make.top.equalTo(naviContainerView.snp.bottom)
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(86)
         }
         
-        profileContainerView.snp.makeConstraints { make in
+        introProfileView.snp.makeConstraints { make in
             make.top.equalTo(friendsListContainerView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(66)
-        }
-        
-        introProfileView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(2)
-            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(70)
         }
         
         pickContainerView.snp.makeConstraints { make in
-            make.top.equalTo(profileContainerView.snp.bottom).offset(24)
+            make.top.equalTo(introProfileView.snp.bottom).offset(24)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview() // 손보기
-//            make.height.equalTo(300)
+            make.bottom.equalToSuperview()
         }
         
-        // 세부 레이아웃
-                
         logoImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
@@ -268,19 +268,29 @@ extension BookShelfVC {
             make.height.equalTo(2)
         }
         
-        profileContainerView.backgroundColor = .blue
-        
-        introProfileView.backgroundColor = .yellow
-        
-        introProfileView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(2)
+        doubleheaderLine.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.height.equalTo(4)
         }
         
-//        containerScrollView.backgroundColor = .lightGray
+        introNameLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(50)
+        }
         
-        pickContainerView.backgroundColor = .cyan
+        introductionLabel.snp.makeConstraints { make in
+            make.leading.equalTo(introNameLabel.snp.trailing).offset(15)
+            make.trailing.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
+        }
+        
+        doubleBottomLine.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(4)
+        }
         
         pickLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
@@ -293,17 +303,13 @@ extension BookShelfVC {
             make.width.equalTo(70)
             make.height.equalTo(25)
         }
-        
-        pickCollectionView.backgroundColor = .green
-        
+                
         pickCollectionView.snp.makeConstraints { make in
             make.top.equalTo(pickLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10) // bttom 이상하
+            make.bottom.equalToSuperview().inset(10)
             make.height.equalTo(250)
         }
-        
-        
     }
 }
 
