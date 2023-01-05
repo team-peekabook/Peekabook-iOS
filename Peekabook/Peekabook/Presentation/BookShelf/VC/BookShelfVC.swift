@@ -89,7 +89,7 @@ final class BookShelfVC: UIViewController {
         $0.text = "수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈"
         $0.font = .h2
         $0.textColor = .peekaRed
-        $0.textAlignment = .center
+        $0.textAlignment = .left
         $0.numberOfLines = 2
     }
     

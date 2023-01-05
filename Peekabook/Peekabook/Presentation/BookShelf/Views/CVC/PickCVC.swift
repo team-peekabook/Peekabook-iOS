@@ -36,7 +36,7 @@ final class PickCVC: UICollectionViewCell {
     private let titleLabel = UILabel().then {
         $0.font = .c1
         $0.textColor = .peekaRed
-        $0.textAlignment = .center
+        $0.textAlignment = .left
         $0.numberOfLines = 3
     }
     
