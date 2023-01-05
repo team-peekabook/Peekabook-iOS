@@ -20,8 +20,8 @@ excluded:
   - Peekabook/Application/SceneDelegate.swift
 
 file_length:
-    warning: 400
-    error: 500
+    warning: 800
+    error: 1000
 
 type_name:
     min_length: 2
