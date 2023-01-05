@@ -19,6 +19,8 @@ final class BottomBookShelfVC: UIViewController {
     
     private let headerContainerView = UIView()
     
+    private let holdView = UIView()
+    
     private let booksCountLabel = UILabel().then {
         $0.text = "10 Books"
         $0.font = .engSb
@@ -106,18 +108,27 @@ extension BottomBookShelfVC {
     
     private func setUI() {
         view.backgroundColor = .peekaBeige
-        headerContainerView.backgroundColor = .peekaLightBeige
+        holdView.backgroundColor = .peekaGray1
+        holdView.layer.cornerRadius = 3
+        headerContainerView.backgroundColor = .peekaWhite
         bookShelfCollectionView.backgroundColor = .peekaLightBeige
         roundViews()
     }
     
     private func setLayout() {
         view.addSubviews(headerContainerView, bookShelfCollectionView)
-        headerContainerView.addSubviews(booksCountLabel, addBookButton)
+        headerContainerView.addSubviews(holdView, booksCountLabel, addBookButton)
         
         headerContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(60)
+        }
+        
+        holdView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(66)
+            make.height.equalTo(3)
         }
         
         booksCountLabel.snp.makeConstraints { make in
@@ -133,7 +144,7 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerContainerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(60)
         }
     }
 }
@@ -165,7 +176,7 @@ extension BottomBookShelfVC {
     }
     
     private func roundViews() {
-        self.view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 15
         view.clipsToBounds = true
     }
     
@@ -213,5 +224,4 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
 }
