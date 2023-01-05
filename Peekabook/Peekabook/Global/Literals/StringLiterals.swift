@@ -27,5 +27,6 @@ struct I18N {
     
     struct PlaceHolder {
         static let recommend = "추천사를 적어주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
     }
 }

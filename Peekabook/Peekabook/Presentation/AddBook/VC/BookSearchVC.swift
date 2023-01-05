@@ -25,7 +25,7 @@ final class BookSearchVC: UIViewController {
     }
     
     private let headerTitle = UILabel().then {
-        $0.text = "책 추천하기"
+        $0.text = "책 검색하기"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
@@ -36,9 +36,9 @@ final class BookSearchVC: UIViewController {
     private lazy var searchField = UITextField().then {
         $0.backgroundColor = .white
         $0.font = .h2
-        $0.placeholder = "책 제목 또는 작가명을 입력해주세요."
-        $0.textColor = .peekaGray1
-        $0.layer.cornerRadius = 6
+        $0.textColor = .peekaRed
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.bookSearch,
+            attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
         $0.addLeftPadding()
         $0.rightViewMode = UITextField.ViewMode.always
         $0.rightView = searchButton
