@@ -30,7 +30,9 @@ final class BookSearchVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    lazy var searchButton = UIButton().then {
+    private let headerLine = UIView()
+    
+    private lazy var searchButton = UIButton().then {
         $0.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
     }
     private lazy var searchField = UITextField().then {
@@ -58,13 +60,14 @@ extension BookSearchVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
+        headerLine.backgroundColor = .peekaRed
         
         touchCancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
         searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
-        [headerView, searchField].forEach {
+        [headerView, searchField, headerLine].forEach {
             view.addSubview($0)
         }
         
@@ -84,6 +87,13 @@ extension BookSearchVC {
         
         headerTitle.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        
+        headerLine.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(2)
         }
         
         searchField.snp.makeConstraints { make in
