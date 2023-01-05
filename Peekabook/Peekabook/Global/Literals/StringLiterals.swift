@@ -19,4 +19,10 @@ struct I18N {
         static let recommend = "추천 "
         static let mypage = "MY"
     }
+    
+    struct BookShelf {
+        static let pick = "PICK !"
+        static let editPick = "픽 수정하기"
+        static let books = "Books"
+    }
 }
