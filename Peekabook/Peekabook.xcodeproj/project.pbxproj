@@ -63,6 +63,7 @@
 		8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40829608B36001815B4 /* UserSearchVC.swift */; };
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
+		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +134,8 @@
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
 		8E81F40E29608B82001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
+		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
+		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +188,7 @@
 				8E10BA22295FF65700BCF58B /* Recommend */,
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
+				98A042052966469800081B8E /* Proposal */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -352,7 +356,6 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA36295FF81F00BCF58B /* RecommendVC.swift */,
-				98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -551,6 +554,32 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		98A042052966469800081B8E /* Proposal */ = {
+			isa = PBXGroup;
+			children = (
+				98A04206296646CD00081B8E /* Views */,
+				98A04207296646D100081B8E /* VC */,
+			);
+			path = Proposal;
+			sourceTree = "<group>";
+		};
+		98A04206296646CD00081B8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				98A0420D296652CE00081B8E /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		98A04207296646D100081B8E /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				98A042082966496500081B8E /* ProposalVC.swift */,
+				98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -682,6 +711,7 @@
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
+				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
