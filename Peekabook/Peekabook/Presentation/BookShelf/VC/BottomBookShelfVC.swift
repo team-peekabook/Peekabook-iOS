@@ -11,7 +11,7 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
-    private var pickModelList = SampleBookModel.data
+    private var bookModelList = SampleBookModel.data
     private let fullView: CGFloat = 50
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200
 
@@ -186,14 +186,14 @@ extension BottomBookShelfVC {
 
 extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pickModelList.count
+        return bookModelList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
-        cell.initCell(model: pickModelList[indexPath.row])
+        cell.initCell(model: bookModelList[indexPath.row])
         return cell
     }
 }
