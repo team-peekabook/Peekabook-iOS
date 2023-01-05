@@ -29,6 +29,7 @@ struct ImageLiterals {
         static let edit = UIImage(named: "icn_edit")
         static let friend = UIImage(named: "icn_friend")
         static let notification = UIImage(named: "icn_notification")
+        static let search = UIImage(named: "icn_search")
     }
     
     struct Sample {
