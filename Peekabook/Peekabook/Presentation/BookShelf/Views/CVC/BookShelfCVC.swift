@@ -38,7 +38,8 @@ extension BookShelfCVC {
     }
     
     private func setUI() {
-        self.backgroundColor = .peekaLightBeige
+        backgroundColor = .peekaLightBeige
+        bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
     }
     
     private func setLayout() {
