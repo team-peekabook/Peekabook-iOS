@@ -135,6 +135,7 @@
 		8E81F40E29608B82001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
+		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +179,6 @@
 		8E10BA0F295FF43A00BCF58B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				98A042052966469800081B8E /* Proposal */,
 				8E10BA1F295FF61E00BCF58B /* TabBar */,
 				8E10BA20295FF62500BCF58B /* BookShelf */,
 				8E81F3ED296089CB001815B4 /* EditMyPick */,
@@ -188,6 +188,7 @@
 				8E10BA22295FF65700BCF58B /* Recommend */,
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
+				98A042052966469800081B8E /* Proposal */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -565,6 +566,7 @@
 		98A04206296646CD00081B8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				98A0420D296652CE00081B8E /* .gitkeep */,
 			);
 			path = Views;
 			sourceTree = "<group>";
