@@ -24,9 +24,7 @@ final class PickCVC: UICollectionViewCell {
         $0.textAlignment = .left
     }
     
-    private let horizontalLine1 = UIView()
-    
-    private let horizontalLine2 = UIView()
+    private let horizontalLine = UIView()
     
     private let bookImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -38,7 +36,8 @@ final class PickCVC: UICollectionViewCell {
     private let titleLabel = UILabel().then {
         $0.font = .c1
         $0.textColor = .peekaRed
-        $0.textAlignment = .left
+        $0.textAlignment = .center
+        $0.numberOfLines = 3
     }
     
     // MARK: - Initialization
@@ -62,7 +61,7 @@ extension PickCVC {
         countLabel.text = String(model.bookId)
         bookImageView.image = model.image
         bookNameLabel.text = model.name
-//        titleLabel.text = model.title
+        titleLabel.text = model.title
     }
     
     private func setUI() {
@@ -70,15 +69,16 @@ extension PickCVC {
         layer.borderColor = UIColor.peekaRed.cgColor
         backgroundColor = .peekaWhite
         countBackgroundView.backgroundColor = .peekaRed
-        horizontalLine1.backgroundColor = .peekaRed
-        horizontalLine2.backgroundColor = .peekaRed
+        horizontalLine.backgroundColor = .peekaRed
         titleContainerView.backgroundColor = .peekaWhite_60
+        titleContainerView.layer.borderColor = UIColor.peekaRed.cgColor
+        titleContainerView.layer.borderWidth = 1
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
-
     }
     
     private func setLayout() {
-        addSubviews(countBackgroundView, bookNameLabel, horizontalLine1, bookImageView, titleContainerView, titleLabel)
+        addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
+        titleContainerView.addSubview(titleLabel)
         
         countBackgroundView.addSubview(countLabel)
         
@@ -96,29 +96,26 @@ extension PickCVC {
             make.centerY.equalTo(countLabel)
         }
         
-        horizontalLine1.snp.makeConstraints { make in
+        horizontalLine.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(countBackgroundView)
             make.height.equalTo(1)
         }
         
         bookImageView.snp.makeConstraints { make in
-            make.top.equalTo(horizontalLine1.snp.bottom).offset(8)
+            make.top.equalTo(horizontalLine.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(116)
             make.height.equalTo(190)
         }
         
-        horizontalLine2.snp.makeConstraints { make in
-
-        }
-        
         titleContainerView.snp.makeConstraints { make in
-            
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(64)
         }
         
         titleLabel.snp.makeConstraints { make in
-            
+            make.edges.equalToSuperview().inset(10)
         }
     }
 }
