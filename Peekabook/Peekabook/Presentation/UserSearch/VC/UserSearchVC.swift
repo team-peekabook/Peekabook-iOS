@@ -40,6 +40,8 @@ final class UserSearchVC: UIViewController {
     }
     private lazy var searchTextField = UITextField().then {
         $0.placeholder = "사용자의 닉네임을 입력해주세요."
+        $0.textColor = UIColor.peekaRed
+        $0.font = .systemFont(ofSize: 14, weight: .medium)
     }
     private let searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.edit, for: .normal)
