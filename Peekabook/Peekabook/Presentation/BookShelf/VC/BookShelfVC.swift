@@ -134,12 +134,15 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func addFriendButtonDidTap() {
-        print("addFriendButtonDidTap")
+        let userSearchVC = UserSearchVC()
+        navigationController?.pushViewController(userSearchVC, animated: true)
     }
     
     @objc
     private func notiButtonDidTapDidTap() {
-        print("notiButtonDidTapDidTap")
+        let notiVC = MyNotificationVC()
+        notiVC.modalPresentationStyle = .fullScreen
+        present(notiVC, animated: true)
     }
     
     @objc
