@@ -20,6 +20,7 @@ final class FriendsCVC: UICollectionViewCell {
     
     private let userNameLabel = UILabel().then {
         $0.font = .s2
+        $0.textAlignment = .center
         $0.textColor = .peekaRed
     }
     
@@ -61,7 +62,7 @@ extension FriendsCVC {
         
         userNameLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
     }
 }
