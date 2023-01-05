@@ -48,7 +48,7 @@ final class BookShelfVC: UIViewController {
     
     private lazy var notificationButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.notification, for: .normal)
-        $0.addTarget(self, action: #selector(notiButtonDidTapDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(notiButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var friendsCollectionView: UICollectionView = {
@@ -139,7 +139,7 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc
-    private func notiButtonDidTapDidTap() {
+    private func notiButtonDidTap() {
         let notiVC = MyNotificationVC()
         notiVC.modalPresentationStyle = .fullScreen
         present(notiVC, animated: true)
