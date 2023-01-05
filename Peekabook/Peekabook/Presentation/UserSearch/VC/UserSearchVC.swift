@@ -17,9 +17,7 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private let userDummy: [UserSearchModel] = [
-        UserSearchModel(name: "뇽잉깅"),
-        UserSearchModel(name: "두두"),
-        UserSearchModel(name: "윤수선배")
+        UserSearchModel(name: "뇽잉깅")
     ]
     
     // MARK: - UI Components
@@ -37,12 +35,15 @@ final class UserSearchVC: UIViewController {
         $0.backgroundColor = UIColor.peekaRed
     }
     
-    private lazy var userSearchBar = UISearchBar().then {
-        $0.searchBarStyle = .minimal
-        $0.placeholder = "검색하셈"
-        $0.sizeToFit()
-        $0.isTranslucent = false
-        $0.delegate = self
+    private let searchBarContainerView = UIView().then {
+        $0.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
+    }
+    private lazy var searchTextField = UITextField().then {
+        $0.placeholder = "사용자의 닉네임을 입력해주세요."
+    }
+    private let searchBarButton = UIButton().then {
+        $0.setImage(ImageLiterals.Icn.edit, for: .normal)
+        // 검색 Asset 추가 시 바꿀 예정
     }
     
     private lazy var userSearchTableView = UITableView().then {
@@ -74,10 +75,11 @@ extension UserSearchVC {
     }
     
     private func setLayout() {
-        view.addSubviews([userSearchBar,
+        view.addSubviews([searchBarContainerView,
                           userSearchTableView,
                           headerView])
         headerView.addSubviews([backButton, searchTitleLabel, headerUnderlineView])
+        searchBarContainerView.addSubviews([searchTextField, searchBarButton])
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -96,14 +98,25 @@ extension UserSearchVC {
             make.bottom.equalToSuperview()
             make.height.equalTo(2)
         }
-        userSearchBar.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(50)
+        searchBarContainerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(16)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(48)
+        }
+        searchBarButton.snp.makeConstraints { make in
+            make.top.bottom.trailing.equalToSuperview()
+            make.height.width.equalTo(48)
+        }
+        searchTextField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalTo(searchBarButton.snp.leading).offset(-5)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(20)
         }
         userSearchTableView.snp.makeConstraints { make in
-            make.top.equalTo(userSearchBar.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(searchBarContainerView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -119,14 +132,14 @@ extension UserSearchVC {
 
 // MARK: - Delegate
 
-extension UserSearchVC: UISearchBarDelegate {
-    
-}
-
 extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userDummy.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 178
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
