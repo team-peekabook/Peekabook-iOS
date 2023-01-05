@@ -24,6 +24,11 @@
 		8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */; };
 		8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B86296496590013F744 /* SampleBookModel.swift */; };
 		8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8929649A920013F744 /* BookShelfCVC.swift */; };
+		8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8B29651B360013F744 /* FriendsCVC.swift */; };
+		8E6F7B8E29651B940013F744 /* SampleFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8D29651B940013F744 /* SampleFriendsModel.swift */; };
+		8E6F7B9029651ED10013F744 /* SampleUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8F29651ED10013F744 /* SampleUserModel.swift */; };
+		8E6F7B9229651F6C0013F744 /* SamplePickModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B9129651F6C0013F744 /* SamplePickModel.swift */; };
+		8E6F7B95296533000013F744 /* PickCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B94296533000013F744 /* PickCVC.swift */; };
 		8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */; };
 		8E81F3A1296058CC001815B4 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */; };
 		8E81F3A2296058CC001815B4 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */; };
@@ -90,6 +95,11 @@
 		8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBookShelfVC.swift; sourceTree = "<group>"; };
 		8E6F7B86296496590013F744 /* SampleBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBookModel.swift; sourceTree = "<group>"; };
 		8E6F7B8929649A920013F744 /* BookShelfCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCVC.swift; sourceTree = "<group>"; };
+		8E6F7B8B29651B360013F744 /* FriendsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCVC.swift; sourceTree = "<group>"; };
+		8E6F7B8D29651B940013F744 /* SampleFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleFriendsModel.swift; sourceTree = "<group>"; };
+		8E6F7B8F29651ED10013F744 /* SampleUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUserModel.swift; sourceTree = "<group>"; };
+		8E6F7B9129651F6C0013F744 /* SamplePickModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePickModel.swift; sourceTree = "<group>"; };
+		8E6F7B94296533000013F744 /* PickCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCVC.swift; sourceTree = "<group>"; };
 		8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
@@ -418,6 +428,9 @@
 			isa = PBXGroup;
 			children = (
 				8E6F7B86296496590013F744 /* SampleBookModel.swift */,
+				8E6F7B8D29651B940013F744 /* SampleFriendsModel.swift */,
+				8E6F7B8F29651ED10013F744 /* SampleUserModel.swift */,
+				8E6F7B9129651F6C0013F744 /* SamplePickModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,6 +439,8 @@
 			isa = PBXGroup;
 			children = (
 				8E6F7B8929649A920013F744 /* BookShelfCVC.swift */,
+				8E6F7B8B29651B360013F744 /* FriendsCVC.swift */,
+				8E6F7B94296533000013F744 /* PickCVC.swift */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -689,6 +704,7 @@
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
+				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
@@ -702,7 +718,10 @@
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
+				8E6F7B9229651F6C0013F744 /* SamplePickModel.swift in Sources */,
+				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
+				8E6F7B9029651ED10013F744 /* SampleUserModel.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
@@ -718,6 +737,7 @@
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
+				8E6F7B8E29651B940013F744 /* SampleFriendsModel.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
