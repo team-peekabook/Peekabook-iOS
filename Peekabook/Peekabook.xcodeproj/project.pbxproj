@@ -77,6 +77,7 @@
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
+		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +173,7 @@
 				8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */,
 				8E10BA0C295FF3B700BCF58B /* Moya in Frameworks */,
 				8E10BA06295FF35F00BCF58B /* Then in Frameworks */,
+				98A04211296668F900081B8E /* BarcodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +657,7 @@
 				8E10BA05295FF35F00BCF58B /* Then */,
 				8E10BA08295FF37B00BCF58B /* Kingfisher */,
 				8E10BA0B295FF3B700BCF58B /* Moya */,
+				98A04210296668F900081B8E /* BarcodeScanner */,
 			);
 			productName = Peekabook;
 			productReference = 8E5A309E295DAE6D00285A15 /* Peekabook.app */;
@@ -689,6 +692,7 @@
 				8E10BA04295FF35F00BCF58B /* XCRemoteSwiftPackageReference "Then" */,
 				8E10BA07295FF37B00BCF58B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */,
+				98A0420F296668F900081B8E /* XCRemoteSwiftPackageReference "BarcodeScanner" */,
 			);
 			productRefGroup = 8E5A309F295DAE6D00285A15 /* Products */;
 			projectDirPath = "";
@@ -1055,6 +1059,14 @@
 				kind = branch;
 			};
 		};
+		98A0420F296668F900081B8E /* XCRemoteSwiftPackageReference "BarcodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hyperoslo/BarcodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1077,6 +1089,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		98A04210296668F900081B8E /* BarcodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98A0420F296668F900081B8E /* XCRemoteSwiftPackageReference "BarcodeScanner" */;
+			productName = BarcodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

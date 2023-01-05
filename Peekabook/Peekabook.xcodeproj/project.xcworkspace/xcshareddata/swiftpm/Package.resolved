@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "barcodescanner",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hyperoslo/BarcodeScanner",
+      "state" : {
+        "revision" : "059cd71c4e3b9efc8d7e42fa1948bf572471b448",
+        "version" : "5.0.1"
+      }
+    },
+    {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",
