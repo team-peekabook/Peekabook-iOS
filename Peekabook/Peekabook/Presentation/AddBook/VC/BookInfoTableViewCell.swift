@@ -18,6 +18,7 @@ class BookInfoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUI()
         setLayout()
         configButton()
     }
@@ -26,16 +27,9 @@ class BookInfoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20))
-//    }
-    
     // MARK: - UI Components
     
-    private let imgContainerView = UIView().then {
-        $0.backgroundColor = .yellow
-    }
+    private let imgContainerView = UIView()
     private let bookImgView = UIImageView()
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
@@ -52,6 +46,7 @@ class BookInfoTableViewCell: UITableViewCell {
     private let addLabel = UILabel().then {
         $0.font = .c1
         $0.textColor = .peekaRed
+        $0.text = "내 책장에 추가하기"
     }
     
     private let addButton = UIButton().then {
@@ -70,37 +65,22 @@ class BookInfoTableViewCell: UITableViewCell {
 
 extension BookInfoTableViewCell {
     private func setUI() {
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.peekaRed.cgColor
         
+        imgContainerView.layer.borderWidth = 1
+        imgContainerView.layer.borderColor = UIColor.peekaRed.cgColor
+        
+        addContainerView.layer.borderWidth = 1
+        addContainerView.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private func setLayout() {
-        self.backgroundColor = .clear
+        self.backgroundColor = .white
         contentView.addSubviews([
             imgContainerView,
             labelContainerView,
             addContainerView
         ])
-//
-//        imgContainerView.addSubview(bookImgView)
-//
-//        labelContainerView.addSubviews([
-//            bookTitleLabel,
-//            authorLabel
-//        ])
-//
-//        addContainerView.addSubviews([
-//            addLabel,
-//            addButton
-//        ])
-        
-//        contentView.addSubview(containerView)
-//        contentView.addSubviews([
-//            imgContainerView, labelContainerView, addContainerView
-//        ])
-        contentView.layer.borderWidth = 2
-        
-//        containerView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//        }
     
         imgContainerView.addSubview(bookImgView)
         
@@ -118,7 +98,6 @@ extension BookInfoTableViewCell {
             make.height.equalTo(128)
         }
         
-        labelContainerView.backgroundColor = .blue
         labelContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(imgContainerView.snp.trailing)
@@ -136,7 +115,6 @@ extension BookInfoTableViewCell {
             make.leading.equalTo(bookTitleLabel)
         }
         
-        addContainerView.backgroundColor = .white
         addContainerView.snp.makeConstraints { make in
             make.top.equalTo(labelContainerView.snp.bottom)
             make.leading.trailing.equalTo(labelContainerView)

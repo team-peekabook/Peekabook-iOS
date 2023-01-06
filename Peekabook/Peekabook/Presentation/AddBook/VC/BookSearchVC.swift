@@ -56,7 +56,7 @@ final class BookSearchVC: UIViewController {
     
     private lazy var bookTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .systemPink
+        tableView.backgroundColor = .peekaBeige
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
