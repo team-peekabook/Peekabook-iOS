@@ -116,8 +116,7 @@ extension BookSearchVC {
         
         searchField.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(18)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
         }
