@@ -17,7 +17,7 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private let userDummy: [UserSearchModel] = [
-        UserSearchModel(name: "뇽잉깅")
+        UserSearchModel(image: ImageLiterals.Sample.profile3, name: "뇽잉깅", isFollowing: false)
     ]
     
     // MARK: - UI Components
@@ -44,6 +44,7 @@ final class UserSearchVC: UIViewController {
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.autocorrectionType = .no
     }
+    
     private let searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.edit, for: .normal)
         // 검색 Asset 추가 시 바꿀 예정
