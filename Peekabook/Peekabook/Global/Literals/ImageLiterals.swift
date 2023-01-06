@@ -22,6 +22,7 @@ struct ImageLiterals {
     
     struct Icn {
         static let addBook = UIImage(named: "icn_addBook")
+        static let addBookMini = UIImage(named: "icn_plus_mini")
         static let back = UIImage(named: "icn_back")
         static let check = UIImage(named: "icn_check")
         static let close = UIImage(named: "icn_close")
