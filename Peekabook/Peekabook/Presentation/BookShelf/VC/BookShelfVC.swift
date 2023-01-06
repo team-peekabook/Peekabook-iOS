@@ -147,7 +147,9 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func editPickButtonDidTap() {
-        print("editPickButtonDidTap")
+        let editPickVC = EditMyPickVC()
+        editPickVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editPickVC, animated: true)
     }
     
     @objc private func myProfileViewDidTap() {
