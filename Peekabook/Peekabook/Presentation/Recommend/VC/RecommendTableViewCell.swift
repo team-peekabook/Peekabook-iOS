@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import Then
+
 import SnapKit
+import Then
 
 final class RecommendTableViewCell: UITableViewCell {
     

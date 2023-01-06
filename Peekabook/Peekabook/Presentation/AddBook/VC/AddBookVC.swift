@@ -22,8 +22,8 @@ final class AddBookVC: UIViewController {
         $0.backgroundColor = .clear
     }
     
-    private let touchBackButton = UIButton().then {
-        $0.addTarget(AddBookVC.self, action: #selector(popToSearchView), for: .touchUpInside)
+    private lazy var touchBackButton = UIButton().then {
+        $0.addTarget(self, action: #selector(touchBackButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
@@ -284,8 +284,10 @@ extension AddBookVC {
         memoView.delegate = self
     }
     
-    @objc private func popToSearchView() {
-        self.navigationController?.popViewController(animated: true)
+    // TODO: - 바코드 스캔뷰로 다시 가게 해야함
+    // 현재는 홈뷰로 가는 상황
+    @objc private func touchBackButtonDidTap() {
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     // TODO: - push 함수 작성 필요
