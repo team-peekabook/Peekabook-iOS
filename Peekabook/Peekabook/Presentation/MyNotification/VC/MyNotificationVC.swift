@@ -22,6 +22,7 @@ final class MyNotificationVC: UIViewController {
     
     private lazy var backButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
+        $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     private let notificationLabel = UILabel().then {
@@ -35,6 +36,10 @@ final class MyNotificationVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    
+    @objc private func backButtonTapped() {
+        self.dismiss(animated: true)
     }
 }
 
