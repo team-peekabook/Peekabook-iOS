@@ -20,6 +20,10 @@ struct ImageLiterals {
         static let myPageSelected = UIImage(named: "icn_my_fill")
     }
     
+    struct Image {
+        static let logo = UIImage(named: "peekabook_logo")
+    }
+    
     struct Icn {
         static let addBook = UIImage(named: "icn_addBook")
         static let addBookMini = UIImage(named: "icn_plus_mini")
@@ -28,7 +32,7 @@ struct ImageLiterals {
         static let close = UIImage(named: "icn_close")
         static let delete = UIImage(named: "icn_delete")
         static let edit = UIImage(named: "icn_edit")
-        static let friend = UIImage(named: "icn_friend")
+        static let friend = UIImage(named: "icn_friendPlus")
         static let notification = UIImage(named: "icn_notification")
         static let search = UIImage(named: "icn_search")
     }
