@@ -71,6 +71,8 @@
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
+		98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042142966C8C700081B8E /* BookInfoModel.swift */; };
+		98A0421929679ABA00081B8E /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A0421829679ABA00081B8E /* BookInfoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +151,8 @@
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
 		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
+		98A042142966C8C700081B8E /* BookInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoModel.swift; sourceTree = "<group>"; };
+		98A0421829679ABA00081B8E /* BookInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,6 +516,7 @@
 			children = (
 				8E81F40B29608B51001815B4 /* Views */,
 				8E81F40A29608B49001815B4 /* VC */,
+				98A042142966C8C700081B8E /* BookInfoModel.swift */,
 			);
 			path = AddBook;
 			sourceTree = "<group>";
@@ -562,6 +567,7 @@
 			children = (
 				8E81F40C29608B66001815B4 /* AddBookVC.swift */,
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
+				98A0421829679ABA00081B8E /* BookInfoTableViewCell.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -717,6 +723,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98A0421929679ABA00081B8E /* BookInfoTableViewCell.swift in Sources */,
 				98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */,
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
@@ -739,6 +746,7 @@
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
 				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
+				98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,

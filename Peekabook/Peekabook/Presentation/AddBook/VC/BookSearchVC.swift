@@ -40,11 +40,23 @@ final class BookSearchVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.bookSearch,
-            attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.addLeftPadding()
         $0.rightViewMode = UITextField.ViewMode.always
         $0.rightView = searchButton
     }
+    
+    private lazy var bookTableView = UITableView(frame: .zero, style: .plain).then {
+        $0.backgroundColor = .white
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private var bookInfoList: [BookInfoModel] = [
+        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book3, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book2, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book1, title: "아무튼, 여름", author: "김신회")
+    ]
 
     // MARK: - View Life Cycle
 
@@ -67,7 +79,7 @@ extension BookSearchVC {
     }
     
     private func setLayout() {
-        [headerView, searchField, headerLine].forEach {
+        [headerView, searchField, headerLine, bookTableView].forEach {
             view.addSubview($0)
         }
         
@@ -102,6 +114,12 @@ extension BookSearchVC {
             make.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
+        }
+        
+        bookTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchField.snp.bottom).offset(24)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(128 * bookInfoList.count)
         }
     }
     
