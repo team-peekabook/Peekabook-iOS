@@ -22,7 +22,7 @@ final class BottomBookShelfVC: UIViewController {
     private let holdView = UIView()
     
     private let booksCountLabel = UILabel().then {
-        $0.text = "10 Books"
+        $0.text = "\(SampleBookModel.data.count) Books"
         $0.font = .engSb
         $0.textColor = .peekaRed
     }
@@ -35,7 +35,7 @@ final class BottomBookShelfVC: UIViewController {
     private lazy var bookShelfCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 50, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 45, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.bounces = false
@@ -155,6 +155,7 @@ extension BottomBookShelfVC {
     
     private func regeisterPanGesture() {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomBookShelfVC.panGesture))
+        gesture.delegate = self
         view.addGestureRecognizer(gesture)
     }
     
@@ -201,7 +202,6 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
         cell.initCell(model: bookModelList[indexPath.row])
@@ -214,7 +214,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
 extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let length = (collectionView.frame.width - 10) / 3
-        return CGSize(width: length - 10, height: 180)
+        return CGSize(width: length - 10, height: 170)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
