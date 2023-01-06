@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14526AD22965F74B0049C61D /* UserSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD12965F74B0049C61D /* UserSearchTableViewCell.swift */; };
-		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
 		1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53F29634F3700CA72D0 /* RecommendModel.swift */; };
 		1431D542296354B200CA72D0 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendTableViewCell.swift */; };
+		14526AD22965F74B0049C61D /* UserSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD12965F74B0049C61D /* UserSearchTableViewCell.swift */; };
+		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
 		8E10BA06295FF35F00BCF58B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA05295FF35F00BCF58B /* Then */; };
@@ -79,6 +79,7 @@
 		8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40229608B00001815B4 /* MyNotificationVC.swift */; };
 		8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40829608B36001815B4 /* UserSearchVC.swift */; };
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
+		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
@@ -88,12 +89,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14526AD12965F74B0049C61D /* UserSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTableViewCell.swift; sourceTree = "<group>"; };
-		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
 		1431D53F29634F3700CA72D0 /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
 		1431D541296354B200CA72D0 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
+		14526AD12965F74B0049C61D /* UserSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTableViewCell.swift; sourceTree = "<group>"; };
+		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA28295FF77E00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		8E81F40829608B36001815B4 /* UserSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchVC.swift; sourceTree = "<group>"; };
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
 		8E81F40E29608B82001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
 		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				8E81F40C29608B66001815B4 /* AddBookVC.swift */,
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
 				98A0421829679ABA00081B8E /* BookInfoTableViewCell.swift */,
+				98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
+				98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
@@ -988,7 +992,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R6RDNJW78B;
+				DEVELOPMENT_TEAM = 4TYSGZ3T9G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -996,6 +1000,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1017,7 +1022,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R6RDNJW78B;
+				DEVELOPMENT_TEAM = 4TYSGZ3T9G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1025,6 +1030,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
