@@ -152,12 +152,11 @@ extension BookInfoTableViewCell {
         addLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(addButton.snp.leading).inset(4)
-            make.width.height.equalTo(7)
         }
     }
     
     private func configButton() {
-        addButton.setImage(ImageLiterals.Icn.addBook, for: .normal)
+        addButton.setImage(ImageLiterals.Icn.addBookMini, for: .normal)
     }
     
     func dataBind(model: BookInfoModel) {
