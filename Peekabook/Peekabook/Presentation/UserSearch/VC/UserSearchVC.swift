@@ -46,8 +46,7 @@ final class UserSearchVC: UIViewController {
     }
     
     private let searchBarButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.edit, for: .normal)
-        // 검색 Asset 추가 시 바꿀 예정
+        $0.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private lazy var userSearchTableView = UITableView().then {
