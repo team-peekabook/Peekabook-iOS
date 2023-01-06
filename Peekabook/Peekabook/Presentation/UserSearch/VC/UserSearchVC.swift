@@ -23,8 +23,9 @@ final class UserSearchVC: UIViewController {
     // MARK: - UI Components
     
     private let headerView = UIView()
-    private let backButton = UIButton().then {
+    private lazy var backButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
+        $0.addTarget(self, action: #selector(backBtnTapped), for: .touchUpInside)
     }
     private let searchTitleLabel = UILabel().then {
         $0.text = "사용자 검색하기"
@@ -45,8 +46,9 @@ final class UserSearchVC: UIViewController {
         $0.autocorrectionType = .no
     }
     
-    private let searchBarButton = UIButton().then {
+    private lazy var searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
+        $0.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
     }
     
     private lazy var userSearchTableView = UITableView().then {
@@ -66,6 +68,14 @@ final class UserSearchVC: UIViewController {
         setUI()
         setLayout()
         register()
+    }
+    
+    @objc private func backBtnTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func searchBtnTapped() {
+        print("검색")
     }
 }
 
@@ -129,7 +139,7 @@ extension UserSearchVC {
 extension UserSearchVC {
     
     private func register() {
-        userSearchTableView.register(UserSearchTableViewCell.self, forCellReuseIdentifier: UserSearchTableViewCell.className)
+        userSearchTableView.register(UserSearchTVC.self, forCellReuseIdentifier: UserSearchTVC.className)
     }
 }
 
@@ -146,7 +156,7 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTableViewCell.className, for: indexPath) as? UserSearchTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTVC.className, for: indexPath) as? UserSearchTVC else { return UITableViewCell() }
         cell.dataBind(model: userDummy[indexPath.row])
         return cell
     }
