@@ -30,6 +30,16 @@ final class MyNotificationVC: UIViewController {
         $0.font = .systemFont(ofSize: 18, weight: .bold)
     }
     
+    private lazy var notificationTableView = UITableView().then {
+        $0.showsVerticalScrollIndicator = true
+        $0.isScrollEnabled = true
+        $0.allowsSelection = false
+        $0.allowsMultipleSelection = false
+        $0.backgroundColor = UIColor.peekaBeige
+//        $0.delegate = self
+//        $0.dataSource = self
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -50,10 +60,11 @@ extension MyNotificationVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerContainerView.backgroundColor = UIColor.peekaBeige
+        notificationTableView.backgroundColor = UIColor.peekaBeige
     }
     
     private func setLayout() {
-        view.addSubviews(headerContainerView)
+        view.addSubviews(headerContainerView, notificationTableView)
         headerContainerView.addSubviews(backButton, notificationLabel)
         
         headerContainerView.snp.makeConstraints { make in
@@ -68,6 +79,12 @@ extension MyNotificationVC {
         
         notificationLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        
+        notificationTableView.snp.makeConstraints { make in
+            make.top.equalTo(headerContainerView.snp.bottom)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
     }
 }
