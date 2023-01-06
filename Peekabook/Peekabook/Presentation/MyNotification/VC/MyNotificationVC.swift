@@ -18,6 +18,17 @@ final class MyNotificationVC: UIViewController {
 
     // MARK: - UI Components
     
+    private let headerContainerView = UIView()
+    
+    private lazy var backButton = UIButton().then {
+        $0.setImage(ImageLiterals.Icn.back, for: .normal)
+    }
+    
+    private let notificationLabel = UILabel().then {
+        $0.text = "알림"
+        $0.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -33,10 +44,26 @@ extension MyNotificationVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
+        headerContainerView.backgroundColor = UIColor.peekaBeige
     }
     
     private func setLayout() {
+        view.addSubviews(headerContainerView)
+        headerContainerView.addSubviews(backButton, notificationLabel)
         
+        headerContainerView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(52)
+        }
+        
+        backButton.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().offset(8)
+            make.centerY.equalToSuperview()
+        }
+        
+        notificationLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
 }
 
