@@ -14,7 +14,7 @@ import Then
 final class BarcodeViewController: BarcodeScannerViewController {
     
     private let labelA = UILabel().then {
-        $0.text = "테스트입니다"
+//        $0.text = "테스트입니다"
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 20, weight: .bold)
     }
