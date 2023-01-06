@@ -37,7 +37,7 @@ final class BottomBookShelfVC: UIViewController {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 45, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = true
+        collectionView.isScrollEnabled = false
         collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -83,13 +83,13 @@ final class BottomBookShelfVC: UIViewController {
         let velocity = recognizer.velocity(in: self.view)
         let y = self.view.frame.minY
         
-        if ( y + translation.y >= fullView) && (y + translation.y <= partialView ) {
+        if (y + translation.y >= fullView) && (y + translation.y <= partialView) {
             self.view.frame = CGRect(x: 0, y: y + translation.y, width: view.frame.width, height: view.frame.height)
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         }
         
         if recognizer.state == .ended {
-            var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y )
+            var duration = velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
             
             duration = duration > 1.3 ? 1 : duration
             
@@ -99,7 +99,11 @@ final class BottomBookShelfVC: UIViewController {
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: self.view.frame.height)
                 }
-            }, completion: nil)
+            }, completion: { [weak self] _ in
+                if velocity.y < 0 {
+                    self?.bookShelfCollectionView.isScrollEnabled = true
+                }
+            })
         }
     }
 }
