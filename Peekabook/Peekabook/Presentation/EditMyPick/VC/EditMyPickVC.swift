@@ -15,6 +15,8 @@ import Moya
 final class EditMyPickVC: UIViewController {
     
     // MARK: - Properties
+    
+    private var editPickModelList = SampleEditPickModel.data
 
     // MARK: - UI Components
     
@@ -37,12 +39,25 @@ final class EditMyPickVC: UIViewController {
         $0.textAlignment = .left
     }
     
+    private lazy var bookShelfCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 50, right: 20)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = true
+        collectionView.bounces = false
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setDelegate()
+        registerCells()
     }
     
     // MARK: - @objc Function
@@ -66,7 +81,7 @@ extension EditMyPickVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView)
+        view.addSubviews(naviContainerView, bookShelfCollectionView)
         naviContainerView.addSubviews(backButton, completeButton, descriptionLabel)
         
         naviContainerView.snp.makeConstraints { make in
@@ -88,7 +103,59 @@ extension EditMyPickVC {
             make.top.equalTo(backButton.snp.bottom)
             make.leading.equalToSuperview().offset(20)
         }
+        
+        bookShelfCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(naviContainerView.snp.bottom)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }
 
 // MARK: - Methods
+
+extension EditMyPickVC {
+    
+    private func setDelegate() {
+        bookShelfCollectionView.delegate = self
+        bookShelfCollectionView.dataSource = self
+    }
+    
+    private func registerCells() {
+        bookShelfCollectionView.register(EditPickCVC.self, forCellWithReuseIdentifier: EditPickCVC.className)
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return editPickModelList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
+                as? EditPickCVC else { return UICollectionViewCell() }
+        cell.initCell(model: editPickModelList[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewFlowLayout
+
+extension EditMyPickVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let length = (collectionView.frame.width - 10) / 3
+        return CGSize(width: length - 10, height: 180)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 6
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
