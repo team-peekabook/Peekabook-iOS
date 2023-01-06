@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .peekaBeige
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }

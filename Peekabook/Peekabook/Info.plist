@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Bold.otf</string>
@@ -16,8 +21,6 @@
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>UIWindowSceneSessionRoleApplication</key>
@@ -33,7 +36,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 </dict>
 </plist>
