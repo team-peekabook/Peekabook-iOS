@@ -21,7 +21,7 @@ final class MyNotificationVC: UIViewController {
     private let headerContainerView = UIView()
     
     private lazy var backButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
+        $0.setImage(ImageLiterals.Icn.close, for: .normal)
         $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
@@ -62,7 +62,7 @@ extension MyNotificationVC {
         }
         
         backButton.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().offset(8)
+            make.leading.equalToSuperview().offset(8)
             make.centerY.equalToSuperview()
         }
         
