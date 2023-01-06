@@ -7,8 +7,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>바코드 스캔시 카메라 권한이 필요합니다. 뿡뿡</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Bold.otf</string>

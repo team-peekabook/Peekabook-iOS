@@ -169,7 +169,6 @@
 		8E81F40229608B00001815B4 /* MyNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationVC.swift; sourceTree = "<group>"; };
 		8E81F40829608B36001815B4 /* UserSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchVC.swift; sourceTree = "<group>"; };
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
-		8E81F40E29608B82001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
@@ -1009,6 +1008,7 @@
 				DEVELOPMENT_TEAM = 4TYSGZ3T9G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 스캔시 카메라 권한이 필요합니다. 뿡뿡";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1021,7 +1021,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.sopt.Peekabook;
+				PRODUCT_BUNDLE_IDENTIFIER = org.sopt.devxsby.Peekabook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1039,6 +1039,7 @@
 				DEVELOPMENT_TEAM = 4TYSGZ3T9G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 스캔시 카메라 권한이 필요합니다. 뿡뿡";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1051,7 +1052,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.sopt.Peekabook;
+				PRODUCT_BUNDLE_IDENTIFIER = org.sopt.devxsby.Peekabook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
