@@ -11,8 +11,7 @@ import BarcodeScanner
 import SnapKit
 import Then
 
-class BarcodeViewController: BarcodeScannerViewController {
-    
+final class BarcodeViewController: BarcodeScannerViewController {
     
     private let labelA = UILabel().then {
         $0.text = "테스트입니다"
