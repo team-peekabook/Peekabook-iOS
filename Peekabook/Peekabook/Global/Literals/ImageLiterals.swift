@@ -26,6 +26,7 @@ struct ImageLiterals {
     
     struct Icn {
         static let addBook = UIImage(named: "icn_addBook")
+        static let addBookMini = UIImage(named: "icn_plus_mini")
         static let back = UIImage(named: "icn_back")
         static let check = UIImage(named: "icn_check")
         static let close = UIImage(named: "icn_close")
@@ -33,6 +34,7 @@ struct ImageLiterals {
         static let edit = UIImage(named: "icn_edit")
         static let friend = UIImage(named: "icn_friendPlus")
         static let notification = UIImage(named: "icn_notification")
+        static let search = UIImage(named: "icn_search")
     }
     
     struct Sample {
