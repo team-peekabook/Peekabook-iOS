@@ -19,21 +19,23 @@ class BookInfoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
+        configButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI Components
-
-    private let containerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20))
+//    }
     
-    private let imgContainerView = UIView()
+    // MARK: - UI Components
+    
+    private let imgContainerView = UIView().then {
+        $0.backgroundColor = .yellow
+    }
     private let bookImgView = UIImageView()
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
@@ -71,12 +73,12 @@ extension BookInfoTableViewCell {
         
     }
     private func setLayout() {
-        self.backgroundColor = .white
-//        containerView.addSubviews([
-//            imgContainerView,
-//            labelContainerView,
-//            addContainerView
-//        ])
+        self.backgroundColor = .clear
+        contentView.addSubviews([
+            imgContainerView,
+            labelContainerView,
+            addContainerView
+        ])
 //
 //        imgContainerView.addSubview(bookImgView)
 //
@@ -90,12 +92,16 @@ extension BookInfoTableViewCell {
 //            addButton
 //        ])
         
-        contentView.addSubview(containerView)
+//        contentView.addSubview(containerView)
+//        contentView.addSubviews([
+//            imgContainerView, labelContainerView, addContainerView
+//        ])
+        contentView.layer.borderWidth = 2
         
-        [imgContainerView, labelContainerView, addContainerView].forEach {
-            containerView.addSubview($0)
-        }
-        
+//        containerView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+    
         imgContainerView.addSubview(bookImgView)
         
         [bookTitleLabel, authorLabel].forEach {
@@ -107,15 +113,12 @@ extension BookInfoTableViewCell {
         }
         
         imgContainerView.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview()
+            make.top.leading.equalToSuperview()
             make.width.equalTo(106)
             make.height.equalTo(128)
         }
         
-        imgContainerView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        
+        labelContainerView.backgroundColor = .blue
         labelContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(imgContainerView.snp.trailing)
@@ -133,6 +136,7 @@ extension BookInfoTableViewCell {
             make.leading.equalTo(bookTitleLabel)
         }
         
+        addContainerView.backgroundColor = .white
         addContainerView.snp.makeConstraints { make in
             make.top.equalTo(labelContainerView.snp.bottom)
             make.leading.trailing.equalTo(labelContainerView)
@@ -142,13 +146,18 @@ extension BookInfoTableViewCell {
         
         addButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(30)
+            make.trailing.equalToSuperview().inset(10)
         }
         
         addLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(addButton.snp.leading).inset(4)
+            make.width.height.equalTo(7)
         }
+    }
+    
+    private func configButton() {
+        addButton.setImage(ImageLiterals.Icn.addBook, for: .normal)
     }
     
     func dataBind(model: BookInfoModel) {
