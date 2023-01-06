@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class UserSearchTableViewCell: UITableViewCell {
+class UserSearchTVC: UITableViewCell {
     
     var isFollowing: Bool = false {
         didSet {
@@ -55,7 +55,7 @@ class UserSearchTableViewCell: UITableViewCell {
     }
 }
 
-extension UserSearchTableViewCell {
+extension UserSearchTVC {
     
     private func selected() {
         followButton.backgroundColor = UIColor.peekaGray2
