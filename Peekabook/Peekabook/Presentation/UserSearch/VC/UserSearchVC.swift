@@ -94,7 +94,7 @@ extension UserSearchVC {
             make.width.height.equalTo(48)
         }
         searchTitleLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
         headerUnderlineView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
