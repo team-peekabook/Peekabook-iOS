@@ -225,3 +225,20 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
         return 0
     }
 }
+
+extension BottomBookShelfVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let gesture = (gestureRecognizer as? UIPanGestureRecognizer)
+        let direction = gesture?.velocity(in: view).y ?? 0
+        print(direction)
+
+        let y = view.frame.minY
+        if (y == fullView && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (y == partialView) {
+            bookShelfCollectionView.isScrollEnabled = false
+        } else {
+            bookShelfCollectionView.isScrollEnabled = true
+        }
+        
+        return false
+    }
+}
