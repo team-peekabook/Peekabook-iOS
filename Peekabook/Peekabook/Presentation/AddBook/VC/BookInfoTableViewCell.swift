@@ -61,26 +61,31 @@ class BookInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    override func layoutSubviews() {
+      super.layoutSubviews()
+      contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0))
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
 }
 
 extension BookInfoTableViewCell {
     private func setUI() {
+        contentView.backgroundColor = .white
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.peekaRed.cgColor
         
         imgContainerView.layer.borderWidth = 1
         imgContainerView.layer.borderColor = UIColor.peekaRed.cgColor
         
-        addContainerView.layer.borderWidth = 1
-        addContainerView.layer.borderColor = UIColor.peekaRed.cgColor
+        labelContainerView.layer.borderWidth = 1
+        labelContainerView.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private func setLayout() {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         contentView.addSubviews([
             imgContainerView,
             labelContainerView,
@@ -98,9 +103,8 @@ extension BookInfoTableViewCell {
         }
         
         imgContainerView.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
+            make.top.leading.bottom.equalToSuperview()
             make.width.equalTo(106)
-            make.height.equalTo(128)
         }
         
         bookImgView.snp.makeConstraints { make in
@@ -129,7 +133,7 @@ extension BookInfoTableViewCell {
         addContainerView.snp.makeConstraints { make in
             make.top.equalTo(labelContainerView.snp.bottom)
             make.leading.trailing.equalTo(labelContainerView)
-            make.width.equalTo(labelContainerView)
+            make.bottom.equalToSuperview()
             make.height.equalTo(29)
         }
         
@@ -140,7 +144,7 @@ extension BookInfoTableViewCell {
         
         addLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(addButton.snp.leading).inset(4)
+            make.trailing.equalTo(addButton.snp.leading).offset(-4)
         }
     }
     
