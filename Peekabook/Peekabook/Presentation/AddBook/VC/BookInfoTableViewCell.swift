@@ -35,6 +35,7 @@ class BookInfoTableViewCell: UITableViewCell {
         $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         $0.layer.shadowRadius = 4
         $0.layer.shadowOpacity = 0.3
+        $0.contentMode = .scaleAspectFit
     }
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
@@ -115,7 +116,7 @@ extension BookInfoTableViewCell {
         
         labelContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(imgContainerView.snp.trailing)
+            make.leading.equalTo(imgContainerView.snp.trailing).offset(-1)
             make.trailing.equalToSuperview()
             make.height.equalTo(99)
         }

@@ -57,10 +57,10 @@ final class BookSearchVC: UIViewController {
         }()
     
     private var bookInfoList: [BookInfoModel] = [
-        BookInfoModel(image: ImageLiterals.Sample.miniBook1, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.miniBook1, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.miniBook1, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.miniBook1, title: "아무튼, 여름", author: "김신회")
+        BookInfoModel(image: ImageLiterals.Sample.book1, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book2, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book3, title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 여름", author: "김신회")
     ]
 
     // MARK: - View Life Cycle
