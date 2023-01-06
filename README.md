@@ -40,6 +40,7 @@
  SnapKit | UI Layout | 5.6.0 | SPM
  Then | UI 선언 | 3.0.0 | SPM
  Kingfisher  | 이미지 캐싱 | 7.4.1 | SPM
+ BarcodeScanner | 바코드 스캔 | 5.0.1 | SPM
  
  <br>
 

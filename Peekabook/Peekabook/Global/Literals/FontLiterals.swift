@@ -55,7 +55,7 @@ extension UIFont {
     }
     
     @nonobjc class var engSb: UIFont {
-        return UIFont.font(.montserratBold, ofSize: 22)
+        return UIFont.font(.montserratSemiBold, ofSize: 22)
     }
     
     @nonobjc class var engC: UIFont {

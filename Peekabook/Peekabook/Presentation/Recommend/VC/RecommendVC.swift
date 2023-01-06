@@ -14,281 +14,184 @@ import Moya
 
 final class RecommendVC: UIViewController {
 
+    private var recommendTypes: [String] = ["추천받은 책", "추천한 책"]
+    
     // MARK: - Properties
+    
+    private let recommendedVC = RecommendedVC()
+    private let recommendingVC = RecommendingVC()
+    private lazy var dataViewControllers: [UIViewController] = {
+        return [recommendedVC, recommendingVC]
+    }()
 
+    private var currentPage: Int = 0 {
+        didSet {
+            bind(newValue: currentPage)
+        }
+    }
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
-    
-    private lazy var touchBackButton = UIButton().then {
-        $0.addTarget(self, action: #selector(popToSearchView), for: .touchUpInside)
+    private let logoImage = UIImageView().then {
+        $0.image = UIImage(named: "peekabook_logo")
+    }
+    private let headerUnderlineView = UIView().then {
+        $0.backgroundColor = UIColor.peekaRed
     }
     
-    private let headerTitle = UILabel().then {
-        $0.text = "책 추천하기"
-        $0.font = .h3
-        $0.textColor = .peekaRed
+    // Menu Tab
+    private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.minimumInteritemSpacing = 17
+        $0.sectionInset = UIEdgeInsets(top: 16, left: 22, bottom: 24, right: 22)
+    }
+
+    private lazy var recommendCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+        $0.backgroundColor = UIColor.clear
+        $0.showsHorizontalScrollIndicator = false
+        $0.isScrollEnabled = false
+        $0.allowsMultipleSelection = false
+        $0.delegate = self
+        $0.dataSource = self
     }
     
-    private lazy var touchCheckButton = UIButton().then {
-        $0.addTarget(self, action: #selector(presentToPopUpView), for: .touchUpInside)
-    }
-    
-    private let bookImgView = UIImageView()
-    
-    private var nameLabel = UILabel().then {
-        $0.text = "아무튼, 여름"
-        $0.font = .h3
-        $0.textColor = .peekaRed
-    }
-    
-    private var authorLabel = UILabel().then {
-        $0.text = "김신회"
-        $0.font = .h2
-        $0.textColor = .peekaRed
-    }
-    
-    private let recommendBox = UIView().then {
-        $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-    }
-        
-    private let recommendHeader = UIView()
-        
-    private let recommendLabel = UILabel().then {
-        $0.text = "받는사람"
-        $0.font = .h1
-        $0.textColor = .white
-    }
-        
-    private let lineView = UIView()
-        
-    private var personNameLabel = UILabel().then {
-        $0.text = "고두영"
-        $0.font = .h1
-        $0.textColor = .white
-    }
-    
-    private lazy var recommendView = UITextView().then {
-        $0.font = .h2
-        $0.textColor = .peekaGray1
-        $0.text = I18N.PlaceHolder.recommend
-    }
-        
-    private lazy var recommendMaxLabel = UILabel().then {
-        $0.text = "0/200"
-        $0.font = .h2
-        $0.textColor = .peekaGray2
-    }
+    private lazy var pageViewController: UIPageViewController = {
+        let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        vc.delegate = self
+        vc.dataSource = self
+        return vc
+    }()
     
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        addSubviews()
         setLayout()
-        setDelegate()
+        register()
+        setFirstIndexSelected()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
-        }
+    private func didTapCell(at indexPath: IndexPath) {
+        currentPage = indexPath.item
+    }
     
-    deinit {
-        self.removeRegisterForKeyboardNotification()
+    private func bind(newValue: Int) {
+        recommendCollectionView.selectItem(at: IndexPath(item: currentPage, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
+    private func setFirstIndexSelected() {
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        recommendCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .bottom)
+        
+        if let recommendedVC = dataViewControllers.first {
+            pageViewController.setViewControllers([recommendedVC], direction: .forward, animated: true, completion: nil)
+        }
     }
 }
 
 // MARK: - UI & Layout
 
 extension RecommendVC {
+    
+    private func register() {
+        recommendCollectionView.register(RecommendCollectionViewCell.self, forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
+    }
+    
     private func setUI() {
-        self.view.backgroundColor = .peekaBeige
-        headerView.backgroundColor = .clear
-        recommendBox.backgroundColor = .white
-        recommendHeader.backgroundColor = .peekaRed
-        lineView.backgroundColor = .white
-        recommendView.backgroundColor = .clear
-        
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
-        
-        bookImgView.image = ImageLiterals.Sample.book1
+        self.view.backgroundColor = UIColor.peekaBeige
+    }
+    
+    private func addSubviews() {
+        view.addSubviews([
+            headerView,
+            recommendCollectionView,
+            pageViewController.view
+        ])
+        headerView.addSubviews([logoImage, headerUnderlineView])
     }
     
     private func setLayout() {
-        view.addSubview(headerView)
-        
-        [touchBackButton, headerTitle, touchCheckButton].forEach {
-            headerView.addSubview($0)
-        }
-        
-        [bookImgView, nameLabel, authorLabel, recommendBox, recommendMaxLabel].forEach {
-            view.addSubview($0)
-        }
-        
-        [recommendHeader, recommendView].forEach {
-            recommendBox.addSubview($0)
-        }
-        
-        [recommendLabel, lineView, personNameLabel].forEach {
-            recommendHeader.addSubview($0)
-        }
-        
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(52)
         }
-        
-        touchBackButton.snp.makeConstraints { make in
+        logoImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.width.equalTo(150)
+            make.height.equalTo(18)
+        }
+        headerUnderlineView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(2)
         }
         
-        headerTitle.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        recommendCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
         }
         
-        touchCheckButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-        
-        bookImgView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookImgView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-        }
-        
-        authorLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-        }
-        
-        recommendBox.snp.makeConstraints { make in
-            make.top.equalTo(authorLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(229)
-        }
-        
-        recommendHeader.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
-        }
-                
-        recommendLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-                
-        lineView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(recommendLabel.snp.trailing).offset(8)
-            make.width.equalTo(1)
-            make.height.equalTo(12)
-        }
-                
-        personNameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(lineView.snp.trailing).offset(8)
-        }
-                
-        recommendView.snp.makeConstraints { make in
-            make.top.equalTo(recommendHeader.snp.bottom).offset(10)
-            make.leading.equalTo(recommendLabel)
-            make.width.equalTo(307)
-            make.height.equalTo(169)
-        }
-                
-        recommendMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(recommendBox.snp.bottom).offset(8)
-            make.trailing.equalTo(recommendBox.snp.trailing)
+        pageViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(recommendCollectionView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
 
 // MARK: - Methods
 
-extension RecommendVC {
-    private func setDelegate() {
-        recommendView.delegate = self
+extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
     }
     
-    @objc private func popToSearchView() {
-        self.navigationController?.popViewController(animated: true)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell else { return UICollectionViewCell() }
+        cell.dataBind(menuLabel: recommendTypes[indexPath.item])
+        return cell
     }
     
-    @objc private func presentToPopUpView() {
-        let popupViewController = ConfirmPopUpViewController()
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 30)
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyBoardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            pageViewController.setViewControllers([recommendedVC], direction: .forward, animated: true, completion: nil)
+        } else {
+            pageViewController.setViewControllers([recommendingVC], direction: .forward, animated: true, completion: nil)
         }
-
-    private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-    
-    // MARK: - @objc Function
-    
-    @objc
-    private func keyBoardShow(notification: NSNotification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBox.frame.maxY - 36))
-    }
-
-    @objc
-    private func keyboardHide(notification: NSNotification) {
-        self.view.transform = .identity
     }
 }
 
-extension RecommendVC: UITextViewDelegate {
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String
-    ) -> Bool {
-        let currentComment = recommendView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment)
-        else { return false }
-        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-        recommendMaxLabel.text = "\(changedComment.count)/200"
-        
-        return (changedComment.count < 200)
+extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex < 0 {
+            return nil
+        }
+        return dataViewControllers[previousIndex]
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.PlaceHolder.recommend) {
-            textView.text = nil
-            textView.textColor = .peekaRed
-        }
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let currentVC = pageViewController.viewControllers?.first,
+              let currentIndex = dataViewControllers.firstIndex(of: currentVC) else { return }
+        currentPage = currentIndex
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if recommendView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            recommendView.text = I18N.PlaceHolder.recommend
-            recommendView.textColor = .peekaGray1
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex == dataViewControllers.count {
+            return nil
         }
+        return dataViewControllers[nextIndex]
     }
 }
