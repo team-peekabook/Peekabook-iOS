@@ -39,6 +39,7 @@ struct ImageLiterals {
         static let book3 = UIImage(named: "bookSample3")
         static let book4 = UIImage(named: "bookSample4")
         static let book5 = UIImage(named: "bookSample5")
+        static let miniBook1 = UIImage(named: "miniBook")
         
         static let profile1 = UIImage(named: "profileSample1")
         static let profile2 = UIImage(named: "profileSample2")

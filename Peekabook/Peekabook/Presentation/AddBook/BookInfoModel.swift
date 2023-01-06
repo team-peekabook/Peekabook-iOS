@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct BookInfoModel {
-    let image: String
+    let image: UIImage!
     let title: String
     let author: String
 }

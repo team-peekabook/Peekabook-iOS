@@ -30,7 +30,12 @@ class BookInfoTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let imgContainerView = UIView()
-    private let bookImgView = UIImageView()
+    private let bookImgView = UIImageView().then {
+        $0.layer.masksToBounds = false
+        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
+        $0.layer.shadowRadius = 4
+        $0.layer.shadowOpacity = 0.3
+    }
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
@@ -49,7 +54,7 @@ class BookInfoTableViewCell: UITableViewCell {
         $0.text = "내 책장에 추가하기"
     }
     
-    private let addButton = UIButton().then {
+    private lazy var addButton = UIButton().then {
         $0.addTarget(self, action: #selector(addButtonDidTap), for: .touchUpInside)
     }
     
@@ -98,6 +103,12 @@ extension BookInfoTableViewCell {
             make.height.equalTo(128)
         }
         
+        bookImgView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(61)
+            make.height.equalTo(100)
+        }
+        
         labelContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(imgContainerView.snp.trailing)
@@ -140,7 +151,7 @@ extension BookInfoTableViewCell {
     func dataBind(model: BookInfoModel) {
         bookTitleLabel.text = model.title
         authorLabel.text = model.author
-        bookImgView.image = UIImage(named: model.image)
+        bookImgView.image = model.image
     }
     
     @objc
