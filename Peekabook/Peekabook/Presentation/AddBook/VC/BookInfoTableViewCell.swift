@@ -5,6 +5,8 @@
 //  Created by 고두영 on 2023/01/06.
 //
 
+import UIKit
+
 import SnapKit
 import Then
 
@@ -16,7 +18,7 @@ class BookInfoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -25,7 +27,12 @@ class BookInfoTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
 
-    private let containerView = UIStackView()
+    private let containerView = UIView().then {
+        $0.backgroundColor = UIColor.peekaWhite
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+    
     private let imgContainerView = UIView()
     private let bookImgView = UIImageView()
     private let labelContainerView = UIView()
@@ -60,29 +67,49 @@ class BookInfoTableViewCell: UITableViewCell {
 }
 
 extension BookInfoTableViewCell {
+    private func setUI() {
+        
+    }
     private func setLayout() {
         self.backgroundColor = .white
-        containerView.addSubviews([
-            imgContainerView,
-            labelContainerView,
-            addContainerView
-        ])
+//        containerView.addSubviews([
+//            imgContainerView,
+//            labelContainerView,
+//            addContainerView
+//        ])
+//
+//        imgContainerView.addSubview(bookImgView)
+//
+//        labelContainerView.addSubviews([
+//            bookTitleLabel,
+//            authorLabel
+//        ])
+//
+//        addContainerView.addSubviews([
+//            addLabel,
+//            addButton
+//        ])
         
-        imgContainerView.addSubviews(bookImgView)
+        contentView.addSubview(containerView)
         
-        labelContainerView.addSubviews([
-            bookTitleLabel,
-            authorLabel
-        ])
+        [imgContainerView, labelContainerView, addContainerView].forEach {
+            containerView.addSubview($0)
+        }
         
-        addContainerView.addSubviews([
-            addLabel,
-            addButton
-        ])
+        imgContainerView.addSubview(bookImgView)
+        
+        [bookTitleLabel, authorLabel].forEach {
+            labelContainerView.addSubview($0)
+        }
+        
+        [addLabel, addButton].forEach {
+            addContainerView.addSubview($0)
+        }
         
         imgContainerView.snp.makeConstraints { make in
             make.top.leading.bottom.equalToSuperview()
             make.width.equalTo(106)
+            make.height.equalTo(128)
         }
         
         imgContainerView.snp.makeConstraints { make in
@@ -108,8 +135,9 @@ extension BookInfoTableViewCell {
         
         addContainerView.snp.makeConstraints { make in
             make.top.equalTo(labelContainerView.snp.bottom)
-            make.leading.equalTo(labelContainerView)
-            make.width.height.equalTo(labelContainerView)
+            make.leading.trailing.equalTo(labelContainerView)
+            make.width.equalTo(labelContainerView)
+            make.height.equalTo(29)
         }
         
         addButton.snp.makeConstraints { make in
@@ -127,5 +155,10 @@ extension BookInfoTableViewCell {
         bookTitleLabel.text = model.title
         authorLabel.text = model.author
         bookImgView.image = UIImage(named: model.image)
+    }
+    
+    @objc
+    private func addButtonDidTap() {
+        // dosomething
     }
 }

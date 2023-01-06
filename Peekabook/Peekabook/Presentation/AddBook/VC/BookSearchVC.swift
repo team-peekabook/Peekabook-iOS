@@ -21,7 +21,7 @@ final class BookSearchVC: UIViewController {
     private let headerView = UIView()
     
     private lazy var touchCancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(popToMainView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
@@ -33,8 +33,9 @@ final class BookSearchVC: UIViewController {
     private let headerLine = UIView()
     
     private lazy var searchButton = UIButton().then {
-        $0.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
+    
     private lazy var searchField = UITextField().then {
         $0.backgroundColor = .white
         $0.font = .h2
@@ -46,16 +47,27 @@ final class BookSearchVC: UIViewController {
         $0.rightView = searchButton
     }
     
-    private lazy var bookTableView = UITableView(frame: .zero, style: .plain).then {
-        $0.backgroundColor = .white
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
+//    private lazy var bookTableView = UITableView(frame: .zero, style: .plain).then {
+//        $0.backgroundColor = .white
+//        $0.translatesAutoresizingMaskIntoConstraints = false
+//        $0.delegate = self
+//        $0.dataSource = self
+//    }
+    
+    private lazy var bookTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemPink
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+        }()
     
     private var bookInfoList: [BookInfoModel] = [
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.book3, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.book2, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.book1, title: "아무튼, 여름", author: "김신회")
+        BookInfoModel(image: "bookSample1", title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: "bookSample1", title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: "bookSample1", title: "아무튼, 여름", author: "김신회"),
+        BookInfoModel(image: "bookSample1", title: "아무튼, 여름", author: "김신회")
     ]
 
     // MARK: - View Life Cycle
@@ -64,6 +76,7 @@ final class BookSearchVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        register()
     }
 }
 
@@ -118,16 +131,27 @@ extension BookSearchVC {
         
         bookTableView.snp.makeConstraints { make in
             make.top.equalTo(searchField.snp.bottom).offset(24)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.bottom.equalToSuperview()
             make.height.equalTo(128 * bookInfoList.count)
         }
     }
     
+    private func register() {
+        bookTableView.register(BookInfoTableViewCell.self, forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+    }
+    
     // MARK: - @objc Function
     
     @objc
-    private func buttonClick() {
+    private func touchCancelButtonDidTap() {
         print("click")
+    }
+    
+    @objc
+    private func popToSearchView() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -136,7 +160,7 @@ extension BookSearchVC {
 extension BookSearchVC {
     
     // TODO: - 버튼 액션 구현 필요
-    @objc private func popToMainView() {
+    @objc private func searchButtonDidTap() {
         // do something
     }
 }
@@ -147,4 +171,23 @@ extension UITextField {
     self.leftView = paddingView
     self.leftViewMode = ViewMode.always
   }
+}
+
+extension BookSearchVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
+    }
+}
+
+extension BookSearchVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return bookInfoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let bookCell = tableView.dequeueReusableCell(withIdentifier: BookInfoTableViewCell.identifier, for: indexPath) as? BookInfoTableViewCell else { return UITableViewCell() }
+        
+        bookCell.dataBind(model: bookInfoList[indexPath.row])
+        return bookCell
+    }
 }
