@@ -24,6 +24,7 @@
 		8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA43295FF95D00BCF58B /* MyPageVC.swift */; };
 		8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */; };
 		8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */; };
+		8E1850622969B1690062E92A /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850612969B1690062E92A /* APIConstants.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -97,7 +98,6 @@
 		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8E10BA28295FF77E00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA2A295FF78700BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA2C295FF79200BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -109,6 +109,7 @@
 		8E10BA4D2960026600BCF58B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHeaderLineView.swift; sourceTree = "<group>"; };
 		8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleBottomLineView.swift; sourceTree = "<group>"; };
+		8E1850612969B1690062E92A /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -375,7 +376,7 @@
 		8E10BA23295FF6CB00BCF58B /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				8E10BA28295FF77E00BCF58B /* .gitkeep */,
+				8E1850612969B1690062E92A /* APIConstants.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -846,6 +847,7 @@
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E6F7B8E29651B940013F744 /* SampleFriendsModel.swift in Sources */,
+				8E1850622969B1690062E92A /* APIConstants.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
