@@ -12,8 +12,8 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - Properties
     
     private var bookModelList = SampleBookModel.data
-    private let fullView: CGFloat = 100
-    private var partialView: CGFloat = UIScreen.main.bounds.height - 200
+    private let fullView: CGFloat = 93.adjustedH
+    private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
 
     // MARK: - UI Components
     
@@ -149,7 +149,7 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerContainerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(60)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
         }
     }
 }
