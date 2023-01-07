@@ -19,11 +19,11 @@ struct MyBookShelfResponse: Codable {
 
 // MARK: - Book
 struct Book: Codable {
-    let bookID, pickIndex: Int
+    let bookId, pickIndex: Int
     let book: String
 
     enum CodingKeys: String, CodingKey {
-        case bookID = "bookId"
+        case bookId
         case pickIndex
         case book = "Book"
     }
