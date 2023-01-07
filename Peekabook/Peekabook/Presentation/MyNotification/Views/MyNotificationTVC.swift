@@ -9,6 +9,8 @@ import UIKit
 
 class MyNotificationTVC: UITableViewCell {
     
+    // MARK: - UI Components
+    
     private let notiContainerView = UIView()
     private let notiImageView = UIImageView().then {
         $0.image = ImageLiterals.Sample.profile1
@@ -54,6 +56,8 @@ class MyNotificationTVC: UITableViewCell {
     }
 }
 
+// MARK: - UI & Layout
+
 extension MyNotificationTVC {
     
     private func setLayout() {
@@ -88,6 +92,11 @@ extension MyNotificationTVC {
         bookNameLabel.textColor = .peekaGray2_60
         dateLabel.textColor = .peekaGray2
     }
+}
+
+// MARK: - dataBind
+
+extension MyNotificationTVC {
     
     func dataBind(model: NotificationModel) {
         notiImageView.image = model.image
