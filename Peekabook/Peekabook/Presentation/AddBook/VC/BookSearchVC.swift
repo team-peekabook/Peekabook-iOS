@@ -70,6 +70,7 @@ final class BookSearchVC: UIViewController {
         setUI()
         setLayout()
         register()
+        addTapGesture()
     }
 }
 

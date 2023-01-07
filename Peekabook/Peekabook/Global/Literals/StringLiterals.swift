@@ -37,4 +37,24 @@ struct I18N {
         static let books = "Books"
         static let editPickDescription = "최대 3개까지 선택 가능해요."
     }
+    
+    struct BookDetail {
+        static let comment = "한 마디를 남겨주세요."
+        static let memo = "메모를 남겨주세요."
+    }
+    
+    struct BookEdit {
+        static let title = "책 수정하기"
+        static let done = "완료"
+    }
+    
+    struct BookProposal {
+        static let title = "책 추천하기"
+        static let done = "완료"
+    }
+    
+    struct BookAdd {
+        static let title = "책 등록하기"
+        static let done = "완료"
+    }
 }
