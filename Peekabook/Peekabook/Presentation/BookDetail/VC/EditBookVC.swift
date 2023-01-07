@@ -18,16 +18,14 @@ final class EditBookVC: UIViewController {
 
     // MARK: - UI Components
     
-    private let headerView = UIView().then {
-        $0.backgroundColor = .clear
-    }
+    private let headerView = UIView()
     
     private lazy var touchBackButton = UIButton().then {
         $0.addTarget(self, action: #selector(touchBackButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
-        $0.text = "책 수정하기"
+        $0.text = "책 추천하기"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
@@ -39,10 +37,7 @@ final class EditBookVC: UIViewController {
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var containerView = UIScrollView().then {
-        $0.backgroundColor = .clear
-    }
-    
+    private lazy var containerView = UIScrollView()
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
@@ -57,15 +52,8 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let commentBox = UIView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-    }
-    
-    private let commentHeader = UIView().then {
-        $0.backgroundColor = .peekaRed
-    }
+    private let commentBox = UIView()
+    private let commentHeader = UIView()
     
     private let commentLabel = UILabel().then {
         $0.text = "한 마디"
@@ -78,6 +66,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.comment
         $0.backgroundColor = .clear
+        $0.autocorrectionType = .no
     }
     
     lazy var commentMaxLabel = UILabel().then {
@@ -86,15 +75,8 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaGray2
     }
     
-    private let memoBox = UIView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-    }
-    
-    private let memoHeader = UIView().then {
-        $0.backgroundColor = .peekaRed
-    }
+    private let memoBox = UIView()
+    private let memoHeader = UIView()
     
     private let memoLabel = UILabel().then {
         $0.text = "메모"
@@ -107,6 +89,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.memo
         $0.backgroundColor = .clear
+        $0.autocorrectionType = .no
     }
     
     lazy var memoMaxLabel = UILabel().then {
@@ -121,8 +104,8 @@ final class EditBookVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        config()
         setDelegate()
+        addTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,6 +123,21 @@ extension EditBookVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
+        headerView.backgroundColor = .clear
+        containerView.backgroundColor = .clear
+        
+        commentBox.backgroundColor = .white
+        commentBox.layer.borderWidth = 2
+        commentBox.layer.borderColor = UIColor.peekaRed.cgColor
+        commentHeader.backgroundColor = .peekaRed
+        
+        memoBox.backgroundColor = .white
+        memoBox.layer.borderWidth = 2
+        memoBox.layer.borderColor = UIColor.peekaRed.cgColor
+        memoHeader.backgroundColor = .peekaRed
+        
+        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        bookImgView.image = ImageLiterals.Sample.book1
     }
     
     private func setLayout() {

@@ -73,6 +73,7 @@ final class ProposalVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.PlaceHolder.recommend
+        $0.autocorrectionType = .no
     }
         
     private lazy var recommendMaxLabel = UILabel().then {
@@ -88,6 +89,7 @@ final class ProposalVC: UIViewController {
         setUI()
         setLayout()
         setDelegate()
+        addTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
