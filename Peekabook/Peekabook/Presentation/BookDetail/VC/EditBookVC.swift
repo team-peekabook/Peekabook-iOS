@@ -31,7 +31,7 @@ final class EditBookVC: UIViewController {
 extension EditBookVC {
     
     private func setUI() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {

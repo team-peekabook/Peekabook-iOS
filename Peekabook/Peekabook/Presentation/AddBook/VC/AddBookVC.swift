@@ -33,6 +33,9 @@ final class AddBookVC: UIViewController {
     }
     
     private let touchCheckButton = UIButton().then {
+        $0.setTitle("완료", for: .normal)
+        $0.titleLabel!.font = .h4
+        $0.setTitleColor(.peekaRed, for: .normal)
         $0.addTarget(AddBookVC.self, action: #selector(pushToDetailView), for: .touchUpInside)
     }
     
@@ -193,7 +196,8 @@ extension AddBookVC {
         
         touchCheckButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().inset(11)
+            make.width.height.equalTo(48)
         }
         
         bookImgView.snp.makeConstraints { make in
@@ -297,7 +301,6 @@ extension AddBookVC {
     
     private func configButton() {
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
     }
     
     private func configImageView() {
