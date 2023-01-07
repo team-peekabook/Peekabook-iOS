@@ -33,6 +33,11 @@ extension SampleBookModel {
             SampleBookModel(bookImage: ImageLiterals.Sample.book2!),
             SampleBookModel(bookImage: ImageLiterals.Sample.book3!),
             SampleBookModel(bookImage: ImageLiterals.Sample.book4!),
+            SampleBookModel(bookImage: ImageLiterals.Sample.book5!),
+            SampleBookModel(bookImage: ImageLiterals.Sample.book1!),
+            SampleBookModel(bookImage: ImageLiterals.Sample.book2!),
+            SampleBookModel(bookImage: ImageLiterals.Sample.book3!),
+            SampleBookModel(bookImage: ImageLiterals.Sample.book4!),
             SampleBookModel(bookImage: ImageLiterals.Sample.book5!)
         ]
     }
