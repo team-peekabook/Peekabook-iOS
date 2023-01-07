@@ -121,8 +121,7 @@ final class AddBookVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configButton()
-        configImageView()
+        config()
         setDelegate()
     }
     
@@ -297,11 +296,9 @@ extension AddBookVC {
         // doSomething()
     }
     
-    private func configButton() {
+    private func config() {
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-    }
-    
-    private func configImageView() {
+        
         bookImgView.image = ImageLiterals.Sample.book1
     }
     
