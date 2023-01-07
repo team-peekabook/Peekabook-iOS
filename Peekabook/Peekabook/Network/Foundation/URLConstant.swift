@@ -1,5 +1,5 @@
 //
-//  APIConstants.swift
+//  URLConstant.swift
 //  Peekabook
 //
 //  Created by devxsby on 2023/01/07.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct APIConstants {
+struct URLConstant {
     
     // MARK: - Base URL
 
