@@ -96,7 +96,7 @@ extension MyNotificationVC {
         }
         
         notificationTableView.snp.makeConstraints { make in
-            make.top.equalTo(headerContainerView.snp.bottom)
+            make.top.equalTo(headerContainerView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
