@@ -8,8 +8,8 @@
 import UIKit
 
 struct NotificationModel {
-    let image : UIImage!
-    let notiLabel : String
-    let bookName : String?
-    let date : String
+    let image: UIImage!
+    let notiLabel: String
+    let bookName: String?
+    let date: String // 나중에 date로 바꿀 예정
 }

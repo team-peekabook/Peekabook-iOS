@@ -33,6 +33,11 @@ class MyNotificationTVC: UITableViewCell {
         $0.textColor = UIColor.peekaRed_60
         $0.font = .systemFont(ofSize: 12, weight: .medium)
     }
+    private let dateLabel = UILabel().then {
+        $0.text = "12월 1일"
+        $0.textColor = UIColor.peekaRed_60
+        $0.font = .systemFont(ofSize: 12, weight: .medium)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MyNotificationTVC.className)
@@ -56,9 +61,9 @@ extension MyNotificationTVC {
         contentView.addSubviews(notiContainerView)
         backgroundColor = .peekaBeige
         notiContainerView.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
-        notiContainerView.addSubviews(notiImageView, contentStackView)
+        notiContainerView.addSubviews()
+        notiContainerView.addSubviews(notiImageView, contentStackView, dateLabel)
         contentStackView.addArrangedSubviews(contentLabel, bookNameLabel)
-        
         notiContainerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -71,6 +76,9 @@ extension MyNotificationTVC {
             make.leading.equalTo(notiImageView.snp.trailing).offset(12)
             make.trailing.equalToSuperview().inset(12)
             make.centerY.equalToSuperview()
+        }
+        dateLabel.snp.makeConstraints { make in
+            make.trailing.bottom.equalToSuperview().inset(12)
         }
     }
 }
