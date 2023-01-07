@@ -122,6 +122,7 @@ final class EditBookVC: UIViewController {
         setUI()
         setLayout()
         config()
+        setDelegate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -278,6 +279,11 @@ extension EditBookVC {
 // MARK: - Methods
 
 extension EditBookVC {
+    private func setDelegate() {
+        commentView.delegate = self
+        memoView.delegate = self
+    }
+    
     // TODO: - 바코드 스캔뷰로 다시 가게 해야함
     // 현재는 홈뷰로 가는 상황
     @objc private func touchBackButtonDidTap() {
@@ -321,5 +327,44 @@ extension EditBookVC {
 
     @objc private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
+    }
+}
+
+extension EditBookVC: UITextViewDelegate {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        let currentComment = commentView.text ?? ""
+        guard let commentRange = Range(range, in: currentComment)
+        else { return false }
+        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+        commentMaxLabel.text = "\(changedComment.count)/200"
+        
+        let currentMemo = memoView.text ?? ""
+        guard let memoRange = Range(range, in: currentMemo)
+        else { return false }
+        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
+        memoMaxLabel.text = "\(changedMemo.count)/50"
+        
+        return (changedComment.count < 200) && (changedMemo.count < 50)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (textView.text == I18N.BookDetail.comment) || (textView.text == I18N.BookDetail.memo) {
+            textView.text = nil
+            textView.textColor = .peekaRed
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            commentView.text = I18N.BookDetail.comment
+            commentView.textColor = .peekaGray1
+        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            memoView.text = I18N.BookDetail.memo
+            memoView.textColor = .peekaGray1
+        }
     }
 }
