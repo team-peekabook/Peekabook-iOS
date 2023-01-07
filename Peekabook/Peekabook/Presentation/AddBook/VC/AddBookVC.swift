@@ -24,7 +24,7 @@ final class AddBookVC: UIViewController {
         $0.addTarget(self, action: #selector(touchBackButtonDidTap), for: .touchUpInside)
     }
     
-    private let headerTitle = UILabel().then {
+    private let headerTitleLabel = UILabel().then {
         $0.text = "책 등록하기"
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -34,10 +34,10 @@ final class AddBookVC: UIViewController {
         $0.setTitle("완료", for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(pushToDetailView), for: .touchUpInside)
+        $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var containerView = UIScrollView()
+    private let containerView = UIScrollView()
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
@@ -52,8 +52,8 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let commentBox = UIView()
-    private let commentHeader = UIView()
+    private let commentBoxView = UIView()
+    private let commentHeaderView = UIView()
     
     private let commentLabel = UILabel().then {
         $0.text = "한 마디"
@@ -61,7 +61,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .white
     }
     
-    private lazy var commentView = UITextView().then {
+    private let commentView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.comment
@@ -69,14 +69,14 @@ final class AddBookVC: UIViewController {
         $0.autocorrectionType = .no
     }
     
-    lazy var commentMaxLabel = UILabel().then {
+    private let commentMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
     
-    private let memoBox = UIView()
-    private let memoHeader = UIView()
+    private let memoBoxView = UIView()
+    private let memoHeaderView = UIView()
     
     private let memoLabel = UILabel().then {
         $0.text = "메모"
@@ -84,7 +84,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .white
     }
     
-    private lazy var memoView = UITextView().then {
+    private let memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.memo
@@ -92,7 +92,7 @@ final class AddBookVC: UIViewController {
         $0.autocorrectionType = .no
     }
     
-    lazy var memoMaxLabel = UILabel().then {
+    private let memoMaxLabel = UILabel().then {
         $0.text = "0/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -126,15 +126,15 @@ extension AddBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBox.backgroundColor = .white
-        commentBox.layer.borderWidth = 2
-        commentBox.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeader.backgroundColor = .peekaRed
+        commentBoxView.backgroundColor = .white
+        commentBoxView.layer.borderWidth = 2
+        commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
+        commentHeaderView.backgroundColor = .peekaRed
         
-        memoBox.backgroundColor = .white
-        memoBox.layer.borderWidth = 2
-        memoBox.layer.borderColor = UIColor.peekaRed.cgColor
-        memoHeader.backgroundColor = .peekaRed
+        memoBoxView.backgroundColor = .white
+        memoBoxView.layer.borderWidth = 2
+        memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
+        memoHeaderView.backgroundColor = .peekaRed
         
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
         bookImgView.image = ImageLiterals.Sample.book1
@@ -145,28 +145,28 @@ extension AddBookVC {
             view.addSubview($0)
         }
         
-        [touchBackButton, headerTitle, touchCheckButton].forEach {
+        [touchBackButton, headerTitleLabel, touchCheckButton].forEach {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, commentBox, commentMaxLabel, memoBox, memoMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, commentBoxView, commentMaxLabel, memoBoxView, memoMaxLabel].forEach {
             containerView.addSubview($0)
         }
         
-        [commentHeader, commentView].forEach {
-            commentBox.addSubview($0)
+        [commentHeaderView, commentView].forEach {
+            commentBoxView.addSubview($0)
         }
         
         [commentLabel].forEach {
-            commentHeader.addSubview($0)
+            commentHeaderView.addSubview($0)
         }
         
-        [memoHeader, memoView].forEach {
-            memoBox.addSubview($0)
+        [memoHeaderView, memoView].forEach {
+            memoBoxView.addSubview($0)
         }
         
         [memoLabel].forEach {
-            memoHeader.addSubview($0)
+            memoHeaderView.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -184,7 +184,7 @@ extension AddBookVC {
             make.leading.equalToSuperview()
         }
         
-        headerTitle.snp.makeConstraints { make in
+        headerTitleLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
@@ -209,14 +209,14 @@ extension AddBookVC {
             make.centerX.equalToSuperview()
         }
         
-        commentBox.snp.makeConstraints { make in
+        commentBoxView.snp.makeConstraints { make in
             make.top.equalTo(authorLabel.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(229)
         }
         
-        commentHeader.snp.makeConstraints { make in
+        commentHeaderView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
@@ -229,25 +229,25 @@ extension AddBookVC {
         }
         
         commentView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeader.snp.bottom).offset(10)
+            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
             make.height.equalTo(169)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(commentBox.snp.bottom).offset(8)
-            make.trailing.equalTo(commentBox.snp.trailing)
+            make.top.equalTo(commentBoxView.snp.bottom).offset(8)
+            make.trailing.equalTo(commentBoxView.snp.trailing)
         }
         
-        memoBox.snp.makeConstraints { make in
+        memoBoxView.snp.makeConstraints { make in
             make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(101)
         }
         
-        memoHeader.snp.makeConstraints { make in
+        memoHeaderView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
@@ -260,15 +260,15 @@ extension AddBookVC {
         }
         
         memoView.snp.makeConstraints { make in
-            make.top.equalTo(memoHeader.snp.bottom).offset(10)
+            make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
             make.height.equalTo(41)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoBox.snp.bottom).offset(8)
-            make.trailing.equalTo(memoBox.snp.trailing)
+            make.top.equalTo(memoBoxView.snp.bottom).offset(8)
+            make.trailing.equalTo(memoBoxView.snp.trailing)
             make.bottom.equalToSuperview().offset(-8)
         }
     }
@@ -289,7 +289,7 @@ extension AddBookVC {
     }
     
     // TODO: - push 함수 작성 필요
-    @objc private func pushToDetailView() {
+    @objc private func touchCheckButtonDidTap() {
         // doSomething()
     }
     
