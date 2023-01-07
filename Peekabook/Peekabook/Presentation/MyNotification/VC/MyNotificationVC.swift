@@ -62,7 +62,6 @@ final class MyNotificationVC: UIViewController {
         setUI()
         setLayout()
         register()
-        notificationTableView.rowHeight = UITableView.automaticDimension
     }
     
     @objc private func backButtonTapped() {
@@ -105,7 +104,7 @@ extension MyNotificationVC {
         notificationTableView.snp.makeConstraints { make in
             make.top.equalTo(headerContainerView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
