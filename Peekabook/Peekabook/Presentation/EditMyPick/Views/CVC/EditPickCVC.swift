@@ -26,6 +26,10 @@ final class EditPickCVC: UICollectionViewCell {
         $0.layer.cornerRadius = 10
     }
     
+    private let horizontalLine = UIView().then {
+        $0.clipsToBounds = false
+    }
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -50,10 +54,11 @@ extension EditPickCVC {
     
     private func setUI() {
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
+        horizontalLine.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
-        addSubviews(bookImageView, countLabel)
+        addSubviews(bookImageView, countLabel, horizontalLine)
         
         bookImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -67,5 +72,11 @@ extension EditPickCVC {
             make.width.height.equalTo(20)
         }
         
+        horizontalLine.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(bookImageView.snp.bottom)
+            make.width.equalTo(UIScreen.main.bounds.width*2)
+            make.height.equalTo(6)
+        }
     }
 }
