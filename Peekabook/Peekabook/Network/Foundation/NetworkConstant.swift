@@ -11,5 +11,5 @@ struct NetworkConstant {
     
     static let defaultHeader = ["Content-Type": "application/json"]
     static let hasUserIdHeader = ["Content-Type": "application/json",
-                                  "userId": NetworkConstant.UserDefaultsKey.userId] as [String : Any]
+                                  "userId": NetworkConstant.UserDefaultsKey.userId] as [String: String]
 }
