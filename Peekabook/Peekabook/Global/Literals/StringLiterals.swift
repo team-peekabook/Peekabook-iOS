@@ -41,4 +41,9 @@ struct I18N {
         static let comment = "한 마디를 남겨주세요."
         static let memo = "메모를 남겨주세요."
     }
+    
+    struct BookEdit {
+        static let title = "책 수정하기"
+        static let done = "완료"
+    }
 }

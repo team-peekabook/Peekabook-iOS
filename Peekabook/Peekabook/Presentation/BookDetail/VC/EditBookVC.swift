@@ -25,19 +25,19 @@ final class EditBookVC: UIViewController {
     }
     
     private let headerTitle = UILabel().then {
-        $0.text = "책 추천하기"
+        $0.text = I18N.BookEdit.title
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
-    private let touchCheckButton = UIButton().then {
-        $0.setTitle("완료", for: .normal)
+    private lazy var touchCheckButton = UIButton().then {
+        $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var containerView = UIScrollView()
+    private let containerView = UIScrollView()
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
@@ -58,10 +58,10 @@ final class EditBookVC: UIViewController {
     private let commentLabel = UILabel().then {
         $0.text = "한 마디"
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
-    private lazy var commentView = UITextView().then {
+    private let commentView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.comment
@@ -81,7 +81,7 @@ final class EditBookVC: UIViewController {
     private let memoLabel = UILabel().then {
         $0.text = "메모"
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
     private lazy var memoView = UITextView().then {
@@ -126,12 +126,12 @@ extension EditBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBox.backgroundColor = .white
+        commentBox.backgroundColor = .peekaWhite
         commentBox.layer.borderWidth = 2
         commentBox.layer.borderColor = UIColor.peekaRed.cgColor
         commentHeader.backgroundColor = .peekaRed
         
-        memoBox.backgroundColor = .white
+        memoBox.backgroundColor = .peekaWhite
         memoBox.layer.borderWidth = 2
         memoBox.layer.borderColor = UIColor.peekaRed.cgColor
         memoHeader.backgroundColor = .peekaRed
