@@ -9,11 +9,68 @@ import UIKit
 
 class MyNotificationTVC: UITableViewCell {
     
+    private let notiContainerView = UIView()
+    private let notiImageView = UIImageView().then {
+        $0.image = ImageLiterals.Sample.profile1
+        $0.layer.cornerRadius = 24
+        $0.layer.masksToBounds = true
+    }
+    private let contentStackView = UIStackView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .vertical
+        $0.alignment = .fill
+        $0.distribution = .equalCentering
+        $0.spacing = 3
+    }
+    private let contentLabel = UILabel().then {
+        $0.text = "추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕"
+        $0.numberOfLines = 2
+        $0.textColor = UIColor.peekaRed
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
+    private let bookNameLabel = UILabel().then {
+        $0.text = "책 이름"
+        $0.textColor = UIColor.peekaRed_60
+        $0.font = .systemFont(ofSize: 12, weight: .medium)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MyNotificationTVC.className)
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
+    }
+}
+
+extension MyNotificationTVC {
+    
+    private func setLayout() {
+        contentView.addSubviews(notiContainerView)
+        backgroundColor = .peekaBeige
+        notiContainerView.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
+        notiContainerView.addSubviews(notiImageView, contentStackView)
+        contentStackView.addArrangedSubviews(contentLabel, bookNameLabel)
+        
+        notiContainerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        notiImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(13)
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(48)
+        }
+        contentStackView.snp.makeConstraints { make in
+            make.leading.equalTo(notiImageView.snp.trailing).offset(12)
+            make.trailing.equalToSuperview().inset(12)
+            make.centerY.equalToSuperview()
+        }
     }
 }
