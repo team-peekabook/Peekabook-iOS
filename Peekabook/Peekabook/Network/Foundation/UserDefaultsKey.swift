@@ -18,7 +18,7 @@ extension NetworkConstant {
         
         // MARK: - User Information
         
-        static let userId: Int = 0
+        static let userId: String = "userId"
         static let userName: String = "userName"
         static let userImageUrl: String = "userImage"
         static let userIntro: String = "userIntro"
