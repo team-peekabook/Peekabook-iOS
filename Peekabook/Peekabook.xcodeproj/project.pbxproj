@@ -29,6 +29,7 @@
 		8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850652969B5060062E92A /* NetworkConstant.swift */; };
 		8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850672969BA4A0062E92A /* NetworkResult.swift */; };
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
+		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -118,6 +119,7 @@
 		8E1850652969B5060062E92A /* NetworkConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstant.swift; sourceTree = "<group>"; };
 		8E1850672969BA4A0062E92A /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
+		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				8E1850632969B44F0062E92A /* UserDefaultsKey.swift */,
 				8E1850672969BA4A0062E92A /* NetworkResult.swift */,
 				8E1850692969BA9F0062E92A /* GeneralResponse.swift */,
+				8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
 				1431D542296354B200CA72D0 /* RecommendTableViewCell.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
+				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
 				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				8E6F7B9229651F6C0013F744 /* SamplePickModel.swift in Sources */,
