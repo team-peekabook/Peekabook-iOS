@@ -86,7 +86,7 @@ extension MyNotificationVC {
         }
         
         backButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().inset(5)
             make.centerY.equalToSuperview()
         }
         
