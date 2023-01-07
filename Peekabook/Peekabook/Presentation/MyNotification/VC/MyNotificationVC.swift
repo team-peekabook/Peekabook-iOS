@@ -16,6 +16,12 @@ final class MyNotificationVC: UIViewController {
     
     // MARK: - Properties
 
+    var notiDummy: [NotificationModel] = [
+        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천", bookName: "책이름", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천추천추천추천춫ㄴ러아러ㅏㅇㄴ러미ㅓ랄ㅇㄴㄹㅇㄴㄹ", bookName: "책이름", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천", bookName: "책이름", date: "12월 2일")
+    ]
+    
     // MARK: - UI Components
     
     private let headerContainerView = UIView()
