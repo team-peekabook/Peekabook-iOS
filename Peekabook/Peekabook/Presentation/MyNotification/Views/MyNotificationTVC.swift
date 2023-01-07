@@ -23,7 +23,7 @@ class MyNotificationTVC: UITableViewCell {
         $0.spacing = 3
     }
     private let contentLabel = UILabel().then {
-        $0.text = "추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕"
+        $0.text = "누가누가 추천을 했답니다"
         $0.numberOfLines = 2
         $0.textColor = UIColor.peekaRed
         $0.font = .h2
@@ -84,7 +84,7 @@ extension MyNotificationTVC {
     
     func dataBind(model: NotificationModel) {
         notiImageView.image = model.image
-        contentLabel.text = model.notiLabel
+        contentLabel.text = "\(model.user)님이 추천을 했답니다"
         bookNameLabel.text = model.bookName
         dateLabel.text = model.date
     }

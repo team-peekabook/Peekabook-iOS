@@ -17,9 +17,16 @@ final class MyNotificationVC: UIViewController {
     // MARK: - Properties
 
     var notiDummy: [NotificationModel] = [
-        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천", bookName: "책이름", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천추천추천추천춫ㄴ러아러ㅏㅇㄴ러미ㅓ랄ㅇㄴㄹㅇㄴㄹ", bookName: "책이름", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, notiLabel: "추천", bookName: "책이름", date: "12월 2일")
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "추천", bookName: "책이름", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile1, user: "뇽잉깅", bookName: "bookName", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "인영케이", bookName: "책이름", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile6, user: "샬라샬리샬라", bookName: "", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile2, user: "안녕하세요", bookName: "뷰공장입니다", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile3, user: "추천", bookName: "하하 웃으며 살자", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "두두두", bookName: "", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "문수선배", bookName: "", date: "12월 2일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "윤수선배", bookName: "수빈은윤수빈", date: "12월 25일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "가나다라마", bookName: "안녕?", date: "12월 2일")
     ]
     
     // MARK: - UI Components
@@ -112,7 +119,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return notiDummy.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
