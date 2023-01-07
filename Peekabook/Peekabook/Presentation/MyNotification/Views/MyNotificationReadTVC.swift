@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyNotificationTVC: UITableViewCell {
+class MyNotificationReadTVC: UITableViewCell {
     
     private let notiContainerView = UIView()
     private let notiImageView = UIImageView().then {
@@ -40,7 +40,7 @@ class MyNotificationTVC: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: MyNotificationTVC.className)
+        super.init(style: style, reuseIdentifier: MyNotificationReadTVC.className)
         setLayout()
     }
     
@@ -55,7 +55,7 @@ class MyNotificationTVC: UITableViewCell {
     }
 }
 
-extension MyNotificationTVC {
+extension MyNotificationReadTVC {
     
     private func setLayout() {
         contentView.addSubviews(notiContainerView)

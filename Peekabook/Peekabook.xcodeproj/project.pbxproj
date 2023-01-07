@@ -14,7 +14,7 @@
 		14526AD22965F74B0049C61D /* UserSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD12965F74B0049C61D /* UserSearchTVC.swift */; };
 		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
-		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
+		14B3544A296899CB00998925 /* MyNotificationReadTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationReadTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
 		8E10BA06295FF35F00BCF58B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA05295FF35F00BCF58B /* Then */; };
@@ -97,7 +97,7 @@
 		14526AD12965F74B0049C61D /* UserSearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTVC.swift; sourceTree = "<group>"; };
 		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
-		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
+		14B35449296899CB00998925 /* MyNotificationReadTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationReadTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA28295FF77E00BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -618,7 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				8E81F40029608AF5001815B4 /* .gitkeep */,
-				14B35449296899CB00998925 /* MyNotificationTVC.swift */,
+				14B35449296899CB00998925 /* MyNotificationReadTVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -809,7 +809,7 @@
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
-				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
+				14B3544A296899CB00998925 /* MyNotificationReadTVC.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,

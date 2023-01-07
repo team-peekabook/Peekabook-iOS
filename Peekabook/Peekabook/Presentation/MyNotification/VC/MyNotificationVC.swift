@@ -74,7 +74,7 @@ final class MyNotificationVC: UIViewController {
 extension MyNotificationVC {
     
     private func register() {
-        notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
+        notificationTableView.register(MyNotificationReadTVC.self, forCellReuseIdentifier: MyNotificationReadTVC.className)
     }
     
     private func setUI() {
@@ -122,7 +122,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationReadTVC.className, for: indexPath) as? MyNotificationReadTVC else { return UITableViewCell() }
         cell.dataBind(model: notiDummy[indexPath.row])
         return cell
     }
