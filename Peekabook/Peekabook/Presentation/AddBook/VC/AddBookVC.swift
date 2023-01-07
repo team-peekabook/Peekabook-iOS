@@ -310,11 +310,31 @@ extension AddBookVC {
         }
     
     // TODO: - 박스에 따른 키보드 처리 필요
-    @objc private func keyBoardShow(notification: NSNotification) {
-        // 만약 첫번째 뷰에 포커스가 간다면
-        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
-        // 두번째 뷰에 포커스가 간다면
-        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
+//    @objc private func keyBoardShow(notification: NSNotification) {
+//        // 만약 첫번째 뷰에 포커스가 간다면
+//        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
+//        // 두번째 뷰에 포커스가 간다면
+//        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
+//    }
+    
+    @objc
+    private func keyBoardShow(notification: NSNotification) {
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        
+        self.view.transform = CGAffineTransform(translationX: 0,
+            y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
+        
+//        if commentView.isFocused == true {
+//            print("commentTextView 선택됨")
+//            self.view.transform = CGAffineTransform(translationX: 0,
+//                y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
+//        } else if memoView.isFocused {
+//            print("MemoTextView 선택됨")
+//            self.view.transform = CGAffineTransform(translationX: 0,
+//                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
+//        }
     }
 
     @objc private func keyboardHide(notification: NSNotification) {
