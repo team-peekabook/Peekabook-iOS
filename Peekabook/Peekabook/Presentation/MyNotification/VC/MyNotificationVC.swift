@@ -32,7 +32,7 @@ final class MyNotificationVC: UIViewController {
     }
     
     private let notificationLabel = UILabel().then {
-        $0.text = "알림"
+        $0.text = I18N.Tabbar.notification
         $0.textColor = UIColor.peekaRed
         $0.font = .h3
     }
