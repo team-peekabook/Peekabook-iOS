@@ -25,12 +25,15 @@ final class ProposalVC: UIViewController {
     }
     
     private let headerTitle = UILabel().then {
-        $0.text = "책 추천하기"
+        $0.text = I18N.BookProposal.title
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private lazy var touchCheckButton = UIButton().then {
+        $0.setTitle(I18N.BookEdit.done, for: .normal)
+        $0.titleLabel!.font = .h4
+        $0.setTitleColor(.peekaRed, for: .normal)
         $0.addTarget(self, action: #selector(presentToPopUpView), for: .touchUpInside)
     }
     
@@ -113,7 +116,6 @@ extension ProposalVC {
         recommendView.backgroundColor = .clear
         
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        touchCheckButton.setImage(ImageLiterals.Icn.check, for: .normal)
         
         bookImgView.image = ImageLiterals.Sample.book1
     }
@@ -153,7 +155,8 @@ extension ProposalVC {
         
         touchCheckButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().inset(11)
+            make.width.height.equalTo(48)
         }
         
         bookImgView.snp.makeConstraints { make in

@@ -46,4 +46,9 @@ struct I18N {
         static let title = "책 수정하기"
         static let done = "완료"
     }
+    
+    struct BookProposal {
+        static let title = "책 추천하기"
+        static let done = "완료"
+    }
 }
