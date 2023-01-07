@@ -25,17 +25,17 @@ class MyNotificationTVC: UITableViewCell {
     private let contentLabel = UILabel().then {
         $0.text = "누가누가 추천을 했답니다"
         $0.numberOfLines = 2
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
         $0.font = .h2
     }
     private let bookNameLabel = UILabel().then {
         $0.text = "책 이름"
-        $0.textColor = UIColor.peekaRed_60
+        $0.textColor = .peekaRed_60
         $0.font = .s3
     }
     private let dateLabel = UILabel().then {
         $0.text = "12월 1일"
-        $0.textColor = UIColor.peekaRed_60
+        $0.textColor = .peekaRed_60
         $0.font = .s3
     }
     
@@ -50,7 +50,6 @@ class MyNotificationTVC: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
     }
 }
@@ -60,7 +59,7 @@ extension MyNotificationTVC {
     private func setLayout() {
         contentView.addSubviews(notiContainerView)
         backgroundColor = .peekaBeige
-        notiContainerView.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
+        notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         notiContainerView.addSubviews()
         notiContainerView.addSubviews(notiImageView, contentStackView, dateLabel)
         contentStackView.addArrangedSubviews(contentLabel, bookNameLabel)

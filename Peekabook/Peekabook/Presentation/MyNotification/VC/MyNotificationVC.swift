@@ -40,14 +40,14 @@ final class MyNotificationVC: UIViewController {
     
     private let notificationLabel = UILabel().then {
         $0.text = I18N.Tabbar.notification
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
         $0.font = .h3
     }
     
     private lazy var notificationTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
         $0.allowsSelection = false
-        $0.backgroundColor = UIColor.peekaBeige
+        $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.delegate = self
         $0.dataSource = self
@@ -77,8 +77,8 @@ extension MyNotificationVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
-        headerContainerView.backgroundColor = UIColor.peekaBeige
-        notificationTableView.backgroundColor = UIColor.peekaBeige
+        headerContainerView.backgroundColor = .peekaBeige
+        notificationTableView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
