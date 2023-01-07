@@ -42,6 +42,20 @@ final class EditBookVC: UIViewController {
     private lazy var containerView = UIScrollView().then {
         $0.backgroundColor = .clear
     }
+    
+    private let bookImgView = UIImageView()
+    
+    private var nameLabel = UILabel().then {
+        $0.text = "아무튼, 여름"
+        $0.font = .h3
+        $0.textColor = .peekaRed
+    }
+    
+    private var authorLabel = UILabel().then {
+        $0.text = "김신회"
+        $0.font = .h2
+        $0.textColor = .peekaRed
+    }
 
     // MARK: - View Life Cycle
 
@@ -49,7 +63,7 @@ final class EditBookVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        configButton()
+        config()
     }
 }
 
@@ -67,6 +81,10 @@ extension EditBookVC {
         
         [touchBackButton, headerTitle, touchCheckButton].forEach {
             headerView.addSubview($0)
+        }
+        
+        [bookImgView, nameLabel, authorLabel].forEach {
+            containerView.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -93,6 +111,21 @@ extension EditBookVC {
             make.trailing.equalToSuperview().inset(11)
             make.width.height.equalTo(48)
         }
+        
+        bookImgView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.centerX.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookImgView.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        authorLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
+        }
     }
 }
 
@@ -110,7 +143,9 @@ extension EditBookVC {
         // doSomething()
     }
     
-    private func configButton() {
+    private func config() {
         touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        
+        bookImgView.image = ImageLiterals.Sample.book1
     }
 }
