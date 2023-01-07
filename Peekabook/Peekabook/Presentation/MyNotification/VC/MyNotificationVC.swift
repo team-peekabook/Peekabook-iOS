@@ -46,9 +46,7 @@ final class MyNotificationVC: UIViewController {
     
     private lazy var notificationTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.isScrollEnabled = true
         $0.allowsSelection = false
-        $0.allowsMultipleSelection = false
         $0.backgroundColor = UIColor.peekaBeige
         $0.separatorStyle = .none
         $0.delegate = self
