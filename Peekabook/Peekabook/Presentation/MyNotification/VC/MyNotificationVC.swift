@@ -59,7 +59,7 @@ final class MyNotificationVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        register()
+        registerCells()
     }
     
     @objc private func backButtonTapped() {
@@ -71,7 +71,7 @@ final class MyNotificationVC: UIViewController {
 
 extension MyNotificationVC {
     
-    private func register() {
+    private func registerCells() {
         notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
     }
     
