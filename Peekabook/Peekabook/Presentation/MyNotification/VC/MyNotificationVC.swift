@@ -124,6 +124,11 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
         cell.dataBind(model: notiDummy[indexPath.row])
+        for i in notiDummy.count - 3...notiDummy.count - 1 {
+            if i == indexPath.row {
+                cell.changeRead(model: notiDummy[i])
+            }
+        }
         return cell
     }
 }

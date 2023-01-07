@@ -82,6 +82,14 @@ extension MyNotificationTVC {
         }
     }
     
+    func changeRead(model: NotificationModel) {
+        notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        notiImageView.layer.opacity = 0.4
+        contentLabel.textColor = .peekaGray2
+        bookNameLabel.textColor = .peekaGray2_60
+        dateLabel.textColor = .peekaGray2
+    }
+    
     func dataBind(model: NotificationModel) {
         notiImageView.image = model.image
         contentLabel.text = "\(model.user)님이 추천을 했답니다"
