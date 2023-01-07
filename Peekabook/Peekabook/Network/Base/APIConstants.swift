@@ -8,9 +8,20 @@
 import Foundation
 
 struct APIConstants {
-        
+    
+    // MARK: - Base URL
+
     static let baseURL: String = "https://"
     
-    static let searchURL: String = "https://openapi.naver.com/v1/search/book"
-}
+    // MARK: - Naver Book Search URL
 
+    static let searchURL: String = "https://openapi.naver.com/v1/search/book"
+    
+    // MARK: - Route
+    
+    static let bookShelf: String = "/bookshelf"
+    static let pick: String = "/pick"
+    static let recommend: String "/recommend"
+    static let friend: String = "/friend"
+    static let alarm: String = "/alarm"
+}
