@@ -36,8 +36,9 @@ final class MyNotificationVC: UIViewController {
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
         $0.backgroundColor = UIColor.peekaBeige
-//        $0.delegate = self
-//        $0.dataSource = self
+        $0.separatorStyle = .none
+        $0.delegate = self
+        $0.dataSource = self
     }
     
     // MARK: - View Life Cycle
@@ -46,6 +47,8 @@ final class MyNotificationVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        register()
+        //notificationTableView.rowHeight = UITableView.automaticDimension
     }
     
     @objc private func backButtonTapped() {
@@ -56,6 +59,10 @@ final class MyNotificationVC: UIViewController {
 // MARK: - UI & Layout
 
 extension MyNotificationVC {
+    
+    private func register() {
+        notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
+    }
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
@@ -90,3 +97,19 @@ extension MyNotificationVC {
 }
 
 // MARK: - Methods
+
+extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
+        return cell
+    }
+}
