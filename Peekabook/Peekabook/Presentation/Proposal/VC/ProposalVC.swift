@@ -48,12 +48,12 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let recommendBox = UIView().then {
+    private let recommendBoxView = UIView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
         
-    private let recommendHeader = UIView()
+    private let recommendHeaderView = UIView()
         
     private let recommendLabel = UILabel().then {
         $0.text = "받는사람"
@@ -69,14 +69,14 @@ final class ProposalVC: UIViewController {
         $0.textColor = .white
     }
     
-    private lazy var recommendView = UITextView().then {
+    private let recommendView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.PlaceHolder.recommend
         $0.autocorrectionType = .no
     }
         
-    private lazy var recommendMaxLabel = UILabel().then {
+    private let recommendMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -107,8 +107,8 @@ extension ProposalVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
-        recommendBox.backgroundColor = .white
-        recommendHeader.backgroundColor = .peekaRed
+        recommendBoxView.backgroundColor = .white
+        recommendHeaderView.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
         recommendView.backgroundColor = .clear
         
@@ -125,16 +125,16 @@ extension ProposalVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, recommendBox, recommendMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, recommendBoxView, recommendMaxLabel].forEach {
             view.addSubview($0)
         }
         
-        [recommendHeader, recommendView].forEach {
-            recommendBox.addSubview($0)
+        [recommendHeaderView, recommendView].forEach {
+            recommendBoxView.addSubview($0)
         }
         
         [recommendLabel, lineView, personNameLabel].forEach {
-            recommendHeader.addSubview($0)
+            recommendHeaderView.addSubview($0)
         }
         
         headerView.snp.makeConstraints { make in
@@ -171,14 +171,14 @@ extension ProposalVC {
             make.centerX.equalToSuperview()
         }
         
-        recommendBox.snp.makeConstraints { make in
+        recommendBoxView.snp.makeConstraints { make in
             make.top.equalTo(authorLabel.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(229)
         }
         
-        recommendHeader.snp.makeConstraints { make in
+        recommendHeaderView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
@@ -203,15 +203,15 @@ extension ProposalVC {
         }
                 
         recommendView.snp.makeConstraints { make in
-            make.top.equalTo(recommendHeader.snp.bottom).offset(10)
+            make.top.equalTo(recommendHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(recommendLabel)
             make.width.equalTo(307)
             make.height.equalTo(169)
         }
                 
         recommendMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(recommendBox.snp.bottom).offset(8)
-            make.trailing.equalTo(recommendBox.snp.trailing)
+            make.top.equalTo(recommendBoxView.snp.bottom).offset(8)
+            make.trailing.equalTo(recommendBoxView.snp.trailing)
         }
     }
 }
@@ -256,7 +256,7 @@ extension ProposalVC {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
-        self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBox.frame.maxY - 36))
+        self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))
     }
 
     @objc
