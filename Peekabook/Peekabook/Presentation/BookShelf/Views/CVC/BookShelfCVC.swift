@@ -17,6 +17,10 @@ final class BookShelfCVC: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
+    private let horizontalLine = UIView().then {
+        $0.clipsToBounds = false
+    }
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -39,17 +43,25 @@ extension BookShelfCVC {
     
     private func setUI() {
         backgroundColor = .peekaLightBeige
+        horizontalLine.backgroundColor = .peekaBeige
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
     }
     
     private func setLayout() {
-        addSubview(bookImageView)
+        addSubviews(bookImageView, horizontalLine)
         
         bookImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(150)
+        }
+        
+        horizontalLine.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(bookImageView.snp.bottom)
+            make.width.equalTo(UIScreen.main.bounds.width*2)
+            make.height.equalTo(6)
         }
     }
 }
