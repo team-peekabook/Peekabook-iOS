@@ -34,7 +34,7 @@ final class MyNotificationVC: UIViewController {
     private let notificationLabel = UILabel().then {
         $0.text = "알림"
         $0.textColor = UIColor.peekaRed
-        $0.font = .systemFont(ofSize: 18, weight: .bold)
+        $0.font = .h3
     }
     
     private lazy var notificationTableView = UITableView().then {

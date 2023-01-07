@@ -26,17 +26,17 @@ class MyNotificationTVC: UITableViewCell {
         $0.text = "추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕추천이요안녕"
         $0.numberOfLines = 2
         $0.textColor = UIColor.peekaRed
-        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+        $0.font = .h2
     }
     private let bookNameLabel = UILabel().then {
         $0.text = "책 이름"
         $0.textColor = UIColor.peekaRed_60
-        $0.font = .systemFont(ofSize: 12, weight: .medium)
+        $0.font = .s3
     }
     private let dateLabel = UILabel().then {
         $0.text = "12월 1일"
         $0.textColor = UIColor.peekaRed_60
-        $0.font = .systemFont(ofSize: 12, weight: .medium)
+        $0.font = .s3
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
