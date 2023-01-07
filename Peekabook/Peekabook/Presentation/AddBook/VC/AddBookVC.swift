@@ -25,13 +25,13 @@ final class AddBookVC: UIViewController {
     }
     
     private let headerTitleLabel = UILabel().then {
-        $0.text = "책 등록하기"
+        $0.text = I18N.BookAdd.title
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private let touchCheckButton = UIButton().then {
-        $0.setTitle("완료", for: .normal)
+        $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
