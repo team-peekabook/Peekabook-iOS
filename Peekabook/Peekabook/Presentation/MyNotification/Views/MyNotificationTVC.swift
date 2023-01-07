@@ -81,4 +81,11 @@ extension MyNotificationTVC {
             make.trailing.bottom.equalToSuperview().inset(12)
         }
     }
+    
+    func dataBind(model: NotificationModel) {
+        notiImageView.image = model.image
+        contentLabel.text = model.notiLabel
+        bookNameLabel.text = model.bookName
+        dateLabel.text = model.date
+    }
 }

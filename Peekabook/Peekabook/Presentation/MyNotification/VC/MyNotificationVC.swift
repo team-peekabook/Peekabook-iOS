@@ -54,7 +54,7 @@ final class MyNotificationVC: UIViewController {
         setUI()
         setLayout()
         register()
-        //notificationTableView.rowHeight = UITableView.automaticDimension
+        notificationTableView.rowHeight = UITableView.automaticDimension
     }
     
     @objc private func backButtonTapped() {
@@ -107,7 +107,7 @@ extension MyNotificationVC {
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 80
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,6 +116,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
+        cell.dataBind(model: notiDummy[indexPath.row])
         return cell
     }
 }
