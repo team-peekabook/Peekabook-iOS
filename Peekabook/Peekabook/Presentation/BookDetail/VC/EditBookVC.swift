@@ -56,6 +56,35 @@ final class EditBookVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaRed
     }
+    
+    private let commentBox = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+    
+    private let commentHeader = UIView().then {
+        $0.backgroundColor = .peekaRed
+    }
+    
+    private let commentLabel = UILabel().then {
+        $0.text = "한 마디"
+        $0.font = .h1
+        $0.textColor = .white
+    }
+    
+    private lazy var commentView = UITextView().then {
+        $0.font = .h2
+        $0.textColor = .peekaGray1
+        $0.text = I18N.BookDetail.comment
+        $0.backgroundColor = .clear
+    }
+    
+    lazy var commentMaxLabel = UILabel().then {
+        $0.text = "0/200"
+        $0.font = .h2
+        $0.textColor = .peekaGray2
+    }
 
     // MARK: - View Life Cycle
 
@@ -83,8 +112,16 @@ extension EditBookVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, commentBox, commentMaxLabel].forEach {
             containerView.addSubview($0)
+        }
+        
+        [commentHeader, commentView].forEach {
+            commentBox.addSubview($0)
+        }
+        
+        [commentLabel].forEach {
+            commentHeader.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -125,6 +162,37 @@ extension EditBookVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+        }
+        
+        commentBox.snp.makeConstraints { make in
+            make.top.equalTo(authorLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(335)
+            make.height.equalTo(229)
+        }
+        
+        commentHeader.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(36)
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(14)
+        }
+        
+        commentView.snp.makeConstraints { make in
+            make.top.equalTo(commentHeader.snp.bottom).offset(10)
+            make.leading.equalTo(commentLabel)
+            make.width.equalTo(307)
+            make.height.equalTo(169)
+        }
+        
+        commentMaxLabel.snp.makeConstraints { make in
+            make.top.equalTo(commentBox.snp.bottom).offset(8)
+            make.trailing.equalTo(commentBox.snp.trailing)
         }
     }
 }
