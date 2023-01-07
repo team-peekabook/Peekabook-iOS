@@ -19,7 +19,7 @@ extension SamplePickModel {
         return [
             SamplePickModel(bookId: 1, name: "하둘셋넷다여일", image: ImageLiterals.Sample.book1!, title: "하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여일여아아이아"),
             SamplePickModel(bookId: 2, name: "2번픽", image: ImageLiterals.Sample.book2!, title: nil),
-            SamplePickModel(bookId: 3, name: "3번픽이에요", image: ImageLiterals.Sample.book3!, title: "안녕하세요 안녕하세요 안녕하세에엥용오오오오오")
+            SamplePickModel(bookId: 3, name: "3번픽이에요요요요", image: ImageLiterals.Sample.book3!, title: "안녕하세요 안녕하세요 안녕하세에엥용오오오오오")
         ]
     }
 }
