@@ -70,6 +70,7 @@ final class EditMyPickVC: UIViewController {
     @objc
     private func completeButtonDidTap() {
         print("confirmButtonDidTap")
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
