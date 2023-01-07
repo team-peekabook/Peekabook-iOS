@@ -73,11 +73,10 @@ final class AddBookVC: UIViewController {
         $0.textColor = .white
     }
     
-    private let commentViewPlaceholder = "한 마디를 남겨주세요."
     private lazy var commentView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = commentViewPlaceholder
+        $0.text = I18N.BookDetail.comment
         $0.backgroundColor = .clear
     }
     
@@ -103,11 +102,10 @@ final class AddBookVC: UIViewController {
         $0.textColor = .white
     }
     
-    private let memoViewPlaceholder = "메모를 남겨주세요."
     private lazy var memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = commentViewPlaceholder
+        $0.text = I18N.BookDetail.memo
         $0.backgroundColor = .clear
     }
     
@@ -358,19 +356,19 @@ extension AddBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == commentViewPlaceholder) || (textView.text == memoViewPlaceholder) {
+        if (textView.text == I18N.BookDetail.comment) || (textView.text == I18N.BookDetail.memo) {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = .peekaRed
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = commentViewPlaceholder
-            commentView.textColor = .lightGray
+            commentView.text = I18N.BookDetail.comment
+            commentView.textColor = .peekaGray1
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = memoViewPlaceholder
-            memoView.textColor = .lightGray
+            memoView.text = I18N.BookDetail.memo
+            memoView.textColor = .peekaGray1
         }
     }
 }
