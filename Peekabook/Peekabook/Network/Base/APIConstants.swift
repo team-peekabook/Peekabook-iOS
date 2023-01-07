@@ -15,7 +15,7 @@ struct APIConstants {
     
     // MARK: - Naver Book Search URL
 
-    static let searchURL: String = "https://openapi.naver.com/v1/search/book"
+    static let searchURL: String = "https://openapi.naver.com/v1/search/book_adv"
     
     // MARK: - Route
     
