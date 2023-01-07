@@ -22,6 +22,7 @@ final class EditPickCVC: UICollectionViewCell {
         $0.backgroundColor = .peekaRed
         $0.textColor = .peekaWhite
         $0.clipsToBounds = true
+        $0.textAlignment = .center
         $0.layer.cornerRadius = 10
     }
     
@@ -48,7 +49,6 @@ extension EditPickCVC {
     }
     
     private func setUI() {
-        backgroundColor = .yellow
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
     }
     
@@ -62,8 +62,10 @@ extension EditPickCVC {
         }
         
         countLabel.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(8)
+            make.top.equalTo(bookImageView).offset(8)
+            make.trailing.equalTo(bookImageView).inset(8)
             make.width.height.equalTo(20)
         }
+        
     }
 }
