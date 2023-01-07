@@ -11,17 +11,17 @@ struct APIConstants {
     
     // MARK: - Base URL
 
-    static let baseURL: String = "https://"
+    static let baseURL = "https://"
     
     // MARK: - Naver Book Search URL
 
-    static let searchURL: String = "https://openapi.naver.com/v1/search/book_adv"
+    static let searchURL = "https://openapi.naver.com/v1/search/book_adv"
     
     // MARK: - Route
     
-    static let bookShelf: String = "/bookshelf"
-    static let pick: String = "/pick"
-    static let recommend: String "/recommend"
-    static let friend: String = "/friend"
-    static let alarm: String = "/alarm"
+    static let bookShelf = "/bookshelf"
+    static let pick = "/pick"
+    static let recommend = "/recommend"
+    static let friend = "/friend"
+    static let alarm = "/alarm"
 }

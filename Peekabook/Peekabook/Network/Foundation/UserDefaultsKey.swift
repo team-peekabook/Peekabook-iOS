@@ -13,14 +13,14 @@ extension NetworkConstant {
         
         // MARK: - Token
         
-        static let accessToken: String = "accessToken"
-        static let refreshToken: String = "refreshToken"
+        static let accessToken = "accessToken"
+        static let refreshToken = "refreshToken"
         
         // MARK: - User Information
         
         static let userId: Int = 0
         static let userName: String = "userName"
-        static let userImage: String = "userImage"
+        static let userImageUrl: String = "userImage"
         static let userIntro: String = "userIntro"
     }
 }
