@@ -90,6 +90,16 @@
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
 		8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */; };
+		8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */; };
+		8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1F296B11E300F37AFD /* FriendRouter.swift */; };
+		8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E21296B120600F37AFD /* PickRouter.swift */; };
+		8EEF8E24296B121000F37AFD /* RecommendRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E23296B121000F37AFD /* RecommendRouter.swift */; };
+		8EEF8E26296B125C00F37AFD /* AlarmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E25296B125C00F37AFD /* AlarmRouter.swift */; };
+		8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E27296B128300F37AFD /* PickAPI.swift */; };
+		8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E29296B128C00F37AFD /* RecommendAPI.swift */; };
+		8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2B296B129400F37AFD /* FriendAPI.swift */; };
+		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
+		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
 		985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
 		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
@@ -189,6 +199,21 @@
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
 		8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfAPI.swift; sourceTree = "<group>"; };
+		8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchRouter.swift; sourceTree = "<group>"; };
+		8EEF8E1F296B11E300F37AFD /* FriendRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRouter.swift; sourceTree = "<group>"; };
+		8EEF8E21296B120600F37AFD /* PickRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickRouter.swift; sourceTree = "<group>"; };
+		8EEF8E23296B121000F37AFD /* RecommendRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendRouter.swift; sourceTree = "<group>"; };
+		8EEF8E25296B125C00F37AFD /* AlarmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRouter.swift; sourceTree = "<group>"; };
+		8EEF8E27296B128300F37AFD /* PickAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAPI.swift; sourceTree = "<group>"; };
+		8EEF8E29296B128C00F37AFD /* RecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAPI.swift; sourceTree = "<group>"; };
+		8EEF8E2B296B129400F37AFD /* FriendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
+		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
+		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
+		8EEF8E32296B12CE00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8EEF8E35296B12E200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8EEF8E38296B130D00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8EEF8E3B296B132200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		8EEF8E3E296B133F00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTableViewCell.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
 		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
@@ -419,6 +444,11 @@
 			isa = PBXGroup;
 			children = (
 				8E18506D2969BC130062E92A /* BookShelfRouter.swift */,
+				8EEF8E21296B120600F37AFD /* PickRouter.swift */,
+				8EEF8E23296B121000F37AFD /* RecommendRouter.swift */,
+				8EEF8E1F296B11E300F37AFD /* FriendRouter.swift */,
+				8EEF8E25296B125C00F37AFD /* AlarmRouter.swift */,
+				8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -427,6 +457,11 @@
 			isa = PBXGroup;
 			children = (
 				8EEF8E152969C7B800F37AFD /* BookShelf */,
+				8EEF8E31296B12B300F37AFD /* Pick */,
+				8EEF8E37296B12EB00F37AFD /* Friend */,
+				8EEF8E34296B12D200F37AFD /* Recommend */,
+				8EEF8E3A296B131800F37AFD /* Alarm */,
+				8EEF8E3D296B132900F37AFD /* NaverSearch */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -703,8 +738,53 @@
 			isa = PBXGroup;
 			children = (
 				8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */,
+				8EEF8E27296B128300F37AFD /* PickAPI.swift */,
+				8EEF8E29296B128C00F37AFD /* RecommendAPI.swift */,
+				8EEF8E2B296B129400F37AFD /* FriendAPI.swift */,
+				8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */,
+				8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		8EEF8E31296B12B300F37AFD /* Pick */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF8E32296B12CE00F37AFD /* .gitkeep */,
+			);
+			path = Pick;
+			sourceTree = "<group>";
+		};
+		8EEF8E34296B12D200F37AFD /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF8E35296B12E200F37AFD /* .gitkeep */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		8EEF8E37296B12EB00F37AFD /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF8E38296B130D00F37AFD /* .gitkeep */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
+		8EEF8E3A296B131800F37AFD /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF8E3B296B132200F37AFD /* .gitkeep */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		8EEF8E3D296B132900F37AFD /* NaverSearch */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF8E3E296B133F00F37AFD /* .gitkeep */,
+			);
+			path = NaverSearch;
 			sourceTree = "<group>";
 		};
 		98A042052966469800081B8E /* Proposal */ = {
@@ -851,6 +931,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */,
+				8EEF8E24296B121000F37AFD /* RecommendRouter.swift in Sources */,
+				8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */,
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
@@ -858,6 +940,7 @@
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
+				8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
@@ -869,9 +952,11 @@
 				14526AD22965F74B0049C61D /* UserSearchTVC.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
 				985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */,
+				8EEF8E26296B125C00F37AFD /* AlarmRouter.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
+				8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */,
 				986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
@@ -882,6 +967,7 @@
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
 				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				8E6F7B9229651F6C0013F744 /* SamplePickModel.swift in Sources */,
+				8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */,
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				14B354482968897C00998925 /* NotificationModel.swift in Sources */,
@@ -896,13 +982,16 @@
 				8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
+				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
 				8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */,
+				8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */,
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
+				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
 				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
@@ -920,6 +1009,7 @@
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
 				8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
+				8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */,
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
