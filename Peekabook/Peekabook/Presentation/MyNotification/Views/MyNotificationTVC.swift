@@ -24,8 +24,13 @@ class MyNotificationTVC: UITableViewCell {
         $0.distribution = .equalCentering
         $0.spacing = 3
     }
+    private let userNameLabel = UILabel().then {
+        $0.text = "이름"
+        $0.textColor = .peekaRed
+        $0.font = .h1
+    }
     private let contentLabel = UILabel().then {
-        $0.text = "누가누가 추천을 했답니다"
+        $0.text = "'누가누가' 추천을 했답니다"
         $0.numberOfLines = 2
         $0.textColor = .peekaRed
         $0.font = .h2
@@ -100,8 +105,18 @@ extension MyNotificationTVC {
     
     func dataBind(model: NotificationModel) {
         notiImageView.image = model.image
-        contentLabel.text = "\(model.user)님이 추천을 했답니다"
+        userNameLabel.text = model.user
+        contentLabel.text = "'\(model.user)'님이 이 책을 추천했어요"
         bookNameLabel.text = model.bookName
         dateLabel.text = model.date
+    }
+    
+    func changeUserNameFont(model: NotificationModel) {
+        guard let content = self.contentLabel.text else { return }
+        let attributeString = NSMutableAttributedString(string: content)
+        let font = UIFont.h1
+        attributeString.addAttribute(.font, value: font, range: (content as NSString).range(of: "'\(model.user)'"))
+
+        self.contentLabel.attributedText = attributeString
     }
 }
