@@ -42,7 +42,7 @@ final class EditMyPickVC: UIViewController {
     private lazy var bookShelfCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 50, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.bounces = false
@@ -78,7 +78,8 @@ final class EditMyPickVC: UIViewController {
 extension EditMyPickVC {
     
     private func setUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .peekaWhite
+        bookShelfCollectionView.backgroundColor = .peekaWhite
     }
     
     private func setLayout() {
@@ -107,7 +108,8 @@ extension EditMyPickVC {
         
         bookShelfCollectionView.snp.makeConstraints { make in
             make.top.equalTo(naviContainerView.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -135,10 +137,10 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
                 as? EditPickCVC else { return UICollectionViewCell() }
         cell.initCell(model: editPickModelList[indexPath.row])
+        
         return cell
     }
 }
