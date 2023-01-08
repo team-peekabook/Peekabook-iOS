@@ -16,7 +16,7 @@ final class AddBookVC: UIViewController {
     
     // MARK: - Properties
     
-    var please = 0
+    private var focus = 0
 
     // MARK: - UI Components
     
@@ -39,7 +39,10 @@ final class AddBookVC: UIViewController {
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private let containerView = UIScrollView()
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
@@ -317,10 +320,9 @@ extension AddBookVC {
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         
-        if please == 1 {
-            //            self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 - 229))
+        if focus == 1 {
             self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
-        } else if please == 2 {
+        } else if focus == 2 {
             self.view.transform = CGAffineTransform(translationX: 0,
                 y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
         }
@@ -356,11 +358,11 @@ extension AddBookVC: UITextViewDelegate {
         if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
-            please = 1
+            focus = 1
         } else if textView.text == I18N.BookDetail.memo {
             textView.text = nil
             textView.textColor = .peekaRed
-            please = 2
+            focus = 2
         }
     }
     
