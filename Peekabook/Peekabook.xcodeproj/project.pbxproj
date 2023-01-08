@@ -100,11 +100,6 @@
 		8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2B296B129400F37AFD /* FriendAPI.swift */; };
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
-		8EEF8E33296B12CE00F37AFD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF8E32296B12CE00F37AFD /* .gitkeep */; };
-		8EEF8E36296B12E200F37AFD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF8E35296B12E200F37AFD /* .gitkeep */; };
-		8EEF8E39296B130D00F37AFD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF8E38296B130D00F37AFD /* .gitkeep */; };
-		8EEF8E3C296B132200F37AFD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF8E3B296B132200F37AFD /* .gitkeep */; };
-		8EEF8E3F296B133F00F37AFD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF8E3E296B133F00F37AFD /* .gitkeep */; };
 		985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
 		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
@@ -891,15 +886,10 @@
 				8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */,
 				8E81F3A3296058CC001815B4 /* NotoSansKR-Regular.otf in Resources */,
 				8E81F3A4296058CC001815B4 /* NotoSansKR-Light.otf in Resources */,
-				8EEF8E33296B12CE00F37AFD /* .gitkeep in Resources */,
 				8E81F3AA29605991001815B4 /* Montserrat-Medium.ttf in Resources */,
 				8E81F3A929605991001815B4 /* Montserrat-SemiBold.ttf in Resources */,
-				8EEF8E3F296B133F00F37AFD /* .gitkeep in Resources */,
 				8E81F3AC29605991001815B4 /* Montserrat-Regular.ttf in Resources */,
-				8EEF8E39296B130D00F37AFD /* .gitkeep in Resources */,
 				8E81F3AB29605991001815B4 /* Montserrat-Bold.ttf in Resources */,
-				8EEF8E36296B12E200F37AFD /* .gitkeep in Resources */,
-				8EEF8E3C296B132200F37AFD /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
