@@ -15,6 +15,8 @@ import Moya
 final class AddBookVC: UIViewController {
     
     // MARK: - Properties
+    
+    private var focus = 0
 
     // MARK: - UI Components
     
@@ -37,7 +39,10 @@ final class AddBookVC: UIViewController {
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private let containerView = UIScrollView()
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
@@ -232,7 +237,7 @@ extension AddBookVC {
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
-            make.height.equalTo(169)
+            make.height.equalTo(193)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -263,7 +268,7 @@ extension AddBookVC {
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
-            make.height.equalTo(41)
+            make.height.equalTo(65)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
@@ -295,46 +300,32 @@ extension AddBookVC {
     
     private func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
-            selector: #selector(keyBoardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
+             selector: #selector(keyBoardShow),
+             name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
+             selector: #selector(keyboardHide),
+             name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     private func removeRegisterForKeyboardNotification() {
         NotificationCenter.default.removeObserver(self,
             name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self,
             name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-    
-    // TODO: - 박스에 따른 키보드 처리 필요
-//    @objc private func keyBoardShow(notification: NSNotification) {
-//        // 만약 첫번째 뷰에 포커스가 간다면
-//        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
-//        // 두번째 뷰에 포커스가 간다면
-//        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
-//    }
-    
+    }
+        
     @objc
     private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         
-        self.view.transform = CGAffineTransform(translationX: 0,
-            y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-        
-//        if commentView.isFocused == true {
-//            print("commentTextView 선택됨")
-//            self.view.transform = CGAffineTransform(translationX: 0,
-//                y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-//        } else if memoView.isFocused {
-//            print("MemoTextView 선택됨")
-//            self.view.transform = CGAffineTransform(translationX: 0,
-//                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
-//        }
+        if focus == 1 {
+            self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
+        } else if focus == 2 {
+            self.view.transform = CGAffineTransform(translationX: 0,
+                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
+        }
     }
 
     @objc private func keyboardHide(notification: NSNotification) {
@@ -364,9 +355,14 @@ extension AddBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.comment) || (textView.text == I18N.BookDetail.memo) {
+        if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
+            focus = 1
+        } else if textView.text == I18N.BookDetail.memo {
+            textView.text = nil
+            textView.textColor = .peekaRed
+            focus = 2
         }
     }
     
@@ -380,5 +376,3 @@ extension AddBookVC: UITextViewDelegate {
         }
     }
 }
-
-// TODO: - 아무 화면 터치시 EndEditing 구현 필요
