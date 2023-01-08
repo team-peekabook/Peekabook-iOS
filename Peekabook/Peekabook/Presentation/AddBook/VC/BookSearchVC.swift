@@ -49,6 +49,7 @@ final class BookSearchVC: UIViewController {
     
     private lazy var bookTableView: UITableView = {
         let tableView = UITableView()
+        tableView.showsVerticalScrollIndicator = true
         tableView.backgroundColor = .peekaBeige
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self

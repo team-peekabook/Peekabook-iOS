@@ -37,7 +37,10 @@ final class EditBookVC: UIViewController {
         $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
     }
     
-    private let containerView = UIScrollView()
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let bookImgView = UIImageView()
     
     private var nameLabel = UILabel().then {
