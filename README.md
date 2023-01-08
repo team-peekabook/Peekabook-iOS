@@ -1,4 +1,5 @@
 # Peekabook 
+친구의 책장을 구경하거나, 친구에게 책을 추천할 수 있는 책장 공유 서비스 📓
 
 > 31st IN SOPT APP JAM <br>
 >
@@ -142,7 +143,7 @@
 
  ---
    <aside>   
-     <img width="265" alt="스크린샷 2023-01-03 13 07 15" src="https://user-images.githubusercontent.com/80062632/210298907-a000f7e8-0bac-4a13-b408-e32709e035e4.png">
+   <img width="298" alt="스크린샷 2023-01-09 08 07 45" src="https://user-images.githubusercontent.com/80062632/211223645-4536a5b6-790e-4968-9656-8dea280180e3.png">
 
      
 </aside>
