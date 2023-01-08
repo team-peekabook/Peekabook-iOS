@@ -25,7 +25,7 @@ final class MyNotificationVC: UIViewController {
         NotificationModel(image: ImageLiterals.Sample.profile3, user: "추천", bookName: "하하 웃으며 살자", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "두두두", bookName: "", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "문수선배", bookName: "", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, user: "윤수선배", bookName: "수빈은윤수빈", date: "12월 25일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "윤수선배", bookName: "수빈은윤수빈", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "가나다라마", bookName: "안녕?", date: "12월 2일")
     ]
     
