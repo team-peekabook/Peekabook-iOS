@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+import Moya
+
+final class FriendAPI {
+    
+    static let shared = FriendAPI()
+    private var friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaLoggerPlugin()])
+    
+    private init() { }
+    
+}
