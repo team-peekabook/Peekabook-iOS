@@ -12,7 +12,7 @@ final class BookShelfCVC: UICollectionViewCell {
     // MARK: - UI Components
     
     private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.layer.masksToBounds = true
         $0.clipsToBounds = true
     }
@@ -46,7 +46,8 @@ extension BookShelfCVC {
         addSubview(bookImageView)
         
         bookImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(150)
         }

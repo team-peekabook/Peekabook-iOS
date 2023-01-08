@@ -16,6 +16,7 @@ final class BookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var friendsModelList = SampleFriendsModel.data
     private var userModel = SampleUserModel.data
     private var pickModelList = SamplePickModel.data
@@ -422,5 +423,31 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 15
+    }
+}
+
+// MARK: - Network
+
+extension BookShelfVC {
+    
+    private func getMyBookShelfInfo(userId: String) {
+        BookShelfAPI.shared.getMyBookShelfInfo { response in
+            switch response {
+            case .success(let data):
+                if let myBookShelfInfo = data as? MyBookShelfResponse {
+                    self.serverMyBookShelfInfo = myBookShelfInfo
+                    // TODO:- 서버에서 받은 response 뷰에 반영하기
+                    
+                }
+            case .requestErr(let message):
+                print("latestPhotosWithAPI - requestErr: \(message)")
+            case .pathErr:
+                print("latestPhotosWithAPI - pathErr")
+            case .serverErr:
+                print("latestPhotosWithAPI - serverErr")
+            case .networkFail:
+                print("latestPhotosWithAPI - networkFail")
+            }
+        }
     }
 }

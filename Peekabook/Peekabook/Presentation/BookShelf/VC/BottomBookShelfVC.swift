@@ -22,7 +22,7 @@ final class BottomBookShelfVC: UIViewController {
     private let holdView = UIView()
     
     private let booksCountLabel = UILabel().then {
-        $0.text = "10 Books"
+        $0.text = "\(SampleBookModel.data.count) Books"
         $0.font = .engSb
         $0.textColor = .peekaRed
     }
@@ -35,9 +35,9 @@ final class BottomBookShelfVC: UIViewController {
     private lazy var bookShelfCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 50, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 45, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = true
+        collectionView.isScrollEnabled = false
         collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -71,8 +71,9 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - @objc Function
     @objc
     private func addBookButtonDidTap() {
-        let addBookVC = AddBookVC()
-        navigationController?.pushViewController(addBookVC, animated: true)
+        let barcodeVC = BarcodeViewController()
+        barcodeVC.modalPresentationStyle = .fullScreen
+        self.present(barcodeVC, animated: true, completion: nil)
     }
     
     @objc
@@ -82,13 +83,13 @@ final class BottomBookShelfVC: UIViewController {
         let velocity = recognizer.velocity(in: self.view)
         let y = self.view.frame.minY
         
-        if ( y + translation.y >= fullView) && (y + translation.y <= partialView ) {
+        if (y + translation.y >= fullView) && (y + translation.y <= partialView) {
             self.view.frame = CGRect(x: 0, y: y + translation.y, width: view.frame.width, height: view.frame.height)
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         }
         
         if recognizer.state == .ended {
-            var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y )
+            var duration = velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
             
             duration = duration > 1.3 ? 1 : duration
             
@@ -98,7 +99,11 @@ final class BottomBookShelfVC: UIViewController {
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: self.view.frame.height)
                 }
-            }, completion: nil)
+            }, completion: { [weak self] _ in
+                if velocity.y < 0 {
+                    self?.bookShelfCollectionView.isScrollEnabled = true
+                }
+            })
         }
     }
 }
@@ -155,6 +160,7 @@ extension BottomBookShelfVC {
     
     private func regeisterPanGesture() {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomBookShelfVC.panGesture))
+        gesture.delegate = self
         view.addGestureRecognizer(gesture)
     }
     
@@ -201,7 +207,6 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
         cell.initCell(model: bookModelList[indexPath.row])
@@ -214,7 +219,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
 extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let length = (collectionView.frame.width - 10) / 3
-        return CGSize(width: length - 10, height: 180)
+        return CGSize(width: length - 10, height: 170)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -223,5 +228,21 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension BottomBookShelfVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let gesture = (gestureRecognizer as? UIPanGestureRecognizer)
+        let direction = gesture?.velocity(in: view).y ?? 0
+        
+        let y = view.frame.minY
+        if (y == fullView && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (y == partialView) {
+            bookShelfCollectionView.isScrollEnabled = false
+        } else {
+            bookShelfCollectionView.isScrollEnabled = true
+        }
+        
+        return false
     }
 }
