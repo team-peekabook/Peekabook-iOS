@@ -25,7 +25,7 @@ final class BookShelfAPI {
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                let networkResult = self.judgeMainViewLoadStatus(by: statusCode, data)
+                let networkResult = self.judgeMyBookShelfInfoStatus(by: statusCode, data)
                 completion(networkResult)
                 
             case .failure(let err):
@@ -34,7 +34,7 @@ final class BookShelfAPI {
         }
     }
     
-    private func judgeMainViewLoadStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
+    private func judgeMyBookShelfInfoStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         
         let decoder = JSONDecoder()
         guard let decodedData = try? decoder.decode(GeneralResponse<MyBookShelfResponse>.self, from: data)
