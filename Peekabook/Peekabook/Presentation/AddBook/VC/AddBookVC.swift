@@ -297,41 +297,32 @@ extension AddBookVC {
     
     private func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
-            selector: #selector(keyBoardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
+             selector: #selector(keyBoardShow),
+             name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
+             selector: #selector(keyboardHide),
+             name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     private func removeRegisterForKeyboardNotification() {
         NotificationCenter.default.removeObserver(self,
             name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self,
             name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-    
-    // TODO: - 박스에 따른 키보드 처리 필요
-//    @objc private func keyBoardShow(notification: NSNotification) {
-//        // 만약 첫번째 뷰에 포커스가 간다면
-//        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
-//        // 두번째 뷰에 포커스가 간다면
-//        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
-//    }
-    
+    }
+        
     @objc
     private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         
-        if (please == 1) {
-//            self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 - 229))
-            self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 40 - 101))
-        }
-        else if (please == 2) {
+        if please == 1 {
+            //            self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 - 229))
+            self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
+        } else if please == 2 {
             self.view.transform = CGAffineTransform(translationX: 0,
-                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 40 - 101))
+                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
         }
     }
 
@@ -383,5 +374,3 @@ extension AddBookVC: UITextViewDelegate {
         }
     }
 }
-
-// TODO: - 아무 화면 터치시 EndEditing 구현 필요
