@@ -223,6 +223,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		14B3544D296B08B800998925 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				14B354472968897C00998925 /* NotificationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		14D416782968285D003D5031 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,9 +633,9 @@
 		8E81F3FD29608ACD001815B4 /* MyNotification */ = {
 			isa = PBXGroup;
 			children = (
+				14B3544D296B08B800998925 /* Model */,
 				8E81F3FF29608AE6001815B4 /* Views */,
 				8E81F3FE29608AE0001815B4 /* VC */,
-				14B354472968897C00998925 /* NotificationModel.swift */,
 			);
 			path = MyNotification;
 			sourceTree = "<group>";
