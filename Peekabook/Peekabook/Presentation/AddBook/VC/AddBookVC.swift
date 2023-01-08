@@ -15,6 +15,8 @@ import Moya
 final class AddBookVC: UIViewController {
     
     // MARK: - Properties
+    
+    var please = 0
 
     // MARK: - UI Components
     
@@ -232,7 +234,7 @@ extension AddBookVC {
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
-            make.height.equalTo(169)
+            make.height.equalTo(193)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -263,7 +265,7 @@ extension AddBookVC {
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
-            make.height.equalTo(41)
+            make.height.equalTo(65)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
@@ -323,18 +325,14 @@ extension AddBookVC {
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         
-        self.view.transform = CGAffineTransform(translationX: 0,
-            y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-        
-//        if commentView.isFocused == true {
-//            print("commentTextView 선택됨")
-//            self.view.transform = CGAffineTransform(translationX: 0,
-//                y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-//        } else if memoView.isFocused {
-//            print("MemoTextView 선택됨")
-//            self.view.transform = CGAffineTransform(translationX: 0,
-//                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
-//        }
+        if (please == 1) {
+//            self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 - 229))
+            self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 40 - 101))
+        }
+        else if (please == 2) {
+            self.view.transform = CGAffineTransform(translationX: 0,
+                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 40 - 101))
+        }
     }
 
     @objc private func keyboardHide(notification: NSNotification) {
@@ -364,9 +362,14 @@ extension AddBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.comment) || (textView.text == I18N.BookDetail.memo) {
+        if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
+            please = 1
+        } else if textView.text == I18N.BookDetail.memo {
+            textView.text = nil
+            textView.textColor = .peekaRed
+            please = 2
         }
     }
     
