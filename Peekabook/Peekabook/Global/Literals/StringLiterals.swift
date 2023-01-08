@@ -19,6 +19,7 @@ struct I18N {
         static let bookshelf = "책장"
         static let recommend = "추천 "
         static let mypage = "MY"
+        static let notification = "알림"
     }
     
     struct Confirm {
