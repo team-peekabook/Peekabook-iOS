@@ -127,6 +127,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
                 cell.changeRead(model: notiDummy[i])
             }
         }
+        cell.changeUserNameFont(model: notiDummy[indexPath.row])
         return cell
     }
 }
