@@ -25,7 +25,7 @@ final class MyNotificationVC: UIViewController {
         NotificationModel(image: ImageLiterals.Sample.profile3, user: "추천", bookName: "하하 웃으며 살자", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "두두두", bookName: "", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "문수선배", bookName: "", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, user: "윤수선배", bookName: "수빈은윤수빈", date: "12월 25일"),
+        NotificationModel(image: ImageLiterals.Sample.profile4, user: "윤수선배", bookName: "수빈은윤수빈", date: "12월 2일"),
         NotificationModel(image: ImageLiterals.Sample.profile4, user: "가나다라마", bookName: "안녕?", date: "12월 2일")
     ]
     
@@ -122,11 +122,12 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
         cell.dataBind(model: notiDummy[indexPath.row])
-        for i in notiDummy.count - 3...notiDummy.count - 1 {
+        for i in notiDummy.count - 7...notiDummy.count - 1 {
             if i == indexPath.row {
                 cell.changeRead(model: notiDummy[i])
             }
         }
+        cell.changeUserNameFont(model: notiDummy[indexPath.row])
         return cell
     }
 }

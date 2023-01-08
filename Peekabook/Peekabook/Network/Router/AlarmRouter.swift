@@ -1,40 +1,40 @@
 //
-//  BookShelfRouter.swift
+//  AlarmRouter.swift
 //  Peekabook
 //
-//  Created by devxsby on 2023/01/07.
+//  Created by devxsby on 2023/01/09.
 //
 
 import Foundation
 
 import Moya
 
-enum BookShelfRouter {
-    case getMyBookShelf
+enum AlarmRouter {
+    case sample
 }
 
-extension BookShelfRouter: TargetType {
+extension AlarmRouter: TargetType {
     var baseURL: URL {
         return URL(string: URLConstant.baseURL)!
     }
     
     var path: String {
         switch self {
-        case .getMyBookShelf:
-            return URLConstant.bookShelf
+        case .sample:
+            return URLConstant.alarm
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getMyBookShelf:
+        case .sample:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getMyBookShelf:
+        case .sample:
             return .requestPlain
         }
     }
