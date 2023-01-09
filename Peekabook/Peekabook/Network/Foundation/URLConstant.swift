@@ -11,7 +11,7 @@ struct URLConstant {
     
     // MARK: - Base URL
 
-    static let baseURL = "https://"
+    static let baseURL = "http://3.38.81.48:3000"
     
     // MARK: - Naver Book Search URL
 
