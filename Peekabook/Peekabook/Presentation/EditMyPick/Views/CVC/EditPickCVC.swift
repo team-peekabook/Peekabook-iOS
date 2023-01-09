@@ -12,7 +12,7 @@ final class EditPickCVC: UICollectionViewCell {
     // MARK: - UI Components
     
     private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.layer.masksToBounds = true
         $0.clipsToBounds = true
     }
