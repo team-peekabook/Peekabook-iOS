@@ -26,7 +26,7 @@ class RecommendedVC: UIViewController {
             writer: "김신회",
             recommendedPersonImage: ImageLiterals.Sample.profile3,
             recommendedPerson: "윤수빈",
-            memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"
+            memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요! ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 후"
         ),
         RecommendModel(
             image: ImageLiterals.Sample.book1,

@@ -65,10 +65,11 @@ final class RecommendTVC: UITableViewCell {
     }
     
     private let bookRecommendTextLabel = UILabel().then {
-        $0.numberOfLines = 8
         $0.text = "추천문구샬라샬라"
         $0.font = .s2
         $0.textColor = .peekaRed
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byCharWrapping
     }
 
     // MARK: - Initialization
@@ -165,16 +166,16 @@ extension RecommendTVC {
             make.width.height.equalTo(15)
         }
         bookRecommendedPersonLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookRecommendedPersonImage)
+            make.centerY.equalTo(bookRecommendedPersonImage)
             make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
         bookRecommendDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookRecommendedPersonLabel)
+            make.top.equalToSuperview().inset(15)
             make.trailing.equalToSuperview().inset(18)
         }
         bookRecommendTextLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(40)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(13)
         }
     }
 }
