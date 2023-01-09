@@ -20,12 +20,15 @@ final class BarcodeViewController: BarcodeScannerViewController {
         $0.font = .h2
     }
     
-    private let infoButton = UIButton().then {
+    private lazy var infoButton = UIButton().then {
         $0.setTitle("바코드 인식이 어려우신가요?", for: .normal)
         $0.titleLabel!.font = .c2
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.addTarget(self, action: #selector(touchinfoButtonDidTap), for: .touchUpInside)
+        $0.setUnderline()
     }
+    
+    private let lineView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,8 @@ final class BarcodeViewController: BarcodeScannerViewController {
 }
 
 extension BarcodeViewController {
+    private func setUI() {
+    }
     private func setLayout() {
         view.addSubviews([
             infoLabel,
@@ -91,4 +96,16 @@ extension BarcodeViewController: BarcodeScannerDismissalDelegate {
   func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
     controller.dismiss(animated: true, completion: nil)
   }
+}
+
+extension UIButton {
+    func setUnderline() {
+        guard let title = title(for: .normal) else { return }
+        let attributedString = NSMutableAttributedString(string: title)
+        attributedString.addAttribute(.underlineStyle,
+                                      value: NSUnderlineStyle.single.rawValue,
+                                      range: NSRange(location: 0, length: title.count)
+        )
+        setAttributedTitle(attributedString, for: .normal)
+    }
 }
