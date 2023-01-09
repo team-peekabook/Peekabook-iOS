@@ -16,6 +16,7 @@
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCVC.swift */; };
+		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
 		8E10BA06295FF35F00BCF58B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA05295FF35F00BCF58B /* Then */; };
 		8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA08295FF37B00BCF58B /* Kingfisher */; };
@@ -90,7 +91,6 @@
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
 		8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */; };
 		8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FE296C6D010045AD7F /* BaseResponse.swift */; };
-		8EB4046F296C83060049DE91 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB4046E296C83060049DE91 /* Config.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
 		8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */; };
 		8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */; };
@@ -126,6 +126,7 @@
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCVC.swift; sourceTree = "<group>"; };
+		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
 		8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		8EAB43FE296C6D010045AD7F /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
-		8EB4046E296C83060049DE91 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
 		8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfAPI.swift; sourceTree = "<group>"; };
 		8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchRouter.swift; sourceTree = "<group>"; };
@@ -328,6 +328,7 @@
 		8E10BA10295FF44800BCF58B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				8E097201296C83C0007731E3 /* Config.swift */,
 				8E10BA23295FF6CB00BCF58B /* Foundation */,
 				8E10BA24295FF6D500BCF58B /* Router */,
 				8EEF8E182969CFE800F37AFD /* API */,
@@ -452,7 +453,6 @@
 		8E10BA23295FF6CB00BCF58B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				8EB4046E296C83060049DE91 /* Config.swift */,
 				8E1850612969B1690062E92A /* URLConstant.swift */,
 				8E1850652969B5060062E92A /* NetworkConstant.swift */,
 				8E1850632969B44F0062E92A /* UserDefaultsKey.swift */,
@@ -1001,9 +1001,9 @@
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				14B354482968897C00998925 /* NotificationModel.swift in Sources */,
 				98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */,
+				8E097202296C83C0007731E3 /* Config.swift in Sources */,
 				8E6F7B9029651ED10013F744 /* SampleUserModel.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
-				8EB4046F296C83060049DE91 /* Config.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
 				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
