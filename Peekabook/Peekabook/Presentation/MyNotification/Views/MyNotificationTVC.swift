@@ -122,7 +122,7 @@ extension MyNotificationTVC {
     
     private func setContentLabel(model: NotificationModel) -> String {
         if model.userName.count > 4 && !model.bookName.isEmpty {
-            return "'\(model.userName)'님이\n 이 책을 추천했어요"
+            return "'\(model.userName)'님이\n이 책을 추천했어요"
         } else { return "'\(model.userName)'님이 이 책을 추천했어요" }
     }
 }
