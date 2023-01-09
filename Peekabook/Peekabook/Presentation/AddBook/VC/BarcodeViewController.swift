@@ -13,7 +13,7 @@ import Then
 
 final class BarcodeViewController: BarcodeScannerViewController {
     
-    private let infoLabel = UILabel().then {
+    private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
         $0.numberOfLines = 2
         $0.textColor = .peekaWhite
@@ -58,17 +58,17 @@ extension BarcodeViewController {
     
     private func setLayout() {
         view.addSubviews([
-            infoLabel,
+            descriptionLabel,
             textSearchButton
         ])
         
-        infoLabel.snp.makeConstraints { make in
+        descriptionLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(540)
             make.centerX.equalToSuperview()
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(infoLabel.snp.bottom).offset(140)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(140)
             make.centerX.equalToSuperview()
         }
     }
@@ -85,9 +85,9 @@ extension BarcodeViewController {
 //        let nextVC = BookSearchVC()
 //        nextVC.modalPresentationStyle = .fullScreen
 //        self.present(nextVC, animated: true, completion: nil)
-        let nextVC = ErrorPopUpViewController()
-        nextVC.modalPresentationStyle = .overFullScreen
-        self.present(nextVC, animated: false)
+        let errorPopUpVC = ErrorPopUpViewController()
+        errorPopUpVC.modalPresentationStyle = .overFullScreen
+        self.present(errorPopUpVC, animated: false)
     }
 }
 
