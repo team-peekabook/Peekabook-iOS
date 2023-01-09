@@ -17,16 +17,66 @@ final class MyNotificationVC: UIViewController {
     // MARK: - Properties
 
     var notiDummy: [NotificationModel] = [
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "추천", bookName: "책이름", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile1, userName: "뇽잉깅", bookName: "bookName", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "인영케이", bookName: "책이름", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile6, userName: "샬라샬리샬라", bookName: "", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile2, userName: "안녕하세요", bookName: "뷰공장입니다", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile3, userName: "추천", bookName: "하하 웃으며 살자", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "두두두", bookName: "", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "문수선배", bookName: "", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "윤수선배", bookName: "수빈은윤수빈", date: "12월 2일"),
-        NotificationModel(image: ImageLiterals.Sample.profile4, userName: "가나다라마", bookName: "안녕?", date: "12월 2일")
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "추천",
+            bookName: "책이름",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile1,
+            userName: "뇽잉깅",
+            bookName: "bookName",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "인영케이",
+            bookName: "책이름",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile6,
+            userName: "샬라샬리샬라",
+            bookName: "",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile2,
+            userName: "안녕하세요",
+            bookName: "뷰공장입니다",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile3,
+            userName: "추천",
+            bookName: "하하 웃으며 살자",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "두두두",
+            bookName: "",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "문수선배",
+            bookName: "",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "윤수선배",
+            bookName: "수빈은윤수빈",
+            date: "12월 2일"
+        ),
+        NotificationModel(
+            image: ImageLiterals.Sample.profile4,
+            userName: "가나다라마",
+            bookName: "안녕?",
+            date: "12월 2일"
+        )
     ]
     
     // MARK: - UI Components
@@ -71,10 +121,6 @@ final class MyNotificationVC: UIViewController {
 
 extension MyNotificationVC {
     
-    private func registerCells() {
-        notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
-    }
-    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerContainerView.backgroundColor = .peekaBeige
@@ -109,6 +155,13 @@ extension MyNotificationVC {
 
 // MARK: - Methods
 
+extension MyNotificationVC {
+    
+    private func registerCells() {
+        notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
+    }
+}
+
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -125,7 +178,12 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNotificationTVC.className, for: indexPath) as? MyNotificationTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: MyNotificationTVC.className,
+            for: indexPath) as? MyNotificationTVC
+        else {
+            return UITableViewCell()
+        }
         cell.dataBind(model: notiDummy[indexPath.row])
         for i in notiDummy.count - 7...notiDummy.count - 1 {
             if i == indexPath.row {
