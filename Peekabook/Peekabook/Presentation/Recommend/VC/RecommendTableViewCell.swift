@@ -81,6 +81,8 @@ final class RecommendTableViewCell: UITableViewCell {
         $0.contentEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 12)
     }
     
+    // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setSubviews()
@@ -97,6 +99,8 @@ final class RecommendTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20))
     }
 }
+
+// MARK: - UI & Layout
 
 extension RecommendTableViewCell {
     private func setSubviews() {
@@ -176,7 +180,11 @@ extension RecommendTableViewCell {
             make.height.equalTo(29)
         }
     }
-    
+}
+
+// MARK: - Methods
+
+extension RecommendTableViewCell {
     private func changeNameToButton(name: String) {
         toFriendBookShelfButton.setTitle("\(name)님의 책장 보러가기 →", for: .normal)
     }

@@ -23,6 +23,8 @@ class RecommendCollectionViewCell: UICollectionViewCell {
         $0.textColor = .peekaGray2
     }
     
+    // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
@@ -34,12 +36,17 @@ class RecommendCollectionViewCell: UICollectionViewCell {
 }
 
 extension RecommendCollectionViewCell {
+    
+    // MARK: - UI & Layout
+    
     private func setLayout() {
         contentView.addSubview(menuLabel)
         menuLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
     }
+    
+    // MARK: - Methods
     
     func dataBind(menuLabel: String) {
         self.menuLabel.text = menuLabel

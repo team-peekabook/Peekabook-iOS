@@ -260,6 +260,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		14B3544E296C0C9500998925 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		14D416782968285D003D5031 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,9 +433,9 @@
 		8E10BA22295FF65700BCF58B /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
+				14B3544E296C0C9500998925 /* Model */,
 				8E10BA3D295FF89E00BCF58B /* Views */,
 				8E10BA3C295FF89A00BCF58B /* VC */,
-				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
 			);
 			path = Recommend;
 			sourceTree = "<group>";
