@@ -27,15 +27,15 @@ class UserSearchTVC: UITableViewCell {
     
     private let nameLabel = UILabel().then {
         $0.text = "이름"
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
         $0.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
     private lazy var followButton = UIButton().then {
         $0.setTitle("팔로우", for: .normal)
-        $0.setTitleColor(UIColor.peekaWhite, for: .normal)
+        $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
-        $0.backgroundColor = UIColor.peekaRed
+        $0.backgroundColor = .peekaRed
         $0.addTarget(self, action: #selector(followButtonDidTap), for: .touchUpInside)
     }
     
@@ -58,12 +58,12 @@ class UserSearchTVC: UITableViewCell {
 extension UserSearchTVC {
     
     private func selected() {
-        followButton.backgroundColor = UIColor.peekaGray2
+        followButton.backgroundColor = .peekaGray2
         followButton.setTitle("팔로잉", for: .normal)
         followButton.isSelected = true
     }
     private func deselected() {
-        followButton.backgroundColor = UIColor.peekaRed
+        followButton.backgroundColor = .peekaRed
         followButton.setTitle("팔로우", for: .normal)
         followButton.isSelected = true
     }

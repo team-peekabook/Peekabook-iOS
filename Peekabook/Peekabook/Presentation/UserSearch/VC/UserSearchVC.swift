@@ -29,19 +29,19 @@ final class UserSearchVC: UIViewController {
     }
     private let searchTitleLabel = UILabel().then {
         $0.text = "사용자 검색하기"
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
         $0.font = .systemFont(ofSize: 18, weight: .bold)
     }
     private let headerUnderlineView = UIView().then {
-        $0.backgroundColor = UIColor.peekaRed
+        $0.backgroundColor = .peekaRed
     }
     
     private let searchBarContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
+        $0.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
     }
     private lazy var searchTextField = UITextField().then {
         $0.placeholder = "사용자의 닉네임을 입력해주세요."
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.autocorrectionType = .no
     }
@@ -56,7 +56,7 @@ final class UserSearchVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.backgroundColor = UIColor.peekaBeige
+        $0.backgroundColor = .peekaBeige
         $0.delegate = self
         $0.dataSource = self
     }
@@ -84,7 +84,7 @@ final class UserSearchVC: UIViewController {
 extension UserSearchVC {
     
     private func setUI() {
-        self.view.backgroundColor = UIColor.peekaBeige
+        self.view.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
