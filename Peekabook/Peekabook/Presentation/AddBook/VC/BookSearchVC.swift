@@ -19,7 +19,10 @@ final class BookSearchVC: UIViewController {
     // MARK: - UI Components
     
     private let headerView = UIView()
-    private let containerView = UIView()
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private lazy var cancelButton = UIButton().then {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
@@ -51,7 +54,7 @@ final class BookSearchVC: UIViewController {
     private lazy var bookTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = true
-        tableView.backgroundColor = .red
+        tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -123,10 +126,6 @@ extension BookSearchVC {
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(110)
         }
-    
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom)
-        }
         
         cancelButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(2)
@@ -153,11 +152,16 @@ extension BookSearchVC {
             make.height.equalTo(40)
         }
         
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         bookTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
+            make.top.equalToSuperview()
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-1)
             make.height.equalTo(128 * bookInfoList.count)
         }
         
