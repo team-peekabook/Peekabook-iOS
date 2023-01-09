@@ -26,7 +26,7 @@ final class ConfirmPopUpViewController: UIViewController {
     }
     
     private lazy var confirmLabel = UILabel().then {
-        $0.text = ("\(personNameLabel.text ?? "사용자")"+I18N.BookProposal.confirm)
+        $0.text = "\(personNameLabel.text ?? "사용자")"+I18N.BookProposal.confirm
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
