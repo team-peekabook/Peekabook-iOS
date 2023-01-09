@@ -45,6 +45,7 @@ class RecommendedVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
+        $0.separatorStyle = .none
     }
     
     // MARK: - View Life Cycle
