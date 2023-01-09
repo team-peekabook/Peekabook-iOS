@@ -9,13 +9,7 @@ import Foundation
 
 struct URLConstant {
     
-    // MARK: - Base URL
-
-    static let baseURL = "http://3.38.81.48:3000"
-    
-    // MARK: - Naver Book Search URL
-
-    static let searchURL = "https://openapi.naver.com/v1/search/book_adv"
+    /// Base URL은 Config에 있습니다.
     
     // MARK: - Route
     
