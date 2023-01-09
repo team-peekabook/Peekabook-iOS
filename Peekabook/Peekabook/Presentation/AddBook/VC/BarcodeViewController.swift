@@ -14,17 +14,17 @@ import Then
 final class BarcodeViewController: BarcodeScannerViewController {
     
     private let infoLabel = UILabel().then {
-        $0.text = "책의 뒷면에 있는 ISBN 바코드가\n사각형 안에 들어오게 해주세요."
-        $0.numberOfLines = 0
-        $0.textColor = .white
+        $0.text = I18N.Barcode.infoLabel
+        $0.numberOfLines = 2
+        $0.textColor = .peekaWhite
         $0.font = .h2
     }
     
-    private lazy var infoButton = UIButton().then {
-        $0.setTitle("바코드 인식이 어려우신가요?", for: .normal)
+    private lazy var textSearchButton = UIButton().then {
+        $0.setTitle(I18N.Barcode.infoButton, for: .normal)
         $0.titleLabel!.font = .c2
         $0.setTitleColor(.peekaWhite, for: .normal)
-        $0.addTarget(self, action: #selector(touchinfoButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchtextSearchButtonDidTap), for: .touchUpInside)
         $0.setUnderline()
     }
     
@@ -42,7 +42,7 @@ extension BarcodeViewController {
     private func setUI() {
         view.backgroundColor = .peekaBeige
 
-        headerViewController.titleLabel.text = "책 검색하기"
+        headerViewController.titleLabel.text = I18N.Barcode.searchLabel
         headerViewController.titleLabel.textColor = .peekaRed
         headerViewController.titleLabel.font = .h3
         
@@ -59,7 +59,7 @@ extension BarcodeViewController {
     private func setLayout() {
         view.addSubviews([
             infoLabel,
-            infoButton
+            textSearchButton
         ])
         
         infoLabel.snp.makeConstraints { make in
@@ -67,7 +67,7 @@ extension BarcodeViewController {
             make.centerX.equalToSuperview()
         }
         
-        infoButton.snp.makeConstraints { make in
+        textSearchButton.snp.makeConstraints { make in
             make.top.equalTo(infoLabel.snp.bottom).offset(140)
             make.centerX.equalToSuperview()
         }
@@ -81,7 +81,7 @@ extension BarcodeViewController {
         errorDelegate = self
     }
     
-    @objc private func touchinfoButtonDidTap() {
+    @objc private func touchtextSearchButtonDidTap() {
 //        let nextVC = BookSearchVC()
 //        nextVC.modalPresentationStyle = .fullScreen
 //        self.present(nextVC, animated: true, completion: nil)
