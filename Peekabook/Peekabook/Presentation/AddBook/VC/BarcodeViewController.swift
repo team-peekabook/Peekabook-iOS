@@ -72,16 +72,23 @@ extension BarcodeViewController {
             make.centerX.equalToSuperview()
         }
     }
-    
+}
+
+extension BarcodeViewController {
     private func setDelegate() {
         dismissalDelegate = self
         codeDelegate = self
+        errorDelegate = self
     }
     
     @objc private func touchinfoButtonDidTap() {
-        let nextVC = BookSearchVC()
+//        let nextVC = BookSearchVC()
+//        nextVC.modalPresentationStyle = .fullScreen
+//        self.present(nextVC, animated: true, completion: nil)
+        
+        let nextVC = ErrorPopUpViewController()
         nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+        self.present(nextVC, animated: false, completion: nil)
     }
 }
 
@@ -98,6 +105,12 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
 extension BarcodeViewController: BarcodeScannerDismissalDelegate {
   func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
     controller.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension BarcodeViewController: BarcodeScannerErrorDelegate {
+  func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+    print(error)
   }
 }
 
