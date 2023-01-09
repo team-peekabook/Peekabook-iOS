@@ -137,42 +137,52 @@ extension RecommendTVC {
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(30)
         }
+        
         bookNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(15)
         }
+        
         bookDividerLabel.snp.makeConstraints { make in
             make.centerY.equalTo(bookNameLabel)
             make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
+        
         bookWriterLabel.snp.makeConstraints { make in
             make.centerY.equalTo(bookDividerLabel)
             make.leading.equalTo(bookDividerLabel.snp.trailing).offset(7)
         }
+        
         recommendStackView.snp.makeConstraints { make in
             make.top.equalTo(bookHeaderView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
         bookImageContainerView.snp.makeConstraints { make in
             make.width.equalTo(122)
         }
+        
         bookImage.snp.makeConstraints { make in
             make.centerY.centerX.equalToSuperview()
             make.width.equalTo(92)
             make.height.equalTo(150)
         }
+        
         bookRecommendedPersonImage.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(14)
             make.width.height.equalTo(15)
         }
+        
         bookRecommendedPersonLabel.snp.makeConstraints { make in
             make.centerY.equalTo(bookRecommendedPersonImage)
             make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
+        
         bookRecommendDateLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(15)
             make.trailing.equalToSuperview().inset(18)
         }
+        
         bookRecommendTextLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(40)
             make.leading.trailing.equalToSuperview().inset(13)
