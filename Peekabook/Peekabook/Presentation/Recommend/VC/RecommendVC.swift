@@ -63,7 +63,7 @@ final class RecommendVC: UIViewController {
         setUI()
         setSubviews()
         setLayout()
-        register()
+        registerCells()
         setFirstIndexSelected()
     }
     
@@ -89,7 +89,7 @@ final class RecommendVC: UIViewController {
 
 extension RecommendVC {
     
-    private func register() {
+    private func registerCells() {
         recommendCollectionView.register(RecommendCVC.self, forCellWithReuseIdentifier: RecommendCVC.className)
     }
     

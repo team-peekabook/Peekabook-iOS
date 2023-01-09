@@ -49,14 +49,14 @@ class RecommendingVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        register()
+        registerCells()
     }
 }
 
 // MARK: - UI & Layout
 
 extension RecommendingVC {
-    private func register() {
+    private func registerCells() {
         tableView.register(RecommendTVC.self, forCellReuseIdentifier: RecommendTVC.className)
     }
     
