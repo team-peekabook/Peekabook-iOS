@@ -24,7 +24,7 @@ final class ErrorPopUpViewController: UIViewController {
     private var confirmLabel = UILabel().then {
         $0.numberOfLines = 0
         $0.textAlignment = .center
-        $0.text = "존재하지 않는 책입니다"
+        $0.text = I18N.ErrorPopUp.empty
         $0.font = .h4
         $0.textColor = .peekaRed
     }
@@ -36,7 +36,7 @@ final class ErrorPopUpViewController: UIViewController {
     
     private lazy var textSearchButton = UIButton().then {
         $0.addTarget(self, action: #selector(touchtextSearchButtonDidTap), for: .touchUpInside)
-        $0.setTitle("텍스트로 검색하기", for: .normal)
+        $0.setTitle(I18N.ErrorPopUp.forText, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaRed

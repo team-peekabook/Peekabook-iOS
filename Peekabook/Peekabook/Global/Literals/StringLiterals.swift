@@ -63,4 +63,9 @@ struct I18N {
         static let infoButton = "바코드 인식이 어려우신가요?"
         static let searchLabel = "책 검색하기"
     }
+    
+    struct ErrorPopUp {
+        static let empty = "존재하지 않는 책입니다"
+        static let forText = "텍스트로 검색하기"
+    }
 }
