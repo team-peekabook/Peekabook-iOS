@@ -69,6 +69,7 @@ struct I18N {
     struct ErrorPopUp {
         static let empty = "존재하지 않는 책입니다"
         static let forText = "텍스트로 검색하기"
+        static let emptyUser = "앗! 해당 사용자가 존재하지 않는 것 같아요.\n다른 검색어를 입력해 보세요."
     }
     
     struct FollowStatus {
