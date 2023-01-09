@@ -102,7 +102,8 @@ extension BookSearchVC {
         
         cancelButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().inset(11)
+            make.width.height.equalTo(48)
         }
         
         headerTitleLabel.snp.makeConstraints { make in
