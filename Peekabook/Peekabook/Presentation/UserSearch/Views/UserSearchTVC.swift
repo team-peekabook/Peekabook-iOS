@@ -97,10 +97,10 @@ extension UserSearchTVC {
         followButton.setTitle(I18N.FollowStatus.following, for: .normal)
         followButton.isSelected = true
     }
-    private func deselected() {
+    private func unselected() {
         followButton.backgroundColor = .peekaRed
         followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
-        followButton.isSelected = true
+        followButton.isSelected = false
     }
     
     func dataBind(model: UserSearchModel) {
