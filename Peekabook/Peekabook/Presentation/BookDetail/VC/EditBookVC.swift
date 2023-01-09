@@ -299,7 +299,7 @@ extension EditBookVC {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // TODO: - push 함수 작성 필요
+    // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
         // doSomething()
     }
