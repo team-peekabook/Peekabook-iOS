@@ -29,7 +29,6 @@ struct I18N {
     
     struct PlaceHolder {
         static let recommend = "추천사를 적어주세요."
-        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
     }
     
     struct BookShelf {
@@ -39,8 +38,16 @@ struct I18N {
     }
     
     struct BookDetail {
-        static let comment = "한 마디를 남겨주세요."
-        static let memo = "메모를 남겨주세요."
+        static let comment = "한 마디"
+        static let memo = "메모"
+        static let commentHint = "한 마디를 남겨주세요."
+        static let memoHint = "메모를 남겨주세요."
+    }
+    
+    struct BookSearch {
+        static let title = "책 검색하기"
+        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
+        static let empty = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
     }
     
     struct BookEdit {
@@ -51,6 +58,8 @@ struct I18N {
     struct BookProposal {
         static let title = "책 추천하기"
         static let done = "완료"
+        static let personName = "받는사람"
+        static let confirm = "님에게\n책을 추천하시겠어요?"
     }
     
     struct BookAdd {

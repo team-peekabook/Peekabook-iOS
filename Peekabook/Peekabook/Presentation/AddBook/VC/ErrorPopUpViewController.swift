@@ -92,9 +92,9 @@ extension ErrorPopUpViewController {
 
 extension ErrorPopUpViewController {
     @objc private func textSearchButtonDidTap() {
-        let nextVC = BookSearchVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+        let bookSearchVC = BookSearchVC()
+        bookSearchVC.modalPresentationStyle = .fullScreen
+        self.present(bookSearchVC, animated: true, completion: nil)
     }
     @objc private func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
