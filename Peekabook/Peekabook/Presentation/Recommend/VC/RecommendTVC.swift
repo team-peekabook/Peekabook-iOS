@@ -107,9 +107,9 @@ final class RecommendTVC: UITableViewCell {
         contentView.frame = contentView.frame.inset(
             by: UIEdgeInsets(
                 top: 5,
-                left: 20,
+                left: 0,
                 bottom: 5,
-                right: 20
+                right: 0
             )
         )
     }
