@@ -22,8 +22,8 @@ final class AddBookVC: UIViewController {
     
     private let headerView = UIView()
     
-    private lazy var touchBackButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchBackButtonDidTap), for: .touchUpInside)
+    private lazy var backButton = UIButton().then {
+        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitleLabel = UILabel().then {
@@ -32,18 +32,22 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let touchCheckButton = UIButton().then {
+    private let checkButton = UIButton().then {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
+        $0.addTarget(AddBookVC.self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
     }
     
-    private let bookImgView = UIImageView()
+    private let bookImgView = UIImageView().then {
+        $0.layer.masksToBounds = false
+        $0.contentMode = .scaleAspectFit
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
+    }
     
     private var nameLabel = UILabel().then {
         $0.text = "아무튼, 여름"
@@ -61,15 +65,15 @@ final class AddBookVC: UIViewController {
     private let commentHeaderView = UIView()
     
     private let commentLabel = UILabel().then {
-        $0.text = "한 마디"
+        $0.text = I18N.BookDetail.comment
         $0.font = .h1
         $0.textColor = .white
     }
     
     private let commentView = UITextView().then {
+        $0.text = I18N.BookDetail.comment
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.comment
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
     }
@@ -84,7 +88,7 @@ final class AddBookVC: UIViewController {
     private let memoHeaderView = UIView()
     
     private let memoLabel = UILabel().then {
-        $0.text = "메모"
+        $0.text = I18N.BookDetail.memo
         $0.font = .h1
         $0.textColor = .white
     }
@@ -141,7 +145,7 @@ extension AddBookVC {
         memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         memoHeaderView.backgroundColor = .peekaRed
         
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
         bookImgView.image = ImageLiterals.Sample.book1
     }
     
@@ -150,7 +154,7 @@ extension AddBookVC {
             view.addSubview($0)
         }
         
-        [touchBackButton, headerTitleLabel, touchCheckButton].forEach {
+        [backButton, headerTitleLabel, checkButton].forEach {
             headerView.addSubview($0)
         }
         
@@ -184,7 +188,7 @@ extension AddBookVC {
             make.height.equalTo(52)
         }
         
-        touchBackButton.snp.makeConstraints { make in
+        backButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
         }
@@ -193,7 +197,7 @@ extension AddBookVC {
             make.center.equalToSuperview()
         }
         
-        touchCheckButton.snp.makeConstraints { make in
+        checkButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(11)
             make.width.height.equalTo(48)
@@ -287,14 +291,13 @@ extension AddBookVC {
         memoView.delegate = self
     }
     
-    // TODO: - 바코드 스캔뷰로 다시 가게 해야함
-    // 현재는 홈뷰로 가는 상황
-    @objc private func touchBackButtonDidTap() {
+    // 바코드 스캔뷰로 다시 가게 해야함
+    @objc private func backButtonDidTap() {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // TODO: - push 함수 작성 필요
-    @objc private func touchCheckButtonDidTap() {
+    // TODO: - 서버통신 시 구현 (POST)
+    @objc private func checkButtonDidTap() {
         // doSomething()
     }
     
@@ -321,7 +324,8 @@ extension AddBookVC {
         let keyboardRectangle = keyboardFrame.cgRectValue
         
         if focus == 1 {
-            self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
+            self.view.transform = CGAffineTransform(translationX: 0,
+                y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
         } else if focus == 2 {
             self.view.transform = CGAffineTransform(translationX: 0,
                 y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))

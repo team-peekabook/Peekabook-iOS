@@ -39,8 +39,10 @@ struct I18N {
     }
     
     struct BookDetail {
-        static let comment = "한 마디를 남겨주세요."
-        static let memo = "메모를 남겨주세요."
+        static let comment = "한 마디"
+        static let memo = "메모"
+        static let commentHint = "한 마디를 남겨주세요."
+        static let memoHint = "메모를 남겨주세요."
     }
     
     struct BookEdit {
