@@ -13,7 +13,7 @@ class UserSearchTVC: UITableViewCell {
     
     var isFollowing: Bool = false {
         didSet {
-            isFollowing == true ? selected() : deselected()
+            isFollowing == true ? selected() : unselected()
         }
     }
     
