@@ -24,7 +24,7 @@ final class BarcodeViewController: BarcodeScannerViewController {
         $0.setTitle(I18N.Barcode.infoButton, for: .normal)
         $0.titleLabel!.font = .c2
         $0.setTitleColor(.peekaWhite, for: .normal)
-        $0.addTarget(self, action: #selector(touchtextSearchButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
         $0.setUnderline()
     }
     
@@ -81,7 +81,7 @@ extension BarcodeViewController {
         errorDelegate = self
     }
     
-    @objc private func touchtextSearchButtonDidTap() {
+    @objc private func textSearchButtonDidTap() {
 //        let nextVC = BookSearchVC()
 //        nextVC.modalPresentationStyle = .fullScreen
 //        self.present(nextVC, animated: true, completion: nil)

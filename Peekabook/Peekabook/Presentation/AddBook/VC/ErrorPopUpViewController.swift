@@ -17,11 +17,9 @@ final class ErrorPopUpViewController: UIViewController {
     // MARK: - Properties
 
     // MARK: - UI Components
-    private let popUpView = UIView().then {
-        $0.backgroundColor = .peekaBeige
-    }
+    private let popUpView = UIView()
     
-    private var confirmLabel = UILabel().then {
+    private var emptyLabel = UILabel().then {
         $0.numberOfLines = 0
         $0.textAlignment = .center
         $0.text = I18N.ErrorPopUp.empty
@@ -30,16 +28,16 @@ final class ErrorPopUpViewController: UIViewController {
     }
     
     private lazy var cancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
         $0.setImage(ImageLiterals.Icn.close, for: .normal)
+        $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var textSearchButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchtextSearchButtonDidTap), for: .touchUpInside)
         $0.setTitle(I18N.ErrorPopUp.forText, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaRed
+        $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
     }
 
     // MARK: - View Life Cycle
@@ -53,15 +51,15 @@ final class ErrorPopUpViewController: UIViewController {
 
 // MARK: - UI & Layout
 extension ErrorPopUpViewController {
-    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
+        popUpView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
         view.addSubview(popUpView)
         
-        [confirmLabel, textSearchButton, cancelButton].forEach {
+        [emptyLabel, textSearchButton, cancelButton].forEach {
             popUpView.addSubview($0)
         }
         
@@ -76,13 +74,13 @@ extension ErrorPopUpViewController {
             make.trailing.equalToSuperview()
         }
         
-        confirmLabel.snp.makeConstraints { make in
+        emptyLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(33)
             make.centerX.equalToSuperview()
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(23)
+            make.top.equalTo(emptyLabel.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
             make.width.equalTo(263)
             make.height.equalTo(40)
@@ -93,13 +91,12 @@ extension ErrorPopUpViewController {
 // MARK: - Methods
 
 extension ErrorPopUpViewController {
-    @objc private func touchtextSearchButtonDidTap() {
-//        self.dismiss(animated: false, completion: nil)
+    @objc private func textSearchButtonDidTap() {
         let nextVC = BookSearchVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)
     }
-    @objc private func touchCancelButtonDidTap() {
+    @objc private func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
 }
