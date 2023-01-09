@@ -43,7 +43,7 @@ final class RecommendVC: UIViewController {
         $0.sectionInset = UIEdgeInsets(
             top: 16,
             left: 22,
-            bottom: 24,
+            bottom: 17,
             right: 22
         )
     }
@@ -119,7 +119,7 @@ extension RecommendVC {
         recommendCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(63)
         }
         
         pageViewController.view.snp.makeConstraints { make in

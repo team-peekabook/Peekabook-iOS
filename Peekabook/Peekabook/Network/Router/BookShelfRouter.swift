@@ -15,7 +15,7 @@ enum BookShelfRouter {
 
 extension BookShelfRouter: TargetType {
     var baseURL: URL {
-        return URL(string: URLConstant.baseURL)!
+        return URL(string: Config.baseURL)!
     }
     
     var path: String {

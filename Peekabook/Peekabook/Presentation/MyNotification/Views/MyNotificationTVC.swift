@@ -57,7 +57,12 @@ class MyNotificationTVC: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 8,
+            right: 0)
+        )
     }
 }
 
@@ -70,7 +75,11 @@ extension MyNotificationTVC {
         backgroundColor = .peekaBeige
         notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         notiContainerView.addSubviews()
-        notiContainerView.addSubviews(notiImageView, contentStackView, dateLabel)
+        notiContainerView.addSubviews(
+            notiImageView,
+            contentStackView,
+            dateLabel
+        )
         contentStackView.addArrangedSubviews(contentLabel, bookNameLabel)
         notiContainerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -88,14 +97,6 @@ extension MyNotificationTVC {
         dateLabel.snp.makeConstraints { make in
             make.trailing.bottom.equalToSuperview().inset(12)
         }
-    }
-    
-    func changeRead(model: NotificationModel) {
-        notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        notiImageView.layer.opacity = 0.4
-        contentLabel.textColor = .peekaGray2
-        bookNameLabel.textColor = .peekaGray2_60
-        dateLabel.textColor = .peekaGray2
     }
 }
 
@@ -115,7 +116,10 @@ extension MyNotificationTVC {
         guard let content = self.contentLabel.text else { return }
         let attributeString = NSMutableAttributedString(string: content)
         let font = UIFont.h1
-        attributeString.addAttribute(.font, value: font, range: (content as NSString).range(of: "'\(model.userName)'"))
+        attributeString.addAttribute(
+            .font,
+            value: font,
+            range: (content as NSString).range(of: "'\(model.userName)'"))
 
         self.contentLabel.attributedText = attributeString
     }
@@ -124,5 +128,13 @@ extension MyNotificationTVC {
         if model.userName.count > 4 && !model.bookName.isEmpty {
             return "'\(model.userName)'님이\n이 책을 추천했어요"
         } else { return "'\(model.userName)'님이 이 책을 추천했어요" }
+    }
+    
+    func changeRead(model: NotificationModel) {
+        notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        notiImageView.layer.opacity = 0.4
+        contentLabel.textColor = .peekaGray2
+        bookNameLabel.textColor = .peekaGray2_60
+        dateLabel.textColor = .peekaGray2
     }
 }
