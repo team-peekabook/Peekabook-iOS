@@ -13,64 +13,81 @@ import Then
 
 final class BarcodeViewController: BarcodeScannerViewController {
     
-    private let labelA = UILabel().then {
-//        $0.text = "테스트입니다"
-        $0.textColor = .black
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
+    private let descriptionLabel = UILabel().then {
+        $0.text = I18N.Barcode.infoLabel
+        $0.numberOfLines = 2
+        $0.textColor = .peekaWhite
+        $0.font = .h2
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        let viewController = BarcodeScannerViewController()
-//        viewController.headerViewController.closeButton.setImage(UIImage(named: "search"), for: .normal)
-//        viewController.headerViewController.closeButton.setTitle("", for: .normal)
-//        viewController.headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
-//        viewController.headerViewController.closeButton.setTitleColor(.red, for: .normal)
-//        viewController.headerViewController.titleLabel.text = "책 검색하기"
-        viewController.headerViewController.titleLabel.text = "example"
-        
-        viewController.cameraViewController.focusView.layer.borderWidth = 2
-        viewController.cameraViewController.focusView.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
-        
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.cameraViewController.barCodeFocusViewType = .twoDimensions // 바코드 규격 스타일
-        viewController.cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.5, y: 1.3)
-        viewController.cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+    private lazy var textSearchButton = UIButton().then {
+        $0.setTitle(I18N.Barcode.infoButton, for: .normal)
+        $0.titleLabel!.font = .c2
+        $0.setTitleColor(.peekaWhite, for: .normal)
+        $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
+        $0.setUnderline()
     }
+    
+    private let lineView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        let viewController = BarcodeScannerViewController()
-//        viewController.headerViewController.closeButton.setImage(UIImage(named: "search"), for: .normal)
-//        viewController.headerViewController.closeButton.setTitle("", for: .normal)
-//        viewController.headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
-//        viewController.headerViewController.closeButton.setTitleColor(.red, for: .normal)
-//        viewController.headerViewController.titleLabel.text = "책 검색하기"
-        viewController.headerViewController.titleLabel.text = "example"
-        
-        viewController.cameraViewController.focusView.layer.borderWidth = 2
-        viewController.cameraViewController.focusView.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
-        
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.cameraViewController.barCodeFocusViewType = .twoDimensions // 바코드 규격 스타일
-        viewController.cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.5, y: 1.3)
-        viewController.cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        
-        codeDelegate = self
+        setUI()
+        setDelegate()
         setLayout()
-        dismissalDelegate = self
     }
 }
 
 extension BarcodeViewController {
-    private func setLayout() {
-        view.addSubview(labelA)
+    private func setUI() {
+        view.backgroundColor = .peekaBeige
+
+        headerViewController.titleLabel.text = I18N.Barcode.searchLabel
+        headerViewController.titleLabel.textColor = .peekaRed
+        headerViewController.titleLabel.font = .h3
         
-        labelA.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(500)
-            $0.leading.equalToSuperview().offset(200)
+        headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        headerViewController.closeButton.setTitle("", for: .normal)
+
+        cameraViewController.focusView.layer.borderWidth = 2
+        cameraViewController.focusView.layer.borderColor = UIColor.peekaRed.cgColor
+        cameraViewController.barCodeFocusViewType = .twoDimensions
+        cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.6, y: 1.25)
+        cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+    }
+    
+    private func setLayout() {
+        view.addSubviews([
+            descriptionLabel,
+            textSearchButton
+        ])
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(540)
+            make.centerX.equalToSuperview()
         }
+        
+        textSearchButton.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(140)
+            make.centerX.equalToSuperview()
+        }
+    }
+}
+
+extension BarcodeViewController {
+    private func setDelegate() {
+        dismissalDelegate = self
+        codeDelegate = self
+        errorDelegate = self
+    }
+    
+    @objc private func textSearchButtonDidTap() {
+//        let nextVC = BookSearchVC()
+//        nextVC.modalPresentationStyle = .fullScreen
+//        self.present(nextVC, animated: true, completion: nil)
+        let errorPopUpVC = ErrorPopUpViewController()
+        errorPopUpVC.modalPresentationStyle = .overFullScreen
+        self.present(errorPopUpVC, animated: false)
     }
 }
 
@@ -87,5 +104,11 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
 extension BarcodeViewController: BarcodeScannerDismissalDelegate {
   func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
     controller.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension BarcodeViewController: BarcodeScannerErrorDelegate {
+  func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+    print(error)
   }
 }
