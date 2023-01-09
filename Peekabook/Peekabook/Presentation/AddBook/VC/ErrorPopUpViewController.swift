@@ -29,6 +29,11 @@ final class ErrorPopUpViewController: UIViewController {
         $0.textColor = .peekaRed
     }
     
+    private lazy var cancelButton = UIButton().then {
+        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.close, for: .normal)
+    }
+    
     private lazy var textSearchButton = UIButton().then {
         $0.addTarget(self, action: #selector(touchtextSearchButtonDidTap), for: .touchUpInside)
         $0.setTitle("텍스트로 검색하기", for: .normal)
@@ -56,7 +61,7 @@ extension ErrorPopUpViewController {
     private func setLayout() {
         view.addSubview(popUpView)
         
-        [confirmLabel, textSearchButton].forEach {
+        [confirmLabel, textSearchButton, cancelButton].forEach {
             popUpView.addSubview($0)
         }
         
@@ -64,6 +69,11 @@ extension ErrorPopUpViewController {
             make.center.equalToSuperview()
             make.width.equalTo(295)
             make.height.equalTo(134)
+        }
+        
+        cancelButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         confirmLabel.snp.makeConstraints { make in
@@ -88,5 +98,8 @@ extension ErrorPopUpViewController {
         let nextVC = BookSearchVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)
+    }
+    @objc private func touchCancelButtonDidTap() {
+        self.dismiss(animated: false, completion: nil)
     }
 }

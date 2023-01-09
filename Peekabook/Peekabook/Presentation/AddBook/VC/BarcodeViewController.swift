@@ -85,10 +85,9 @@ extension BarcodeViewController {
 //        let nextVC = BookSearchVC()
 //        nextVC.modalPresentationStyle = .fullScreen
 //        self.present(nextVC, animated: true, completion: nil)
-        
         let nextVC = ErrorPopUpViewController()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: false, completion: nil)
+        nextVC.modalPresentationStyle = .overFullScreen
+        self.present(nextVC, animated: false)
     }
 }
 
