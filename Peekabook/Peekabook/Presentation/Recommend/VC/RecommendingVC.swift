@@ -39,7 +39,7 @@ class RecommendingVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.backgroundColor = UIColor.peekaBeige
+        $0.backgroundColor = .peekaBeige
         $0.delegate = self
         $0.dataSource = self
     }
@@ -62,7 +62,7 @@ extension RecommendingVC {
     }
     
     private func setUI() {
-        self.view.backgroundColor = UIColor.peekaBeige
+        self.view.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {

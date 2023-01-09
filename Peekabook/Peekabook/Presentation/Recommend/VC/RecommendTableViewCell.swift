@@ -15,7 +15,7 @@ final class RecommendTableViewCell: UITableViewCell {
     // MARK: - UI Components
     
     private let bookHeaderView = UIView().then {
-        $0.backgroundColor = UIColor.peekaRed
+        $0.backgroundColor = .peekaRed
     }
     
     private let recommendStackView =  UIStackView().then {
@@ -27,27 +27,27 @@ final class RecommendTableViewCell: UITableViewCell {
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private let bookImageContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite
+        $0.backgroundColor = .peekaWhite
     }
     private let bookCommentsContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite
+        $0.backgroundColor = .peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private let bookNameLabel = UILabel().then {
         $0.text = "책 이름"
         $0.font = .systemFont(ofSize: 14, weight: .bold)
-        $0.textColor = UIColor.peekaWhite
+        $0.textColor = .peekaWhite
     }
     private let bookDividerLabel = UILabel().then {
         $0.text = "|"
         $0.font = .systemFont(ofSize: 14, weight: .bold)
-        $0.textColor = UIColor.peekaWhite
+        $0.textColor = .peekaWhite
     }
     private let bookWriterLabel = UILabel().then {
         $0.text = "작가"
         $0.font = .systemFont(ofSize: 14, weight: .medium)
-        $0.textColor = UIColor.peekaWhite
+        $0.textColor = .peekaWhite
     }
     private let bookImage = UIImageView().then {
         $0.layer.shadowColor = UIColor.black.cgColor
@@ -62,27 +62,27 @@ final class RecommendTableViewCell: UITableViewCell {
     private let bookRecommendedPersonLabel = UILabel().then {
         $0.text = "인영케이"
         $0.font = .systemFont(ofSize: 10, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
     }
     private let bookRecommendDateLabel = UILabel().then {
         $0.text = "2022.12.25"
         $0.font = .systemFont(ofSize: 9, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
     }
     
     private let bookRecommendTextLabel = UILabel().then {
         $0.numberOfLines = 8
         $0.text = "추천문구샬라샬라"
         $0.font = .systemFont(ofSize: 10, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.textColor = .peekaRed
     }
     
     private lazy var toFriendBookShelfButton = UIButton().then {
-        $0.backgroundColor = UIColor.peekaWhite
+        $0.backgroundColor = .peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.setTitle("\(bookRecommendedPersonLabel.text ?? "누구세요")님의 책장 보러가기 →", for: .normal)
-        $0.setTitleColor(UIColor.peekaRed, for: .normal)
+        $0.setTitleColor(.peekaRed, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 10, weight: .bold)
         $0.contentHorizontalAlignment = .right
         $0.contentEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 12)
@@ -124,7 +124,7 @@ extension RecommendTableViewCell {
     }
 
     private func setLayout() {
-        self.backgroundColor = UIColor.peekaBeige
+        self.backgroundColor = .peekaBeige
         
         bookHeaderView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()

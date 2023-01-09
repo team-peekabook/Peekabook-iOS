@@ -37,7 +37,7 @@ final class RecommendVC: UIViewController {
         $0.image = UIImage(named: "peekabook_logo")
     }
     private let headerUnderlineView = UIView().then {
-        $0.backgroundColor = UIColor.peekaRed
+        $0.backgroundColor = .peekaRed
     }
     
     // Menu Tab
@@ -48,7 +48,7 @@ final class RecommendVC: UIViewController {
     }
 
     private lazy var recommendCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.backgroundColor = UIColor.clear
+        $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
         $0.allowsMultipleSelection = false
@@ -101,7 +101,7 @@ extension RecommendVC {
     }
     
     private func setUI() {
-        self.view.backgroundColor = UIColor.peekaBeige
+        self.view.backgroundColor = .peekaBeige
     }
     
     private func addSubviews() {

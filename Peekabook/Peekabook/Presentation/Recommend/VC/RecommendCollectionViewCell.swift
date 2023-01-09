@@ -13,14 +13,14 @@ class RecommendCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            menuLabel.textColor = isSelected ? UIColor.peekaRed : UIColor.peekaGray2
+            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
         }
     }
     
     private var menuLabel = UILabel().then {
         $0.text = "book"
         $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = UIColor.peekaGray2
+        $0.textColor = .peekaGray2
     }
     
     override init(frame: CGRect) {
