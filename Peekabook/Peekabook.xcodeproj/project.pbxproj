@@ -500,10 +500,8 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA36295FF81F00BCF58B /* RecommendVC.swift */,
-				14B47F8229632EE600B5B60F /* RecommendCVC.swift */,
 				1431D53B2963497000CA72D0 /* RecommendedVC.swift */,
 				1431D53D2963498B00CA72D0 /* RecommendingVC.swift */,
-				1431D541296354B200CA72D0 /* RecommendTVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -511,6 +509,8 @@
 		8E10BA3D295FF89E00BCF58B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				14B47F8229632EE600B5B60F /* RecommendCVC.swift */,
+				1431D541296354B200CA72D0 /* RecommendTVC.swift */,
 				8E10BA45295FF96C00BCF58B /* .gitkeep */,
 			);
 			path = Views;
