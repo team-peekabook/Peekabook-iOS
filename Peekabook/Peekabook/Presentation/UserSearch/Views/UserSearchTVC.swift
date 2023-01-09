@@ -28,13 +28,13 @@ class UserSearchTVC: UITableViewCell {
     private let nameLabel = UILabel().then {
         $0.text = "이름"
         $0.textColor = .peekaRed
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
+        $0.font = .h1
     }
     
     private lazy var followButton = UIButton().then {
         $0.setTitle(I18N.FollowStatus.follow, for: .normal)
         $0.setTitleColor(.peekaWhite, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
+        $0.titleLabel?.font = .s3
         $0.addTarget(self, action: #selector(followButtonDidTap), for: .touchUpInside)
     }
     

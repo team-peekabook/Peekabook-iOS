@@ -38,7 +38,7 @@ final class UserSearchVC: UIViewController {
     private let searchTitleLabel = UILabel().then {
         $0.text = I18N.Tabbar.userSearch
         $0.textColor = .peekaRed
-        $0.font = .systemFont(ofSize: 18, weight: .bold)
+        $0.font = .h3
     }
     private let headerUnderlineView = UIView().then {
         $0.backgroundColor = .peekaRed
@@ -50,7 +50,7 @@ final class UserSearchVC: UIViewController {
     private lazy var searchTextField = UITextField().then {
         $0.placeholder = I18N.PlaceHolder.userSearch
         $0.textColor = .peekaRed
-        $0.font = .systemFont(ofSize: 14, weight: .medium)
+        $0.font = .h2
         $0.autocorrectionType = .no
     }
     
