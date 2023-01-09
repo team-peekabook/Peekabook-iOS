@@ -32,8 +32,16 @@ final class BarcodeViewController: BarcodeScannerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+        setDelegate()
+        setLayout()
+    }
+}
+
+extension BarcodeViewController {
+    private func setUI() {
         view.backgroundColor = .peekaBeige
-        
+
         headerViewController.titleLabel.text = "책 검색하기"
         headerViewController.titleLabel.textColor = .peekaRed
         headerViewController.titleLabel.font = .h3
@@ -46,15 +54,8 @@ final class BarcodeViewController: BarcodeScannerViewController {
         cameraViewController.barCodeFocusViewType = .twoDimensions
         cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.6, y: 1.25)
         cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        
-        setDelegate()
-        setLayout()
     }
-}
-
-extension BarcodeViewController {
-    private func setUI() {
-    }
+    
     private func setLayout() {
         view.addSubviews([
             infoLabel,
@@ -78,7 +79,9 @@ extension BarcodeViewController {
     }
     
     @objc private func touchinfoButtonDidTap() {
-        dismiss(animated: true, completion: nil)
+        let nextVC = BookSearchVC()
+        nextVC.modalPresentationStyle = .fullScreen
+        self.present(nextVC, animated: true, completion: nil)
     }
 }
 
@@ -103,8 +106,8 @@ extension UIButton {
         guard let title = title(for: .normal) else { return }
         let attributedString = NSMutableAttributedString(string: title)
         attributedString.addAttribute(.underlineStyle,
-                                      value: NSUnderlineStyle.single.rawValue,
-                                      range: NSRange(location: 0, length: title.count)
+            value: NSUnderlineStyle.single.rawValue,
+            range: NSRange(location: 0, length: title.count)
         )
         setAttributedTitle(attributedString, for: .normal)
     }
