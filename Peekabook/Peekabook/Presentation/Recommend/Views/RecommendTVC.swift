@@ -33,11 +33,7 @@ final class RecommendTVC: UITableViewCell {
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
-    private let bookDividerLabel = UILabel().then {
-        $0.text = "|"
-        $0.font = .systemFont(ofSize: 14, weight: .bold)
-        $0.textColor = .peekaWhite
-    }
+    private let bookDividerView = UIView()
     private let bookWriterLabel = UILabel().then {
         $0.text = "작가"
         $0.font = .s3
@@ -108,7 +104,7 @@ extension RecommendTVC {
         )
         bookHeaderView.addSubviews([
             bookNameLabel,
-            bookDividerLabel,
+            bookDividerView,
             bookWriterLabel
         ])
         recommendStackView.addArrangedSubviews(
@@ -127,6 +123,7 @@ extension RecommendTVC {
     private func setUI() {
         self.backgroundColor = .peekaBeige
         bookHeaderView.backgroundColor = .peekaRed
+        bookDividerView.backgroundColor = .peekaWhite
         bookImageContainerView.backgroundColor = .peekaWhite
         bookCommentsContainerView.backgroundColor = .peekaWhite
     }
@@ -143,14 +140,16 @@ extension RecommendTVC {
             make.leading.equalTo(15)
         }
         
-        bookDividerLabel.snp.makeConstraints { make in
+        bookDividerView.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.height.equalTo(12)
             make.centerY.equalTo(bookNameLabel)
             make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
         
         bookWriterLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookDividerLabel)
-            make.leading.equalTo(bookDividerLabel.snp.trailing).offset(7)
+            make.centerY.equalTo(bookDividerView)
+            make.leading.equalTo(bookDividerView.snp.trailing).offset(7)
         }
         
         recommendStackView.snp.makeConstraints { make in
