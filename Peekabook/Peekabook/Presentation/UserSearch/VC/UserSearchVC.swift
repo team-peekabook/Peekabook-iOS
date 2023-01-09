@@ -24,6 +24,18 @@ final class UserSearchVC: UIViewController {
         )
     ]
     
+    private let emptyView = UIView()
+    private let emptyImgView = UIImageView().then {
+        $0.image = ImageLiterals.Icn.empty
+    }
+    private let emptyLabel = UILabel().then {
+        $0.font = .h2
+        $0.textColor = .peekaRed_60
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+        $0.text = I18N.ErrorPopUp.emptyUser
+    }
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -71,6 +83,7 @@ final class UserSearchVC: UIViewController {
         setUI()
         setLayout()
         setDelegate()
+        setEmptyView()
         register()
     }
     
@@ -90,15 +103,27 @@ extension UserSearchVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerUnderlineView.backgroundColor = .peekaRed
+        emptyView.backgroundColor = .clear
         searchBarContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         userSearchTableView.backgroundColor = .peekaBeige
+    }
+    
+    private func setEmptyView() {
+        if userDummy.isEmpty {
+            emptyView.isHidden = false
+            userSearchTableView.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            userSearchTableView.isHidden = false
+        }
     }
     
     private func setLayout() {
         view.addSubviews(
             [searchBarContainerView,
             userSearchTableView,
-            headerView]
+            headerView,
+            emptyView]
         )
         headerView.addSubviews(
             [backButton,
@@ -109,6 +134,7 @@ extension UserSearchVC {
             [searchTextField,
              searchBarButton]
         )
+        emptyView.addSubviews(emptyImgView, emptyLabel)
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -146,6 +172,21 @@ extension UserSearchVC {
             make.top.equalTo(searchBarContainerView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
+        }
+        emptyView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBarContainerView).offset(204)
+            make.height.equalTo(96)
+            make.width.equalTo(247)
+        }
+        emptyImgView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+
+        emptyLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyImgView.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
         }
     }
 }

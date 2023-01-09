@@ -41,6 +41,7 @@ class UserSearchTVC: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setLayout()
+            setUI()
     }
     
     required init?(coder: NSCoder) {
