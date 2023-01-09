@@ -66,23 +66,6 @@ final class RecommendVC: UIViewController {
         registerCells()
         setFirstIndexSelected()
     }
-    
-    private func didTapCell(at indexPath: IndexPath) {
-        currentPage = indexPath.item
-    }
-    
-    private func bind(newValue: Int) {
-        recommendCollectionView.selectItem(at: IndexPath(item: currentPage, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-    }
-    
-    private func setFirstIndexSelected() {
-        let selectedIndexPath = IndexPath(item: 0, section: 0)
-        recommendCollectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .bottom)
-        
-        if let recommendedVC = dataViewControllers.first {
-            pageViewController.setViewControllers([recommendedVC], direction: .forward, animated: true, completion: nil)
-        }
-    }
 }
 
 // MARK: - UI & Layout
@@ -140,6 +123,41 @@ extension RecommendVC {
 }
 
 // MARK: - Methods
+
+extension RecommendVC {
+    
+    private func didTapCell(at indexPath: IndexPath) {
+        currentPage = indexPath.item
+    }
+    
+    private func bind(newValue: Int) {
+        recommendCollectionView.selectItem(
+            at: IndexPath(
+                item: currentPage,
+                section: 0),
+            animated: true,
+            scrollPosition: .centeredHorizontally
+        )
+    }
+    
+    private func setFirstIndexSelected() {
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        recommendCollectionView.selectItem(
+            at: selectedIndexPath,
+            animated: true,
+            scrollPosition: .bottom
+        )
+        
+        if let recommendedVC = dataViewControllers.first {
+            pageViewController.setViewControllers(
+                [recommendedVC],
+                direction: .forward,
+                animated: true,
+                completion: nil
+            )
+        }
+    }
+}
 
 extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
