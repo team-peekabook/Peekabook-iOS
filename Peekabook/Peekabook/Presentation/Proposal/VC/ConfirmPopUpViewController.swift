@@ -17,32 +17,36 @@ final class ConfirmPopUpViewController: UIViewController {
     // MARK: - Properties
 
     // MARK: - UI Components
-    private let popUpView = UIView().then {
-        $0.backgroundColor = .peekaBeige
-    }
+    private let popUpView = UIView()
     
-    private var confirmLabel = UILabel().then {
-        $0.numberOfLines = 0
-        $0.textAlignment = .center
-        $0.text = "고두영님에게\n책을 추천하시겠어요?"
+    private var personNameLabel = UILabel().then {
+        $0.text = "고두영"
         $0.font = .h4
         $0.textColor = .peekaRed
     }
     
+    private lazy var confirmLabel = UILabel().then {
+        $0.text = ("\(personNameLabel.text ?? "사용자")"+I18N.BookProposal.confirm)
+        $0.font = .h4
+        $0.textColor = .peekaRed
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+    }
+    
     private lazy var cancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaRed
+        $0.backgroundColor = .peekaGray2
+        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var confirmButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
         $0.setTitle(I18N.Confirm.recommend, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaGray2
+        $0.backgroundColor = .peekaRed
+        $0.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
     }
 
     // MARK: - View Life Cycle
@@ -59,6 +63,7 @@ extension ConfirmPopUpViewController {
     
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
+        popUpView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
@@ -101,7 +106,7 @@ extension ConfirmPopUpViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
-    // TODO: - 현재는 그냥 dismiss됨. 추후 수정 필요
+    // TODO: - 서버통신 시 POST
     @objc private func touchConfirmButtonDipTap() {
         self.dismiss(animated: false, completion: nil)
     }

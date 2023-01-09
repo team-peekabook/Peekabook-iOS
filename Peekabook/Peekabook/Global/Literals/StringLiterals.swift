@@ -54,6 +54,7 @@ struct I18N {
         static let title = "책 추천하기"
         static let done = "완료"
         static let personName = "받는사람"
+        static let confirm = "님에게\n책을 추천하시겠어요?"
     }
     
     struct BookAdd {
