@@ -90,7 +90,7 @@ final class RecommendVC: UIViewController {
 extension RecommendVC {
     
     private func register() {
-        recommendCollectionView.register(RecommendCollectionViewCell.self, forCellWithReuseIdentifier: RecommendCollectionViewCell.className)
+        recommendCollectionView.register(RecommendCVC.self, forCellWithReuseIdentifier: RecommendCVC.className)
     }
     
     private func setUI() {
@@ -147,7 +147,7 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCollectionViewCell.className, for: indexPath) as? RecommendCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCVC.className, for: indexPath) as? RecommendCVC else { return UICollectionViewCell() }
         cell.dataBind(menuLabel: recommendTypes[indexPath.item])
         return cell
     }

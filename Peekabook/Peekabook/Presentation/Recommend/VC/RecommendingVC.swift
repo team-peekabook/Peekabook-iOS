@@ -57,7 +57,7 @@ class RecommendingVC: UIViewController {
 
 extension RecommendingVC {
     private func register() {
-        tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: RecommendTableViewCell.className)
+        tableView.register(RecommendTVC.self, forCellReuseIdentifier: RecommendTVC.className)
     }
     
     private func setUI() {
@@ -88,7 +88,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTableViewCell.className, for: indexPath) as? RecommendTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC else { return UITableViewCell() }
         cell.dataBind(model: recommendedDummy[indexPath.item])
         return cell
     }

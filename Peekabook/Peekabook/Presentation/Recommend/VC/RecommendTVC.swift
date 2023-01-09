@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RecommendTableViewCell: UITableViewCell {
+final class RecommendTVC: UITableViewCell {
     
     // MARK: - UI Components
     
@@ -102,7 +102,7 @@ final class RecommendTableViewCell: UITableViewCell {
 
 // MARK: - UI & Layout
 
-extension RecommendTableViewCell {
+extension RecommendTVC {
     private func setSubviews() {
         contentView.addSubviews([bookHeaderView, recommendStackView])
         bookHeaderView.addSubviews([
@@ -184,7 +184,7 @@ extension RecommendTableViewCell {
 
 // MARK: - Methods
 
-extension RecommendTableViewCell {
+extension RecommendTVC {
     private func changeNameToButton(name: String) {
         toFriendBookShelfButton.setTitle("\(name)님의 책장 보러가기 →", for: .normal)
     }
