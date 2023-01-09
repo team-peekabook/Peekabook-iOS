@@ -140,8 +140,12 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
                 as? EditPickCVC else { return UICollectionViewCell() }
         cell.initCell(model: editPickModelList[indexPath.row])
-        
+        cell.selectedLayout(model: editPickModelList[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected index is \(indexPath.row)")
     }
 }
 

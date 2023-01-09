@@ -78,4 +78,15 @@ extension EditPickCVC {
             make.height.equalTo(6)
         }
     }
+    
+    func selectedLayout(model: SampleEditPickModel) {
+        if countLabel.text != "0" {
+            bookImageView.layer.opacity = 0.4
+            countLabel.isHidden = false
+        } else {
+            bookImageView.layer.opacity = 1
+            countLabel.isHidden = true
+        }
+    }
+    
 }

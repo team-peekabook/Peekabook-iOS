@@ -212,6 +212,10 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.initCell(model: bookModelList[indexPath.row])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected index is \(indexPath.row)")
+    }
 }
 
 // MARK: - UICollectionViewFlowLayout
