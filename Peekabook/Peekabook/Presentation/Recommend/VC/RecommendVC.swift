@@ -54,8 +54,6 @@ final class RecommendVC: UIViewController {
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
         $0.allowsMultipleSelection = false
-        $0.delegate = self
-        $0.dataSource = self
     }
     private lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(
@@ -63,8 +61,6 @@ final class RecommendVC: UIViewController {
             navigationOrientation: .horizontal,
             options: nil
         )
-        vc.delegate = self
-        vc.dataSource = self
         return vc
     }()
     
@@ -75,6 +71,7 @@ final class RecommendVC: UIViewController {
         setUI()
         setSubviews()
         setLayout()
+        setDelegate()
         registerCells()
         setFirstIndexSelected()
     }
@@ -89,6 +86,14 @@ extension RecommendVC {
             RecommendCVC.self,
             forCellWithReuseIdentifier: RecommendCVC.className
         )
+    }
+    
+    private func setDelegate() {
+        recommendCollectionView.delegate = self
+        recommendCollectionView.dataSource = self
+        
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
     }
     
     private func setUI() {

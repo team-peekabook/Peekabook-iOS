@@ -45,8 +45,6 @@ class RecommendedVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.delegate = self
-        $0.dataSource = self
     }
     
     // MARK: - View Life Cycle
@@ -55,6 +53,7 @@ class RecommendedVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setDelegate()
         registerCells()
     }
 }
@@ -62,11 +61,17 @@ class RecommendedVC: UIViewController {
 // MARK: - UI & Layout
 
 extension RecommendedVC {
+    
     private func registerCells() {
         tableView.register(
             RecommendTVC.self,
             forCellReuseIdentifier: RecommendTVC.className
         )
+    }
+    
+    private func setDelegate() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func setUI() {
