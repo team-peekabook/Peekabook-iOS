@@ -62,8 +62,6 @@ final class UserSearchVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.delegate = self
-        $0.dataSource = self
     }
     
     // MARK: - View Life Cycle
@@ -72,6 +70,7 @@ final class UserSearchVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setDelegate()
         register()
     }
     
@@ -154,6 +153,11 @@ extension UserSearchVC {
 // MARK: - Methods
 
 extension UserSearchVC {
+    
+    private func setDelegate() {
+        userSearchTableView.delegate = self
+        userSearchTableView.dataSource = self
+    }
     
     private func register() {
         userSearchTableView.register(
