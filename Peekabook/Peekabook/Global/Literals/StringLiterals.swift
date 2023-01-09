@@ -53,6 +53,7 @@ struct I18N {
     struct BookProposal {
         static let title = "책 추천하기"
         static let done = "완료"
+        static let personName = "받는사람"
     }
     
     struct BookAdd {

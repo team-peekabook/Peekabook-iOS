@@ -20,8 +20,8 @@ final class ProposalVC: UIViewController {
     
     private let headerView = UIView()
     
-    private lazy var touchBackButton = UIButton().then {
-        $0.addTarget(self, action: #selector(popToSearchView), for: .touchUpInside)
+    private lazy var backButton = UIButton().then {
+        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
@@ -30,14 +30,18 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var touchCheckButton = UIButton().then {
+    private lazy var checkButton = UIButton().then {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(self, action: #selector(presentToPopUpView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
-    private let bookImgView = UIImageView()
+    private let bookImgView = UIImageView().then {
+        $0.layer.masksToBounds = false
+        $0.contentMode = .scaleAspectFit
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
+    }
     
     private var nameLabel = UILabel().then {
         $0.text = "아무튼, 여름"
@@ -59,9 +63,9 @@ final class ProposalVC: UIViewController {
     private let recommendHeaderView = UIView()
         
     private let recommendLabel = UILabel().then {
-        $0.text = "받는사람"
+        $0.text = I18N.BookProposal.personName
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
         
     private let lineView = UIView()
@@ -69,7 +73,7 @@ final class ProposalVC: UIViewController {
     private var personNameLabel = UILabel().then {
         $0.text = "고두영"
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
     private let recommendView = UITextView().then {
@@ -77,6 +81,7 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaGray1
         $0.text = I18N.PlaceHolder.recommend
         $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
         
     private let recommendMaxLabel = UILabel().then {
@@ -115,7 +120,7 @@ extension ProposalVC {
         lineView.backgroundColor = .white
         recommendView.backgroundColor = .clear
         
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
         
         bookImgView.image = ImageLiterals.Sample.book1
     }
@@ -123,7 +128,7 @@ extension ProposalVC {
     private func setLayout() {
         view.addSubview(headerView)
         
-        [touchBackButton, headerTitle, touchCheckButton].forEach {
+        [backButton, headerTitle, checkButton].forEach {
             headerView.addSubview($0)
         }
         
@@ -144,7 +149,7 @@ extension ProposalVC {
             make.height.equalTo(52)
         }
         
-        touchBackButton.snp.makeConstraints { make in
+        backButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
         }
@@ -153,7 +158,7 @@ extension ProposalVC {
             make.center.equalToSuperview()
         }
         
-        touchCheckButton.snp.makeConstraints { make in
+        checkButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(11)
             make.width.height.equalTo(48)
@@ -226,11 +231,11 @@ extension ProposalVC {
         recommendView.delegate = self
     }
     
-    @objc private func popToSearchView() {
+    @objc private func backButtonDidTap() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc private func presentToPopUpView() {
+    @objc private func checkButtonDidTap() {
         let popupViewController = ConfirmPopUpViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
         self.present(popupViewController, animated: false)
@@ -259,7 +264,8 @@ extension ProposalVC {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
-        self.view.transform = CGAffineTransform(translationX: 0, y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))
+        self.view.transform = CGAffineTransform(translationX: 0,
+            y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))
     }
 
     @objc
@@ -284,7 +290,7 @@ extension ProposalVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.PlaceHolder.recommend) {
+        if textView.text == I18N.PlaceHolder.recommend {
             textView.text = nil
             textView.textColor = .peekaRed
         }
