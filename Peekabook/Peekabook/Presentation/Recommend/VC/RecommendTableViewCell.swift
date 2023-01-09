@@ -14,10 +14,7 @@ final class RecommendTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
     
-    private let bookHeaderView = UIView().then {
-        $0.backgroundColor = .peekaRed
-    }
-    
+    private let bookHeaderView = UIView()
     private let recommendStackView =  UIStackView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .horizontal
@@ -26,11 +23,8 @@ final class RecommendTableViewCell: UITableViewCell {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
-    private let bookImageContainerView = UIView().then {
-        $0.backgroundColor = .peekaWhite
-    }
+    private let bookImageContainerView = UIView()
     private let bookCommentsContainerView = UIView().then {
-        $0.backgroundColor = .peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
@@ -78,7 +72,6 @@ final class RecommendTableViewCell: UITableViewCell {
     }
     
     private lazy var toFriendBookShelfButton = UIButton().then {
-        $0.backgroundColor = .peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.setTitle("\(bookRecommendedPersonLabel.text ?? "누구세요")님의 책장 보러가기 →", for: .normal)
@@ -91,6 +84,7 @@ final class RecommendTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview()
+        setUI()
         setLayout()
     }
     
@@ -123,6 +117,13 @@ extension RecommendTableViewCell {
         ])
     }
 
+    private func setUI() {
+        bookHeaderView.backgroundColor = .peekaRed
+        bookImageContainerView.backgroundColor = .peekaWhite
+        bookCommentsContainerView.backgroundColor = .peekaWhite
+        toFriendBookShelfButton.backgroundColor = .peekaWhite
+    }
+    
     private func setLayout() {
         self.backgroundColor = .peekaBeige
         
