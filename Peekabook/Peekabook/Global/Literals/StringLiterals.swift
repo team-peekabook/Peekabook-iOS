@@ -77,4 +77,9 @@ struct I18N {
         static let empty = "존재하지 않는 책입니다"
         static let forText = "텍스트로 검색하기"
     }
+    
+    struct BookRecommend {
+        static let recommended = "추천받은 책"
+        static let recommending = "추천한 책"
+    }
 }
