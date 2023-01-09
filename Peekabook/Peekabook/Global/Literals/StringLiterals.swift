@@ -76,4 +76,8 @@ struct I18N {
         static let empty = "존재하지 않는 책입니다"
         static let forText = "텍스트로 검색하기"
     }
+    
+    struct BookEmpty {
+        static let label = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
+    }
 }

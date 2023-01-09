@@ -60,7 +60,6 @@ final class ConfirmPopUpViewController: UIViewController {
 
 // MARK: - UI & Layout
 extension ConfirmPopUpViewController {
-    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
