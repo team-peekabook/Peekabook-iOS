@@ -30,7 +30,7 @@ final class RecommendTVC: UITableViewCell {
     }
     private let bookNameLabel = UILabel().then {
         $0.text = "책 이름"
-        $0.font = .systemFont(ofSize: 14, weight: .bold)
+        $0.font = .h1
         $0.textColor = .peekaWhite
     }
     private let bookDividerLabel = UILabel().then {
@@ -40,7 +40,7 @@ final class RecommendTVC: UITableViewCell {
     }
     private let bookWriterLabel = UILabel().then {
         $0.text = "작가"
-        $0.font = .systemFont(ofSize: 14, weight: .medium)
+        $0.font = .s3
         $0.textColor = .peekaWhite
     }
     private let bookImage = UIImageView().then {
@@ -55,19 +55,19 @@ final class RecommendTVC: UITableViewCell {
     }
     private let bookRecommendedPersonLabel = UILabel().then {
         $0.text = "인영케이"
-        $0.font = .systemFont(ofSize: 10, weight: .medium)
+        $0.font = .s2
         $0.textColor = .peekaRed
     }
     private let bookRecommendDateLabel = UILabel().then {
         $0.text = "2022.12.25"
-        $0.font = .systemFont(ofSize: 9, weight: .medium)
+        $0.font = .c2
         $0.textColor = .peekaRed
     }
     
     private let bookRecommendTextLabel = UILabel().then {
         $0.numberOfLines = 8
         $0.text = "추천문구샬라샬라"
-        $0.font = .systemFont(ofSize: 10, weight: .medium)
+        $0.font = .s2
         $0.textColor = .peekaRed
     }
 
