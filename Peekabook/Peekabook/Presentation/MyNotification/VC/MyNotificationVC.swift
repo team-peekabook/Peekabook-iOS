@@ -112,7 +112,12 @@ extension MyNotificationVC {
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        let bookText = notiDummy[indexPath.row].bookName
+        if notiDummy[indexPath.row].user.count > 4 && bookText.isEmpty == false {
+            return 96
+        } else {
+            return 80
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
