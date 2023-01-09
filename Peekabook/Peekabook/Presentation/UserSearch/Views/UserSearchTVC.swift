@@ -70,9 +70,11 @@ extension UserSearchTVC {
     
     private func setLayout() {
         
-        contentView.addSubviews([profileImage,
-                                 nameLabel,
-                                 followButton])
+        contentView.addSubviews(
+            [profileImage,
+            nameLabel,
+            followButton]
+        )
         profileImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(24)

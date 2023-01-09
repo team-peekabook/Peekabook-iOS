@@ -17,7 +17,11 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private let userDummy: [UserSearchModel] = [
-        UserSearchModel(image: ImageLiterals.Sample.profile3, name: "뇽잉깅", isFollowing: false)
+        UserSearchModel(
+            image: ImageLiterals.Sample.profile3,
+            name: "뇽잉깅",
+            isFollowing: false
+        )
     ]
     
     // MARK: - UI Components
@@ -25,7 +29,11 @@ final class UserSearchVC: UIViewController {
     private let headerView = UIView()
     private lazy var backButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
-        $0.addTarget(self, action: #selector(backBtnTapped), for: .touchUpInside)
+        $0.addTarget(
+            self,
+            action: #selector(backBtnTapped),
+            for: .touchUpInside
+        )
     }
     private let searchTitleLabel = UILabel().then {
         $0.text = "사용자 검색하기"
@@ -48,7 +56,10 @@ final class UserSearchVC: UIViewController {
     
     private lazy var searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
-        $0.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
+        $0.addTarget(
+            self,
+            action: #selector(searchBtnTapped),
+            for: .touchUpInside)
     }
     
     private lazy var userSearchTableView = UITableView().then {
@@ -88,11 +99,20 @@ extension UserSearchVC {
     }
     
     private func setLayout() {
-        view.addSubviews([searchBarContainerView,
-                          userSearchTableView,
-                          headerView])
-        headerView.addSubviews([backButton, searchTitleLabel, headerUnderlineView])
-        searchBarContainerView.addSubviews([searchTextField, searchBarButton])
+        view.addSubviews(
+            [searchBarContainerView,
+            userSearchTableView,
+            headerView]
+        )
+        headerView.addSubviews(
+            [backButton,
+             searchTitleLabel,
+             headerUnderlineView]
+        )
+        searchBarContainerView.addSubviews(
+            [searchTextField,
+             searchBarButton]
+        )
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -139,7 +159,10 @@ extension UserSearchVC {
 extension UserSearchVC {
     
     private func register() {
-        userSearchTableView.register(UserSearchTVC.self, forCellReuseIdentifier: UserSearchTVC.className)
+        userSearchTableView.register(
+            UserSearchTVC.self,
+            forCellReuseIdentifier: UserSearchTVC.className
+        )
     }
 }
 
@@ -147,16 +170,31 @@ extension UserSearchVC {
 
 extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return userDummy.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 178
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTVC.className, for: indexPath) as? UserSearchTVC else { return UITableViewCell() }
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: UserSearchTVC.className,
+            for: indexPath
+        ) as? UserSearchTVC
+        else {
+            return UITableViewCell()
+        }
         cell.dataBind(model: userDummy[indexPath.row])
         return cell
     }
