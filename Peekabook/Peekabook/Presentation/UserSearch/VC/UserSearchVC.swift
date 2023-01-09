@@ -40,13 +40,8 @@ final class UserSearchVC: UIViewController {
         $0.textColor = .peekaRed
         $0.font = .h3
     }
-    private let headerUnderlineView = UIView().then {
-        $0.backgroundColor = .peekaRed
-    }
-    
-    private let searchBarContainerView = UIView().then {
-        $0.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-    }
+    private let headerUnderlineView = UIView()
+    private let searchBarContainerView = UIView()
     private lazy var searchTextField = UITextField().then {
         $0.placeholder = I18N.PlaceHolder.userSearch
         $0.textColor = .peekaRed
@@ -67,7 +62,6 @@ final class UserSearchVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.backgroundColor = .peekaBeige
         $0.delegate = self
         $0.dataSource = self
     }
@@ -96,6 +90,9 @@ extension UserSearchVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
+        headerUnderlineView.backgroundColor = .peekaRed
+        searchBarContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        userSearchTableView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
