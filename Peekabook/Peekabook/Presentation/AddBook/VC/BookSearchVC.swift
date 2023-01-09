@@ -20,28 +20,28 @@ final class BookSearchVC: UIViewController {
     
     private let headerView = UIView()
     
-    private lazy var touchCancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
+    private lazy var cancelButton = UIButton().then {
+        $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
     
-    private let headerTitle = UILabel().then {
-        $0.text = "책 검색하기"
+    private let headerTitleLabel = UILabel().then {
+        $0.text = I18N.BookSearch.title
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
-    private let headerLine = UIView()
+    private let headerLineView = UIView()
     
     private lazy var searchButton = UIButton().then {
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var searchField = UITextField().then {
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.backgroundColor = .white
         $0.font = .h2
         $0.textColor = .peekaRed
-        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.bookSearch,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.addLeftPadding()
         $0.rightViewMode = UITextField.ViewMode.always
         $0.rightView = searchButton
@@ -80,18 +80,18 @@ extension BookSearchVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
-        headerLine.backgroundColor = .peekaRed
+        headerLineView.backgroundColor = .peekaRed
         
-        touchCancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        cancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
         searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
-        [headerView, searchField, headerLine, bookTableView].forEach {
+        [headerView, searchField, headerLineView, bookTableView].forEach {
             view.addSubview($0)
         }
         
-        [touchCancelButton, headerTitle].forEach {
+        [cancelButton, headerTitleLabel].forEach {
             headerView.addSubview($0)
         }
         
@@ -100,16 +100,16 @@ extension BookSearchVC {
             make.height.equalTo(52)
         }
         
-        touchCancelButton.snp.makeConstraints { make in
+        cancelButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(8)
         }
         
-        headerTitle.snp.makeConstraints { make in
+        headerTitleLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
-        headerLine.snp.makeConstraints { make in
+        headerLineView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
@@ -133,31 +133,25 @@ extension BookSearchVC {
     }
     
     private func register() {
-        bookTableView.register(BookInfoTableViewCell.self, forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+        bookTableView.register(BookInfoTableViewCell.self,
+            forCellReuseIdentifier: BookInfoTableViewCell.identifier)
     }
     
     // MARK: - @objc Function
     
     @objc
-    private func touchCancelButtonDidTap() {
+    private func cancelButtonDidTap() {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
+    // TODO: - 서버통신 시 GET
     @objc
-    private func popToSearchView() {
-        self.navigationController?.popViewController(animated: true)
+    private func searchButtonDidTap() {
+        // do something
     }
 }
 
 // MARK: - Methods
-
-extension BookSearchVC {
-    
-    // TODO: - 버튼 액션 구현 필요
-    @objc private func searchButtonDidTap() {
-        // do something
-    }
-}
 
 extension BookSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -171,7 +165,10 @@ extension BookSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let bookCell = tableView.dequeueReusableCell(withIdentifier: BookInfoTableViewCell.identifier, for: indexPath) as? BookInfoTableViewCell else { return UITableViewCell() }
+        guard let bookCell = tableView.dequeueReusableCell(
+            withIdentifier: BookInfoTableViewCell.identifier,
+            for: indexPath) as? BookInfoTableViewCell
+        else { return UITableViewCell() }
         
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell

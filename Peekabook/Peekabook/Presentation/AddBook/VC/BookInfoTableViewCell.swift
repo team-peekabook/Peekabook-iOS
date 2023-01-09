@@ -32,11 +32,10 @@ class BookInfoTableViewCell: UITableViewCell {
     private let imgContainerView = UIView()
     private let bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
-        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
-        $0.layer.shadowRadius = 4
-        $0.layer.shadowOpacity = 0.3
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
         $0.contentMode = .scaleAspectFit
     }
+    
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
