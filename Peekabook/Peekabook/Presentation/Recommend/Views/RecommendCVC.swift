@@ -9,19 +9,21 @@ import UIKit
 import Then
 import SnapKit
 
-class RecommendCollectionViewCell: UICollectionViewCell {
+class RecommendCVC: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            menuLabel.textColor = isSelected ? UIColor.peekaRed : UIColor.peekaGray2
+            menuLabel.textColor = isSelected ? .peekaRed : .peekaGray2
         }
     }
     
     private var menuLabel = UILabel().then {
         $0.text = "book"
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
-        $0.textColor = UIColor.peekaGray2
+        $0.font = .nameBold
+        $0.textColor = .peekaGray2
     }
+    
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,13 +35,18 @@ class RecommendCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension RecommendCollectionViewCell {
+extension RecommendCVC {
+    
+    // MARK: - UI & Layout
+    
     private func setLayout() {
         contentView.addSubview(menuLabel)
         menuLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
+    
+    // MARK: - Methods
     
     func dataBind(menuLabel: String) {
         self.menuLabel.text = menuLabel

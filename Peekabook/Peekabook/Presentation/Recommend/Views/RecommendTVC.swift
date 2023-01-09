@@ -10,14 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-final class RecommendTableViewCell: UITableViewCell {
+final class RecommendTVC: UITableViewCell {
     
     // MARK: - UI Components
     
-    private let bookHeaderView = UIView().then {
-        $0.backgroundColor = UIColor.peekaRed
-    }
-    
+    private let bookHeaderView = UIView()
     private let recommendStackView =  UIStackView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .horizontal
@@ -26,28 +23,21 @@ final class RecommendTableViewCell: UITableViewCell {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
-    private let bookImageContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite
-    }
+    private let bookImageContainerView = UIView()
     private let bookCommentsContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private let bookNameLabel = UILabel().then {
         $0.text = "책 이름"
-        $0.font = .systemFont(ofSize: 14, weight: .bold)
-        $0.textColor = UIColor.peekaWhite
+        $0.font = .h1
+        $0.textColor = .peekaWhite
     }
-    private let bookDividerLabel = UILabel().then {
-        $0.text = "|"
-        $0.font = .systemFont(ofSize: 14, weight: .bold)
-        $0.textColor = UIColor.peekaWhite
-    }
+    private let bookDividerView = UIView()
     private let bookWriterLabel = UILabel().then {
         $0.text = "작가"
-        $0.font = .systemFont(ofSize: 14, weight: .medium)
-        $0.textColor = UIColor.peekaWhite
+        $0.font = .s3
+        $0.textColor = .peekaWhite
     }
     private let bookImage = UIImageView().then {
         $0.layer.shadowColor = UIColor.black.cgColor
@@ -61,36 +51,29 @@ final class RecommendTableViewCell: UITableViewCell {
     }
     private let bookRecommendedPersonLabel = UILabel().then {
         $0.text = "인영케이"
-        $0.font = .systemFont(ofSize: 10, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.font = .s2
+        $0.textColor = .peekaRed
     }
     private let bookRecommendDateLabel = UILabel().then {
         $0.text = "2022.12.25"
-        $0.font = .systemFont(ofSize: 9, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.font = .c2
+        $0.textColor = .peekaRed
     }
     
     private let bookRecommendTextLabel = UILabel().then {
-        $0.numberOfLines = 8
         $0.text = "추천문구샬라샬라"
-        $0.font = .systemFont(ofSize: 10, weight: .medium)
-        $0.textColor = UIColor.peekaRed
+        $0.font = .s2
+        $0.textColor = .peekaRed
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byCharWrapping
     }
-    
-    private lazy var toFriendBookShelfButton = UIButton().then {
-        $0.backgroundColor = UIColor.peekaWhite
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.setTitle("\(bookRecommendedPersonLabel.text ?? "누구세요")님의 책장 보러가기 →", for: .normal)
-        $0.setTitleColor(UIColor.peekaRed, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 10, weight: .bold)
-        $0.contentHorizontalAlignment = .right
-        $0.contentEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 12)
-    }
+
+    // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview()
+        setSubviews()
+        setUI()
         setLayout()
     }
     
@@ -100,20 +83,34 @@ final class RecommendTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20))
+        contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(
+                top: 5,
+                left: 0,
+                bottom: 5,
+                right: 0
+            )
+        )
     }
 }
 
-extension RecommendTableViewCell {
-    private func addSubview() {
-        contentView.addSubviews([bookHeaderView, recommendStackView])
+// MARK: - UI & Layout
+
+extension RecommendTVC {
+    private func setSubviews() {
+        contentView.addSubviews(
+            [bookHeaderView,
+             recommendStackView]
+        )
         bookHeaderView.addSubviews([
             bookNameLabel,
-            bookDividerLabel,
+            bookDividerView,
             bookWriterLabel
         ])
-        recommendStackView.addArrangedSubviews(bookImageContainerView, bookCommentsContainerView)
-        bookCommentsContainerView.addSubview(toFriendBookShelfButton)
+        recommendStackView.addArrangedSubviews(
+            bookImageContainerView,
+            bookCommentsContainerView
+        )
         bookImageContainerView.addSubview(bookImage)
         bookCommentsContainerView.addSubviews([
             bookRecommendedPersonImage,
@@ -123,62 +120,78 @@ extension RecommendTableViewCell {
         ])
     }
 
+    private func setUI() {
+        self.backgroundColor = .peekaBeige
+        bookHeaderView.backgroundColor = .peekaRed
+        bookDividerView.backgroundColor = .peekaWhite
+        bookImageContainerView.backgroundColor = .peekaWhite
+        bookCommentsContainerView.backgroundColor = .peekaWhite
+    }
+    
     private func setLayout() {
-        self.backgroundColor = UIColor.peekaBeige
         
         bookHeaderView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(30)
         }
+        
         bookNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(15)
         }
-        bookDividerLabel.snp.makeConstraints { make in
+        
+        bookDividerView.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.height.equalTo(12)
             make.centerY.equalTo(bookNameLabel)
             make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
+        
         bookWriterLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookDividerLabel)
-            make.leading.equalTo(bookDividerLabel.snp.trailing).offset(7)
+            make.centerY.equalTo(bookDividerView)
+            make.leading.equalTo(bookDividerView.snp.trailing).offset(7)
         }
+        
         recommendStackView.snp.makeConstraints { make in
             make.top.equalTo(bookHeaderView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
         bookImageContainerView.snp.makeConstraints { make in
             make.width.equalTo(122)
         }
+        
         bookImage.snp.makeConstraints { make in
             make.centerY.centerX.equalToSuperview()
             make.width.equalTo(92)
             make.height.equalTo(150)
         }
+        
         bookRecommendedPersonImage.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(14)
             make.width.height.equalTo(15)
         }
+        
         bookRecommendedPersonLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookRecommendedPersonImage)
+            make.centerY.equalTo(bookRecommendedPersonImage)
             make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
+        
         bookRecommendDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookRecommendedPersonLabel)
+            make.top.equalToSuperview().inset(15)
             make.trailing.equalToSuperview().inset(18)
         }
+        
         bookRecommendTextLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(40)
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
-        toFriendBookShelfButton.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(29)
+            make.leading.trailing.equalToSuperview().inset(13)
         }
     }
-    
-    private func changeNameToButton(name: String) {
-        toFriendBookShelfButton.setTitle("\(name)님의 책장 보러가기 →", for: .normal)
-    }
+}
+
+// MARK: - Methods
+
+extension RecommendTVC {
     
     func dataBind(model: RecommendModel) {
         bookImage.image = model.image
@@ -187,6 +200,5 @@ extension RecommendTableViewCell {
         bookRecommendedPersonImage.image = model.recommendedPersonImage
         bookRecommendedPersonLabel.text = model.recommendedPerson
         bookRecommendTextLabel.text = model.memo
-        changeNameToButton(name: model.recommendedPerson)
     }
 }
