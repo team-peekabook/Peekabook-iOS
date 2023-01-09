@@ -13,7 +13,7 @@ class UserSearchTVC: UITableViewCell {
     
     var isFollowing: Bool = false {
         didSet {
-            isFollowing == true ? selected() : deselected()
+            isFollowing == true ? selected() : unselected()
         }
     }
     
@@ -27,21 +27,21 @@ class UserSearchTVC: UITableViewCell {
     
     private let nameLabel = UILabel().then {
         $0.text = "이름"
-        $0.textColor = UIColor.peekaRed
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
+        $0.textColor = .peekaRed
+        $0.font = .h1
     }
     
     private lazy var followButton = UIButton().then {
-        $0.setTitle("팔로우", for: .normal)
-        $0.setTitleColor(UIColor.peekaWhite, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
-        $0.backgroundColor = UIColor.peekaRed
+        $0.setTitle(I18N.FollowStatus.follow, for: .normal)
+        $0.setTitleColor(.peekaWhite, for: .normal)
+        $0.titleLabel?.font = .s3
         $0.addTarget(self, action: #selector(followButtonDidTap), for: .touchUpInside)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setLayout()
+            setUI()
     }
     
     required init?(coder: NSCoder) {
@@ -55,24 +55,21 @@ class UserSearchTVC: UITableViewCell {
     }
 }
 
+// MARK: - UI & Layout
+
 extension UserSearchTVC {
     
-    private func selected() {
-        followButton.backgroundColor = UIColor.peekaGray2
-        followButton.setTitle("팔로잉", for: .normal)
-        followButton.isSelected = true
-    }
-    private func deselected() {
-        followButton.backgroundColor = UIColor.peekaRed
-        followButton.setTitle("팔로우", for: .normal)
-        followButton.isSelected = true
+    private func setUI() {
+        followButton.backgroundColor = .peekaRed
     }
     
     private func setLayout() {
         
-        contentView.addSubviews([profileImage,
-                                 nameLabel,
-                                 followButton])
+        contentView.addSubviews(
+            [profileImage,
+            nameLabel,
+            followButton]
+        )
         profileImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(24)
@@ -88,6 +85,22 @@ extension UserSearchTVC {
             make.width.equalTo(82)
             make.height.equalTo(32)
         }
+    }
+}
+
+// MARK: - Methods
+
+extension UserSearchTVC {
+    
+    private func selected() {
+        followButton.backgroundColor = .peekaGray2
+        followButton.setTitle(I18N.FollowStatus.following, for: .normal)
+        followButton.isSelected = true
+    }
+    private func unselected() {
+        followButton.backgroundColor = .peekaRed
+        followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
+        followButton.isSelected = false
     }
     
     func dataBind(model: UserSearchModel) {

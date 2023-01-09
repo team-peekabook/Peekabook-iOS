@@ -16,12 +16,14 @@ final class EditBookVC: UIViewController {
     
     // MARK: - Properties
 
+    private var focus = 0
+
     // MARK: - UI Components
     
     private let headerView = UIView()
     
-    private lazy var touchBackButton = UIButton().then {
-        $0.addTarget(self, action: #selector(touchBackButtonDidTap), for: .touchUpInside)
+    private lazy var backButton = UIButton().then {
+        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
     }
     
     private let headerTitle = UILabel().then {
@@ -30,18 +32,23 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var touchCheckButton = UIButton().then {
+    private lazy var checkButton = UIButton().then {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(touchCheckButtonDidTap), for: .touchUpInside)
+        $0.addTarget(AddBookVC.self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private let bookImgView = UIImageView()
+    private let bookImgView = UIImageView().then {
+        $0.layer.masksToBounds = false
+        $0.contentMode = .scaleAspectFit
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
+    }
     
     private var nameLabel = UILabel().then {
         $0.text = "아무튼, 여름"
@@ -55,21 +62,22 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let commentBox = UIView()
-    private let commentHeader = UIView()
+    private let commentBoxView = UIView()
+    private let commentHeaderView = UIView()
     
     private let commentLabel = UILabel().then {
-        $0.text = "한 마디"
+        $0.text = I18N.BookDetail.comment
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
     
     private let commentView = UITextView().then {
+        $0.text = I18N.BookDetail.comment
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.comment
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
     lazy var commentMaxLabel = UILabel().then {
@@ -78,21 +86,22 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaGray2
     }
     
-    private let memoBox = UIView()
-    private let memoHeader = UIView()
+    private let memoBoxView = UIView()
+    private let memoHeaderView = UIView()
     
     private let memoLabel = UILabel().then {
-        $0.text = "메모"
+        $0.text = I18N.BookDetail.memo
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
     
     private lazy var memoView = UITextView().then {
+        $0.text = I18N.BookDetail.memo
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.memo
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
     lazy var memoMaxLabel = UILabel().then {
@@ -129,17 +138,17 @@ extension EditBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBox.backgroundColor = .peekaWhite
-        commentBox.layer.borderWidth = 2
-        commentBox.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeader.backgroundColor = .peekaRed
+        commentBoxView.backgroundColor = .peekaWhite
+        commentBoxView.layer.borderWidth = 2
+        commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
+        commentHeaderView.backgroundColor = .peekaRed
         
-        memoBox.backgroundColor = .peekaWhite
-        memoBox.layer.borderWidth = 2
-        memoBox.layer.borderColor = UIColor.peekaRed.cgColor
-        memoHeader.backgroundColor = .peekaRed
+        memoBoxView.backgroundColor = .peekaWhite
+        memoBoxView.layer.borderWidth = 2
+        memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
+        memoHeaderView.backgroundColor = .peekaRed
         
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
         bookImgView.image = ImageLiterals.Sample.book1
     }
     
@@ -148,28 +157,28 @@ extension EditBookVC {
             view.addSubview($0)
         }
         
-        [touchBackButton, headerTitle, touchCheckButton].forEach {
+        [backButton, headerTitle, checkButton].forEach {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, commentBox, commentMaxLabel, memoBox, memoMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, commentBoxView, commentMaxLabel, memoBoxView, memoMaxLabel].forEach {
             containerView.addSubview($0)
         }
         
-        [commentHeader, commentView].forEach {
-            commentBox.addSubview($0)
+        [commentHeaderView, commentView].forEach {
+            commentBoxView.addSubview($0)
         }
         
         [commentLabel].forEach {
-            commentHeader.addSubview($0)
+            commentHeaderView.addSubview($0)
         }
         
-        [memoHeader, memoView].forEach {
-            memoBox.addSubview($0)
+        [memoHeaderView, memoView].forEach {
+            memoBoxView.addSubview($0)
         }
         
         [memoLabel].forEach {
-            memoHeader.addSubview($0)
+            memoHeaderView.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -182,7 +191,7 @@ extension EditBookVC {
             make.height.equalTo(52)
         }
         
-        touchBackButton.snp.makeConstraints { make in
+        backButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
         }
@@ -191,7 +200,7 @@ extension EditBookVC {
             make.center.equalToSuperview()
         }
         
-        touchCheckButton.snp.makeConstraints { make in
+        checkButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(11)
             make.width.height.equalTo(48)
@@ -212,14 +221,14 @@ extension EditBookVC {
             make.centerX.equalToSuperview()
         }
         
-        commentBox.snp.makeConstraints { make in
+        commentBoxView.snp.makeConstraints { make in
             make.top.equalTo(authorLabel.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(229)
         }
         
-        commentHeader.snp.makeConstraints { make in
+        commentHeaderView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
@@ -232,25 +241,25 @@ extension EditBookVC {
         }
         
         commentView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeader.snp.bottom).offset(10)
+            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
             make.height.equalTo(169)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(commentBox.snp.bottom).offset(8)
-            make.trailing.equalTo(commentBox.snp.trailing)
+            make.top.equalTo(commentBoxView.snp.bottom).offset(8)
+            make.trailing.equalTo(commentBoxView.snp.trailing)
         }
         
-        memoBox.snp.makeConstraints { make in
+        memoBoxView.snp.makeConstraints { make in
             make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(101)
         }
         
-        memoHeader.snp.makeConstraints { make in
+        memoHeaderView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
@@ -263,15 +272,15 @@ extension EditBookVC {
         }
         
         memoView.snp.makeConstraints { make in
-            make.top.equalTo(memoHeader.snp.bottom).offset(10)
+            make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(commentLabel)
             make.width.equalTo(307)
             make.height.equalTo(41)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoBox.snp.bottom).offset(8)
-            make.trailing.equalTo(memoBox.snp.trailing)
+            make.top.equalTo(memoBoxView.snp.bottom).offset(8)
+            make.trailing.equalTo(memoBoxView.snp.trailing)
             make.bottom.equalToSuperview().offset(-8)
         }
     }
@@ -285,26 +294,24 @@ extension EditBookVC {
         memoView.delegate = self
     }
     
-    // TODO: - 바코드 스캔뷰로 다시 가게 해야함
     // 현재는 홈뷰로 가는 상황
-    @objc private func touchBackButtonDidTap() {
+    @objc private func backButtonDidTap() {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // TODO: - push 함수 작성 필요
-    @objc private func touchCheckButtonDidTap() {
+    // TODO: - 서버통신 시 구현 (POST)
+    @objc private func checkButtonDidTap() {
         // doSomething()
     }
     
     private func config() {
-        touchBackButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        
+        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
         bookImgView.image = ImageLiterals.Sample.book1
     }
     
     private func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
-            selector: #selector(keyBoardShow),
+            selector: #selector(keyboardShow),
             name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,
             selector: #selector(keyboardHide),
@@ -318,15 +325,24 @@ extension EditBookVC {
             name: UIResponder.keyboardWillHideNotification, object: nil)
         }
     
-    // TODO: - 박스에 따른 키보드 처리 필요
-    @objc private func keyBoardShow(notification: NSNotification) {
-        // 만약 첫번째 뷰에 포커스가 간다면
-        self.view.transform = CGAffineTransform(translationX: 0, y: -121)
-        // 두번째 뷰에 포커스가 간다면
-        // self.view.transform = CGAffineTransform(translationX: 0, y: -270)
+    @objc
+    private func keyboardShow(notification: NSNotification) {
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+
+        if focus == 1 {
+            self.view.transform = CGAffineTransform(translationX: 0,
+                                                    y: (containerView.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
+        } else if focus == 2 {
+            self.view.transform = CGAffineTransform(translationX: 0,
+                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
+        }
     }
 
-    @objc private func keyboardHide(notification: NSNotification) {
+    @objc
+    private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
 }
@@ -353,9 +369,14 @@ extension EditBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.comment) || (textView.text == I18N.BookDetail.memo) {
+        if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
+            focus = 1
+        } else if textView.text == I18N.BookDetail.memo {
+            textView.text = nil
+            textView.textColor = .peekaRed
+            focus = 2
         }
     }
     
@@ -369,3 +390,4 @@ extension EditBookVC: UITextViewDelegate {
         }
     }
 }
+

@@ -10,12 +10,12 @@
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
 		1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53F29634F3700CA72D0 /* RecommendModel.swift */; };
-		1431D542296354B200CA72D0 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendTableViewCell.swift */; };
+		1431D542296354B200CA72D0 /* RecommendTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendTVC.swift */; };
 		14526AD22965F74B0049C61D /* UserSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD12965F74B0049C61D /* UserSearchTVC.swift */; };
 		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
-		14B47F8329632EE600B5B60F /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */; };
+		14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCVC.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
 		8E10BA06295FF35F00BCF58B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA05295FF35F00BCF58B /* Then */; };
 		8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA08295FF37B00BCF58B /* Kingfisher */; };
@@ -102,8 +102,11 @@
 		8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2B296B129400F37AFD /* FriendAPI.swift */; };
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
+		98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D89296BDF9500B78724 /* UIButton+.swift */; };
+		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
 		985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
+		986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */; };
 		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
@@ -116,12 +119,12 @@
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
 		1431D53F29634F3700CA72D0 /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
-		1431D541296354B200CA72D0 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
+		1431D541296354B200CA72D0 /* RecommendTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTVC.swift; sourceTree = "<group>"; };
 		14526AD12965F74B0049C61D /* UserSearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTVC.swift; sourceTree = "<group>"; };
 		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
-		14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
+		14B47F8229632EE600B5B60F /* RecommendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCVC.swift; sourceTree = "<group>"; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
@@ -217,8 +220,11 @@
 		8EEF8E38296B130D00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8EEF8E3B296B132200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8EEF8E3E296B133F00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTableViewCell.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
+		986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpViewController.swift; sourceTree = "<group>"; };
 		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
@@ -255,6 +261,14 @@
 			isa = PBXGroup;
 			children = (
 				14B354472968897C00998925 /* NotificationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		14B3544E296C0C9500998925 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,6 +395,8 @@
 				8E81F3E1296082FB001815B4 /* UIViewController+.swift */,
 				8E81F3E729608421001815B4 /* UIStackView+.swift */,
 				8E5E088F29630F86000A8A3F /* UILabel+.swift */,
+				98470D89296BDF9500B78724 /* UIButton+.swift */,
+				98470D8B296C167C00B78724 /* UITextField+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -423,9 +439,9 @@
 		8E10BA22295FF65700BCF58B /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
+				14B3544E296C0C9500998925 /* Model */,
 				8E10BA3D295FF89E00BCF58B /* Views */,
 				8E10BA3C295FF89A00BCF58B /* VC */,
-				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
 			);
 			path = Recommend;
 			sourceTree = "<group>";
@@ -490,10 +506,8 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA36295FF81F00BCF58B /* RecommendVC.swift */,
-				14B47F8229632EE600B5B60F /* RecommendCollectionViewCell.swift */,
 				1431D53B2963497000CA72D0 /* RecommendedVC.swift */,
 				1431D53D2963498B00CA72D0 /* RecommendingVC.swift */,
-				1431D541296354B200CA72D0 /* RecommendTableViewCell.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -501,6 +515,8 @@
 		8E10BA3D295FF89E00BCF58B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				14B47F8229632EE600B5B60F /* RecommendCVC.swift */,
+				1431D541296354B200CA72D0 /* RecommendTVC.swift */,
 				8E10BA45295FF96C00BCF58B /* .gitkeep */,
 			);
 			path = Views;
@@ -735,6 +751,7 @@
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
 				98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */,
 				985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */,
+				986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -956,10 +973,12 @@
 				8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */,
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
+				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
+				986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
 				8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
@@ -982,7 +1001,7 @@
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
-				1431D542296354B200CA72D0 /* RecommendTableViewCell.swift in Sources */,
+				1431D542296354B200CA72D0 /* RecommendTVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
@@ -1001,6 +1020,7 @@
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendCollectionViewCell.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
+				14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */,
 				8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
@@ -1016,6 +1036,7 @@
 				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
 				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
+				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E6F7B8E29651B940013F744 /* SampleFriendsModel.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,

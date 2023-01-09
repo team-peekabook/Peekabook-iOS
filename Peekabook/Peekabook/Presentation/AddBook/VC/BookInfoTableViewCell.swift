@@ -20,7 +20,7 @@ class BookInfoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
-        configButton()
+        config()
     }
     
     required init?(coder: NSCoder) {
@@ -32,11 +32,10 @@ class BookInfoTableViewCell: UITableViewCell {
     private let imgContainerView = UIView()
     private let bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
-        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
-        $0.layer.shadowRadius = 4
-        $0.layer.shadowOpacity = 0.3
+        $0.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
         $0.contentMode = .scaleAspectFit
     }
+    
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
@@ -78,13 +77,13 @@ extension BookInfoTableViewCell {
         contentView.backgroundColor = .white
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.peekaRed.cgColor
-        
         imgContainerView.layer.borderWidth = 1
         imgContainerView.layer.borderColor = UIColor.peekaRed.cgColor
         
         labelContainerView.layer.borderWidth = 1
         labelContainerView.layer.borderColor = UIColor.peekaRed.cgColor
     }
+    
     private func setLayout() {
         self.backgroundColor = .clear
         contentView.addSubviews([
@@ -149,7 +148,7 @@ extension BookInfoTableViewCell {
         }
     }
     
-    private func configButton() {
+    private func config() {
         addButton.setImage(ImageLiterals.Icn.addBookMini, for: .normal)
     }
     
