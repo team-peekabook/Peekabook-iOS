@@ -106,7 +106,7 @@ extension MyNotificationTVC {
     func dataBind(model: NotificationModel) {
         notiImageView.image = model.image
         userNameLabel.text = model.user
-        contentLabel.text = "'\(model.user)'님이 이 책을 추천했어요"
+        contentLabel.text = "'\(model.user)'님이\(changeLines(userName: model.user)) 이 책을 추천했어요"
         bookNameLabel.text = model.bookName
         dateLabel.text = model.date
     }
@@ -118,5 +118,11 @@ extension MyNotificationTVC {
         attributeString.addAttribute(.font, value: font, range: (content as NSString).range(of: "'\(model.user)'"))
 
         self.contentLabel.attributedText = attributeString
+    }
+    
+    private func changeLines(userName: String) -> String {
+        if userName.count > 4 {
+            return "\n"
+        } else { return "" }
     }
 }
