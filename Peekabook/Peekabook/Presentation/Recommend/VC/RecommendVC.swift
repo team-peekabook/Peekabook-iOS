@@ -14,7 +14,7 @@ import Moya
 
 final class RecommendVC: UIViewController {
 
-    private var recommendTypes: [String] = ["추천받은 책", "추천한 책"]
+    private var recommendTypes: [String] = [I18N.BookRecommend.recommended, I18N.BookRecommend.recommending]
     
     // MARK: - Properties
     
