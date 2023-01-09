@@ -35,7 +35,6 @@ class UserSearchTVC: UITableViewCell {
         $0.setTitle("팔로우", for: .normal)
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
-        $0.backgroundColor = .peekaRed
         $0.addTarget(self, action: #selector(followButtonDidTap), for: .touchUpInside)
     }
     
@@ -55,17 +54,12 @@ class UserSearchTVC: UITableViewCell {
     }
 }
 
+// MARK: - UI & Layout
+
 extension UserSearchTVC {
     
-    private func selected() {
-        followButton.backgroundColor = .peekaGray2
-        followButton.setTitle("팔로잉", for: .normal)
-        followButton.isSelected = true
-    }
-    private func deselected() {
+    private func setUI() {
         followButton.backgroundColor = .peekaRed
-        followButton.setTitle("팔로우", for: .normal)
-        followButton.isSelected = true
     }
     
     private func setLayout() {
@@ -90,6 +84,22 @@ extension UserSearchTVC {
             make.width.equalTo(82)
             make.height.equalTo(32)
         }
+    }
+}
+
+// MARK: - Methods
+
+extension UserSearchTVC {
+    
+    private func selected() {
+        followButton.backgroundColor = .peekaGray2
+        followButton.setTitle("팔로잉", for: .normal)
+        followButton.isSelected = true
+    }
+    private func deselected() {
+        followButton.backgroundColor = .peekaRed
+        followButton.setTitle("팔로우", for: .normal)
+        followButton.isSelected = true
     }
     
     func dataBind(model: UserSearchModel) {
