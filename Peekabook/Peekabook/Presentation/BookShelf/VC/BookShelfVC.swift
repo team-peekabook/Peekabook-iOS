@@ -137,6 +137,7 @@ final class BookShelfVC: UIViewController {
     private func addFriendButtonDidTap() {
         let userSearchVC = UserSearchVC()
         navigationController?.pushViewController(userSearchVC, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     @objc

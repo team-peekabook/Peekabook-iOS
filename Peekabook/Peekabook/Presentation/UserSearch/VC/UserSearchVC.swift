@@ -17,38 +17,55 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private let userDummy: [UserSearchModel] = [
-        UserSearchModel(image: ImageLiterals.Sample.profile3, name: "뇽잉깅", isFollowing: false)
+        UserSearchModel(
+            image: ImageLiterals.Sample.profile3,
+            name: "뇽잉깅",
+            isFollowing: false
+        )
     ]
+    private let emptyView = UIView()
+    private let emptyImgView = UIImageView().then {
+        $0.image = ImageLiterals.Icn.empty
+    }
+    private let emptyLabel = UILabel().then {
+        $0.font = .h2
+        $0.textColor = .peekaRed_60
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+        $0.text = I18N.ErrorPopUp.emptyUser
+    }
     
     // MARK: - UI Components
     
     private let headerView = UIView()
     private lazy var backButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
-        $0.addTarget(self, action: #selector(backBtnTapped), for: .touchUpInside)
+        $0.addTarget(
+            self,
+            action: #selector(backBtnTapped),
+            for: .touchUpInside
+        )
     }
     private let searchTitleLabel = UILabel().then {
-        $0.text = "사용자 검색하기"
-        $0.textColor = UIColor.peekaRed
-        $0.font = .systemFont(ofSize: 18, weight: .bold)
+        $0.text = I18N.Tabbar.userSearch
+        $0.textColor = .peekaRed
+        $0.font = .h3
     }
-    private let headerUnderlineView = UIView().then {
-        $0.backgroundColor = UIColor.peekaRed
-    }
-    
-    private let searchBarContainerView = UIView().then {
-        $0.backgroundColor = UIColor.peekaWhite.withAlphaComponent(0.4)
-    }
+    private let headerUnderlineView = UIView()
+    private let searchBarContainerView = UIView()
     private lazy var searchTextField = UITextField().then {
-        $0.placeholder = "사용자의 닉네임을 입력해주세요."
-        $0.textColor = UIColor.peekaRed
-        $0.font = .systemFont(ofSize: 14, weight: .medium)
+        $0.placeholder = I18N.PlaceHolder.userSearch
+        $0.textColor = .peekaRed
+        $0.font = .h2
         $0.autocorrectionType = .no
     }
     
     private lazy var searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
-        $0.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
+        $0.addTarget(
+            self,
+            action: #selector(searchBtnTapped),
+            for: .touchUpInside)
     }
     
     private lazy var userSearchTableView = UITableView().then {
@@ -56,9 +73,6 @@ final class UserSearchVC: UIViewController {
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
-        $0.backgroundColor = UIColor.peekaBeige
-        $0.delegate = self
-        $0.dataSource = self
     }
     
     // MARK: - View Life Cycle
@@ -67,7 +81,9 @@ final class UserSearchVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        register()
+        setDelegate()
+        setEmptyView()
+        registerCells()
     }
     
     @objc private func backBtnTapped() {
@@ -84,15 +100,40 @@ final class UserSearchVC: UIViewController {
 extension UserSearchVC {
     
     private func setUI() {
-        self.view.backgroundColor = UIColor.peekaBeige
+        self.view.backgroundColor = .peekaBeige
+        headerUnderlineView.backgroundColor = .peekaRed
+        emptyView.backgroundColor = .clear
+        searchBarContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        userSearchTableView.backgroundColor = .peekaBeige
+    }
+    
+    private func setEmptyView() {
+        if userDummy.isEmpty {
+            emptyView.isHidden = false
+            userSearchTableView.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            userSearchTableView.isHidden = false
+        }
     }
     
     private func setLayout() {
-        view.addSubviews([searchBarContainerView,
-                          userSearchTableView,
-                          headerView])
-        headerView.addSubviews([backButton, searchTitleLabel, headerUnderlineView])
-        searchBarContainerView.addSubviews([searchTextField, searchBarButton])
+        view.addSubviews(
+            [searchBarContainerView,
+            userSearchTableView,
+            headerView,
+            emptyView]
+        )
+        headerView.addSubviews(
+            [backButton,
+             searchTitleLabel,
+             headerUnderlineView]
+        )
+        searchBarContainerView.addSubviews(
+            [searchTextField,
+             searchBarButton]
+        )
+        emptyView.addSubviews(emptyImgView, emptyLabel)
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -131,6 +172,21 @@ extension UserSearchVC {
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
+        emptyView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBarContainerView).offset(204)
+            make.height.equalTo(96)
+            make.width.equalTo(247)
+        }
+        emptyImgView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+
+        emptyLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyImgView.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+        }
     }
 }
 
@@ -138,8 +194,16 @@ extension UserSearchVC {
 
 extension UserSearchVC {
     
-    private func register() {
-        userSearchTableView.register(UserSearchTVC.self, forCellReuseIdentifier: UserSearchTVC.className)
+    private func setDelegate() {
+        userSearchTableView.delegate = self
+        userSearchTableView.dataSource = self
+    }
+    
+    private func registerCells() {
+        userSearchTableView.register(
+            UserSearchTVC.self,
+            forCellReuseIdentifier: UserSearchTVC.className
+        )
     }
 }
 
@@ -147,16 +211,31 @@ extension UserSearchVC {
 
 extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return userDummy.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 178
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTVC.className, for: indexPath) as? UserSearchTVC else { return UITableViewCell() }
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: UserSearchTVC.className,
+            for: indexPath
+        ) as? UserSearchTVC
+        else {
+            return UITableViewCell()
+        }
         cell.dataBind(model: userDummy[indexPath.row])
         return cell
     }

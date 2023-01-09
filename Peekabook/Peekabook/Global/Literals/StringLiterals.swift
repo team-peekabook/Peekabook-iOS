@@ -20,6 +20,7 @@ struct I18N {
         static let recommend = "추천 "
         static let mypage = "MY"
         static let notification = "알림"
+        static let userSearch = "사용자 검색하기"
     }
     
     struct Confirm {
@@ -29,6 +30,8 @@ struct I18N {
     
     struct PlaceHolder {
         static let recommend = "추천사를 적어주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
+        static let userSearch = "사용자의 닉네임을 입력해주세요."
     }
     
     struct BookShelf {
@@ -76,6 +79,12 @@ struct I18N {
     struct ErrorPopUp {
         static let empty = "존재하지 않는 책입니다"
         static let forText = "텍스트로 검색하기"
+        static let emptyUser = "앗! 해당 사용자가 존재하지 않는 것 같아요.\n다른 검색어를 입력해 보세요."
+    }
+    
+    struct FollowStatus {
+        static let follow = "팔로우"
+        static let following = "팔로잉"
     }
     
     struct BookRecommend {
