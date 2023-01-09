@@ -13,64 +13,48 @@ import Then
 
 final class BarcodeViewController: BarcodeScannerViewController {
     
-    private let labelA = UILabel().then {
-//        $0.text = "테스트입니다"
-        $0.textColor = .black
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let viewController = BarcodeScannerViewController()
-//        viewController.headerViewController.closeButton.setImage(UIImage(named: "search"), for: .normal)
-//        viewController.headerViewController.closeButton.setTitle("", for: .normal)
-//        viewController.headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
-//        viewController.headerViewController.closeButton.setTitleColor(.red, for: .normal)
-//        viewController.headerViewController.titleLabel.text = "책 검색하기"
-        viewController.headerViewController.titleLabel.text = "example"
-        
-        viewController.cameraViewController.focusView.layer.borderWidth = 2
-        viewController.cameraViewController.focusView.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
-        
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.cameraViewController.barCodeFocusViewType = .twoDimensions // 바코드 규격 스타일
-        viewController.cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.5, y: 1.3)
-        viewController.cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+    private let infoLabel = UILabel().then {
+        $0.text = "책의 뒷면에 있는 ISBN 바코드가\n사각형 안에 들어오게 해주세요."
+        $0.numberOfLines = 0
+        $0.textColor = .white
+        $0.font = .h2
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .peekaBeige
         
-        let viewController = BarcodeScannerViewController()
-//        viewController.headerViewController.closeButton.setImage(UIImage(named: "search"), for: .normal)
-//        viewController.headerViewController.closeButton.setTitle("", for: .normal)
-//        viewController.headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
-//        viewController.headerViewController.closeButton.setTitleColor(.red, for: .normal)
-//        viewController.headerViewController.titleLabel.text = "책 검색하기"
-        viewController.headerViewController.titleLabel.text = "example"
+        headerViewController.titleLabel.text = "책 검색하기"
+        headerViewController.titleLabel.textColor = .peekaRed
+        headerViewController.titleLabel.font = .h3
         
-        viewController.cameraViewController.focusView.layer.borderWidth = 2
-        viewController.cameraViewController.focusView.layer.borderColor = UIColor(red: 0.565, green: 0.169, blue: 0.129, alpha: 1).cgColor
+        headerViewController.closeButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        headerViewController.closeButton.setTitle("", for: .normal)
+
+        cameraViewController.focusView.layer.borderWidth = 2
+        cameraViewController.focusView.layer.borderColor = UIColor.peekaRed.cgColor
+        cameraViewController.barCodeFocusViewType = .twoDimensions
+        cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.6, y: 1.25)
+        cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
         
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.cameraViewController.barCodeFocusViewType = .twoDimensions // 바코드 규격 스타일
-        viewController.cameraViewController.focusView.transform = CGAffineTransform(scaleX: 1.5, y: 1.3)
-        viewController.cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        
-        codeDelegate = self
+        setDelegate()
         setLayout()
-        dismissalDelegate = self
     }
 }
 
 extension BarcodeViewController {
     private func setLayout() {
-        view.addSubview(labelA)
+        view.addSubview(infoLabel)
         
-        labelA.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(500)
-            $0.leading.equalToSuperview().offset(200)
+        infoLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(540)
+            $0.centerX.equalToSuperview()
         }
+    }
+    
+    private func setDelegate() {
+        dismissalDelegate = self
+        codeDelegate = self
     }
 }
 
