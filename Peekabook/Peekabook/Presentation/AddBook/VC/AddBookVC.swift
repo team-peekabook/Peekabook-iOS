@@ -76,6 +76,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
     private let commentMaxLabel = UILabel().then {
@@ -99,6 +100,7 @@ final class AddBookVC: UIViewController {
         $0.text = I18N.BookDetail.memo
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
     private let memoMaxLabel = UILabel().then {
@@ -332,7 +334,8 @@ extension AddBookVC {
         }
     }
 
-    @objc private func keyboardHide(notification: NSNotification) {
+    @objc
+    private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
 }
