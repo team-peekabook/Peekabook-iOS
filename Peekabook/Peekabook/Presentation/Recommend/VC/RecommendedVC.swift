@@ -41,7 +41,7 @@ class RecommendedVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var tableView = UITableView().then {
-        $0.showsVerticalScrollIndicator = true
+        $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = true
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
