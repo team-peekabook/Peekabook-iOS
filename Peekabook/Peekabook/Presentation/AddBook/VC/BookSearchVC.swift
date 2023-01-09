@@ -140,7 +140,7 @@ extension BookSearchVC {
     
     @objc
     private func touchCancelButtonDidTap() {
-        print("click")
+        dismiss(animated: true, completion: nil)
     }
     
     @objc
