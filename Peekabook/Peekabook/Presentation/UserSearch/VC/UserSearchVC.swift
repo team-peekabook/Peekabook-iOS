@@ -23,7 +23,6 @@ final class UserSearchVC: UIViewController {
             isFollowing: false
         )
     ]
-    
     private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
@@ -84,7 +83,7 @@ final class UserSearchVC: UIViewController {
         setLayout()
         setDelegate()
         setEmptyView()
-        register()
+        registerCells()
     }
     
     @objc private func backBtnTapped() {
@@ -200,7 +199,7 @@ extension UserSearchVC {
         userSearchTableView.dataSource = self
     }
     
-    private func register() {
+    private func registerCells() {
         userSearchTableView.register(
             UserSearchTVC.self,
             forCellReuseIdentifier: UserSearchTVC.className
