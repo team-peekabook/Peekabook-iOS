@@ -81,21 +81,6 @@ final class RecommendVC: UIViewController {
 
 extension RecommendVC {
     
-    private func registerCells() {
-        recommendCollectionView.register(
-            RecommendCVC.self,
-            forCellWithReuseIdentifier: RecommendCVC.className
-        )
-    }
-    
-    private func setDelegate() {
-        recommendCollectionView.delegate = self
-        recommendCollectionView.dataSource = self
-        
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
-    }
-    
     private func setUI() {
         headerUnderlineView.backgroundColor = .peekaRed
         self.view.backgroundColor = .peekaBeige
@@ -148,6 +133,21 @@ extension RecommendVC {
 // MARK: - Methods
 
 extension RecommendVC {
+    
+    private func registerCells() {
+        recommendCollectionView.register(
+            RecommendCVC.self,
+            forCellWithReuseIdentifier: RecommendCVC.className
+        )
+    }
+    
+    private func setDelegate() {
+        recommendCollectionView.delegate = self
+        recommendCollectionView.dataSource = self
+        
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
+    }
     
     private func didTapCell(at indexPath: IndexPath) {
         currentPage = indexPath.item

@@ -62,18 +62,6 @@ class RecommendedVC: UIViewController {
 
 extension RecommendedVC {
     
-    private func registerCells() {
-        tableView.register(
-            RecommendTVC.self,
-            forCellReuseIdentifier: RecommendTVC.className
-        )
-    }
-    
-    private func setDelegate() {
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         tableView.backgroundColor = .peekaBeige
@@ -91,6 +79,21 @@ extension RecommendedVC {
 }
 
 // MARK: - Methods
+
+extension RecommendedVC {
+    
+    private func registerCells() {
+        tableView.register(
+            RecommendTVC.self,
+            forCellReuseIdentifier: RecommendTVC.className
+        )
+    }
+    
+    private func setDelegate() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     
