@@ -70,25 +70,7 @@ final class RecommendTVC: UITableViewCell {
         $0.font = .systemFont(ofSize: 10, weight: .medium)
         $0.textColor = .peekaRed
     }
-    
-    private lazy var toFriendBookShelfButton = UIButton().then {
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.setTitle(
-            "\(bookRecommendedPersonLabel.text ?? "누구세요")님의 책장 보러가기 →",
-            for: .normal
-        )
-        $0.setTitleColor(.peekaRed, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 10, weight: .bold)
-        $0.contentHorizontalAlignment = .right
-        $0.contentEdgeInsets = UIEdgeInsets(
-            top: 7,
-            left: 10,
-            bottom: 7,
-            right: 12
-        )
-    }
-    
+
     // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -132,7 +114,6 @@ extension RecommendTVC {
             bookImageContainerView,
             bookCommentsContainerView
         )
-        bookCommentsContainerView.addSubview(toFriendBookShelfButton)
         bookImageContainerView.addSubview(bookImage)
         bookCommentsContainerView.addSubviews([
             bookRecommendedPersonImage,
@@ -147,7 +128,6 @@ extension RecommendTVC {
         bookHeaderView.backgroundColor = .peekaRed
         bookImageContainerView.backgroundColor = .peekaWhite
         bookCommentsContainerView.backgroundColor = .peekaWhite
-        toFriendBookShelfButton.backgroundColor = .peekaWhite
     }
     
     private func setLayout() {
@@ -196,22 +176,12 @@ extension RecommendTVC {
             make.top.equalToSuperview().inset(40)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        toFriendBookShelfButton.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(29)
-        }
     }
 }
 
 // MARK: - Methods
 
 extension RecommendTVC {
-    private func changeNameToButton(name: String) {
-        toFriendBookShelfButton.setTitle(
-            "\(name)님의 책장 보러가기 →",
-            for: .normal
-        )
-    }
     
     func dataBind(model: RecommendModel) {
         bookImage.image = model.image
@@ -220,6 +190,5 @@ extension RecommendTVC {
         bookRecommendedPersonImage.image = model.recommendedPersonImage
         bookRecommendedPersonLabel.text = model.recommendedPerson
         bookRecommendTextLabel.text = model.memo
-        changeNameToButton(name: model.recommendedPerson)
     }
 }
