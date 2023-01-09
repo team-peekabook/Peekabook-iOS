@@ -48,8 +48,7 @@ final class EditPickCVC: UICollectionViewCell {
 extension EditPickCVC {
     func initCell(model: SampleEditPickModel) {
         bookImageView.image = model.bookImage
-        guard let count = model.countLabel else { return }
-        countLabel.text = String(count)
+        countLabel.text = String(model.countLabel)
     }
     
     private func setUI() {
