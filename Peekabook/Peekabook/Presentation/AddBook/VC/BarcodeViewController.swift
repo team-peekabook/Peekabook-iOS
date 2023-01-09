@@ -19,6 +19,13 @@ final class BarcodeViewController: BarcodeScannerViewController {
         $0.textColor = .white
         $0.font = .h2
     }
+    
+    private let infoButton = UIButton().then {
+        $0.setTitle("바코드 인식이 어려우신가요?", for: .normal)
+        $0.titleLabel!.font = .c2
+        $0.setTitleColor(.peekaWhite, for: .normal)
+        $0.addTarget(self, action: #selector(touchinfoButtonDidTap), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +51,29 @@ final class BarcodeViewController: BarcodeScannerViewController {
 
 extension BarcodeViewController {
     private func setLayout() {
-        view.addSubview(infoLabel)
+        view.addSubviews([
+            infoLabel,
+            infoButton
+        ])
         
-        infoLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(540)
-            $0.centerX.equalToSuperview()
+        infoLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(540)
+            make.centerX.equalToSuperview()
+        }
+        
+        infoButton.snp.makeConstraints { make in
+            make.top.equalTo(infoLabel.snp.bottom).offset(140)
+            make.centerX.equalToSuperview()
         }
     }
     
     private func setDelegate() {
         dismissalDelegate = self
         codeDelegate = self
+    }
+    
+    @objc private func touchinfoButtonDidTap() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
