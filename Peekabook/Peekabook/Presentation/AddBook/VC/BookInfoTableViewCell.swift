@@ -20,7 +20,7 @@ class BookInfoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
-        configButton()
+        config()
     }
     
     required init?(coder: NSCoder) {
@@ -77,13 +77,13 @@ extension BookInfoTableViewCell {
         contentView.backgroundColor = .white
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.peekaRed.cgColor
-        
         imgContainerView.layer.borderWidth = 1
         imgContainerView.layer.borderColor = UIColor.peekaRed.cgColor
         
         labelContainerView.layer.borderWidth = 1
         labelContainerView.layer.borderColor = UIColor.peekaRed.cgColor
     }
+    
     private func setLayout() {
         self.backgroundColor = .clear
         contentView.addSubviews([
@@ -148,7 +148,7 @@ extension BookInfoTableViewCell {
         }
     }
     
-    private func configButton() {
+    private func config() {
         addButton.setImage(ImageLiterals.Icn.addBookMini, for: .normal)
     }
     
