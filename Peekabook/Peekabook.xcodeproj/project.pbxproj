@@ -26,6 +26,8 @@
 		8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E10BA43295FF95D00BCF58B /* MyPageVC.swift */; };
 		8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */; };
 		8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */; };
+		8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18505C296828D00062E92A /* EditPickCVC.swift */; };
+		8E18506029682A9A0062E92A /* SampleEditPickModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18505F29682A9A0062E92A /* SampleEditPickModel.swift */; };
 		8E1850622969B1690062E92A /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850612969B1690062E92A /* URLConstant.swift */; };
 		8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850632969B44F0062E92A /* UserDefaultsKey.swift */; };
 		8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850652969B5060062E92A /* NetworkConstant.swift */; };
@@ -33,8 +35,6 @@
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
 		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
-		8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18505C296828D00062E92A /* EditPickCVC.swift */; };
-		8E18506029682A9A0062E92A /* SampleEditPickModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18505F29682A9A0062E92A /* SampleEditPickModel.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -132,6 +132,8 @@
 		8E10BA4D2960026600BCF58B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHeaderLineView.swift; sourceTree = "<group>"; };
 		8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleBottomLineView.swift; sourceTree = "<group>"; };
+		8E18505C296828D00062E92A /* EditPickCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickCVC.swift; sourceTree = "<group>"; };
+		8E18505F29682A9A0062E92A /* SampleEditPickModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEditPickModel.swift; sourceTree = "<group>"; };
 		8E1850612969B1690062E92A /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
 		8E1850632969B44F0062E92A /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		8E1850652969B5060062E92A /* NetworkConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstant.swift; sourceTree = "<group>"; };
@@ -139,8 +141,6 @@
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
-		8E18505C296828D00062E92A /* EditPickCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickCVC.swift; sourceTree = "<group>"; };
-		8E18505F29682A9A0062E92A /* SampleEditPickModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEditPickModel.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
