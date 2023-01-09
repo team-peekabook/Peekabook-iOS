@@ -36,7 +36,7 @@ final class UserSearchVC: UIViewController {
         )
     }
     private let searchTitleLabel = UILabel().then {
-        $0.text = "사용자 검색하기"
+        $0.text = I18N.Tabbar.userSearch
         $0.textColor = .peekaRed
         $0.font = .systemFont(ofSize: 18, weight: .bold)
     }
@@ -48,7 +48,7 @@ final class UserSearchVC: UIViewController {
         $0.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
     }
     private lazy var searchTextField = UITextField().then {
-        $0.placeholder = "사용자의 닉네임을 입력해주세요."
+        $0.placeholder = I18N.PlaceHolder.userSearch
         $0.textColor = .peekaRed
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.autocorrectionType = .no
