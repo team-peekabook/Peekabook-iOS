@@ -42,7 +42,6 @@ final class RecommendVC: UIViewController {
         $0.minimumInteritemSpacing = 17
         $0.sectionInset = UIEdgeInsets(top: 16, left: 22, bottom: 24, right: 22)
     }
-
     private lazy var recommendCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
@@ -50,7 +49,6 @@ final class RecommendVC: UIViewController {
         $0.delegate = self
         $0.dataSource = self
     }
-    
     private lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         vc.delegate = self
@@ -63,7 +61,7 @@ final class RecommendVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        addSubviews()
+        setSubviews()
         setLayout()
         register()
         setFirstIndexSelected()
@@ -101,7 +99,7 @@ extension RecommendVC {
         recommendCollectionView.backgroundColor = .clear
     }
     
-    private func addSubviews() {
+    private func setSubviews() {
         view.addSubviews([
             headerView,
             recommendCollectionView,

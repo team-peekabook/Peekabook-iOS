@@ -83,7 +83,7 @@ final class RecommendTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview()
+        setSubviews()
         setUI()
         setLayout()
     }
@@ -99,7 +99,7 @@ final class RecommendTableViewCell: UITableViewCell {
 }
 
 extension RecommendTableViewCell {
-    private func addSubview() {
+    private func setSubviews() {
         contentView.addSubviews([bookHeaderView, recommendStackView])
         bookHeaderView.addSubviews([
             bookNameLabel,
