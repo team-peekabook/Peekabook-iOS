@@ -31,7 +31,7 @@ final class PickCVC: UICollectionViewCell {
     private let horizontalLine = UIView()
     
     private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.clipsToBounds = true
     }
     
