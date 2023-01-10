@@ -232,9 +232,28 @@ extension UserSearchVC {
             make.height.equalTo(32)
         }
     }
+    
+    private func setFollowStatus() {
+        followButton.isSelected == true ? followed() : unfollowed()
+    }
 }
 
 // MARK: - Methods
+
+extension UserSearchVC {
+    
+    private func followed() {
+        followButton.backgroundColor = .peekaGray2
+        followButton.setTitle(I18N.FollowStatus.following, for: .normal)
+        followButton.isSelected = true
+    }
+    private func unfollowed() {
+        followButton.backgroundColor = .peekaRed
+        followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
+        followButton.isSelected = false
+    }
+    
+}
 
 // MARK: - Network
 
@@ -244,6 +263,9 @@ extension UserSearchVC {
             if response?.success == true {
                 guard let serverGetUserData = response?.data else { return }
                 self.nameLabel.text = serverGetUserData.nickname
+                self.profileImage.image = serverGetUserData.profileImage.makeImage()
+                self.followButton.isSelected = serverGetUserData.isFollowed
+                self.setFollowStatus()
                 self.setSuccessView()
             } else {
                 self.setEmptyView()
