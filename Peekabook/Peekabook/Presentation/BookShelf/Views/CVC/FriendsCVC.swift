@@ -9,6 +9,8 @@ import UIKit
 
 final class FriendsCVC: UICollectionViewCell {
     
+    var userId: Int = 0
+    
     // MARK: - UI Components
     
     private let profileImageView = UIImageView().then {
@@ -64,5 +66,11 @@ extension FriendsCVC {
             make.top.equalTo(profileImageView.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview()
         }
+    }
+    
+    func setData(model: MyIntro) {
+        profileImageView.kf.setImage(with: URL(string: model.profileImage))
+        userNameLabel.text = model.nickname
+        userId = model.id
     }
 }
