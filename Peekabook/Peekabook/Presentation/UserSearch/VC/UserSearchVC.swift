@@ -18,12 +18,6 @@ final class UserSearchVC: UIViewController {
     
     private var serverGetUserData: SearchUserResponse?
     
-    private var userData = UserSearchModel(
-        image: ImageLiterals.Sample.profile3,
-        name: "뇽잉깅",
-        isFollowing: false
-    )
-    
     // MARK: - UI Components
     
     private let emptyView = UIView()
