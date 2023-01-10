@@ -8,7 +8,7 @@
 import UIKit
 
 struct UserSearchModel {
-    let image: UIImage!
-    let name: String
-    let isFollowing: Bool
+    var image: UIImage!
+    var name: String
+    var isFollowing: Bool
 }

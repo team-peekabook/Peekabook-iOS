@@ -16,7 +16,9 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private let userDummy: UserSearchModel = UserSearchModel(
+    private var serverGetUserData: SearchUserResponse?
+    
+    private var userData = UserSearchModel(
         image: ImageLiterals.Sample.profile3,
         name: "뇽잉깅",
         isFollowing: false
@@ -90,12 +92,7 @@ final class UserSearchVC: UIViewController {
     
     @objc private func searchBtnTapped() {
         print("검색")
-        
-        if searchTextField.text == userDummy.name {
-            setTableView()
-        } else {
-            setEmptyView()
-        }
+        getUserAPI(nickname: searchTextField.text!)
     }
 }
 
@@ -245,9 +242,37 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: userDummy)
+        cell.dataBind(model: userData)
         return cell
     }
 }
 
 // MARK: - Network
+
+extension UserSearchVC {
+    private func getUserAPI(nickname: String) {
+        FriendAPI.shared.searchUserNickname(nickname: nickname) { response in
+            switch response {
+            case .success(let data):
+                let getUserData = data as! SearchUserResponse
+                self.userData.name = getUserData.data.nickname
+                self.userData.isFollowing = getUserData.data.isFollowed
+                print(self.userData.name)
+                if self.searchTextField.text == self.userData.name {
+                    self.setTableView()
+                } else {
+                    self.setEmptyView()
+                }
+                
+            case .requestErr(let message):
+                print("latestPhotosWithAPI - requestErr: \(message)")
+            case .pathErr:
+                print("latestPhotosWithAPI - pathErr")
+            case .serverErr:
+                print("latestPhotosWithAPI - serverErr")
+            case .networkFail:
+                print("latestPhotosWithAPI - networkFail")
+            }
+        }
+    }
+}
