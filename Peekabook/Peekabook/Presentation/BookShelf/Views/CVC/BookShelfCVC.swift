@@ -21,6 +21,13 @@ final class BookShelfCVC: UICollectionViewCell {
         $0.clipsToBounds = false
     }
     
+    private let pickImageView = UIImageView().then {
+        $0.image = ImageLiterals.Icn.pick
+        $0.contentMode = .scaleToFill
+        $0.layer.masksToBounds = true
+        $0.clipsToBounds = true
+    }
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -48,7 +55,7 @@ extension BookShelfCVC {
     }
     
     private func setLayout() {
-        addSubviews(bookImageView, horizontalLine)
+        addSubviews(bookImageView, horizontalLine, pickImageView)
         
         bookImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -62,6 +69,11 @@ extension BookShelfCVC {
             make.top.equalTo(bookImageView.snp.bottom)
             make.width.equalTo(UIScreen.main.bounds.width*2)
             make.height.equalTo(6)
+        }
+        
+        pickImageView.snp.makeConstraints { make in
+            make.bottom.equalTo(bookImageView.snp.top)
+            make.trailing.equalTo(bookImageView)
         }
     }
 }
