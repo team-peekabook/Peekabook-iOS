@@ -36,7 +36,7 @@ final class EditBookVC: UIViewController {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(checkButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
     private let containerView = UIScrollView().then {
@@ -300,7 +300,8 @@ extension EditBookVC {
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        // doSomething()
+        print("checkButtonDidTap")
+        navigationController?.popViewController(animated: true)
     }
     
     private func config() {
