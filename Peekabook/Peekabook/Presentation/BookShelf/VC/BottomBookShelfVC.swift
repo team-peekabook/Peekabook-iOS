@@ -40,6 +40,7 @@ final class BottomBookShelfVC: UIViewController {
         collectionView.isScrollEnabled = false
         collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
     
@@ -102,6 +103,7 @@ final class BottomBookShelfVC: UIViewController {
             }, completion: { [weak self] _ in
                 if velocity.y < 0 {
                     self?.bookShelfCollectionView.isScrollEnabled = true
+                    self?.bookShelfCollectionView.isUserInteractionEnabled = true
                 }
             })
         }
@@ -214,7 +216,18 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected index is \(indexPath.row)")
+        
+        if view.frame.minY == partialView {
+            bookShelfCollectionView.isUserInteractionEnabled = false
+        } else {
+            bookShelfCollectionView.isUserInteractionEnabled = true
+            
+            let bookDetailVC = BookDetailVC()
+            bookDetailVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(bookDetailVC, animated: true)
+            
+            print("selected index is \(indexPath.row)")
+        }
     }
 }
 
@@ -243,8 +256,10 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         let y = view.frame.minY
         if (y == fullView && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (y == partialView) {
             bookShelfCollectionView.isScrollEnabled = false
+            bookShelfCollectionView.isUserInteractionEnabled = false
         } else {
             bookShelfCollectionView.isScrollEnabled = true
+            bookShelfCollectionView.isUserInteractionEnabled = true
         }
         
         return false

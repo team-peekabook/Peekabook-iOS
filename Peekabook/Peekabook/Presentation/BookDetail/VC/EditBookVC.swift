@@ -36,7 +36,7 @@ final class EditBookVC: UIViewController {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(checkButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
     private let containerView = UIScrollView().then {
@@ -223,15 +223,13 @@ extension EditBookVC {
         
         commentBoxView.snp.makeConstraints { make in
             make.top.equalTo(authorLabel.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(229)
+            make.height.equalTo(230)
         }
         
         commentHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
         
@@ -242,9 +240,8 @@ extension EditBookVC {
         
         commentView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.equalTo(commentLabel)
-            make.width.equalTo(307)
-            make.height.equalTo(169)
+            make.leading.trailing.equalToSuperview().inset(14)
+            make.height.equalTo(170)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -254,15 +251,13 @@ extension EditBookVC {
         
         memoBoxView.snp.makeConstraints { make in
             make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(101)
+            make.height.equalTo(100)
         }
         
         memoHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(36)
         }
         
@@ -273,9 +268,8 @@ extension EditBookVC {
         
         memoView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.equalTo(commentLabel)
-            make.width.equalTo(307)
-            make.height.equalTo(41)
+            make.leading.trailing.equalToSuperview().inset(14)
+            make.height.equalTo(40)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
@@ -294,14 +288,14 @@ extension EditBookVC {
         memoView.delegate = self
     }
     
-    // 현재는 홈뷰로 가는 상황
     @objc private func backButtonDidTap() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        // doSomething()
+        print("checkButtonDidTap")
+        navigationController?.popViewController(animated: true)
     }
     
     private func config() {
