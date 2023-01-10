@@ -16,42 +16,23 @@ final class BookShelfAPI {
     
     private init() { }
     
+    private(set) var myBookShelfData: GeneralResponse<MyBookShelfResponse>?
+    
     // 1. 내 책장 (메인 뷰) 조회 하기
     
-    func getMyBookShelfInfo(completion: @escaping (NetworkResult<Any>) -> Void) {
-        bookShelfProvider.request(.getMyBookShelf) { (result) in
+    func getMyBookShelfInfo(completion: @escaping (GeneralResponse<MyBookShelfResponse>?) -> Void) {
+        bookShelfProvider.request(.getMyBookShelf) { [self] (result) in
             switch result {
             case .success(let response):
-                let statusCode = response.statusCode
-                let data = response.data
-                
-                let networkResult = self.judgeMyBookShelfInfoStatus(by: statusCode, data)
-                completion(networkResult)
-                
+                do {
+                    self.myBookShelfData = try response.map(GeneralResponse<MyBookShelfResponse>.self)
+                    completion(myBookShelfData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
             case .failure(let err):
                 print(err)
             }
         }
     }
-    
-    private func judgeMyBookShelfInfoStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        
-        let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(GeneralResponse<MyBookShelfResponse>.self, from: data)
-        else {
-            return .pathErr
-        }
-        
-        switch statusCode {
-        case 200:
-            return .success(decodedData.data ?? "None-Data")
-        case 400..<500:
-            return .requestErr(decodedData.message as Any)
-        case 500:
-            return .serverErr
-        default:
-            return .networkFail
-        }
-    }
-    
 }

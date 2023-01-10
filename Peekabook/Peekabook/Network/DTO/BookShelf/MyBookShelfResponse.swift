@@ -10,28 +10,33 @@ import Foundation
 // MARK: - MyBookShelfResponse
 
 struct MyBookShelfResponse: Codable {
-    let myIntro: Intro
-    let friendList: [Intro]
-    let pickList: [Pick]
+    let friendList: [MyIntro]
+    let myIntro: MyIntro
+    let picks: [Pick]
     let bookTotalNum: Int
-    let bookList: [Book]
+    let books: [Book]
 }
 
 // MARK: - Book
 struct Book: Codable {
-    let bookId, pickIndex: Int
-    let book: String
+    let bookID, pickIndex: Int
+    let book: BookBook
 
     enum CodingKeys: String, CodingKey {
-        case bookId
+        case bookID = "bookId"
         case pickIndex
         case book = "Book"
     }
 }
 
+// MARK: - BookBook
+struct BookBook: Codable {
+    let bookImage: String
+}
+
 // MARK: - MyIntro
-struct Intro: Codable {
-    let userId: Int
+struct MyIntro: Codable {
+    let id: Int
     let nickname, profileImage: String
     let intro: String?
 }
@@ -51,6 +56,6 @@ struct Pick: Codable {
 
 // MARK: - PickBook
 struct PickBook: Codable {
-    let bookId: Int
+    let id: Int
     let bookImage, bookTitle: String
 }
