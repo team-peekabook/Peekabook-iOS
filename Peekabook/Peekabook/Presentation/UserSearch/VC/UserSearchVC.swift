@@ -23,6 +23,7 @@ final class UserSearchVC: UIViewController {
         name: "뇽잉깅",
         isFollowing: false
     )
+    
     private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
@@ -231,18 +232,11 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
         return 178
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: UserSearchTVC.className,
-            for: indexPath
-        ) as? UserSearchTVC
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTVC.className, for: indexPath) as? UserSearchTVC
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: userData)
         return cell
     }
 }
@@ -251,28 +245,25 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension UserSearchVC {
     private func getUserAPI(nickname: String) {
-        FriendAPI.shared.searchUserNickname(nickname: nickname) { response in
-            switch response {
-            case .success(let data):
-                let getUserData = data as! SearchUserResponse
-                self.userData.name = getUserData.data.nickname
-                self.userData.isFollowing = getUserData.data.isFollowed
-                print(self.userData.name)
-                if self.searchTextField.text == self.userData.name {
-                    self.setTableView()
-                } else {
-                    self.setEmptyView()
-                }
-                
-            case .requestErr(let message):
-                print("latestPhotosWithAPI - requestErr: \(message)")
-            case .pathErr:
-                print("latestPhotosWithAPI - pathErr")
-            case .serverErr:
-                print("latestPhotosWithAPI - serverErr")
-            case .networkFail:
-                print("latestPhotosWithAPI - networkFail")
+        FriendAPI.shared.searchUserData(nickname: nickname) { response in
+            guard let serverGetUserData = response?.data else { return }
+            print(serverGetUserData.nickname)
+            if self.searchTextField.text == serverGetUserData.nickname {
+                self.setTableView()
+            } else {
+                self.setEmptyView()
             }
         }
     }
 }
+
+/*
+ private func getMyBookShelfInfo(userId: String) {
+     BookShelfAPI.shared.getMyBookShelfInfo { response in
+         guard let serverMyBookShelfInfo = response?.data else { return }
+         self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
+         self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
+         self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
+     }
+ }
+*/

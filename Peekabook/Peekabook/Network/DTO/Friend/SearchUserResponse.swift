@@ -8,15 +8,8 @@
 import Foundation
 
 // MARK: - SearchUserResponse
-struct SearchUserResponse: Codable {
-    let status: Int
-    let success: Bool
-    let message: String
-    let data: SearchUserData
-}
 
-// MARK: - DataClass
-struct SearchUserData: Codable {
+struct SearchUserResponse: Codable {
     let friendID: Int
     let nickname, profileImage: String
     let isFollowed: Bool

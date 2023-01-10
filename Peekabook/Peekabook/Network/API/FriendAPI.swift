@@ -16,7 +16,7 @@ final class FriendAPI {
     
     private init() { }
     
-    private(set) var getUserData: GeneralResponse<SearchUserResponse>?
+    private(set) var searchUserData: GeneralResponse<SearchUserResponse>?
     
     // 1. 사용자 검색하기
     
@@ -25,9 +25,10 @@ final class FriendAPI {
             switch result {
             case .success(let response):
                 do {
-                    self.getUserData = try response.map(GeneralResponse<SearchUserResponse>.self)
-                    completion(getUserData)
+                    self.searchUserData = try response.map(GeneralResponse<SearchUserResponse>.self)
+                    completion(searchUserData)
                 } catch let error {
+                    print("error")
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):
