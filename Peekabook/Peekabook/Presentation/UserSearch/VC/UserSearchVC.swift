@@ -16,13 +16,11 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private let userDummy: [UserSearchModel] = [
-        UserSearchModel(
-            image: ImageLiterals.Sample.profile3,
-            name: "뇽잉깅",
-            isFollowing: false
-        )
-    ]
+    private let userDummy: UserSearchModel = UserSearchModel(
+        image: ImageLiterals.Sample.profile3,
+        name: "뇽잉깅",
+        isFollowing: false
+    )
     private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
@@ -82,7 +80,7 @@ final class UserSearchVC: UIViewController {
         setUI()
         setLayout()
         setDelegate()
-        setEmptyView()
+        setBlankView()
         registerCells()
     }
     
@@ -92,6 +90,12 @@ final class UserSearchVC: UIViewController {
     
     @objc private func searchBtnTapped() {
         print("검색")
+        
+        if searchTextField.text == userDummy.name {
+            setTableView()
+        } else {
+            setEmptyView()
+        }
     }
 }
 
@@ -108,13 +112,18 @@ extension UserSearchVC {
     }
     
     private func setEmptyView() {
-        if userDummy.isEmpty {
-            emptyView.isHidden = false
-            userSearchTableView.isHidden = true
-        } else {
-            emptyView.isHidden = true
-            userSearchTableView.isHidden = false
-        }
+        self.userSearchTableView.isHidden = true
+        self.emptyView.isHidden = false
+    }
+    
+    private func setTableView() {
+        self.emptyView.isHidden = true
+        self.userSearchTableView.isHidden = false
+    }
+    
+    private func setBlankView() {
+        emptyView.isHidden = true
+        userSearchTableView.isHidden = true
     }
     
     private func setLayout() {
@@ -215,7 +224,7 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return userDummy.count
+        return 1
     }
     
     func tableView(
@@ -236,7 +245,9 @@ extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: userDummy[indexPath.row])
+        cell.dataBind(model: userDummy)
         return cell
     }
 }
+
+// MARK: - Network
