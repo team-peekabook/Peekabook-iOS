@@ -399,6 +399,14 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
             print("\(indexPath.item) click")
+            
+        }
+        
+        if collectionView == pickCollectionView {
+            let bookDetailVC = BookDetailVC()
+            bookDetailVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(bookDetailVC, animated: true)
+            print("selected index is \(indexPath.row)")
         }
     }
 }
