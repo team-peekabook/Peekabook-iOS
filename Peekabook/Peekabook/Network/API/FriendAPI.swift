@@ -16,4 +16,24 @@ final class FriendAPI {
     
     private init() { }
     
+    private(set) var searchUserData: GeneralResponse<SearchUserResponse>?
+    
+    // 1. 사용자 검색하기
+    
+    func searchUserData(nickname: String, completion: @escaping (GeneralResponse<SearchUserResponse>?) -> Void) {
+        friendProvider.request(.getuser(nickname: nickname)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.searchUserData = try response.map(GeneralResponse<SearchUserResponse>.self)
+                    completion(searchUserData)
+                } catch let error {
+                    print("error")
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
 }

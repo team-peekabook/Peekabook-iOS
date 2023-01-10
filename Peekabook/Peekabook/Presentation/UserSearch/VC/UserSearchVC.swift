@@ -16,13 +16,10 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private let userDummy: [UserSearchModel] = [
-        UserSearchModel(
-            image: ImageLiterals.Sample.profile3,
-            name: "뇽잉깅",
-            isFollowing: false
-        )
-    ]
+    private var serverGetUserData: SearchUserResponse?
+    
+    // MARK: - UI Components
+    
     private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
@@ -34,8 +31,6 @@ final class UserSearchVC: UIViewController {
         $0.textAlignment = .center
         $0.text = I18N.ErrorPopUp.emptyUser
     }
-    
-    // MARK: - UI Components
     
     private let headerView = UIView()
     private lazy var backButton = UIButton().then {
@@ -59,7 +54,6 @@ final class UserSearchVC: UIViewController {
         $0.font = .h2
         $0.autocorrectionType = .no
     }
-    
     private lazy var searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
         $0.addTarget(
@@ -68,11 +62,29 @@ final class UserSearchVC: UIViewController {
             for: .touchUpInside)
     }
     
-    private lazy var userSearchTableView = UITableView().then {
-        $0.showsVerticalScrollIndicator = true
-        $0.isScrollEnabled = true
-        $0.allowsSelection = false
-        $0.allowsMultipleSelection = false
+    private let friendProfileContainerView = UIView()
+    private let profileImage = UIImageView().then {
+        $0.image = ImageLiterals.Sample.profile6
+        $0.layer.borderWidth = 3
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+        $0.layer.cornerRadius = 28
+        $0.layer.masksToBounds = true
+    }
+    private let nameLabel = UILabel().then {
+        $0.text = "이름"
+        $0.textColor = .peekaRed
+        $0.font = .h1
+    }
+    private lazy var followButton = UIButton().then {
+        $0.setTitle(I18N.FollowStatus.follow, for: .normal)
+        $0.setTitleColor(.peekaWhite, for: .normal)
+        $0.titleLabel?.font = .s3
+        $0.backgroundColor = .peekaRed
+        $0.addTarget(self, action: #selector(followButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc private func followButtonDidTap() {
+        print("팔로우")
     }
     
     // MARK: - View Life Cycle
@@ -81,9 +93,7 @@ final class UserSearchVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        setDelegate()
-        setEmptyView()
-        registerCells()
+        setBlankView()
     }
     
     @objc private func backBtnTapped() {
@@ -92,6 +102,7 @@ final class UserSearchVC: UIViewController {
     
     @objc private func searchBtnTapped() {
         print("검색")
+        getUserAPI(nickname: searchTextField.text!)
     }
 }
 
@@ -104,23 +115,28 @@ extension UserSearchVC {
         headerUnderlineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
         searchBarContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        userSearchTableView.backgroundColor = .peekaBeige
+        friendProfileContainerView.backgroundColor = .white
     }
     
     private func setEmptyView() {
-        if userDummy.isEmpty {
-            emptyView.isHidden = false
-            userSearchTableView.isHidden = true
-        } else {
-            emptyView.isHidden = true
-            userSearchTableView.isHidden = false
-        }
+        self.friendProfileContainerView.isHidden = true
+        self.emptyView.isHidden = false
+    }
+    
+    private func setSuccessView() {
+        self.emptyView.isHidden = true
+        self.friendProfileContainerView.isHidden = false
+    }
+    
+    private func setBlankView() {
+        emptyView.isHidden = true
+        friendProfileContainerView.isHidden = true
     }
     
     private func setLayout() {
         view.addSubviews(
             [searchBarContainerView,
-            userSearchTableView,
+            friendProfileContainerView,
             headerView,
             emptyView]
         )
@@ -134,6 +150,11 @@ extension UserSearchVC {
              searchBarButton]
         )
         emptyView.addSubviews(emptyImgView, emptyLabel)
+        friendProfileContainerView.addSubviews(
+            [profileImage,
+            nameLabel,
+            followButton]
+        )
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -152,6 +173,7 @@ extension UserSearchVC {
             make.bottom.equalToSuperview()
             make.height.equalTo(2)
         }
+        
         searchBarContainerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(16)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -167,11 +189,7 @@ extension UserSearchVC {
             make.centerY.equalToSuperview()
             make.height.equalTo(20)
         }
-        userSearchTableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBarContainerView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-        }
+        
         emptyView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(searchBarContainerView).offset(204)
@@ -182,11 +200,35 @@ extension UserSearchVC {
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
         }
-
         emptyLabel.snp.makeConstraints { make in
             make.top.equalTo(emptyImgView.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
         }
+        
+        friendProfileContainerView.snp.makeConstraints { make in
+            make.top.equalTo(searchBarContainerView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(176)
+        }
+        profileImage.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(24)
+            make.height.width.equalTo(56)
+        }
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileImage.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+        }
+        followButton.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(82)
+            make.height.equalTo(32)
+        }
+    }
+    
+    private func setFollowStatus() {
+        followButton.isSelected == true ? followed() : unfollowed()
     }
 }
 
@@ -194,49 +236,34 @@ extension UserSearchVC {
 
 extension UserSearchVC {
     
-    private func setDelegate() {
-        userSearchTableView.delegate = self
-        userSearchTableView.dataSource = self
+    private func followed() {
+        followButton.backgroundColor = .peekaGray2
+        followButton.setTitle(I18N.FollowStatus.following, for: .normal)
+        followButton.isSelected = true
+    }
+    private func unfollowed() {
+        followButton.backgroundColor = .peekaRed
+        followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
+        followButton.isSelected = false
     }
     
-    private func registerCells() {
-        userSearchTableView.register(
-            UserSearchTVC.self,
-            forCellReuseIdentifier: UserSearchTVC.className
-        )
-    }
 }
 
-// MARK: - Delegate
+// MARK: - Network
 
-extension UserSearchVC: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        return userDummy.count
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
-        return 178
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: UserSearchTVC.className,
-            for: indexPath
-        ) as? UserSearchTVC
-        else {
-            return UITableViewCell()
+extension UserSearchVC {
+    private func getUserAPI(nickname: String) {
+        FriendAPI.shared.searchUserData(nickname: nickname) { response in
+            if response?.success == true {
+                guard let serverGetUserData = response?.data else { return }
+                self.nameLabel.text = serverGetUserData.nickname
+                self.profileImage.image = serverGetUserData.profileImage.makeImage()
+                self.followButton.isSelected = serverGetUserData.isFollowed
+                self.setFollowStatus()
+                self.setSuccessView()
+            } else {
+                self.setEmptyView()
+            }
         }
-        cell.dataBind(model: userDummy[indexPath.row])
-        return cell
     }
 }
