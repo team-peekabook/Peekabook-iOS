@@ -17,6 +17,7 @@ final class FriendAPI {
     private init() { }
     
     private(set) var searchUserData: GeneralResponse<SearchUserResponse>?
+    // private(set) var postFollowing: GeneralResponse<
     
     // 1. 사용자 검색하기
     
