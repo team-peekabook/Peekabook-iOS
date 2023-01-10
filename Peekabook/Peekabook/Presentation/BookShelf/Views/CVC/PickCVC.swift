@@ -9,6 +9,10 @@ import UIKit
 
 final class PickCVC: UICollectionViewCell {
     
+    // MARK: - Protocols
+
+    private var bookId: Int = 0
+    
     // MARK: - UI Components
     
     private let countBackgroundView = UIView()
@@ -118,5 +122,13 @@ extension PickCVC {
         titleLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(10)
         }
+    }
+    
+    func setData(model: Pick) {
+        countLabel.text = String(model.pickIndex)
+        bookId = model.book.id
+        bookNameLabel.text = model.book.bookTitle
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
+        titleLabel.text = model.description
     }
 }
