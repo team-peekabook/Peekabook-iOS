@@ -28,7 +28,7 @@ final class BookSearchVC: UIViewController {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
     
-    private let headerTitleLabel = UILabel().then {
+    private var headerTitleLabel = UILabel().then {
         $0.text = I18N.BookSearch.title
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -37,14 +37,14 @@ final class BookSearchVC: UIViewController {
     private let headerLineView = UIView()
     
     private lazy var searchButton = UIButton().then {
+        $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
-        $0.backgroundColor = .yellow
     }
     
     private lazy var searchField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
-        $0.backgroundColor = .white
+        $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
@@ -60,16 +60,8 @@ final class BookSearchVC: UIViewController {
         return tableView
         }()
     
-    private var bookInfoList: [BookInfoModel] = [
-        BookInfoModel(image: ImageLiterals.Sample.book1, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.book2, title: "아무튼, 두영", author: "김인영"),
-        BookInfoModel(image: ImageLiterals.Sample.book3, title: "아무튼, 수빈", author: "고두영"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈")
-    ]
-    
+    private var bookInfoList: [BookInfoModel] = []
+
     // emptyView elements
     
     let emptyView = UIView()
@@ -89,10 +81,10 @@ final class BookSearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView.isHidden = true
         setUI()
         setLayout()
         register()
-        addTapGesture()
     }
 }
 
@@ -109,13 +101,7 @@ extension BookSearchVC {
     }
     
     private func setLayout() {
-        [headerView, containerView].forEach {
-            view.addSubview($0)
-        }
-        
-        [bookTableView].forEach {
-            containerView.addSubview($0)
-        }
+        view.addSubview(headerView)
         
         [cancelButton, headerTitleLabel, searchField, searchButton, headerLineView].forEach {
             headerView.addSubview($0)
@@ -157,19 +143,6 @@ extension BookSearchVC {
             make.height.equalTo(40)
         }
         
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        bookTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview().offset(-1)
-            make.height.equalTo(128 * bookInfoList.count)
-        }
-        
         // emptyView Layout
         
         view.addSubview(emptyView)
@@ -194,9 +167,38 @@ extension BookSearchVC {
         }
     }
     
+    private func setTableViewLayout() {
+        view.addSubview(containerView)
+        [bookTableView].forEach {
+            containerView.addSubview($0)
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        bookTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalToSuperview().offset(-1)
+            make.height.equalTo(128 * bookInfoList.count)
+        }
+    }
+    
     private func register() {
         bookTableView.register(BookInfoTableViewCell.self,
             forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+    }
+    
+    private func setView() {
+        if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
+            self.emptyView.isHidden = false // 히든뷰가 보이게
+        } else {
+            setTableViewLayout()
+            self.emptyView.isHidden = true // 테이블뷰 보이게
+        }
     }
     
     // MARK: - @objc Function
@@ -206,15 +208,11 @@ extension BookSearchVC {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // TODO: - 서버통신 시 GET
     @objc
     private func searchButtonDidTap() {
-        print("tap")
-//        if self.bookInfoList.isEmpty == true {
-//            self.emptyView.isHidden = false
-//        } else {
-//            self.emptyView.isHidden = true
-//        }
+        bookInfoList.append(BookInfoModel(image: "\(Imge)", title: "아무튼, 여름", author: "김신회"))
+        print(bookInfoList[0])
+        setView()
     }
 }
 
@@ -232,19 +230,11 @@ extension BookSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.bookInfoList.isEmpty == true {
-            self.emptyView.isHidden = false
-        } else {
-            self.emptyView.isHidden = true
-        }
-//        self.emptyView.isHidden = true
-//        self.containerView.isHidden = true
-        
         guard let bookCell = tableView.dequeueReusableCell(
             withIdentifier: BookInfoTableViewCell.identifier,
             for: indexPath) as? BookInfoTableViewCell
         else { return UITableViewCell() }
-        
+
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
     }

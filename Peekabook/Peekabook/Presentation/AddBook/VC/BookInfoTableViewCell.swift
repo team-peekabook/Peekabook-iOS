@@ -155,7 +155,8 @@ extension BookInfoTableViewCell {
     func dataBind(model: BookInfoModel) {
         bookTitleLabel.text = model.title
         authorLabel.text = model.author
-        bookImgView.image = model.image
+//        bookImgView.image = model.image
+        bookImgView.image = UIImage(named: model.image)
     }
     
     @objc
