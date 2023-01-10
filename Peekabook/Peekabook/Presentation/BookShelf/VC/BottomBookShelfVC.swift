@@ -11,7 +11,8 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
-    private var bookModelList = SampleBookModel.data
+    private var serverMyBookShelfInfo: MyBookShelfResponse?
+    private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
 
@@ -63,6 +64,7 @@ final class BottomBookShelfVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateView()
+        getMyBookShelfInfo(userId: "1")
     }
     
     override func didReceiveMemoryWarning() {
@@ -205,13 +207,13 @@ extension BottomBookShelfVC {
 
 extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bookModelList.count
+        return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
-        cell.initCell(model: bookModelList[indexPath.row])
+        cell.setData(model: books[indexPath.row])
         return cell
     }
     
@@ -263,5 +265,19 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         }
         
         return false
+    }
+}
+
+// MARK: - Network
+
+extension BottomBookShelfVC {
+    
+    private func getMyBookShelfInfo(userId: String) {
+        BookShelfAPI.shared.getMyBookShelfInfo { response in
+            guard let serverMyBookShelfInfo = response?.data else { return }
+            self.booksCountLabel.text = "\(String(serverMyBookShelfInfo.bookTotalNum)) Books"
+            self.books = serverMyBookShelfInfo.books
+            self.bookShelfCollectionView.reloadData()
+        }
     }
 }
