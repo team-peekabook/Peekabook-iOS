@@ -9,6 +9,10 @@ import UIKit
 
 final class BookShelfCVC: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    private var bookId: Int = 0
+    
     // MARK: - UI Components
     
     private let bookImageView = UIImageView().then {
@@ -75,5 +79,13 @@ extension BookShelfCVC {
             make.bottom.equalTo(bookImageView.snp.top)
             make.trailing.equalTo(bookImageView)
         }
+    }
+    
+    func setData(model: Book) {
+        if model.pickIndex == 0 {
+            pickImageView.isHidden = true
+        }
+        bookId = model.bookID
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
     }
 }
