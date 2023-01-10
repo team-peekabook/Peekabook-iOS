@@ -210,9 +210,14 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
-        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
-        print(bookInfoList[0])
-        setView()
+        let ls = NaverSearchAPI()
+        ls.getNaverBookAPI(d_titl: "아무튼")
+
+//        getNaverBookAPI(String: searchField.text)
+//        dataManager.shared.searchResult?.BookDetailList
+//        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
+//        print(bookInfoList[0])
+//        setView()
     }
 }
 
