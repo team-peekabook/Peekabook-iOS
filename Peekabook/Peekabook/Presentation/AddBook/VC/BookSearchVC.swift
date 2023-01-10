@@ -211,7 +211,7 @@ extension BookSearchVC {
     @objc
     private func searchButtonDidTap() {
         let ls = NaverSearchAPI()
-        ls.getNaverBookAPI(d_titl: "아무튼")
+        ls.getNaverBookAPI(d_titl: searchField.text!)
 
 //        getNaverBookAPI(String: searchField.text)
 //        dataManager.shared.searchResult?.BookDetailList
