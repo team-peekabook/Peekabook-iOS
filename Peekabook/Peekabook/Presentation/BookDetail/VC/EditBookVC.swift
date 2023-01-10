@@ -294,9 +294,8 @@ extension EditBookVC {
         memoView.delegate = self
     }
     
-    // 현재는 홈뷰로 가는 상황
     @objc private func backButtonDidTap() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     // TODO: - 서버통신 시 구현 (POST)
