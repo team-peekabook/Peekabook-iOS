@@ -9,6 +9,10 @@ import UIKit
 
 final class BookShelfCVC: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    private var bookId: Int = 0
+    
     // MARK: - UI Components
     
     private let bookImageView = UIImageView().then {
@@ -19,6 +23,13 @@ final class BookShelfCVC: UICollectionViewCell {
     
     private let horizontalLine = UIView().then {
         $0.clipsToBounds = false
+    }
+    
+    private let pickImageView = UIImageView().then {
+        $0.image = ImageLiterals.Icn.pick
+        $0.contentMode = .scaleToFill
+        $0.layer.masksToBounds = true
+        $0.clipsToBounds = true
     }
     
     // MARK: - Initialization
@@ -48,7 +59,7 @@ extension BookShelfCVC {
     }
     
     private func setLayout() {
-        addSubviews(bookImageView, horizontalLine)
+        addSubviews(bookImageView, horizontalLine, pickImageView)
         
         bookImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -63,5 +74,18 @@ extension BookShelfCVC {
             make.width.equalTo(UIScreen.main.bounds.width*2)
             make.height.equalTo(6)
         }
+        
+        pickImageView.snp.makeConstraints { make in
+            make.bottom.equalTo(bookImageView.snp.top)
+            make.trailing.equalTo(bookImageView)
+        }
+    }
+    
+    func setData(model: Book) {
+        if model.pickIndex == 0 {
+            pickImageView.isHidden = true
+        }
+        bookId = model.bookID
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
     }
 }
