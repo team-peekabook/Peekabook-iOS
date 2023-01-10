@@ -28,14 +28,14 @@ final class BookShelfVC: UIViewController {
     private let friendsListContainerView = UIView()
     private let introProfileView = UIView()
     private let pickContainerView = UIView()
-
+    
     private let myProfileView = UIView()
     private let horizontalLine1 = UIView()
     private let horizontalLine2 = UIView()
     private let verticalLine = UIView()
     private let doubleheaderLine = DoubleHeaderLineView()
     private let doubleBottomLine = DoubleBottomLineView()
-        
+    
     private let logoImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.image = ImageLiterals.Image.logo
@@ -120,7 +120,7 @@ final class BookShelfVC: UIViewController {
     }()
     
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -129,6 +129,11 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getMyBookShelfInfo(userId: "1")
     }
     
     // MARK: - @objc Function
@@ -169,7 +174,7 @@ extension BookShelfVC {
         verticalLine.backgroundColor = .peekaRed
         
         myProfileView.backgroundColor = .peekaBeige
-
+        
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         
         editPickButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
@@ -183,14 +188,14 @@ extension BookShelfVC {
         view.addSubviews(naviContainerView, containerScrollView)
         naviContainerView.addSubviews(logoImage, notificationButton, addFriendButton, horizontalLine1)
         containerScrollView.addSubviews(friendsListContainerView, introProfileView, pickContainerView)
-
+        
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
         
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
         
         pickContainerView.addSubviews(pickLabel, editPickButton, pickCollectionView)
-                
+        
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(52)
@@ -199,7 +204,7 @@ extension BookShelfVC {
         containerScrollView.snp.makeConstraints { make in
             make.top.equalTo(naviContainerView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+            make.bottom.equalToSuperview().inset(200.adjustedH)
         }
         
         friendsListContainerView.snp.makeConstraints { make in
@@ -315,7 +320,7 @@ extension BookShelfVC {
             make.width.equalTo(70)
             make.height.equalTo(25)
         }
-                
+        
         pickCollectionView.snp.makeConstraints { make in
             make.top.equalTo(pickLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview()
@@ -337,7 +342,7 @@ extension BookShelfVC {
         self.addChild(bottomShelfVC)
         
         bottomShelfVC.didMove(toParent: self)
-
+        
         let height = view.frame.height
         let width = view.frame.width
         
@@ -348,7 +353,7 @@ extension BookShelfVC {
     private func setDelegate() {
         friendsCollectionView.delegate = self
         friendsCollectionView.dataSource = self
-
+        
         pickCollectionView.delegate = self
         pickCollectionView.dataSource = self
     }
@@ -399,6 +404,14 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
             print("\(indexPath.item) click")
+            
+        }
+        
+        if collectionView == pickCollectionView {
+            let bookDetailVC = BookDetailVC()
+            bookDetailVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(bookDetailVC, animated: true)
+            print("selected index is \(indexPath.row)")
         }
     }
 }
@@ -412,8 +425,9 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         }
         
         if collectionView == pickCollectionView {
-            return CGSize(width: 145.adjusted, height: 250)
+            return CGSize(width: 145, height: 250)
         }
+        
         return CGSize(width: 0, height: 0)
     }
     
@@ -423,7 +437,7 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         }
         return 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 15
     }
@@ -435,22 +449,10 @@ extension BookShelfVC {
     
     private func getMyBookShelfInfo(userId: String) {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
-            switch response {
-            case .success(let data):
-                if let myBookShelfInfo = data as? MyBookShelfResponse {
-                    self.serverMyBookShelfInfo = myBookShelfInfo
-                    // TODO:- 서버에서 받은 response 뷰에 반영하기
-                    
-                }
-            case .requestErr(let message):
-                print("latestPhotosWithAPI - requestErr: \(message)")
-            case .pathErr:
-                print("latestPhotosWithAPI - pathErr")
-            case .serverErr:
-                print("latestPhotosWithAPI - serverErr")
-            case .networkFail:
-                print("latestPhotosWithAPI - networkFail")
-            }
+            guard let serverMyBookShelfInfo = response?.data else { return }
+            self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
+            self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
+            self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
         }
     }
 }
