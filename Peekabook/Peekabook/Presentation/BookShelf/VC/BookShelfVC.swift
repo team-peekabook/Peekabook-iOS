@@ -17,9 +17,8 @@ final class BookShelfVC: UIViewController {
     // MARK: - Properties
     
     private var serverMyBookShelfInfo: MyBookShelfResponse?
-    private var friendsModelList = SampleFriendsModel.data
-    private var userModel = SampleUserModel.data
-    private var pickModelList = SamplePickModel.data
+    private var friends: [MyIntro] = []
+    private var picks: [Pick] = []
     
     // MARK: - UI Components
     
@@ -374,11 +373,11 @@ extension BookShelfVC {
 extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == friendsCollectionView {
-            return friendsModelList.count
+            return friends.count
         }
         
         if collectionView == pickCollectionView {
-            return pickModelList.count
+            return picks.count
         }
         return 0
     }
@@ -388,14 +387,14 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == friendsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsCVC.className, for: indexPath)
                     as? FriendsCVC else { return UICollectionViewCell() }
-            cell.initCell(model: friendsModelList[indexPath.row])
+            cell.setData(model: friends[indexPath.row])
             return cell
         }
         
         if collectionView == pickCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickCVC.className, for: indexPath)
                     as? PickCVC else { return UICollectionViewCell() }
-            cell.initCell(model: pickModelList[indexPath.row])
+            cell.setData(model: picks[indexPath.row])
             return cell
         }
         return UICollectionViewCell()
@@ -450,9 +449,14 @@ extension BookShelfVC {
     private func getMyBookShelfInfo(userId: String) {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
             guard let serverMyBookShelfInfo = response?.data else { return }
+            self.myProfileImageView.kf.setImage(with: URL(string: serverMyBookShelfInfo.myIntro.profileImage))
             self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
             self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
             self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
+            self.friends = serverMyBookShelfInfo.friendList
+            self.picks = serverMyBookShelfInfo.picks
+            self.friendsCollectionView.reloadData()
+            self.pickCollectionView.reloadData()
         }
     }
 }
