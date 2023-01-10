@@ -40,6 +40,7 @@ final class BottomBookShelfVC: UIViewController {
         collectionView.isScrollEnabled = false
         collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
     
@@ -216,8 +217,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let y = view.frame.minY
-        if (y == fullView && bookShelfCollectionView.contentOffset.y == 0) || (y == partialView) {
+        if view.frame.minY == partialView {
             bookShelfCollectionView.isUserInteractionEnabled = false
         } else {
             bookShelfCollectionView.isUserInteractionEnabled = true
@@ -256,8 +256,10 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         let y = view.frame.minY
         if (y == fullView && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (y == partialView) {
             bookShelfCollectionView.isScrollEnabled = false
+            bookShelfCollectionView.isUserInteractionEnabled = false
         } else {
             bookShelfCollectionView.isScrollEnabled = true
+            bookShelfCollectionView.isUserInteractionEnabled = true
         }
         
         return false
