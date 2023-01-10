@@ -102,6 +102,7 @@ final class BottomBookShelfVC: UIViewController {
             }, completion: { [weak self] _ in
                 if velocity.y < 0 {
                     self?.bookShelfCollectionView.isScrollEnabled = true
+                    self?.bookShelfCollectionView.isUserInteractionEnabled = true
                 }
             })
         }
@@ -214,7 +215,19 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected index is \(indexPath.row)")
+        
+        let y = view.frame.minY
+        if (y == fullView && bookShelfCollectionView.contentOffset.y == 0) || (y == partialView) {
+            bookShelfCollectionView.isUserInteractionEnabled = false
+        } else {
+            bookShelfCollectionView.isUserInteractionEnabled = true
+            
+            let bookDetailVC = BookDetailVC()
+            bookDetailVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(bookDetailVC, animated: true)
+            
+            print("selected index is \(indexPath.row)")
+        }
     }
 }
 
