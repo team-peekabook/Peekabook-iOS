@@ -11,6 +11,7 @@ import Moya
 
 enum FriendRouter {
     case sample
+    case getuser(nickname: String)
 }
 
 extension FriendRouter: TargetType {
@@ -22,12 +23,16 @@ extension FriendRouter: TargetType {
         switch self {
         case .sample:
             return URLConstant.friend
+        case .getuser:
+            return URLConstant.friend
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .sample:
+            return .get
+        case .getuser:
             return .get
         }
     }
@@ -36,6 +41,8 @@ extension FriendRouter: TargetType {
         switch self {
         case .sample:
             return .requestPlain
+        case .getuser(let nickname):
+            return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
         }
     }
     
