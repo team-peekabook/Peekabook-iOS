@@ -16,41 +16,23 @@ final class FriendAPI {
     
     private init() { }
     
-    // 1. 내 책장 (메인 뷰) 조회 하기
+    private(set) var getUserData: GeneralResponse<SearchUserResponse>?
     
-    func searchUserNickname(nickname: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        friendProvider.request(.getuser(nickname: nickname)) { (result) in
+    // 1. 사용자 검색하기
+    
+    func searchUserData(nickname: String, completion: @escaping (GeneralResponse<SearchUserResponse>?) -> Void) {
+        friendProvider.request(.getuser(nickname: nickname)) { [self] (result) in
             switch result {
             case .success(let response):
-                let statusCode = response.statusCode
-                let data = response.data
-                
-                let networkResult = self.judgeUserSearchStatus(by: statusCode, data)
-                completion(networkResult)
-                
+                do {
+                    self.getUserData = try response.map(GeneralResponse<SearchUserResponse>.self)
+                    completion(getUserData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
             case .failure(let err):
                 print(err)
             }
-        }
-    }
-    
-    private func judgeUserSearchStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        
-        let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(GeneralResponse<SearchUserResponse>.self, from: data)
-        else {
-            return .pathErr
-        }
-        
-        switch statusCode {
-        case 200:
-            return .success(decodedData.data ?? "None-Data")
-        case 400..<500:
-            return .requestErr(decodedData.message as Any)
-        case 500:
-            return .serverErr
-        default:
-            return .networkFail
         }
     }
 }
