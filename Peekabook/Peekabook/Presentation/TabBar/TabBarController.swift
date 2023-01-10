@@ -62,6 +62,9 @@ final class TabBarController: UITabBarController {
         nav.tabBarItem.setTitleTextAttributes([.font: UIFont.font(.notoSansMedium, ofSize: 11)], for: .normal)
         nav.navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
         nav.navigationItem.backBarButtonItem?.tintColor = .black
+        
+        nav.interactivePopGestureRecognizer?.isEnabled = true
+        nav.interactivePopGestureRecognizer?.delegate = self
         return nav
     }
     
@@ -76,3 +79,5 @@ final class TabBarController: UITabBarController {
         UITabBar.appearance().backgroundColor = UIColor.white
     }
 }
+
+extension TabBarController: UIGestureRecognizerDelegate { }
