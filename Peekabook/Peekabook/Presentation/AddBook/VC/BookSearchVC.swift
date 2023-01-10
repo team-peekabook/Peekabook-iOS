@@ -38,6 +38,7 @@ final class BookSearchVC: UIViewController {
     
     private lazy var searchButton = UIButton().then {
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
+        $0.backgroundColor = .yellow
     }
     
     private lazy var searchField = UITextField().then {
@@ -47,8 +48,6 @@ final class BookSearchVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
-        $0.rightViewMode = UITextField.ViewMode.always
-        $0.rightView = searchButton
     }
     
     private lazy var bookTableView: UITableView = {
@@ -118,7 +117,7 @@ extension BookSearchVC {
             containerView.addSubview($0)
         }
         
-        [cancelButton, headerTitleLabel, searchField, headerLineView].forEach {
+        [cancelButton, headerTitleLabel, searchField, searchButton, headerLineView].forEach {
             headerView.addSubview($0)
         }
         
@@ -145,10 +144,16 @@ extension BookSearchVC {
             make.height.equalTo(2)
         }
         
+        searchButton.snp.makeConstraints { make in
+            make.top.equalTo(searchField.snp.top)
+            make.trailing.equalTo(headerLineView)
+            make.width.height.equalTo(40)
+        }
+        
         searchField.snp.makeConstraints { make in
             make.top.equalTo(headerLineView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
+            make.leading.equalTo(headerLineView)
+            make.trailing.equalTo(searchButton.snp.leading)
             make.height.equalTo(40)
         }
         
@@ -204,7 +209,12 @@ extension BookSearchVC {
     // TODO: - 서버통신 시 GET
     @objc
     private func searchButtonDidTap() {
-        // do something
+        print("tap")
+//        if self.bookInfoList.isEmpty == true {
+//            self.emptyView.isHidden = false
+//        } else {
+//            self.emptyView.isHidden = true
+//        }
     }
 }
 
@@ -227,6 +237,8 @@ extension BookSearchVC: UITableViewDataSource {
         } else {
             self.emptyView.isHidden = true
         }
+//        self.emptyView.isHidden = true
+//        self.containerView.isHidden = true
         
         guard let bookCell = tableView.dequeueReusableCell(
             withIdentifier: BookInfoTableViewCell.identifier,
