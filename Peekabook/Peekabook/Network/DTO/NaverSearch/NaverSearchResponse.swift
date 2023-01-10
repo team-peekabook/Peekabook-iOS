@@ -7,10 +7,20 @@
 
 import Foundation
 
+// 네이버 책검색 API 호출 메소드
+class DataManager {
+    static let shared: DataManager = DataManager()
+    var searchResult: NaverSearchResponse?
+    
+    private init() {
+        
+    }
+}
+
 // MARK: - NaverSearchResponse
 
 struct NaverSearchResponse: Codable {
-    let BookDetailList: [BookDetail]
+    let items: [BookDetail]
 }
 
 // MARK: - Item
