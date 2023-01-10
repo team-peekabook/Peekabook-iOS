@@ -49,7 +49,7 @@ final class BookShelfVC: UIViewController {
     
     private lazy var notificationButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.notification, for: .normal)
-        $0.addTarget(self, action: #selector(notiButtonDidTapDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(notiButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var friendsCollectionView: UICollectionView = {
@@ -141,7 +141,7 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc
-    private func notiButtonDidTapDidTap() {
+    private func notiButtonDidTap() {
         let notiVC = MyNotificationVC()
         notiVC.modalPresentationStyle = .fullScreen
         present(notiVC, animated: true)
@@ -149,7 +149,9 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func editPickButtonDidTap() {
-        print("editPickButtonDidTap")
+        let editPickVC = EditMyPickVC()
+        editPickVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editPickVC, animated: true)
     }
     
     @objc private func myProfileViewDidTap() {
@@ -410,7 +412,7 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         }
         
         if collectionView == pickCollectionView {
-            return CGSize(width: 145, height: 250)
+            return CGSize(width: 145.adjusted, height: 250)
         }
         return CGSize(width: 0, height: 0)
     }

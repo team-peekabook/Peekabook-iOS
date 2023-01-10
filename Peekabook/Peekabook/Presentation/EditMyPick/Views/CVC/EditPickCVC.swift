@@ -1,13 +1,13 @@
 //
-//  BookShelfCVC.swift
+//  EditPickCVC.swift
 //  Peekabook
 //
-//  Created by devxsby on 2023/01/04.
+//  Created by devxsby on 2023/01/06.
 //
 
 import UIKit
 
-final class BookShelfCVC: UICollectionViewCell {
+final class EditPickCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
@@ -15,6 +15,15 @@ final class BookShelfCVC: UICollectionViewCell {
         $0.contentMode = .scaleToFill
         $0.layer.masksToBounds = true
         $0.clipsToBounds = true
+    }
+    
+    private let countLabel = UILabel().then {
+        $0.font = .engC
+        $0.backgroundColor = .peekaRed
+        $0.textColor = .peekaWhite
+        $0.clipsToBounds = true
+        $0.textAlignment = .center
+        $0.layer.cornerRadius = 10
     }
     
     private let horizontalLine = UIView().then {
@@ -36,25 +45,30 @@ final class BookShelfCVC: UICollectionViewCell {
 
 // MARK: - Methods
 
-extension BookShelfCVC {
-    func initCell(model: SampleBookModel) {
+extension EditPickCVC {
+    func initCell(model: SampleEditPickModel) {
         bookImageView.image = model.bookImage
+        countLabel.text = String(model.countLabel)
     }
     
     private func setUI() {
-        backgroundColor = .peekaLightBeige
-        horizontalLine.backgroundColor = .peekaBeige
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
+        horizontalLine.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
-        addSubviews(bookImageView, horizontalLine)
+        addSubviews(bookImageView, countLabel, horizontalLine)
         
         bookImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.center.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(150)
+        }
+        
+        countLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookImageView).offset(8)
+            make.trailing.equalTo(bookImageView).inset(8)
+            make.width.height.equalTo(20)
         }
         
         horizontalLine.snp.makeConstraints { make in
@@ -64,4 +78,15 @@ extension BookShelfCVC {
             make.height.equalTo(6)
         }
     }
+    
+    func selectedLayout(model: SampleEditPickModel) {
+        if countLabel.text != "0" {
+            bookImageView.layer.opacity = 0.4
+            countLabel.isHidden = false
+        } else {
+            bookImageView.layer.opacity = 1
+            countLabel.isHidden = true
+        }
+    }
+    
 }

@@ -36,6 +36,7 @@ struct ImageLiterals {
         static let notification = UIImage(named: "icn_notification")
         static let search = UIImage(named: "icn_search")
         static let empty = UIImage(named: "icn_emptyView")
+        static let pick = UIImage(named: "icn_pick")
     }
     
     struct Sample {
