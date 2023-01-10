@@ -241,24 +241,13 @@ extension UserSearchVC {
 extension UserSearchVC {
     private func getUserAPI(nickname: String) {
         FriendAPI.shared.searchUserData(nickname: nickname) { response in
-            guard let serverGetUserData = response?.data else { return }
-            print(serverGetUserData.nickname)
-            if self.searchTextField.text == serverGetUserData.nickname {
-                self.setTableView()
+            if response?.success == true {
+                guard let serverGetUserData = response?.data else { return }
+                self.nameLabel.text = serverGetUserData.nickname
+                self.setSuccessView()
             } else {
                 self.setEmptyView()
             }
         }
     }
 }
-
-/*
- private func getMyBookShelfInfo(userId: String) {
-     BookShelfAPI.shared.getMyBookShelfInfo { response in
-         guard let serverMyBookShelfInfo = response?.data else { return }
-         self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-         self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-         self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
-     }
- }
-*/
