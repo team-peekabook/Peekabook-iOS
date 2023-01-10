@@ -420,7 +420,7 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         }
         
         if collectionView == pickCollectionView {
-            return CGSize(width: 145.adjusted, height: 250)
+            return CGSize(width: 145, height: 250)
         }
         return CGSize(width: 0, height: 0)
     }
