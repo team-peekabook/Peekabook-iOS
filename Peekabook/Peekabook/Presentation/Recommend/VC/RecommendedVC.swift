@@ -12,6 +12,7 @@ class RecommendedVC: UIViewController {
     // MARK: - Properties
     
     private var serverGetRecommendedBook: GetRecommendResponse?
+    private var recommendedBooks: [RecommendBook] = []
 
     private var recommendedDummy: [RecommendModel] = [
         RecommendModel(
@@ -126,7 +127,7 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        // cell.dataBind(model: recommendedDummy[indexPath.item])
+        cell.dataBind(model: recommendedBooks[indexPath.row])
         return cell
     }
 }

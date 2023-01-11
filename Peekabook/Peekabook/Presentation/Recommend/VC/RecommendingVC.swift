@@ -11,6 +11,8 @@ class RecommendingVC: UIViewController {
     
     // MARK: - Properties
     
+    private var recommendingBooks: [RecommendBook] = []
+    
     private var recommendedDummy: [RecommendModel] = [
         RecommendModel(
             image: ImageLiterals.Sample.book4,
@@ -116,14 +118,9 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: RecommendTVC.className,
-            for: indexPath
-        ) as? RecommendTVC
-        else {
-            return UITableViewCell()
-        }
-        cell.dataBind(model: recommendedDummy[indexPath.item])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC
+        else {return UITableViewCell()}
+        cell.dataBind(model: recommendingBooks[indexPath.row])
         return cell
     }
 }
