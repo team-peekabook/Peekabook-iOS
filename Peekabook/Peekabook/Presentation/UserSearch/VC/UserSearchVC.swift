@@ -67,7 +67,6 @@ final class UserSearchVC: UIViewController {
     
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile6
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.layer.cornerRadius = 28
@@ -261,7 +260,7 @@ extension UserSearchVC {
             if response?.success == true {
                 guard let serverGetUserData = response?.data else { return }
                 self.nameLabel.text = serverGetUserData.nickname
-                self.profileImage.image = serverGetUserData.profileImage.makeImage()
+                self.profileImage.kf.setImage(with: URL(string: serverGetUserData.profileImage))
                 self.followButton.isSelected = serverGetUserData.isFollowed
                 self.friendId = serverGetUserData.friendID
                 self.setFollowStatus()
