@@ -7,11 +7,13 @@
 
 import Foundation
 
+typealias Intro = MyIntro
+
 // MARK: - MyBookShelfResponse
 
 struct MyBookShelfResponse: Codable {
-    let friendList: [MyIntro]
-    let myIntro: MyIntro
+    let friendList: [Intro]
+    let myIntro: Intro
     let picks: [Pick]
     let bookTotalNum: Int
     let books: [Book]
