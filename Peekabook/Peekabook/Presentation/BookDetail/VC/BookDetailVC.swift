@@ -16,6 +16,8 @@ final class BookDetailVC: UIViewController {
     
     // MARK: - Properties
     
+    private var serverWatchBookDetail: WatchBookDetailResponse?
+    
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
@@ -95,6 +97,11 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getBookDetail(bookId: 3)
     }
     
     // MARK: - @objc Function
@@ -238,3 +245,15 @@ extension BookDetailVC {
 }
 
 // MARK: - Methods
+
+extension BookDetailVC {
+    func getBookDetail(bookId: Int) {
+        BookShelfAPI.shared.getBookDetail(bookId: bookId) { response in
+            guard let serverWatchBookDetail = response?.data else { return }
+            self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
+            self.bookAuthorLabel.text = serverWatchBookDetail.book.author
+            self.commentTextView.text = serverWatchBookDetail.description
+            self.memoTextView.text = serverWatchBookDetail.memo
+        }
+    }
+}

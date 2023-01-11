@@ -39,6 +39,7 @@ final class BookShelfVC: UIViewController {
 
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
+//    var bookIdPath = 0
     
     private var selectedUserIndex: Int? {
         didSet {
@@ -455,7 +456,6 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
-            
             guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
             cell.changeBorderLayout(isSelected: true)
             selectedUserIndex = indexPath.row
