@@ -89,7 +89,7 @@ final class BookShelfVC: UIViewController {
     private lazy var friendsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -99,7 +99,7 @@ final class BookShelfVC: UIViewController {
     private let myProfileImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.layer.borderWidth = 2
+        $0.layer.borderWidth = 3
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 22
         $0.clipsToBounds = true
@@ -143,7 +143,7 @@ final class BookShelfVC: UIViewController {
     private lazy var pickCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -491,6 +491,9 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == friendsCollectionView {
+            return -5
+        }
         if collectionView == pickCollectionView {
             return 16
         }
