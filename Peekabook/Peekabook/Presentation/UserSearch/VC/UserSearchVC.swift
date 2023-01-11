@@ -19,6 +19,19 @@ final class UserSearchVC: UIViewController {
     private var serverGetUserData: SearchUserResponse?
     
     var friendId: Int = 0
+    var isFollowingStatus: Bool = false
+    
+//    var isSelected: Bool = false {
+//        didSet {
+//            if isSelected {
+//                print(isSelected)
+//                postFollowAPI(friendId: friendId)
+//            } else {
+//                print(isSelected)
+//                deleteFollowAPI(friendId: friendId)
+//            }
+//        }
+//    }
     
     // MARK: - UI Components
     
@@ -85,7 +98,14 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc private func followButtonDidTap() {
-        postFollowAPI(friendId: friendId)
+        isFollowingStatus.toggle()
+        if isFollowingStatus {
+            followed()
+            postFollowAPI(friendId: friendId)
+        } else {
+            unfollowed()
+            deleteFollowAPI(friendId: friendId)
+        }
     }
     
     // MARK: - View Life Cycle
@@ -102,7 +122,6 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc private func searchBtnTapped() {
-        print("검색")
         getUserAPI(nickname: searchTextField.text!)
     }
 }
@@ -127,6 +146,10 @@ extension UserSearchVC {
     private func setSuccessView() {
         self.emptyView.isHidden = true
         self.friendProfileContainerView.isHidden = false
+    }
+    
+    private func setFollowStatus() {
+        followButton.isSelected == true ? followed() : unfollowed()
     }
     
     private func setBlankView() {
@@ -227,10 +250,6 @@ extension UserSearchVC {
             make.height.equalTo(32)
         }
     }
-    
-    private func setFollowStatus() {
-        followButton.isSelected == true ? followed() : unfollowed()
-    }
 }
 
 // MARK: - Methods
@@ -240,12 +259,12 @@ extension UserSearchVC {
     private func followed() {
         followButton.backgroundColor = .peekaGray2
         followButton.setTitle(I18N.FollowStatus.following, for: .normal)
-        followButton.isSelected = true
+//        followButton.isSelected = true
     }
     private func unfollowed() {
         followButton.backgroundColor = .peekaRed
         followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
-        followButton.isSelected = false
+//        followButton.isSelected = false
     }
     
 }
@@ -260,6 +279,7 @@ extension UserSearchVC {
                 self.nameLabel.text = serverGetUserData.nickname
                 self.profileImage.kf.setImage(with: URL(string: serverGetUserData.profileImage))
                 self.followButton.isSelected = serverGetUserData.isFollowed
+                self.isFollowingStatus = self.followButton.isSelected
                 self.friendId = serverGetUserData.friendID
                 self.setFollowStatus()
                 self.setSuccessView()
@@ -272,9 +292,15 @@ extension UserSearchVC {
     private func postFollowAPI(friendId: Int) {
         FriendAPI.shared.postFollowing(id: friendId) { response in
             if response?.success == true {
-                self.followed()
-            } else {
-                self.unfollowed()
+                self.isFollowingStatus = true
+            }
+        }
+    }
+    
+    private func deleteFollowAPI(friendId: Int) {
+        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+            if response?.success == true {
+                self.isFollowingStatus = false
             }
         }
     }
