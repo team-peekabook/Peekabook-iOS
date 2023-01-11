@@ -110,6 +110,7 @@
 		985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
 		986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */; };
+		98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */; };
 		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
@@ -231,6 +232,7 @@
 		985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTableViewCell.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
 		986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpViewController.swift; sourceTree = "<group>"; };
+		98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBookDetailResponse.swift; sourceTree = "<group>"; };
 		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
@@ -775,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */,
+				98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */,
 			);
 			path = BookShelf;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
+				98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */,
 				8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
