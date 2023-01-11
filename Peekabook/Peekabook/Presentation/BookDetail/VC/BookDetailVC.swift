@@ -17,7 +17,8 @@ final class BookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
-    
+    var pickBookIndex = 0
+
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
@@ -97,11 +98,11 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        getBookDetail(bookId: pickBookIndex)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getBookDetail(bookId: 3)
     }
     
     // MARK: - @objc Function
