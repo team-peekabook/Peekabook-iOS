@@ -160,6 +160,10 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getMyBookShelfInfo()
     }
     
