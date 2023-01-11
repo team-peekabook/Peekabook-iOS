@@ -18,7 +18,6 @@ class RecommendCVC: UICollectionViewCell {
     }
     
     private var menuLabel = UILabel().then {
-        $0.text = "book"
         $0.font = .nameBold
         $0.textColor = .peekaGray2
     }

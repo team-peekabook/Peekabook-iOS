@@ -81,7 +81,7 @@ extension RecommendedVC {
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 221
+        return 230
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,8 +105,6 @@ extension RecommendedVC {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
                 self.tableView.reloadData()
-            } else {
-                print("false")
             }
         }
     }
