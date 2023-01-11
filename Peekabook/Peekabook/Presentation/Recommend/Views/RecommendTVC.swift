@@ -49,7 +49,7 @@ final class RecommendTVC: UITableViewCell {
         $0.clipsToBounds = true
     }
     private let bookRecommendedPersonLabel = UILabel().then {
-        $0.font = .s2
+        $0.font = .c2
         $0.textColor = .peekaRed
     }
     private let bookRecommendDateLabel = UILabel().then {
