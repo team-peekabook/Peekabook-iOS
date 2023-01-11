@@ -33,6 +33,15 @@
 
 import Foundation
 
+class DataManager {
+    static let shared : DataManager = DataManager()
+    var searchResult : PostBook?
+    
+    private init() {
+        
+    }
+}
+
 // MARK: - PostBook
 struct PostBook: Codable {
     let lastBuildDate: String

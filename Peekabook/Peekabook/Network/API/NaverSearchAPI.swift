@@ -15,9 +15,24 @@ final class NaverSearchAPI {
     
     let jsconDecoder: JSONDecoder = JSONDecoder()
     
+    var titleList: [String] = []
+    var imageList: [String] = []
+    var authorList: [String] = []
+    let booksearchVC = BookSearchVC()
+    
     func urlTaskDone() {
-        //            let item = DataManager.shared.searchResult?.items[0]
-        //            print(item)
+        let wholeList = DataManager.shared.searchResult
+        do {
+            for i in 0...9 {
+                titleList.append((wholeList?.items[i].title)!)
+                imageList.append((wholeList?.items[i].image)!)
+                authorList.append((wholeList?.items[i].author)!)
+            }
+            print(titleList)
+            print(imageList)
+            print(authorList)
+//            booksearchVC.titleList = titleList
+        } catch {}
     }
     
     // 네이버 책검색 API 불러오기
@@ -32,6 +47,7 @@ final class NaverSearchAPI {
         var queryURL: URLComponents = URLComponents(string: query)!
         var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
         queryURL.queryItems?.append(titleQuery)
+        
         var requestURL = URLRequest(url: queryURL.url!)
         requestURL.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         requestURL.addValue(clientID, forHTTPHeaderField: "X-Naver-Client-Id")
@@ -43,8 +59,7 @@ final class NaverSearchAPI {
             
             do {
                 let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
-                //           DataManager.shared.searchResult = searchInfo
-                print(searchInfo)
+                DataManager.shared.searchResult = searchInfo
                 self.urlTaskDone()
                 
             } catch {

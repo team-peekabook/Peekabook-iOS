@@ -14,6 +14,10 @@ import Moya
 
 final class BookSearchVC: UIViewController {
     
+    var titleList: [String] = []
+    var imageList: [String] = []
+    var authorList: [String] = []
+    
     // MARK: - Properties
 
     // MARK: - UI Components
@@ -212,13 +216,13 @@ extension BookSearchVC {
     private func searchButtonDidTap() {
         let ls = NaverSearchAPI()
         ls.getNaverBookAPI(d_titl: searchField.text!)
-
-//        getNaverBookAPI(String: searchField.text)
-//        dataManager.shared.searchResult?.BookDetailList
+//        getNaverBookAPI(d_titl: searchField.text!)
+        
 //        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
 //        print(bookInfoList[0])
 //        setView()
     }
+    
 }
 
 // MARK: - Methods
@@ -244,3 +248,19 @@ extension BookSearchVC: UITableViewDataSource {
         return bookCell
     }
 }
+
+//extension BookSearchVC {
+//    private func getNaverBookAPI(d_titl: String) {
+//        let wholeList = DataManager.shared.searchResult
+//        var getTitleList: [String] = []
+//        var getImageList: [String] = []
+//        var getAuthorList: [String] = []
+//        for i in 0...9 {
+//            getTitleList.append((wholeList?.items[i].title) ?? "")
+//            getImageList.append((wholeList?.items[i].image) ?? "")
+//            getAuthorList.append((wholeList?.items[i].author) ?? "")
+//            bookInfoList.append(BookInfoModel(image: getTitleList[i], title: getImageList[i], author: getAuthorList[i]))
+//        }
+//        return getTitleList
+//    }
+//}
