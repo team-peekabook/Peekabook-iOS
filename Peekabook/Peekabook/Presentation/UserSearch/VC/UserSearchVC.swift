@@ -21,18 +21,6 @@ final class UserSearchVC: UIViewController {
     var friendId: Int = 0
     var isFollowingStatus: Bool = false
     
-//    var isSelected: Bool = false {
-//        didSet {
-//            if isSelected {
-//                print(isSelected)
-//                postFollowAPI(friendId: friendId)
-//            } else {
-//                print(isSelected)
-//                deleteFollowAPI(friendId: friendId)
-//            }
-//        }
-//    }
-    
     // MARK: - UI Components
     
     private let emptyView = UIView()
@@ -259,12 +247,10 @@ extension UserSearchVC {
     private func followed() {
         followButton.backgroundColor = .peekaGray2
         followButton.setTitle(I18N.FollowStatus.following, for: .normal)
-//        followButton.isSelected = true
     }
     private func unfollowed() {
         followButton.backgroundColor = .peekaRed
         followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
-//        followButton.isSelected = false
     }
     
 }
