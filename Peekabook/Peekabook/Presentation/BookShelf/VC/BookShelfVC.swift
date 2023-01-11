@@ -484,14 +484,15 @@ extension BookShelfVC {
     private func getMyBookShelfInfo(userId: String) {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
-            self.myProfileImageView.kf.setImage(with: URL(string: (self.serverMyBookShelfInfo?.myIntro.profileImage)!))
-            self.myNameLabel.text = self.serverMyBookShelfInfo?.myIntro.nickname
-            self.introNameLabel.text = self.serverMyBookShelfInfo?.myIntro.nickname
-            self.introductionLabel.text = self.serverMyBookShelfInfo?.myIntro.intro
-            self.friends = self.serverMyBookShelfInfo?.friendList ?? []
-            self.picks = self.serverMyBookShelfInfo?.picks ?? []
-            self.bottomShelfVC.setData(books: self.serverMyBookShelfInfo?.books ?? [],
-                                       bookTotalNum: self.serverMyBookShelfInfo?.bookTotalNum ?? 0)
+            guard let response = response, let data = response.data else { return }
+            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage)))
+            self.myNameLabel.text = data.myIntro.nickname
+            self.introNameLabel.text = data.myIntro.nickname
+            self.introductionLabel.text = data.myIntro.intro
+            self.friends = data.friendList
+            self.picks = data.picks
+            self.bottomShelfVC.setData(books: data.books,
+                                       bookTotalNum: data.bookTotalNum)
             self.friendsCollectionView.reloadData()
             self.pickCollectionView.reloadData()
         }
@@ -500,11 +501,12 @@ extension BookShelfVC {
     private func getFriendBookShelfInfo(userId: Int) {
         BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
             self.serverFriendBookShelfInfo = response?.data
-            self.introNameLabel.text = self.serverFriendBookShelfInfo?.friendIntro.nickname
-            self.introductionLabel.text = self.serverFriendBookShelfInfo?.friendIntro.intro
-            self.picks = self.serverFriendBookShelfInfo?.picks ?? []
-            self.bottomShelfVC.setData(books: self.serverFriendBookShelfInfo?.books ?? [],
-                                       bookTotalNum: self.serverFriendBookShelfInfo?.bookTotalNum ?? 0)
+            guard let response = response, let data = response.data else { return }
+            self.introNameLabel.text = data.friendIntro.nickname
+            self.introductionLabel.text = data.friendIntro.intro
+            self.picks = data.picks
+            self.bottomShelfVC.setData(books: data.books,
+                                       bookTotalNum: data.bookTotalNum)
             self.pickCollectionView.reloadData()
         }
     }
