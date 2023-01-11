@@ -54,6 +54,6 @@ extension FriendRouter: TargetType {
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.defaultHeader
+        return NetworkConstant.hasUserIdHeader
     }
 }
