@@ -17,6 +17,9 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private var serverGetUserData: SearchUserResponse?
+    private var serverPostFollow: PostFollowingResponse?
+    
+    var friendId: Int = 0
     
     // MARK: - UI Components
     
@@ -85,6 +88,7 @@ final class UserSearchVC: UIViewController {
     
     @objc private func followButtonDidTap() {
         print("팔로우")
+        postFollowAPI(friendId: friendId)
     }
     
     // MARK: - View Life Cycle
@@ -259,10 +263,21 @@ extension UserSearchVC {
                 self.nameLabel.text = serverGetUserData.nickname
                 self.profileImage.image = serverGetUserData.profileImage.makeImage()
                 self.followButton.isSelected = serverGetUserData.isFollowed
+                self.friendId = serverGetUserData.friendID
                 self.setFollowStatus()
                 self.setSuccessView()
             } else {
                 self.setEmptyView()
+            }
+        }
+    }
+    
+    private func postFollowAPI(friendId: Int) {
+        FriendAPI.shared.postFollowing(id: friendId) { response in
+            if response?.success == true {
+                self.followed()
+            } else {
+                self.unfollowed()
             }
         }
     }
