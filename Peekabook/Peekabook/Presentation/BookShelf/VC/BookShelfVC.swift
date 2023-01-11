@@ -39,7 +39,6 @@ final class BookShelfVC: UIViewController {
 
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
-//    var bookIdPath = 0
     
     private var selectedUserIndex: Int? {
         didSet {
@@ -464,8 +463,8 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == pickCollectionView {
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
+            bookDetailVC.selectedBookIndex = picks[indexPath.row].book.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            print("selected index is \(indexPath.row)")
         }
     }
     

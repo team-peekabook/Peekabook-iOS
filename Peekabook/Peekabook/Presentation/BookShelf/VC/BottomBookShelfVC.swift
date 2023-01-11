@@ -15,6 +15,7 @@ final class BottomBookShelfVC: UIViewController {
     private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
+    private var picks: [Pick] = []
 
     // MARK: - UI Components
     
@@ -235,9 +236,8 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
+            bookDetailVC.selectedBookIndex = books[indexPath.row].bookID
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            
-            print("selected index is \(indexPath.row)")
         }
     }
 }
