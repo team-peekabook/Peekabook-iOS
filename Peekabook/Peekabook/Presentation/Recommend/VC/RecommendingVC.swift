@@ -11,9 +11,10 @@ class RecommendingVC: UIViewController {
     
     // MARK: - Properties
     
+    private var serverGetRecommendingBook: GetRecommendResponse?
     private var recommendingBooks: [RecommendBook] = []
     
-    private var recommendedDummy: [RecommendModel] = [
+    private var recommendingDummy: [RecommendModel] = [
         RecommendModel(
             image: ImageLiterals.Sample.book4,
             bookName: "눈보라 체이스",
@@ -58,6 +59,7 @@ class RecommendingVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+        getRecommendingBooksAPI()
     }
 }
 
@@ -100,27 +102,35 @@ extension RecommendingVC {
 
 extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(
-        _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 221
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recommendingBooks.count
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC
-        else {return UITableViewCell()}
+        else { return UITableViewCell() }
         cell.dataBind(model: recommendingBooks[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - Network
+
+extension RecommendingVC {
+    
+    private func getRecommendingBooksAPI() {
+        RecommendAPI.shared.getRecommend { response in
+            if response?.success == true {
+                guard let serverGetRecommendingBook = response?.data else { return }
+                self.recommendingBooks = serverGetRecommendingBook.recommendingBook
+                self.tableView.reloadData()
+            } else {
+                print("false")
+            }
+        }
     }
 }
