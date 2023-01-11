@@ -22,6 +22,7 @@ class RecommendedVC: UIViewController {
         $0.allowsSelection = false
         $0.allowsMultipleSelection = false
         $0.separatorStyle = .none
+        $0.contentInset.bottom = 15
     }
     
     // MARK: - View Life Cycle
