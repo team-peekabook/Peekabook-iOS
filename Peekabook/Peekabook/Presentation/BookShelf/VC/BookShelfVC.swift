@@ -403,7 +403,6 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
             print("\(indexPath.item) click")
-            
         }
         
         if collectionView == pickCollectionView {
