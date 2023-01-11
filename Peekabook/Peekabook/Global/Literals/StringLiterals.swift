@@ -37,6 +37,7 @@ struct I18N {
     struct BookShelf {
         static let pick = "PICK !"
         static let editPick = "픽 수정하기"
+        static let recommendBook = "책 추천하기"
         static let books = "Books"
         static let editPickDescription = "최대 3개까지 선택 가능해요."
     }
