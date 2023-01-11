@@ -69,6 +69,7 @@ extension PickCVC {
     }
     
     private func setUI() {
+        self.clipsToBounds = true
         layer.borderWidth = 2
         layer.borderColor = UIColor.peekaRed.cgColor
         backgroundColor = .peekaWhite
@@ -81,7 +82,7 @@ extension PickCVC {
     }
     
     private func setLayout() {
-        addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
+        contentView.addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
         titleContainerView.addSubview(titleLabel)
         
         countBackgroundView.addSubview(countLabel)
