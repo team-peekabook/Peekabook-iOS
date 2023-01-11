@@ -96,8 +96,8 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
       print("Barcode Data: \(code)")
       print("Symbology Type: \(type)")
         
-        let ls = NaverSearchAPI()
-        ls.getNaverBookAPI(d_titl: "", d_isbn: "9791188343317")
+//        let ls = NaverSearchAPI()
+//        ls.getNaverBookAPI(d_titl: "", d_isbn: "\(code)")
         
         let nextVC = AddBookVC()
         nextVC.modalPresentationStyle = .fullScreen

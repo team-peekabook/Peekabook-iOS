@@ -39,9 +39,9 @@ final class NaverSearchAPI {
         let wholeList = DataManager.shared.searchResult
         do {
             var i = 0
-                titleList.append((wholeList?.items[i].title)!)
-                imageList.append((wholeList?.items[i].image)!)
-                authorList.append((wholeList?.items[i].author)!)
+            titleList.append((wholeList?.items[i].title)!)
+            imageList.append((wholeList?.items[i].image)!)
+            authorList.append((wholeList?.items[i].author)!)
             print(titleList)
             print(imageList)
             print(authorList)
@@ -55,9 +55,9 @@ final class NaverSearchAPI {
         let clientID: String = Config.naverClientId
         let clientKEY: String = Config.naverClientSecret
         
-        let query: String = Config.naverBookSearchURL
-        let encodedQuery: String = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-        var queryURL: URLComponents = URLComponents(string: query)!
+        let searchURL: String = Config.naverBookSearchURL
+        let encodedQuery: String = searchURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        var queryURL: URLComponents = URLComponents(string: searchURL)!
         var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
         queryURL.queryItems?.append(titleQuery)
         
@@ -76,25 +76,22 @@ final class NaverSearchAPI {
             do {
                 let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
                 DataManager.shared.searchResult = searchInfo
+                
 //                print(queryURL.queryItems)
 //                print(titleQuery.value)
 //                print(isbnQuery.value)
-                var bookTitle = ""
-                if let titleQ = titleQuery.value {
-                    bookTitle = titleQ
-                    print(bookTitle)
-                    if bookTitle == nil {
-                        self.urlIsbnTaskDone()
-                    } else {
-                        self.urlTitleTaskDone()
-                    }
-                }
-                
-                
-//                else if isbnQuery.value == nil {
-//                    self.urlTitleTaskDone()
+//                var bookTitle = ""
+//                if let titleQ = titleQuery.value {
+//                    bookTitle = titleQ
+//                    print(bookTitle)
+//                    if bookTitle == nil {
+//                        self.urlIsbnTaskDone()
+//                    } else {
+//                        self.urlTitleTaskDone()
+//                    }
 //                }
-//                self.urlTitleTaskDone()
+                
+                self.urlTitleTaskDone()
                 
 //                self.urlIsbnTaskDone()
                 
