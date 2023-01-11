@@ -106,8 +106,6 @@ extension RecommendingVC {
                 guard let serverGetRecommendingBook = response?.data else { return }
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook
                 self.tableView.reloadData()
-            } else {
-                print("false")
             }
         }
     }
