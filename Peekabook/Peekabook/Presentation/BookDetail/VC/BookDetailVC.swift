@@ -17,7 +17,7 @@ final class BookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
-    var pickBookIndex = 0
+    var selectedBookIndex = 0
 
     // MARK: - UI Components
     
@@ -98,11 +98,13 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        getBookDetail(bookId: pickBookIndex)
+//        getBookDetail(bookId: pickBookIndex)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getBookDetail(bookId: selectedBookIndex)
+
     }
     
     // MARK: - @objc Function
