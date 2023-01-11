@@ -17,7 +17,6 @@ final class BookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
-    var bookIdPath = 0
     
     // MARK: - UI Components
     
@@ -102,7 +101,7 @@ final class BookDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getBookDetail(bookId: 2)
+        getBookDetail(bookId: 3)
     }
     
     // MARK: - @objc Function
