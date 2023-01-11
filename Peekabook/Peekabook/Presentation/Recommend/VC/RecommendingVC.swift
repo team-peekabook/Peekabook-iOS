@@ -33,6 +33,10 @@ class RecommendingVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getRecommendingBooksAPI()
     }
 }
