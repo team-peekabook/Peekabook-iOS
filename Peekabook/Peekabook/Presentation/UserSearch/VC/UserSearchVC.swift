@@ -17,7 +17,6 @@ final class UserSearchVC: UIViewController {
     // MARK: - Properties
     
     private var serverGetUserData: SearchUserResponse?
-    private var serverPostFollow: PostFollowingResponse?
     
     var friendId: Int = 0
     
