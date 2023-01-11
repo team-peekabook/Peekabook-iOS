@@ -82,9 +82,9 @@ extension BookShelfCVC {
     }
     
     func setData(model: Book) {
-        if model.pickIndex == 0 {
-            pickImageView.isHidden = true
-        }
+        
+        pickImageView.isHidden = model.pickIndex == 0 ? true : false
+        
         bookId = model.bookID
         bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
     }

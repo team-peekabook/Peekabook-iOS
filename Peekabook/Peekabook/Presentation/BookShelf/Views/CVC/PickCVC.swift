@@ -31,7 +31,7 @@ final class PickCVC: UICollectionViewCell {
     private let horizontalLine = UIView()
     
     private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.clipsToBounds = true
     }
     
@@ -69,6 +69,7 @@ extension PickCVC {
     }
     
     private func setUI() {
+        self.clipsToBounds = true
         layer.borderWidth = 2
         layer.borderColor = UIColor.peekaRed.cgColor
         backgroundColor = .peekaWhite
@@ -81,7 +82,7 @@ extension PickCVC {
     }
     
     private func setLayout() {
-        addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
+        contentView.addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
         titleContainerView.addSubview(titleLabel)
         
         countBackgroundView.addSubview(countLabel)
@@ -125,6 +126,9 @@ extension PickCVC {
     }
     
     func setData(model: Pick) {
+        
+        titleContainerView.isHidden = (model.description?.isEmpty) == nil
+        
         countLabel.text = String(model.pickIndex)
         bookId = model.book.id
         bookNameLabel.text = model.book.bookTitle

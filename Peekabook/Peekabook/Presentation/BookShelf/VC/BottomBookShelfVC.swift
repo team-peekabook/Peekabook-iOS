@@ -23,7 +23,7 @@ final class BottomBookShelfVC: UIViewController {
     private let holdView = UIView()
     
     private let booksCountLabel = UILabel().then {
-        $0.text = "\(SampleBookModel.data.count) Books"
+        $0.text = "Books"
         $0.font = .engSb
         $0.textColor = .peekaRed
     }
@@ -64,7 +64,6 @@ final class BottomBookShelfVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateView()
-        getMyBookShelfInfo(userId: "1")
     }
     
     override func didReceiveMemoryWarning() {
@@ -201,6 +200,16 @@ extension BottomBookShelfVC {
         
         view.insertSubview(bluredView, at: 0)
     }
+    
+    func setData(books: [Book], bookTotalNum: Int) {
+        self.books = books
+        self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
+        bookShelfCollectionView.reloadData()
+    }
+    
+    func hideAddBookButton(wantsToHide: Bool) {
+        addBookButton.isHidden = wantsToHide
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -242,7 +251,7 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -269,15 +278,3 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
 }
 
 // MARK: - Network
-
-extension BottomBookShelfVC {
-    
-    private func getMyBookShelfInfo(userId: String) {
-        BookShelfAPI.shared.getMyBookShelfInfo { response in
-            guard let serverMyBookShelfInfo = response?.data else { return }
-            self.booksCountLabel.text = "\(String(serverMyBookShelfInfo.bookTotalNum)) Books"
-            self.books = serverMyBookShelfInfo.books
-            self.bookShelfCollectionView.reloadData()
-        }
-    }
-}
