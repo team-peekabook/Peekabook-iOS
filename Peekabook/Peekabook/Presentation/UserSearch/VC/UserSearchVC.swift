@@ -86,7 +86,6 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc private func followButtonDidTap() {
-        print("팔로우")
         postFollowAPI(friendId: friendId)
     }
     
