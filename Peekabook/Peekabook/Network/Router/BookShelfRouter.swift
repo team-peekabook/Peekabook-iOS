@@ -11,6 +11,7 @@ import Moya
 
 enum BookShelfRouter {
     case getMyBookShelf
+    case watchBookDetail(bookId: Int)
 }
 
 extension BookShelfRouter: TargetType {
@@ -22,12 +23,16 @@ extension BookShelfRouter: TargetType {
         switch self {
         case .getMyBookShelf:
             return URLConstant.bookShelf
+        case .watchBookDetail(let bookId):
+            return "\(URLConstant.detail)/\(bookId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .getMyBookShelf:
+            return .get
+        case .watchBookDetail:
             return .get
         }
     }
@@ -36,6 +41,8 @@ extension BookShelfRouter: TargetType {
         switch self {
         case .getMyBookShelf:
             return .requestPlain
+        case .watchBookDetail(let bookId):
+            return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
         }
     }
     
