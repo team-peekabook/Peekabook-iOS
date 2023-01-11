@@ -16,7 +16,7 @@ final class FriendsCVC: UICollectionViewCell {
     private let profileImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 20
+        $0.layer.cornerRadius = 22
         $0.clipsToBounds = true
     }
     
@@ -51,6 +51,8 @@ extension FriendsCVC {
     private func setUI() {
         contentView.backgroundColor = .peekaBeige
         backgroundColor = .clear
+        profileImageView.layer.borderWidth = 3
+        profileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
     }
     
     private func setLayout() {
@@ -64,7 +66,7 @@ extension FriendsCVC {
         
         userNameLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(5)
         }
     }
     
@@ -72,5 +74,16 @@ extension FriendsCVC {
         profileImageView.kf.setImage(with: URL(string: model.profileImage))
         userNameLabel.text = model.nickname
         userId = model.id
+    }
+    
+    func changeBorderLayout(isSelected: Bool) {
+
+        if isSelected {
+            profileImageView.layer.borderColor = UIColor.peekaRed.cgColor
+            userNameLabel.font = .s1
+        } else {
+            profileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
+            userNameLabel.font = .s2
+        }
     }
 }
