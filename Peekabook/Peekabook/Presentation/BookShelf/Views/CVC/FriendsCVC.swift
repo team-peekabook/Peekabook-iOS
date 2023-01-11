@@ -51,6 +51,8 @@ extension FriendsCVC {
     private func setUI() {
         contentView.backgroundColor = .peekaBeige
         backgroundColor = .clear
+        profileImageView.layer.borderWidth = 2
+        profileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
     }
     
     private func setLayout() {
@@ -72,5 +74,16 @@ extension FriendsCVC {
         profileImageView.kf.setImage(with: URL(string: model.profileImage))
         userNameLabel.text = model.nickname
         userId = model.id
+    }
+    
+    func checkeBorderLayout(isSelected: Bool) {
+
+        if isSelected {
+            profileImageView.layer.borderColor = UIColor.peekaRed.cgColor
+            userNameLabel.font = .s1
+        } else {
+            profileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
+            userNameLabel.font = .s2
+        }
     }
 }
