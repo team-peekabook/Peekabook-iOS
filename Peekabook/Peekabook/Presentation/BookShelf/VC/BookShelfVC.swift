@@ -12,17 +12,52 @@ import Then
 
 import Moya
 
+enum BookShelfType: CaseIterable {
+    case user
+    case friend
+}
+
 final class BookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var bookShelfType: BookShelfType = .user {
+        didSet {
+            switch bookShelfType {
+            case .user:
+                bottomShelfVC.hideAddBookButton(wantsToHide: false)
+                editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+            case .friend:
+                bottomShelfVC.hideAddBookButton(wantsToHide: true)
+                editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+            }
+        }
+    }
+    
     private var serverMyBookShelfInfo: MyBookShelfResponse?
+    private var serverFriendBookShelfInfo: FriendBookShelfResponse?
+
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
 //    var bookIdPath = 0
     
+    private var selectedUserIndex: Int? {
+        didSet {
+            changeUserLayout(selectedIndex: selectedUserIndex)
+            if selectedUserIndex == nil {
+                getMyBookShelfInfo(userId: "1")
+                bookShelfType = .user
+            } else {
+                getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
+                bookShelfType = .friend
+            }
+        }
+    }
+    
     // MARK: - UI Components
     
+    private let bottomShelfVC = BottomBookShelfVC()
+
     private let containerScrollView = UIScrollView()
     private let naviContainerView = UIView()
     private let friendsListContainerView = UIView()
@@ -55,7 +90,7 @@ final class BookShelfVC: UIViewController {
     private lazy var friendsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -63,31 +98,28 @@ final class BookShelfVC: UIViewController {
     }()
     
     private let myProfileImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile6
         $0.contentMode = .scaleAspectFill
         $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.layer.borderWidth = 2
+        $0.layer.borderWidth = 3
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 22
         $0.clipsToBounds = true
     }
     
     private let myNameLabel = UILabel().then {
-        $0.text = "윤수빈"
         $0.font = .s1
         $0.textColor = .peekaRed
         $0.textAlignment = .center
     }
     
     private let introNameLabel = UILabel().then {
-        $0.text = "윤수빈"
         $0.font = .nameBold
         $0.textColor = .peekaRed
         $0.textAlignment = .center
+        $0.numberOfLines = 2
     }
     
     private let introductionLabel = UILabel().then {
-        $0.text = "수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈"
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.textAlignment = .left
@@ -100,19 +132,19 @@ final class BookShelfVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var editPickButton = UIButton(type: .system).then {
+    private lazy var editOrRecommendButton = UIButton(type: .system).then {
         $0.titleLabel!.font = .c1
         $0.setTitle(I18N.BookShelf.editPick, for: .normal)
         $0.setTitleColor(.peekaRed, for: .normal)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.addTarget(self, action: #selector(editPickButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var pickCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -129,10 +161,6 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         getMyBookShelfInfo(userId: "1")
     }
     
@@ -153,14 +181,24 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc
-    private func editPickButtonDidTap() {
-        let editPickVC = EditMyPickVC()
-        editPickVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editPickVC, animated: true)
+    private func editOrRecommendButtonDidTap() {
+        switch bookShelfType {
+        case .user:
+            let editPickVC = EditMyPickVC()
+            editPickVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(editPickVC, animated: true)
+        case .friend:
+            // 어디로 가는지 물어보기
+            let proposalVC = ProposalVC()
+            proposalVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proposalVC, animated: true)
+        }
+        
     }
     
     @objc private func myProfileViewDidTap() {
-        print("myProfileViewDidTap")
+        getMyBookShelfInfo(userId: "1")
+        selectedUserIndex = nil
     }
 }
 
@@ -177,7 +215,7 @@ extension BookShelfVC {
         
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         
-        editPickButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
@@ -194,7 +232,7 @@ extension BookShelfVC {
         
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
         
-        pickContainerView.addSubviews(pickLabel, editPickButton, pickCollectionView)
+        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView)
         
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -314,7 +352,7 @@ extension BookShelfVC {
             make.leading.equalToSuperview()
         }
         
-        editPickButton.snp.makeConstraints { make in
+        editOrRecommendButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
             make.trailing.equalToSuperview().inset(20)
             make.width.equalTo(70)
@@ -335,8 +373,6 @@ extension BookShelfVC {
 extension BookShelfVC {
     
     private func addBottomSheetView(scrollable: Bool? = true) {
-        let bottomShelfVC = BottomBookShelfVC()
-        
         self.view.addSubview(bottomShelfVC.view)
         
         self.addChild(bottomShelfVC)
@@ -367,6 +403,16 @@ extension BookShelfVC {
         let tap = UITapGestureRecognizer(target: self, action: #selector(myProfileViewDidTap))
         myProfileView.addGestureRecognizer(tap)
     }
+    
+    private func changeUserLayout(selectedIndex: Int?) {
+        if selectedIndex == nil {
+            myProfileImageView.layer.borderColor = UIColor.peekaRed.cgColor
+            myNameLabel.font = .s1
+        } else {
+            myProfileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
+            myNameLabel.font = .s2
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -389,6 +435,13 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsCVC.className, for: indexPath)
                     as? FriendsCVC else { return UICollectionViewCell() }
             cell.setData(model: friends[indexPath.row])
+            
+            if selectedUserIndex == indexPath.row {
+                cell.changeBorderLayout(isSelected: true)
+            } else {
+                cell.changeBorderLayout(isSelected: false)
+            }
+            
             return cell
         }
         
@@ -403,7 +456,9 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
-            print("\(indexPath.item) click")
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
+            cell.changeBorderLayout(isSelected: true)
+            selectedUserIndex = indexPath.row
         }
         
         if collectionView == pickCollectionView {
@@ -412,6 +467,11 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             navigationController?.pushViewController(bookDetailVC, animated: true)
             print("selected index is \(indexPath.row)")
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
+        cell.changeBorderLayout(isSelected: false)
     }
 }
 
@@ -431,6 +491,9 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == friendsCollectionView {
+            return -5
+        }
         if collectionView == pickCollectionView {
             return 16
         }
@@ -448,14 +511,30 @@ extension BookShelfVC {
     
     private func getMyBookShelfInfo(userId: String) {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
-            guard let serverMyBookShelfInfo = response?.data else { return }
-            self.myProfileImageView.kf.setImage(with: URL(string: serverMyBookShelfInfo.myIntro.profileImage))
-            self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-            self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-            self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
-            self.friends = serverMyBookShelfInfo.friendList
-            self.picks = serverMyBookShelfInfo.picks
+            self.serverMyBookShelfInfo = response?.data
+            guard let response = response, let data = response.data else { return }
+            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage)))
+            self.myNameLabel.text = data.myIntro.nickname
+            self.introNameLabel.text = data.myIntro.nickname
+            self.introductionLabel.text = data.myIntro.intro
+            self.friends = data.friendList
+            self.picks = data.picks
+            self.bottomShelfVC.setData(books: data.books,
+                                       bookTotalNum: data.bookTotalNum)
             self.friendsCollectionView.reloadData()
+            self.pickCollectionView.reloadData()
+        }
+    }
+    
+    private func getFriendBookShelfInfo(userId: Int) {
+        BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
+            self.serverFriendBookShelfInfo = response?.data
+            guard let response = response, let data = response.data else { return }
+            self.introNameLabel.text = data.friendIntro.nickname
+            self.introductionLabel.text = data.friendIntro.intro
+            self.picks = data.picks
+            self.bottomShelfVC.setData(books: data.books,
+                                       bookTotalNum: data.bookTotalNum)
             self.pickCollectionView.reloadData()
         }
     }
