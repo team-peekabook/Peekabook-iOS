@@ -62,7 +62,6 @@ final class BookShelfVC: UIViewController {
     }()
     
     private let myProfileImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile6
         $0.contentMode = .scaleAspectFill
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.layer.borderWidth = 2
@@ -72,21 +71,18 @@ final class BookShelfVC: UIViewController {
     }
     
     private let myNameLabel = UILabel().then {
-        $0.text = "윤수빈"
         $0.font = .s1
         $0.textColor = .peekaRed
         $0.textAlignment = .center
     }
     
     private let introNameLabel = UILabel().then {
-        $0.text = "윤수빈"
         $0.font = .nameBold
         $0.textColor = .peekaRed
         $0.textAlignment = .center
     }
     
     private let introductionLabel = UILabel().then {
-        $0.text = "수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈 수빈은 문수빈 수빈은 윤수빈"
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.textAlignment = .left
@@ -128,10 +124,6 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         getMyBookShelfInfo(userId: "1")
     }
     
