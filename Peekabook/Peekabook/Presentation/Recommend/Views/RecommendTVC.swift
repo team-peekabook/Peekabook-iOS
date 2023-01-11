@@ -59,7 +59,6 @@ final class RecommendTVC: UITableViewCell {
         $0.font = .s4
         $0.textColor = .peekaRed
     }
-    
     private let bookRecommendTextLabel = UILabel().then {
         $0.text = "추천문구샬라샬라"
         $0.font = .c2
@@ -193,12 +192,13 @@ extension RecommendTVC {
 
 extension RecommendTVC {
     
-    func dataBind(model: RecommendModel) {
-        bookImage.image = model.image
-        bookNameLabel.text = model.bookName
-        bookWriterLabel.text = model.writer
-        bookRecommendedPersonImage.image = model.recommendedPersonImage
-        bookRecommendedPersonLabel.text = model.recommendedPerson
-        bookRecommendTextLabel.text = model.memo
+    func dataBind(model: RecommendBook) {
+        bookImage.kf.setImage(with: URL(string: model.bookImage))
+        bookNameLabel.text = model.bookTitle
+        bookWriterLabel.text = model.author
+        bookRecommendDateLabel.text = model.createdAt
+        bookRecommendedPersonImage.kf.setImage(with: URL(string: model.friendImage))
+        bookRecommendedPersonLabel.text = model.friendNickname
+        bookRecommendTextLabel.text = model.recommendDesc
     }
 }
