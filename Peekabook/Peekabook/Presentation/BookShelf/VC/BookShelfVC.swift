@@ -463,7 +463,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == pickCollectionView {
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.pickBookIndex = picks[indexPath.row].pickIndex
+            bookDetailVC.selectedBookIndex = picks[indexPath.row].book.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
