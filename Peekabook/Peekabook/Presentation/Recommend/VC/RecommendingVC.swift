@@ -14,33 +14,6 @@ class RecommendingVC: UIViewController {
     private var serverGetRecommendingBook: GetRecommendResponse?
     private var recommendingBooks: [RecommendBook] = []
     
-    private var recommendingDummy: [RecommendModel] = [
-        RecommendModel(
-            image: ImageLiterals.Sample.book4,
-            bookName: "눈보라 체이스",
-            writer: "양윤옥",
-            recommendedPersonImage: ImageLiterals.Sample.profile3,
-            recommendedPerson: "강희선배",
-            memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"
-        ),
-        RecommendModel(
-            image: ImageLiterals.Sample.book1,
-            bookName: "아무튼, 여름",
-            writer: "김신회",
-            recommendedPersonImage: ImageLiterals.Sample.profile2,
-            recommendedPerson: "하정선배",
-            memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요!"
-        ),
-        RecommendModel(
-            image: ImageLiterals.Sample.book1,
-            bookName: "아무튼, 여름",
-            writer: "김신회",
-            recommendedPersonImage: ImageLiterals.Sample.profile4,
-            recommendedPerson: "영주선배",
-            memo: "‘추천사요약’ 을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. 당신에게 추천해요! ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 상당한 지식을 얻을 수 있는 기회를 제공한다고 생각합니다. ‘추천사요약’을 쓸 건데 나는 이 책이 후"
-        )
-    ]
-    
     // MARK: - UI Components
     
     private lazy var tableView = UITableView().then {
