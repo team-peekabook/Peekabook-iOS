@@ -11,6 +11,8 @@ class RecommendedVC: UIViewController {
     
     // MARK: - Properties
     
+    private var serverGetRecommendedBook: GetRecommendResponse?
+
     private var recommendedDummy: [RecommendModel] = [
         RecommendModel(
             image: ImageLiterals.Sample.book1,
@@ -56,6 +58,7 @@ class RecommendedVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+        getRecommendedBooksAPI()
     }
 }
 
@@ -123,7 +126,24 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: recommendedDummy[indexPath.item])
+        // cell.dataBind(model: recommendedDummy[indexPath.item])
         return cell
+    }
+}
+
+// MARK: - Network
+
+extension RecommendedVC {
+    
+    private func getRecommendedBooksAPI() {
+        RecommendAPI.shared.getRecommend { response in
+            if response?.success == true {
+                guard let serverGetRecommendedBook = response?.data?.recommendedBook else { return }
+                print("-------------추천받은 책----------------")
+                print(serverGetRecommendedBook)
+            } else {
+                print("false")
+            }
+        }
     }
 }
