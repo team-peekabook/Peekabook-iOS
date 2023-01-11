@@ -12,16 +12,36 @@ import Then
 
 import Moya
 
+enum BookShelfType: CaseIterable {
+    case user
+    case friend
+}
+
 final class BookShelfVC: UIViewController {
     
     // MARK: - Properties
     
     private var serverMyBookShelfInfo: MyBookShelfResponse?
+    private var serverFriendBookShelfInfo: FriendBookShelfResponse?
+
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
     
+    private var selectedUserIndex: Int? {
+        didSet {
+            changeUserLayout(selectedIndex: selectedUserIndex)
+            if selectedUserIndex == nil {
+                getMyBookShelfInfo(userId: "1")
+            } else {
+                getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
+            }
+        }
+    }
+    
     // MARK: - UI Components
     
+    private let bottomShelfVC = BottomBookShelfVC()
+
     private let containerScrollView = UIScrollView()
     private let naviContainerView = UIView()
     private let friendsListContainerView = UIView()
@@ -151,7 +171,8 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc private func myProfileViewDidTap() {
-        print("myProfileViewDidTap")
+        getMyBookShelfInfo(userId: "1")
+        selectedUserIndex = nil
     }
 }
 
@@ -326,8 +347,6 @@ extension BookShelfVC {
 extension BookShelfVC {
     
     private func addBottomSheetView(scrollable: Bool? = true) {
-        let bottomShelfVC = BottomBookShelfVC()
-        
         self.view.addSubview(bottomShelfVC.view)
         
         self.addChild(bottomShelfVC)
@@ -358,6 +377,16 @@ extension BookShelfVC {
         let tap = UITapGestureRecognizer(target: self, action: #selector(myProfileViewDidTap))
         myProfileView.addGestureRecognizer(tap)
     }
+    
+    private func changeUserLayout(selectedIndex: Int?) {
+        if selectedIndex == nil {
+            myProfileImageView.layer.borderColor = UIColor.peekaRed.cgColor
+            myNameLabel.font = .s1
+        } else {
+            myProfileImageView.layer.borderColor = UIColor.peekaBeige.cgColor
+            myNameLabel.font = .s2
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -380,6 +409,13 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsCVC.className, for: indexPath)
                     as? FriendsCVC else { return UICollectionViewCell() }
             cell.setData(model: friends[indexPath.row])
+            
+            if selectedUserIndex == indexPath.row {
+                cell.checkeBorderLayout(isSelected: true)
+            } else {
+                cell.checkeBorderLayout(isSelected: false)
+            }
+            
             return cell
         }
         
@@ -394,8 +430,10 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
-            print("\(indexPath.item) click")
             
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
+            cell.checkeBorderLayout(isSelected: true)
+            selectedUserIndex = indexPath.row
         }
         
         if collectionView == pickCollectionView {
@@ -404,6 +442,11 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             navigationController?.pushViewController(bookDetailVC, animated: true)
             print("selected index is \(indexPath.row)")
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
+        cell.checkeBorderLayout(isSelected: false)
     }
 }
 
@@ -440,14 +483,28 @@ extension BookShelfVC {
     
     private func getMyBookShelfInfo(userId: String) {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
-            guard let serverMyBookShelfInfo = response?.data else { return }
-            self.myProfileImageView.kf.setImage(with: URL(string: serverMyBookShelfInfo.myIntro.profileImage))
-            self.myNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-            self.introNameLabel.text = serverMyBookShelfInfo.myIntro.nickname
-            self.introductionLabel.text = serverMyBookShelfInfo.myIntro.intro
-            self.friends = serverMyBookShelfInfo.friendList
-            self.picks = serverMyBookShelfInfo.picks
+            self.serverMyBookShelfInfo = response?.data
+            self.myProfileImageView.kf.setImage(with: URL(string: (self.serverMyBookShelfInfo?.myIntro.profileImage)!))
+            self.myNameLabel.text = self.serverMyBookShelfInfo?.myIntro.nickname
+            self.introNameLabel.text = self.serverMyBookShelfInfo?.myIntro.nickname
+            self.introductionLabel.text = self.serverMyBookShelfInfo?.myIntro.intro
+            self.friends = self.serverMyBookShelfInfo?.friendList ?? []
+            self.picks = self.serverMyBookShelfInfo?.picks ?? []
+            self.bottomShelfVC.setData(books: self.serverMyBookShelfInfo?.books ?? [],
+                                       bookTotalNum: self.serverMyBookShelfInfo?.bookTotalNum ?? 0)
             self.friendsCollectionView.reloadData()
+            self.pickCollectionView.reloadData()
+        }
+    }
+    
+    private func getFriendBookShelfInfo(userId: Int) {
+        BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
+            self.serverFriendBookShelfInfo = response?.data
+            self.introNameLabel.text = self.serverFriendBookShelfInfo?.friendIntro.nickname
+            self.introductionLabel.text = self.serverFriendBookShelfInfo?.friendIntro.intro
+            self.picks = self.serverFriendBookShelfInfo?.picks ?? []
+            self.bottomShelfVC.setData(books: self.serverFriendBookShelfInfo?.books ?? [],
+                                       bookTotalNum: self.serverFriendBookShelfInfo?.bookTotalNum ?? 0)
             self.pickCollectionView.reloadData()
         }
     }
