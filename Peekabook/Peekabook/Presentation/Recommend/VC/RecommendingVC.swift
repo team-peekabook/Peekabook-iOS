@@ -111,7 +111,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return recommendedDummy.count
+        return recommendingBooks.count
     }
     
     func tableView(

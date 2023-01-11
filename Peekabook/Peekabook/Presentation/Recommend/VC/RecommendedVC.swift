@@ -102,31 +102,16 @@ extension RecommendedVC {
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(
-        _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 221
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        return recommendedDummy.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recommendedBooks.count
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: RecommendTVC.className,
-            for: indexPath
-        ) as? RecommendTVC
-        else {
-            return UITableViewCell()
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC else { return UITableViewCell() }
         cell.dataBind(model: recommendedBooks[indexPath.row])
         return cell
     }
@@ -139,9 +124,9 @@ extension RecommendedVC {
     private func getRecommendedBooksAPI() {
         RecommendAPI.shared.getRecommend { response in
             if response?.success == true {
-                guard let serverGetRecommendedBook = response?.data?.recommendedBook else { return }
-                print("-------------추천받은 책----------------")
-                print(serverGetRecommendedBook)
+                guard let serverGetRecommendedBook = response?.data else { return }
+                self.recommendedBooks = serverGetRecommendedBook.recommendedBook
+                self.tableView.reloadData()
             } else {
                 print("false")
             }
