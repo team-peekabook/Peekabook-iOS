@@ -248,6 +248,7 @@ extension BookDetailVC {
         BookShelfAPI.shared.getBookDetail(bookId: bookId) { response in
             guard let serverWatchBookDetail = response?.data else { return }
             self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
+            self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             self.bookAuthorLabel.text = serverWatchBookDetail.book.author
             self.commentTextView.text = serverWatchBookDetail.description
             self.memoTextView.text = serverWatchBookDetail.memo
