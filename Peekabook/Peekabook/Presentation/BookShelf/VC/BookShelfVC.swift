@@ -100,6 +100,7 @@ final class BookShelfVC: UIViewController {
         $0.font = .nameBold
         $0.textColor = .peekaRed
         $0.textAlignment = .center
+        $0.numberOfLines = 2
     }
     
     private let introductionLabel = UILabel().then {
