@@ -44,7 +44,7 @@ final class BookShelfVC: UIViewController {
         didSet {
             changeUserLayout(selectedIndex: selectedUserIndex)
             if selectedUserIndex == nil {
-                getMyBookShelfInfo(userId: "1")
+                getMyBookShelfInfo()
                 bookShelfType = .user
             } else {
                 getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
@@ -160,7 +160,7 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-        getMyBookShelfInfo(userId: "1")
+        getMyBookShelfInfo()
     }
     
     // MARK: - @objc Function
@@ -196,7 +196,7 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc private func myProfileViewDidTap() {
-        getMyBookShelfInfo(userId: "1")
+        getMyBookShelfInfo()
         selectedUserIndex = nil
     }
 }
@@ -508,7 +508,7 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
 
 extension BookShelfVC {
     
-    private func getMyBookShelfInfo(userId: String) {
+    private func getMyBookShelfInfo() {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }

@@ -11,6 +11,7 @@ import Moya
 
 enum RecommendRouter {
     case sample
+    case getRecommend
 }
 
 extension RecommendRouter: TargetType {
@@ -22,12 +23,16 @@ extension RecommendRouter: TargetType {
         switch self {
         case .sample:
             return URLConstant.recommend
+        case .getRecommend:
+            return URLConstant.recommend
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .sample:
+            return .get
+        case .getRecommend:
             return .get
         }
     }
@@ -36,10 +41,12 @@ extension RecommendRouter: TargetType {
         switch self {
         case .sample:
             return .requestPlain
+        case .getRecommend:
+            return .requestPlain
         }
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.defaultHeader
+        return NetworkConstant.hasUserIdHeader
     }
 }
