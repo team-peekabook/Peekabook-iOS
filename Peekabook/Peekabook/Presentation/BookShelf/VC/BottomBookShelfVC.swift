@@ -206,6 +206,10 @@ extension BottomBookShelfVC {
         self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
         bookShelfCollectionView.reloadData()
     }
+    
+    func hideAddBookButton(wantsToHide: Bool) {
+        addBookButton.isHidden = wantsToHide
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource

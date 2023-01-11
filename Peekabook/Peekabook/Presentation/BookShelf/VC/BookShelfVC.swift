@@ -21,6 +21,19 @@ final class BookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var bookShelfType: BookShelfType = .user {
+        didSet {
+            switch bookShelfType {
+            case .user:
+                bottomShelfVC.hideAddBookButton(wantsToHide: false)
+                editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+            case .friend:
+                bottomShelfVC.hideAddBookButton(wantsToHide: true)
+                editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+            }
+        }
+    }
+    
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var serverFriendBookShelfInfo: FriendBookShelfResponse?
 
@@ -32,8 +45,10 @@ final class BookShelfVC: UIViewController {
             changeUserLayout(selectedIndex: selectedUserIndex)
             if selectedUserIndex == nil {
                 getMyBookShelfInfo(userId: "1")
+                bookShelfType = .user
             } else {
                 getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
+                bookShelfType = .friend
             }
         }
     }
@@ -116,13 +131,13 @@ final class BookShelfVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var editPickButton = UIButton(type: .system).then {
+    private lazy var editOrRecommendButton = UIButton(type: .system).then {
         $0.titleLabel!.font = .c1
         $0.setTitle(I18N.BookShelf.editPick, for: .normal)
         $0.setTitleColor(.peekaRed, for: .normal)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.addTarget(self, action: #selector(editPickButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var pickCollectionView: UICollectionView = {
@@ -165,10 +180,19 @@ final class BookShelfVC: UIViewController {
     }
     
     @objc
-    private func editPickButtonDidTap() {
-        let editPickVC = EditMyPickVC()
-        editPickVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editPickVC, animated: true)
+    private func editOrRecommendButtonDidTap() {
+        switch bookShelfType {
+        case .user:
+            let editPickVC = EditMyPickVC()
+            editPickVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(editPickVC, animated: true)
+        case .friend:
+            // 어디로 가는지 물어보기
+            let proposalVC = ProposalVC()
+            proposalVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proposalVC, animated: true)
+        }
+        
     }
     
     @objc private func myProfileViewDidTap() {
@@ -190,7 +214,7 @@ extension BookShelfVC {
         
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         
-        editPickButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
@@ -207,7 +231,7 @@ extension BookShelfVC {
         
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
         
-        pickContainerView.addSubviews(pickLabel, editPickButton, pickCollectionView)
+        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView)
         
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -327,7 +351,7 @@ extension BookShelfVC {
             make.leading.equalToSuperview()
         }
         
-        editPickButton.snp.makeConstraints { make in
+        editOrRecommendButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
             make.trailing.equalToSuperview().inset(20)
             make.width.equalTo(70)
