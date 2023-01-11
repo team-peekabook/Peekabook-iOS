@@ -19,6 +19,7 @@ final class BookShelfVC: UIViewController {
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
+    var bookIdPath = 0
     
     // MARK: - UI Components
     

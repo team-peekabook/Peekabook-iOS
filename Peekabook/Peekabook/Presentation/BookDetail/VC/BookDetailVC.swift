@@ -17,7 +17,6 @@ final class BookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
-    var bookIdPath = 0
     
     // MARK: - UI Components
     
