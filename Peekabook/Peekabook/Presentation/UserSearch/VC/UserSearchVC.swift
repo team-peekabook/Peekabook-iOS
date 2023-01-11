@@ -18,6 +18,8 @@ final class UserSearchVC: UIViewController {
     
     private var serverGetUserData: SearchUserResponse?
     
+    var friendId: Int = 0
+    
     // MARK: - UI Components
     
     private let emptyView = UIView()
@@ -64,7 +66,6 @@ final class UserSearchVC: UIViewController {
     
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile6
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.layer.cornerRadius = 28
@@ -84,7 +85,7 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc private func followButtonDidTap() {
-        print("팔로우")
+        postFollowAPI(friendId: friendId)
     }
     
     // MARK: - View Life Cycle
@@ -257,12 +258,23 @@ extension UserSearchVC {
             if response?.success == true {
                 guard let serverGetUserData = response?.data else { return }
                 self.nameLabel.text = serverGetUserData.nickname
-                self.profileImage.image = serverGetUserData.profileImage.makeImage()
+                self.profileImage.kf.setImage(with: URL(string: serverGetUserData.profileImage))
                 self.followButton.isSelected = serverGetUserData.isFollowed
+                self.friendId = serverGetUserData.friendID
                 self.setFollowStatus()
                 self.setSuccessView()
             } else {
                 self.setEmptyView()
+            }
+        }
+    }
+    
+    private func postFollowAPI(friendId: Int) {
+        FriendAPI.shared.postFollowing(id: friendId) { response in
+            if response?.success == true {
+                self.followed()
+            } else {
+                self.unfollowed()
             }
         }
     }
