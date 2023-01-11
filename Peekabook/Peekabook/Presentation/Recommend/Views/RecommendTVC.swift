@@ -45,7 +45,8 @@ final class RecommendTVC: UITableViewCell {
         $0.layer.shadowOpacity = 0.3
     }
     private let bookRecommendedPersonImage = UIImageView().then {
-        $0.layer.cornerRadius = 50
+        $0.layer.cornerRadius = 7.5
+        $0.clipsToBounds = true
     }
     private let bookRecommendedPersonLabel = UILabel().then {
         $0.font = .s2
