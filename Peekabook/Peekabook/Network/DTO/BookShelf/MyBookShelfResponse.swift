@@ -45,7 +45,7 @@ struct MyIntro: Codable {
 struct Pick: Codable {
     let pickIndex: Int
     let book: PickBook
-    let description: String
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
         case pickIndex
