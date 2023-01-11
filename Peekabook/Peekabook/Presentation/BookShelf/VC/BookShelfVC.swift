@@ -436,9 +436,9 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.setData(model: friends[indexPath.row])
             
             if selectedUserIndex == indexPath.row {
-                cell.checkeBorderLayout(isSelected: true)
+                cell.changeBorderLayout(isSelected: true)
             } else {
-                cell.checkeBorderLayout(isSelected: false)
+                cell.changeBorderLayout(isSelected: false)
             }
             
             return cell
@@ -457,7 +457,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == friendsCollectionView {
             
             guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
-            cell.checkeBorderLayout(isSelected: true)
+            cell.changeBorderLayout(isSelected: true)
             selectedUserIndex = indexPath.row
         }
         
@@ -471,7 +471,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
-        cell.checkeBorderLayout(isSelected: false)
+        cell.changeBorderLayout(isSelected: false)
     }
 }
 

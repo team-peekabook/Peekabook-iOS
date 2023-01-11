@@ -76,7 +76,7 @@ extension FriendsCVC {
         userId = model.id
     }
     
-    func checkeBorderLayout(isSelected: Bool) {
+    func changeBorderLayout(isSelected: Bool) {
 
         if isSelected {
             profileImageView.layer.borderColor = UIColor.peekaRed.cgColor
