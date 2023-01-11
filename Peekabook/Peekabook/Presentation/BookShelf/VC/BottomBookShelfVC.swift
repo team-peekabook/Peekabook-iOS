@@ -236,10 +236,8 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.pickBookIndex = picks[indexPath.row].pickIndex
+            bookDetailVC.selectedBookIndex = books[indexPath.row].bookID
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            
-            print("selected index is \(indexPath.row)")
         }
     }
 }

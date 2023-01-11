@@ -98,13 +98,7 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-//        getBookDetail(bookId: pickBookIndex)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         getBookDetail(bookId: selectedBookIndex)
-
     }
     
     // MARK: - @objc Function
