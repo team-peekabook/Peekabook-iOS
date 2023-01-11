@@ -215,7 +215,7 @@ extension BookSearchVC {
     @objc
     private func searchButtonDidTap() {
         let ls = NaverSearchAPI()
-        ls.getNaverBookAPI(d_titl: searchField.text!)
+        ls.getNaverBookAPI(d_titl: searchField.text!, d_isbn: "")
 //        getNaverBookAPI(d_titl: searchField.text!)
         
 //        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))

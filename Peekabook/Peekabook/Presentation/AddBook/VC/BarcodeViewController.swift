@@ -68,7 +68,7 @@ extension BarcodeViewController {
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(140)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(100)
             make.centerX.equalToSuperview()
         }
     }
@@ -95,6 +95,10 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
       print("Barcode Data: \(code)")
       print("Symbology Type: \(type)")
+        
+        let ls = NaverSearchAPI()
+        ls.getNaverBookAPI(d_titl: "", d_isbn: "9791188343317")
+        
         let nextVC = AddBookVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)
