@@ -116,7 +116,9 @@ final class BookDetailVC: UIViewController {
     
     @objc
     private func deleteButtonDidTap() {
-       print("delete button did tap")
+        let popupViewController = DeletePopUpViewController()
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
     }
 }
 
