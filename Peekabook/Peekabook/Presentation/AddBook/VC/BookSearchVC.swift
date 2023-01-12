@@ -18,7 +18,7 @@ final class BookSearchVC: UIViewController {
     
     var bookInfoList: [BookInfoModel] = []
     var displayCount: Int = 10
-
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -46,7 +46,7 @@ final class BookSearchVC: UIViewController {
     
     private lazy var searchField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -62,7 +62,7 @@ final class BookSearchVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
-        }()
+    }()
     
     // emptyView elements
     
@@ -78,9 +78,9 @@ final class BookSearchVC: UIViewController {
         $0.numberOfLines = 2
         $0.textAlignment = .center
     }
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
@@ -200,9 +200,9 @@ extension BookSearchVC {
     }
     private func register() {
         bookTableView.register(BookInfoTableViewCell.self,
-            forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+                               forCellReuseIdentifier: BookInfoTableViewCell.identifier)
     }
-
+    
     func setView() {
         if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
             self.emptyView.isHidden = false // 히든뷰가 보이게
@@ -213,7 +213,7 @@ extension BookSearchVC {
             self.emptyView.isHidden = true // 테이블뷰 보이게
         }
     }
-       
+    
     // MARK: - @objc Function
     
     @objc
@@ -271,7 +271,7 @@ extension BookSearchVC: UITableViewDataSource {
             withIdentifier: BookInfoTableViewCell.identifier,
             for: indexPath) as? BookInfoTableViewCell
         else { return UITableViewCell() }
-
+        
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
     }
