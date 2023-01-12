@@ -26,8 +26,17 @@ final class NaverSearchAPI {
         let SearchData = DataManager.shared.searchResult
         var model: [BookInfoModel] = []
         do {
-            for i in 0...9 {
-                model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
+            if (SearchData?.total ?? 0) == 0 {
+                print("값없음")
+            } else if (SearchData?.total ?? 0) < 10 {
+                for i in 0...((SearchData?.total ?? 1)-1) {
+                    model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
+                }
+            }
+            else {
+                for i in 0...9 {
+                    model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
+                }
             }
             return model
         } catch {}
