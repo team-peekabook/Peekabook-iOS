@@ -16,7 +16,6 @@ final class DeletePopUpVC: UIViewController {
     
     // MARK: - Properties
 
-    private var serverGetUserData: MyBookShelfResponse?
     var bookId: Int = 0
     
     // MARK: - UI Components
