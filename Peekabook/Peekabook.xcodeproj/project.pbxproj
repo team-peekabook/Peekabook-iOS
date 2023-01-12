@@ -157,6 +157,7 @@
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
+		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -494,7 +495,7 @@
 				8EEF8E31296B12B300F37AFD /* Pick */,
 				8EEF8E37296B12EB00F37AFD /* Friend */,
 				8EEF8E34296B12D200F37AFD /* Recommend */,
-				8EEF8E3A296B131800F37AFD /* Alarm */,
+				8E4083E12970125600B53339 /* Alarm */,
 				8EEF8E3D296B132900F37AFD /* NaverSearch */,
 			);
 			path = DTO;
@@ -576,6 +577,14 @@
 				8E18505F29682A9A0062E92A /* SampleEditPickModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8E4083E12970125600B53339 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				8E4083DF2970122B00B53339 /* .gitkeep */,
+			);
+			path = Alarm;
 			sourceTree = "<group>";
 		};
 		8E5A3095295DAE6D00285A15 = {
@@ -823,13 +832,6 @@
 				1481CDD8296D227500F2B207 /* SearchUserResponse.swift */,
 			);
 			path = Friend;
-			sourceTree = "<group>";
-		};
-		8EEF8E3A296B131800F37AFD /* Alarm */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Alarm;
 			sourceTree = "<group>";
 		};
 		8EEF8E3D296B132900F37AFD /* NaverSearch */ = {
