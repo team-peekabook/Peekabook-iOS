@@ -207,12 +207,13 @@ extension BookSearchVC {
             forCellReuseIdentifier: BookInfoTableViewCell.identifier)
     }
 
-    
     func setView() {
         if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
             self.emptyView.isHidden = false // 히든뷰가 보이게
+            self.bookTableView.isHidden = true
         } else {
             setTableViewLayout()
+            self.bookTableView.isHidden = false
             self.emptyView.isHidden = true // 테이블뷰 보이게
         }
     }
@@ -223,7 +224,6 @@ extension BookSearchVC {
     private func cancelButtonDidTap() {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
-    
     
     func bookBind(image: String, title: String, author: String) {
         bookInfoList.append(BookInfoModel(image: image, title: title, author: author))
