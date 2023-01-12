@@ -10,7 +10,6 @@ import Foundation
 import Moya
 
 enum AlarmRouter {
-    case sample
     case getAlarm
 }
 
@@ -21,8 +20,6 @@ extension AlarmRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.alarm
         case .getAlarm:
             return URLConstant.alarm
         }
@@ -30,8 +27,6 @@ extension AlarmRouter: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
         case .getAlarm:
             return .get
         }
@@ -39,8 +34,6 @@ extension AlarmRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .sample:
-            return .requestPlain
         case .getAlarm:
             return .requestPlain
         }
