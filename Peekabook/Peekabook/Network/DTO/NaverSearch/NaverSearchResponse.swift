@@ -45,7 +45,8 @@ class DataManager {
 // MARK: - PostBook
 struct PostBook: Codable {
     let lastBuildDate: String
-    let total, start, display: Int
+    let total, start: Int
+    var display: Int
     let items: [Item]
 }
 

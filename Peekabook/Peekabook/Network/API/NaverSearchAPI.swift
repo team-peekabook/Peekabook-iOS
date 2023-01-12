@@ -18,51 +18,24 @@ final class NaverSearchAPI {
     var titleList: [String] = []
     var imageList: [String] = []
     var authorList: [String] = []
+    var bookInfoList: [BookInfoModel] = []
+
     let booksearchVC = BookSearchVC()
     
-    func urlTitleTaskDone() {
+    func urlTitleTaskDone() -> [BookInfoModel] {
         let SearchData = DataManager.shared.searchResult
+        var model: [BookInfoModel] = []
         do {
-            print(SearchData?.total)
-            if (SearchData?.total ?? 0) > 10 {
-                for i in 0...9 {
-                    titleList.append((SearchData?.items[i].title)!)
-                    imageList.append((SearchData?.items[i].image)!)
-                    authorList.append((SearchData?.items[i].author)!)
-                }
+            for i in 0...9 {
+                model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
             }
-            else {
-                for i in 0...((SearchData?.total ?? 1)-1) {
-                    titleList.append((SearchData?.items[i].title)!)
-                    imageList.append((SearchData?.items[i].image)!)
-                    authorList.append((SearchData?.items[i].author)!)
-                }
-            }
-            print(titleList)
-            print(imageList)
-            print(authorList)
-            booksearchVC.getTitleList = titleList
-            booksearchVC.getImageList = imageList
-            booksearchVC.getAuthorList = authorList
-        } catch {}
-    }
-    
-    func urlIsbnTaskDone() {
-        let wholeList = DataManager.shared.searchResult
-        do {
-            var i = 0
-            titleList.append((wholeList?.items[i].title)!)
-            imageList.append((wholeList?.items[i].image)!)
-            authorList.append((wholeList?.items[i].author)!)
-            print(titleList)
-            print(imageList)
-            print(authorList)
+            return model
         } catch {}
     }
     
     // 네이버 책검색 API 불러오기
     
-    func getNaverBookAPI(d_titl: String, d_isbn: String) {
+    func getNaverBookAPI(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
         
         let clientID: String = Config.naverClientId
         let clientKEY: String = Config.naverClientSecret
@@ -72,6 +45,9 @@ final class NaverSearchAPI {
         var queryURL: URLComponents = URLComponents(string: searchURL)!
         var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
         queryURL.queryItems?.append(titleQuery)
+        
+        var displayQuery: URLQueryItem = URLQueryItem(name: "display", value: "\(display)")
+        queryURL.queryItems?.append(displayQuery)
         
         var isbnQuery: URLQueryItem = URLQueryItem(name: "d_isbn", value: d_isbn)
         queryURL.queryItems?.append(isbnQuery)
@@ -89,24 +65,7 @@ final class NaverSearchAPI {
                 let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
                 DataManager.shared.searchResult = searchInfo
                 
-//                print(queryURL.queryItems)
-//                print(titleQuery.value)
-//                print(isbnQuery.value)
-//                var bookTitle = ""
-//                if let titleQ = titleQuery.value {
-//                    bookTitle = titleQ
-//                    print(bookTitle)
-//                    if bookTitle == nil {
-//                        self.urlIsbnTaskDone()
-//                    } else {
-//                        self.urlTitleTaskDone()
-//                    }
-//                }
-                
-                self.urlTitleTaskDone()
-                
-//                self.urlIsbnTaskDone()
-                
+                completion(self.urlTitleTaskDone())
             } catch {
                 print(fatalError())
             }

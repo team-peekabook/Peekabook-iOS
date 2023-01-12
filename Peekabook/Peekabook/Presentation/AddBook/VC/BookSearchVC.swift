@@ -19,6 +19,10 @@ final class BookSearchVC: UIViewController {
     var getTitleList: [String] = []
     var getImageList: [String] = []
     var getAuthorList: [String] = []
+    
+    var bookInfoList: [BookInfoModel] = []
+    
+    var displayCount: Int = 10
 
     // MARK: - UI Components
     
@@ -54,7 +58,7 @@ final class BookSearchVC: UIViewController {
         $0.addLeftPadding()
     }
     
-    private lazy var bookTableView: UITableView = {
+    lazy var bookTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = true
         tableView.backgroundColor = .clear
@@ -64,8 +68,6 @@ final class BookSearchVC: UIViewController {
         return tableView
         }()
     
-    private var bookInfoList: [BookInfoModel] = []
-
     // emptyView elements
     
     let emptyView = UIView()
@@ -173,9 +175,7 @@ extension BookSearchVC {
     
     private func setTableViewLayout() {
         view.addSubview(containerView)
-        [bookTableView].forEach {
-            containerView.addSubview($0)
-        }
+        containerView.addSubview(bookTableView)
         
         containerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(24)
@@ -189,14 +189,25 @@ extension BookSearchVC {
             make.bottom.equalToSuperview().offset(-1)
             make.height.equalTo(128 * bookInfoList.count)
         }
+        view.layoutIfNeeded()
     }
     
+    func reLayout() {
+        bookTableView.snp.remakeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalToSuperview().offset(-1)
+            make.height.equalTo(128 * bookInfoList.count)
+        }
+    }
     private func register() {
         bookTableView.register(BookInfoTableViewCell.self,
             forCellReuseIdentifier: BookInfoTableViewCell.identifier)
     }
+
     
-    private func setView() {
+    func setView() {
         if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
             self.emptyView.isHidden = false // 히든뷰가 보이게
         } else {
@@ -204,7 +215,7 @@ extension BookSearchVC {
             self.emptyView.isHidden = true // 테이블뷰 보이게
         }
     }
-    
+       
     // MARK: - @objc Function
     
     @objc
@@ -212,21 +223,29 @@ extension BookSearchVC {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc
-    private func searchButtonDidTap() {
-        let ls = NaverSearchAPI()
-        ls.getNaverBookAPI(d_titl: searchField.text!, d_isbn: "")
-//        getNaverBookAPI(d_titl: searchField.text!)
-        print("-----------아아아아 getTItleList가 나와야합니다-----------")
-        print(getTitleList)
-        print("-----------아아아아 getTItleList가 나왔어야합니다-----------")
-
-        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
-//        bookInfoList.append(BookInfoModel(image: "아아", title: "\(getTitleList[0])", author: "\(getAuthorList[0])"))
-        print(bookInfoList[0])
-        setView()
+    
+    func bookBind(image: String, title: String, author: String) {
+        bookInfoList.append(BookInfoModel(image: image, title: title, author: author))
     }
     
+    @objc
+    private func searchButtonDidTap() {
+        fetchBooks()
+    }
+    
+    // MARK: - Server Helpers
+    
+    private func fetchBooks() {
+        let ls = NaverSearchAPI.shared
+        ls.getNaverBookAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
+            if let result = result {
+                self?.bookInfoList = result
+                DispatchQueue.main.async {
+                    self?.setView()
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Methods
@@ -258,20 +277,11 @@ extension BookSearchVC: UITableViewDataSource {
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y == scrollView.frame.height - 20 {
+            displayCount += 10
+            fetchBooks()
+        }
+    }
 }
-
-//extension BookSearchVC {
-//    private func getNaverBookAPI(d_titl: String) {
-//        let wholeList = DataManager.shared.searchResult
-//        var getTitleList: [String] = []
-//        var getImageList: [String] = []
-//        var getAuthorList: [String] = []
-//        for i in 0...9 {
-//            getTitleList.append((wholeList?.items[i].title) ?? "")
-//            getImageList.append((wholeList?.items[i].image) ?? "")
-//            getAuthorList.append((wholeList?.items[i].author) ?? "")
-//            bookInfoList.append(BookInfoModel(image: getTitleList[i], title: getImageList[i], author: getAuthorList[i]))
-//        }
-//        return getTitleList
-//    }
-//}
