@@ -15,7 +15,6 @@
 		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
-		149CC16129700756002E61EC /* GetAlarmResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CC16029700756002E61EC /* GetAlarmResponse.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCVC.swift */; };
@@ -42,6 +41,7 @@
 		8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */; };
 		8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DB296F334500B53339 /* PickAllResponse.swift */; };
 		8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DD2970114C00B53339 /* EditPickRequest.swift */; };
+		8E4083E92970BFF600B53339 /* GetAlarmResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -163,6 +163,8 @@
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
 		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
 		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
+		8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAlarmResponse.swift; sourceTree = "<group>"; };
+		8E4083EA2970C01900B53339 /* GetAlarmResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetAlarmResponse.swift; path = Peekabook/Network/DTO/Alarm/GetAlarmResponse.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -588,17 +590,28 @@
 		8E4083E12970125600B53339 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */,
 				8E4083DF2970122B00B53339 /* .gitkeep */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
 		};
+		8E4083E72970BEBC00B53339 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				149CC16029700756002E61EC /* GetAlarmResponse.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		8E5A3095295DAE6D00285A15 = {
 			isa = PBXGroup;
 			children = (
+				8E4083EA2970C01900B53339 /* GetAlarmResponse.swift */,
 				8E10BA4D2960026600BCF58B /* .swiftlint.yml */,
 				8E5A30A0295DAE6D00285A15 /* Peekabook */,
 				8E5A309F295DAE6D00285A15 /* Products */,
+				8E4083E72970BEBC00B53339 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -841,14 +854,6 @@
 			path = Friend;
 			sourceTree = "<group>";
 		};
-		8EEF8E3A296B131800F37AFD /* Alarm */ = {
-			isa = PBXGroup;
-			children = (
-				149CC16029700756002E61EC /* GetAlarmResponse.swift */,
-			);
-			path = Alarm;
-			sourceTree = "<group>";
-		};
 		8EEF8E3D296B132900F37AFD /* NaverSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1006,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E4083E92970BFF600B53339 /* GetAlarmResponse.swift in Sources */,
 				8E18506029682A9A0062E92A /* SampleEditPickModel.swift in Sources */,
 				1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */,
 				98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */,
@@ -1071,7 +1077,6 @@
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
 				8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */,
-				149CC16129700756002E61EC /* GetAlarmResponse.swift in Sources */,
 				8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */,
 				143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */,
 				8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */,
