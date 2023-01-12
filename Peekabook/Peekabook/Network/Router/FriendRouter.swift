@@ -13,6 +13,7 @@ enum FriendRouter {
     case sample
     case getuser(nickname: String)
     case postFollowing(id: Int)
+    case deleteFollowing(id: Int)
 }
 
 extension FriendRouter: TargetType {
@@ -28,6 +29,8 @@ extension FriendRouter: TargetType {
             return URLConstant.friend
         case .postFollowing(let id):
             return "\(URLConstant.friend)/\(id)"
+        case .deleteFollowing(let id):
+            return "\(URLConstant.friend)/\(id)"
         }
     }
     
@@ -39,6 +42,8 @@ extension FriendRouter: TargetType {
             return .get
         case .postFollowing:
             return .post
+        case .deleteFollowing:
+            return .delete
         }
     }
     
@@ -49,6 +54,8 @@ extension FriendRouter: TargetType {
         case .getuser(let nickname):
             return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
         case .postFollowing(let id):
+            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
+        case .deleteFollowing(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
         }
     }

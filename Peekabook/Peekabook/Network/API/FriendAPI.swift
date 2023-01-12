@@ -18,6 +18,7 @@ final class FriendAPI {
     
     private(set) var searchUserData: GeneralResponse<SearchUserResponse>?
     private(set) var postFollowing: GeneralResponse<BlankData>?
+    private(set) var deleteFollowing: GeneralResponse<BlankData>?
     
     // 1. 사용자 검색하기
     
@@ -47,6 +48,25 @@ final class FriendAPI {
                 do {
                     self.postFollowing = try response.map(GeneralResponse<BlankData>.self)
                     completion(postFollowing)
+                } catch let error {
+                    print("error")
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 2. 팔로우 취소하기
+    
+    func deleteFollowing(id: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        friendProvider.request(.deleteFollowing(id: id)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.deleteFollowing = try response.map(GeneralResponse<BlankData>.self)
+                    completion(deleteFollowing)
                 } catch let error {
                     print("error")
                     print(error.localizedDescription, 500)

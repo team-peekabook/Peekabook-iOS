@@ -39,6 +39,7 @@
 		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
 		8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */; };
+		8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DB296F334500B53339 /* PickAllResponse.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -155,6 +156,7 @@
 		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
+		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,10 +230,6 @@
 		8EEF8E2B296B129400F37AFD /* FriendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
-		8EEF8E32296B12CE00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E35296B12E200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E38296B130D00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E3B296B132200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8EEF8E3E296B133F00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
@@ -806,7 +804,7 @@
 		8EEF8E31296B12B300F37AFD /* Pick */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E32296B12CE00F37AFD /* .gitkeep */,
+				8E4083DB296F334500B53339 /* PickAllResponse.swift */,
 			);
 			path = Pick;
 			sourceTree = "<group>";
@@ -814,7 +812,6 @@
 		8EEF8E34296B12D200F37AFD /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E35296B12E200F37AFD /* .gitkeep */,
 				143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */,
 			);
 			path = Recommend;
@@ -823,7 +820,6 @@
 		8EEF8E37296B12EB00F37AFD /* Friend */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E38296B130D00F37AFD /* .gitkeep */,
 				1481CDD8296D227500F2B207 /* SearchUserResponse.swift */,
 			);
 			path = Friend;
@@ -832,7 +828,6 @@
 		8EEF8E3A296B131800F37AFD /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E3B296B132200F37AFD /* .gitkeep */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -1014,6 +1009,7 @@
 				8E81F3B82960769E001815B4 /* addPadding+UITextField.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
 				985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */,
+				8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */,
 				8EEF8E26296B125C00F37AFD /* AlarmRouter.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
