@@ -98,7 +98,7 @@ extension PickCVC {
         
         bookNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(countBackgroundView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().inset(5)
             make.centerY.equalTo(countLabel)
         }
         
