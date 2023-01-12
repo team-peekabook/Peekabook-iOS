@@ -32,8 +32,7 @@ final class NaverSearchAPI {
                 for i in 0...((SearchData?.total ?? 1)-1) {
                     model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
                 }
-            }
-            else {
+            } else {
                 for i in 0...9 {
                     model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
                 }

@@ -82,12 +82,12 @@ extension BarcodeViewController {
     }
     
     @objc private func textSearchButtonDidTap() {
-//        let nextVC = BookSearchVC()
-//        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil)
-        let errorPopUpVC = ErrorPopUpViewController()
-        errorPopUpVC.modalPresentationStyle = .overFullScreen
-        self.present(errorPopUpVC, animated: false)
+        let nextVC = BookSearchVC()
+        nextVC.modalPresentationStyle = .fullScreen
+        self.present(nextVC, animated: true, completion: nil)
+//        let errorPopUpVC = ErrorPopUpViewController()
+//        errorPopUpVC.modalPresentationStyle = .overFullScreen
+//        self.present(errorPopUpVC, animated: false)
     }
 }
 
