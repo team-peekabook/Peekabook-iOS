@@ -16,8 +16,10 @@ final class AddBookVC: UIViewController {
     
     // MARK: - Properties
     
+    var bookInfo: [BookInfoModel] = []
     private var focus = 0
-
+    var seletedBookIndex = 0
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -110,7 +112,7 @@ final class AddBookVC: UIViewController {
     }
     
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -118,10 +120,6 @@ final class AddBookVC: UIViewController {
         setDelegate()
         addTapGesture()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
-        }
     
     deinit {
         self.removeRegisterForKeyboardNotification()
@@ -208,6 +206,8 @@ extension AddBookVC {
         bookImgView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
+            make.width.equalTo(99)
+            make.height.equalTo(160)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -305,20 +305,20 @@ extension AddBookVC {
     
     private func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
-             selector: #selector(keyBoardShow),
-             name: UIResponder.keyboardWillShowNotification, object: nil)
+                                               selector: #selector(keyBoardShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,
-             selector: #selector(keyboardHide),
-             name: UIResponder.keyboardWillHideNotification, object: nil)
+                                               selector: #selector(keyboardHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func removeRegisterForKeyboardNotification() {
         NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillShowNotification, object: nil)
+                                                  name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillHideNotification, object: nil)
+                                                  name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-        
+    
     @objc
     private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
@@ -327,17 +327,25 @@ extension AddBookVC {
         
         if focus == 1 {
             self.view.transform = CGAffineTransform(translationX: 0,
-                y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
+                                                    y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
         } else if focus == 2 {
             self.view.transform = CGAffineTransform(translationX: 0,
-                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
+                                                    y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
         }
     }
-
+    
     @objc
     private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
+    
+    func dataBind(model: BookInfoModel) {
+        nameLabel.text = model.title
+        authorLabel.text = model.author
+        let url = URL(string: model.image)!
+        bookImgView.kf.setImage(with: url)
+    }
+    
 }
 
 extension AddBookVC: UITextViewDelegate {

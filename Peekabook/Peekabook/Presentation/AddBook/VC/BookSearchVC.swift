@@ -15,7 +15,10 @@ import Moya
 final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
-
+    
+    var bookInfoList: [BookInfoModel] = []
+    var displayCount: Int = 10
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -28,7 +31,7 @@ final class BookSearchVC: UIViewController {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
     
-    private let headerTitleLabel = UILabel().then {
+    private var headerTitleLabel = UILabel().then {
         $0.text = I18N.BookSearch.title
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -37,21 +40,21 @@ final class BookSearchVC: UIViewController {
     private let headerLineView = UIView()
     
     private lazy var searchButton = UIButton().then {
+        $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var searchField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
-        $0.backgroundColor = .white
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
+        $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
-        $0.rightViewMode = UITextField.ViewMode.always
-        $0.rightView = searchButton
+        $0.autocorrectionType = .no
     }
     
-    private lazy var bookTableView: UITableView = {
+    lazy var bookTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = true
         tableView.backgroundColor = .clear
@@ -59,17 +62,7 @@ final class BookSearchVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
-        }()
-    
-    private var bookInfoList: [BookInfoModel] = [
-        BookInfoModel(image: ImageLiterals.Sample.book1, title: "아무튼, 여름", author: "김신회"),
-        BookInfoModel(image: ImageLiterals.Sample.book2, title: "아무튼, 두영", author: "김인영"),
-        BookInfoModel(image: ImageLiterals.Sample.book3, title: "아무튼, 수빈", author: "고두영"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈"),
-        BookInfoModel(image: ImageLiterals.Sample.book4, title: "아무튼, 인영", author: "윤수빈")
-    ]
+    }()
     
     // emptyView elements
     
@@ -85,15 +78,16 @@ final class BookSearchVC: UIViewController {
         $0.numberOfLines = 2
         $0.textAlignment = .center
     }
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emptyView.isHidden = true
+        searchField.delegate = self
         setUI()
         setLayout()
         register()
-        addTapGesture()
     }
 }
 
@@ -110,15 +104,9 @@ extension BookSearchVC {
     }
     
     private func setLayout() {
-        [headerView, containerView].forEach {
-            view.addSubview($0)
-        }
+        view.addSubview(headerView)
         
-        [bookTableView].forEach {
-            containerView.addSubview($0)
-        }
-        
-        [cancelButton, headerTitleLabel, searchField, headerLineView].forEach {
+        [cancelButton, headerTitleLabel, searchField, searchButton, headerLineView].forEach {
             headerView.addSubview($0)
         }
         
@@ -145,24 +133,17 @@ extension BookSearchVC {
             make.height.equalTo(2)
         }
         
+        searchButton.snp.makeConstraints { make in
+            make.top.equalTo(searchField.snp.top)
+            make.trailing.equalTo(headerLineView)
+            make.width.height.equalTo(40)
+        }
+        
         searchField.snp.makeConstraints { make in
             make.top.equalTo(headerLineView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
+            make.leading.equalTo(headerLineView)
+            make.trailing.equalTo(searchButton.snp.leading)
             make.height.equalTo(40)
-        }
-        
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        bookTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview().offset(-1)
-            make.height.equalTo(128 * bookInfoList.count)
         }
         
         // emptyView Layout
@@ -189,9 +170,48 @@ extension BookSearchVC {
         }
     }
     
+    private func setTableViewLayout() {
+        view.addSubview(containerView)
+        containerView.addSubview(bookTableView)
+        
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        bookTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalToSuperview().offset(-1)
+            make.height.equalTo(128 * bookInfoList.count)
+        }
+        view.layoutIfNeeded()
+    }
+    
+    func reLayout() {
+        bookTableView.snp.remakeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalToSuperview().offset(-1)
+            make.height.equalTo(128 * bookInfoList.count)
+        }
+    }
     private func register() {
         bookTableView.register(BookInfoTableViewCell.self,
-            forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+                               forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+    }
+    
+    func setView() {
+        if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
+            self.emptyView.isHidden = false // 히든뷰가 보이게
+            self.bookTableView.isHidden = true
+        } else {
+            setTableViewLayout()
+            self.bookTableView.isHidden = false
+            self.emptyView.isHidden = true // 테이블뷰 보이게
+        }
     }
     
     // MARK: - @objc Function
@@ -201,10 +221,28 @@ extension BookSearchVC {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // TODO: - 서버통신 시 GET
+    func bookBind(image: String, title: String, author: String) {
+        bookInfoList.append(BookInfoModel(image: image, title: title, author: author))
+    }
+    
     @objc
     private func searchButtonDidTap() {
-        // do something
+        fetchBooks()
+    }
+    
+    // MARK: - Server Helpers
+    
+    private func fetchBooks() {
+        let ls = NaverSearchAPI.shared
+        ls.getNaverBookTitleAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
+            if let result = result {
+                self?.bookInfoList = result
+                DispatchQueue.main.async {
+                    self?.setView()
+                    self?.bookTableView.reloadData()
+                }
+            }
+        }
     }
 }
 
@@ -221,13 +259,14 @@ extension BookSearchVC: UITableViewDataSource {
         return bookInfoList.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.item) click")
+        let addBookVC = AddBookVC()
+        addBookVC.modalPresentationStyle = .fullScreen
+        present(addBookVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.bookInfoList.isEmpty == true {
-            self.emptyView.isHidden = false
-        } else {
-            self.emptyView.isHidden = true
-        }
-        
         guard let bookCell = tableView.dequeueReusableCell(
             withIdentifier: BookInfoTableViewCell.identifier,
             for: indexPath) as? BookInfoTableViewCell
@@ -236,4 +275,19 @@ extension BookSearchVC: UITableViewDataSource {
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y == scrollView.frame.height - 20 {
+            displayCount += 10
+            fetchBooks()
+        }
+    }
 }
+extension BookSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.endEditing(true)
+        fetchBooks()
+        return true
+    }
+}
+

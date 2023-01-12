@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -39,12 +40,12 @@ class BookInfoTableViewCell: UITableViewCell {
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
-        $0.font = .h3
+        $0.font = UIFont.font(.notoSansBold, ofSize: 15)
         $0.textColor = .peekaRed
     }
     
     private let authorLabel = UILabel().then {
-        $0.font = .h2
+        $0.font = .s1
         $0.textColor = .peekaRed
     }
     
@@ -155,7 +156,9 @@ extension BookInfoTableViewCell {
     func dataBind(model: BookInfoModel) {
         bookTitleLabel.text = model.title
         authorLabel.text = model.author
-        bookImgView.image = model.image
+//        bookImgView.image = model.image
+        let url = URL(string: model.image)!
+        bookImgView.kf.setImage(with: url)
     }
     
     @objc
