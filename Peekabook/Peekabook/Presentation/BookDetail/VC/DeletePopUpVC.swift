@@ -20,7 +20,7 @@ final class DeletePopUpViewController: UIViewController {
     private let popUpView = UIView()
     
     private lazy var confirmLabel = UILabel().then {
-        $0.text = I18N.Confirm.delete
+        $0.text = I18N.BookDelete.popUpComment
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
@@ -29,14 +29,14 @@ final class DeletePopUpViewController: UIViewController {
     
     private lazy var cancelButton = UIButton().then {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
-        $0.titleLabel!.font = .h1
+        $0.titleLabel!.font = .h2
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaGray2
         $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var confirmButton = UIButton().then {
-        $0.setTitle(I18N.Confirm.recommend, for: .normal)
+        $0.setTitle(I18N.Confirm.delete, for: .normal)
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaRed
