@@ -18,8 +18,8 @@ final class UserSearchVC: UIViewController {
     
     private var serverGetUserData: SearchUserResponse?
     
-    var friendId: Int = 0
-    var isFollowingStatus: Bool = false
+    private var friendId: Int = 0
+    private var isFollowingStatus: Bool = false
     
     // MARK: - UI Components
     
