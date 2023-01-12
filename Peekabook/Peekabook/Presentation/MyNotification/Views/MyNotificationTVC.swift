@@ -57,6 +57,14 @@ class MyNotificationTVC: UITableViewCell {
         setLayout()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        notiImageView.layer.opacity = 1
+        contentLabel.textColor = .peekaRed
+        bookNameLabel.textColor = .peekaRed_60
+        dateLabel.textColor = .peekaRed_60
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,10 +88,10 @@ extension MyNotificationTVC {
         contentView.addSubviews(notiContainerView)
         backgroundColor = .peekaBeige
         notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        notiImageView.layer.opacity = 0.4
-        contentLabel.textColor = .peekaGray2
-        bookNameLabel.textColor = .peekaGray2_60
-        dateLabel.textColor = .peekaGray2
+        notiImageView.layer.opacity = 1
+//        contentLabel.textColor = .peekaGray2
+//        bookNameLabel.textColor = .peekaGray2_60
+//        dateLabel.textColor = .peekaGray2
         notiContainerView.addSubviews(
             notiImageView,
             contentStackView,
@@ -139,9 +147,9 @@ extension MyNotificationTVC {
         if model.typeID == 1 {
             return "'\(model.senderName)'님이 \(I18N.Alarm.followAlarm)"
         } else if model.typeID == 2 {
-            return "'\(model.senderName)'님이\(changeLines(userName: model.senderName)) \(I18N.Alarm.recommendAlarm)"
+            return "'\(model.senderName)'님이\(changeLines(userName: model.senderName))\(I18N.Alarm.recommendAlarm)"
         } else if model.typeID == 3 {
-            return "'\(model.senderName)'님의\(changeLines(userName: model.senderName)) \(I18N.Alarm.addBookAlarm)"
+            return "'\(model.senderName)'님의\n\(I18N.Alarm.addBookAlarm)"
         } else {
             return ""
         }
@@ -153,10 +161,10 @@ extension MyNotificationTVC {
         } else { return " " }
     }
     
-    func changeUnread(model: GetAlarmResponse) {
-        notiImageView.layer.opacity = 1
-        contentLabel.textColor = .peekaRed
-        bookNameLabel.textColor = .peekaRed
-        dateLabel.textColor = .peekaRed_60
+    func changeRead() {
+        notiImageView.layer.opacity = 0.4
+        contentLabel.textColor = .peekaGray2
+        bookNameLabel.textColor = .peekaGray2_60
+        dateLabel.textColor = .peekaGray2_60
     }
 }

@@ -112,10 +112,10 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         let i = serverGetAlarmData[indexPath.row]
         if i.senderName.count > 4 && serverGetAlarmData[indexPath.row].typeID != 1 {
             return 96
-        } else if i.typeID == 1 || i.senderName.count < 5 {
+        } else if i.typeID == 1 || (i.senderName.count < 5 && i.typeID == 2) {
             return 80
         } else {
-            return 80
+            return 96
         }
     }
     
@@ -131,12 +131,10 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.dataBind(model: serverGetAlarmData[indexPath.row])
-        for i in 0...2 {
-            if i == indexPath.row {
-                cell.changeUnread(model: serverGetAlarmData[i])
-            }
-        }
         cell.changeUserNameFont(model: serverGetAlarmData[indexPath.row])
+        if indexPath.row > 2 {
+            cell.changeRead()
+        }
         return cell
     }
 }
