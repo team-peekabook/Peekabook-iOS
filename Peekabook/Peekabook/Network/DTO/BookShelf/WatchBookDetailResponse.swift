@@ -8,7 +8,7 @@
 // MARK: - DataClass
 struct WatchBookDetailResponse: Codable {
     let description, memo: String
-    let book: BookBookBook // TODO: - 이름 바꿔주기
+    let book: BookDetail
 
     enum CodingKeys: String, CodingKey {
         case description, memo
@@ -17,7 +17,7 @@ struct WatchBookDetailResponse: Codable {
 }
 
 // MARK: - Book
-struct BookBookBook: Codable {
+struct BookDetail: Codable {
     let bookImage: String
     let bookTitle, author: String
 }
