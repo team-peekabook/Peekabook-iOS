@@ -228,10 +228,6 @@
 		8EEF8E2B296B129400F37AFD /* FriendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
-		8EEF8E32296B12CE00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E35296B12E200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E38296B130D00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8EEF8E3B296B132200F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8EEF8E3E296B133F00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
@@ -805,7 +801,6 @@
 		8EEF8E31296B12B300F37AFD /* Pick */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E32296B12CE00F37AFD /* .gitkeep */,
 				8E4083DB296F334500B53339 /* PickAllResponse.swift */,
 			);
 			path = Pick;
@@ -814,7 +809,6 @@
 		8EEF8E34296B12D200F37AFD /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E35296B12E200F37AFD /* .gitkeep */,
 				143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */,
 			);
 			path = Recommend;
@@ -823,7 +817,6 @@
 		8EEF8E37296B12EB00F37AFD /* Friend */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E38296B130D00F37AFD /* .gitkeep */,
 				1481CDD8296D227500F2B207 /* SearchUserResponse.swift */,
 			);
 			path = Friend;
@@ -832,7 +825,6 @@
 		8EEF8E3A296B131800F37AFD /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E3B296B132200F37AFD /* .gitkeep */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
