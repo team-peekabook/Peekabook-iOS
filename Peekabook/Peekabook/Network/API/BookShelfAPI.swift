@@ -87,7 +87,6 @@ final class BookShelfAPI {
                     self.deleteBookData = try response.map(GeneralResponse<BlankData>.self)
                     completion(deleteBookData)
                 } catch let error {
-                    print("error")
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):
