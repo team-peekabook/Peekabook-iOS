@@ -118,7 +118,7 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
         print("Symbology Type: \(type)")
 
         if type != "org.gs1.EAN-13" {
-            // TO DO - 앱이 꺼짐.. 해결하기!
+            // TO DO - 해결하기!
             let errorPopUpVC = ErrorPopUpViewController()
             errorPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(errorPopUpVC, animated: false)

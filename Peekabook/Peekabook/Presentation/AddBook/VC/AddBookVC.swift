@@ -303,13 +303,14 @@ extension AddBookVC {
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
         postMyBook()
-        guard let imgString = self.bookImgView.image else { return }
-        guard let titleName = self.nameLabel.text else { return }
-        guard let authorName = self.authorLabel.text else { return }
-        guard let commentContent = self.commentView.text else { return }
-        guard let memoContent = self.memoView.text else { return }
-        let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
         
+        let imgString = self.bookImgView.image
+        let titleName = self.nameLabel.text
+        let authorName = self.authorLabel.text
+        let commentContent = self.commentView.text
+        let memoContent = self.memoView.text
+        let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
+        print(list)
     }
     
     private func registerForKeyboardNotification() {
@@ -354,7 +355,6 @@ extension AddBookVC {
         let url = URL(string: model.image)!
         bookImgView.kf.setImage(with: url)
     }
-    
 }
 
 extension AddBookVC: UITextViewDelegate {
@@ -394,15 +394,6 @@ extension AddBookVC: UITextViewDelegate {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             commentView.text = I18N.BookDetail.comment
             commentView.textColor = .peekaGray1
-            
-            guard let imgString = self.bookImgView.image else { return }
-            guard let titleName = self.nameLabel.text else { return }
-            guard let authorName = self.authorLabel.text else { return }
-            guard let commentContent = self.commentView.text else { return }
-            guard let memoContent = self.memoView.text else { return }
-            let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
-            
-            
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             memoView.text = I18N.BookDetail.memo
             memoView.textColor = .peekaGray1
