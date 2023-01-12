@@ -33,18 +33,14 @@ extension BookShelfRouter: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf:
-            return .get
-        case .watchBookDetail:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf:
-            return .requestPlain
-        case .watchBookDetail:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail:
             return .requestPlain
         }
     }
