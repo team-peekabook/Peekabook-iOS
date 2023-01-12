@@ -6,42 +6,48 @@
 //
 
 import UIKit
+import SnapKit
+import Then
+
+enum GetAlarmType: CaseIterable {
+    case follow
+    case recommended
+    case addBook
+}
 
 class MyNotificationTVC: UITableViewCell {
+    
+    // MARK: - Properties
     
     // MARK: - UI Components
     
     private let notiContainerView = UIView()
     private let notiImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile1
         $0.layer.cornerRadius = 24
         $0.layer.masksToBounds = true
     }
     private let contentStackView = UIStackView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.alignment = .fill
+        $0.alignment = .leading
         $0.distribution = .equalCentering
         $0.spacing = 3
     }
     private let userNameLabel = UILabel().then {
-        $0.text = "이름"
         $0.textColor = .peekaRed
         $0.font = .h1
     }
     private let contentLabel = UILabel().then {
-        $0.text = "'누가누가' 추천을 했답니다"
+        $0.text = ""
         $0.numberOfLines = 2
         $0.textColor = .peekaRed
         $0.font = .h2
     }
     private let bookNameLabel = UILabel().then {
-        $0.text = "책 이름"
         $0.textColor = .peekaRed_60
         $0.font = .s3
     }
     private let dateLabel = UILabel().then {
-        $0.text = "12월 1일"
         $0.textColor = .peekaRed_60
         $0.font = .s3
     }
@@ -74,12 +80,18 @@ extension MyNotificationTVC {
         contentView.addSubviews(notiContainerView)
         backgroundColor = .peekaBeige
         notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        notiContainerView.addSubviews()
+        notiImageView.layer.opacity = 0.4
+        contentLabel.textColor = .peekaGray2
+        bookNameLabel.textColor = .peekaGray2_60
+        dateLabel.textColor = .peekaGray2
         notiContainerView.addSubviews(
             notiImageView,
             contentStackView,
             dateLabel
         )
+        bookNameLabel.snp.makeConstraints { make in
+            make.width.equalTo(180)
+        }
         contentStackView.addArrangedSubviews(contentLabel, bookNameLabel)
         notiContainerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -104,37 +116,47 @@ extension MyNotificationTVC {
 
 extension MyNotificationTVC {
     
-    func dataBind(model: NotificationModel) {
-        notiImageView.image = model.image
-        userNameLabel.text = model.userName
+    func dataBind(model: GetAlarmResponse) {
+        if let image = model.profileImage {
+            self.notiImageView.kf.setImage(with: URL(string: image))
+        }
+        userNameLabel.text = model.senderName
         contentLabel.text = "\(setContentLabel(model: model))"
-        bookNameLabel.text = model.bookName
-        dateLabel.text = model.date
+        bookNameLabel.text = model.bookTitle
+        dateLabel.text = model.createdAt
     }
     
-    func changeUserNameFont(model: NotificationModel) {
+    func changeUserNameFont(model: GetAlarmResponse) {
         guard let content = self.contentLabel.text else { return }
         let attributeString = NSMutableAttributedString(string: content)
         let font = UIFont.h1
-        attributeString.addAttribute(
-            .font,
-            value: font,
-            range: (content as NSString).range(of: "'\(model.userName)'"))
+        attributeString.addAttribute(.font, value: font, range: (content as NSString).range(of: "'\(model.senderName)'"))
 
         self.contentLabel.attributedText = attributeString
     }
     
-    private func setContentLabel(model: NotificationModel) -> String {
-        if model.userName.count > 4 && !model.bookName.isEmpty {
-            return "'\(model.userName)'님이\n이 책을 추천했어요"
-        } else { return "'\(model.userName)'님이 이 책을 추천했어요" }
+    private func setContentLabel(model: GetAlarmResponse) -> String {
+        if model.typeID == 1 {
+            return "'\(model.senderName)'님이 \(I18N.Alarm.followAlarm)"
+        } else if model.typeID == 2 {
+            return "'\(model.senderName)'님이\(changeLines(userName: model.senderName)) \(I18N.Alarm.recommendAlarm)"
+        } else if model.typeID == 3 {
+            return "'\(model.senderName)'님의\(changeLines(userName: model.senderName)) \(I18N.Alarm.addBookAlarm)"
+        } else {
+            return ""
+        }
     }
     
-    func changeRead(model: NotificationModel) {
-        notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        notiImageView.layer.opacity = 0.4
-        contentLabel.textColor = .peekaGray2
-        bookNameLabel.textColor = .peekaGray2_60
-        dateLabel.textColor = .peekaGray2
+    private func changeLines(userName: String) -> String {
+        if userName.count > 4 {
+            return "\n"
+        } else { return " " }
+    }
+    
+    func changeUnread(model: GetAlarmResponse) {
+        notiImageView.layer.opacity = 1
+        contentLabel.textColor = .peekaRed
+        bookNameLabel.textColor = .peekaRed
+        dateLabel.textColor = .peekaRed_60
     }
 }
