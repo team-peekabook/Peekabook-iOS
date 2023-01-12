@@ -56,6 +56,7 @@ final class BookSearchVC: UIViewController {
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
+        $0.autocorrectionType = .no
     }
     
     lazy var bookTableView: UITableView = {
