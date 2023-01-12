@@ -128,8 +128,8 @@ extension DeletePopUpVC {
                 UIView.setAnimationsEnabled(false)
                 window.rootViewController = rootViewController
                 UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> () in
-                if (completion != nil) {
+            }, completion: { (finished: Bool) -> Void in
+                if completion != nil {
                     completion!()
                 }
             })
@@ -138,4 +138,3 @@ extension DeletePopUpVC {
         }
     }
 }
-
