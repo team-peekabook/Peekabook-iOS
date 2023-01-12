@@ -68,6 +68,17 @@ final class BookShelfAPI {
                 do {
                     self.watchBookDetailData = try response.map(GeneralResponse<WatchBookDetailResponse>.self)
                     completion(watchBookDetailData)
+=======
+    // 2. 친구 책장 조회 하기
+    
+    func getFriendBookShelfInfo(friendId: Int, completion: @escaping (GeneralResponse<FriendBookShelfResponse>?) -> Void) {
+        bookShelfProvider.request(.getFriendBookShelf(friendId: friendId)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.friendBookShelfData = try response.map(GeneralResponse<FriendBookShelfResponse>.self)
+                    completion(friendBookShelfData)
+>>>>>>> 4855c87dc98997d24a3da222a1b5f6c3a9e75bed
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

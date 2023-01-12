@@ -808,6 +808,7 @@
 			isa = PBXGroup;
 			children = (
 				8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */,
+<<<<<<< HEAD
 				98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */,
 				8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */,
 			);
