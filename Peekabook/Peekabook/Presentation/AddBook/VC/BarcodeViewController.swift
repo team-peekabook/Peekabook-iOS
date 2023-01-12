@@ -13,6 +13,10 @@ import Then
 
 final class BarcodeViewController: BarcodeScannerViewController {
     
+    var bookInfoList: [BookInfoModel] = []
+    var isbnCode: String = ""
+    var displayCount: Int = 10
+    
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
         $0.numberOfLines = 2
@@ -72,6 +76,15 @@ extension BarcodeViewController {
             make.centerX.equalToSuperview()
         }
     }
+    
+    private func fetchBooks() {
+        let ls = NaverSearchAPI.shared
+        ls.getNaverBookAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
+            if let result = result {
+                self?.bookInfoList = result
+            }
+        }
+    }
 }
 
 extension BarcodeViewController {
@@ -85,6 +98,7 @@ extension BarcodeViewController {
         let nextVC = BookSearchVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)
+        
 //        let errorPopUpVC = ErrorPopUpViewController()
 //        errorPopUpVC.modalPresentationStyle = .overFullScreen
 //        self.present(errorPopUpVC, animated: false)
@@ -94,14 +108,12 @@ extension BarcodeViewController {
 extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
       print("Barcode Data: \(code)")
-      print("Symbology Type: \(type)")
+        var isbnCode = code
+        fetchBooks()
         
-//        let ls = NaverSearchAPI()
-//        ls.getNaverBookAPI(d_titl: "", d_isbn: "\(code)")
-        
-        let nextVC = AddBookVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+//        let nextVC = AddBookVC()
+//        nextVC.modalPresentationStyle = .fullScreen
+//        self.present(nextVC, animated: true, completion: nil)
     }
 }
 

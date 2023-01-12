@@ -16,12 +16,7 @@ final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    var getTitleList: [String] = []
-    var getImageList: [String] = []
-    var getAuthorList: [String] = []
-    
     var bookInfoList: [BookInfoModel] = []
-    
     var displayCount: Int = 10
 
     // MARK: - UI Components

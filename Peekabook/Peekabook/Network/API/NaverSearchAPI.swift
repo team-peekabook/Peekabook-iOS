@@ -15,11 +15,7 @@ final class NaverSearchAPI {
     
     let jsconDecoder: JSONDecoder = JSONDecoder()
     
-    var titleList: [String] = []
-    var imageList: [String] = []
-    var authorList: [String] = []
     var bookInfoList: [BookInfoModel] = []
-
     let booksearchVC = BookSearchVC()
     
     func urlTitleTaskDone() -> [BookInfoModel] {
@@ -51,6 +47,7 @@ final class NaverSearchAPI {
         let searchURL: String = Config.naverBookSearchURL
         let encodedQuery: String = searchURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         var queryURL: URLComponents = URLComponents(string: searchURL)!
+        
         var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
         queryURL.queryItems?.append(titleQuery)
         
@@ -70,10 +67,22 @@ final class NaverSearchAPI {
             guard let data = data else { print(error); return }
             
             do {
-                let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
-                DataManager.shared.searchResult = searchInfo
-                
-                completion(self.urlTitleTaskDone())
+                var bookTitle = ""
+                if let titleQ = titleQuery.value {
+                    bookTitle = titleQ
+                    print(bookTitle)
+                    if bookTitle == "" {
+                        print("isbn 검색을 하겠습니당")
+                        self.urlTitleTaskDone()
+                    } else {
+                        print("텍스트 검색을 하겠습니당")
+                        let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
+                        print(searchInfo)
+                        DataManager.shared.searchResult = searchInfo
+                        print("여기까지 왔나?4")
+                        completion(self.urlTitleTaskDone())
+                    }
+                }
             } catch {
                 print(fatalError())
             }
