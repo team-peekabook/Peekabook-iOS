@@ -44,7 +44,9 @@ extension FriendRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getUser, .postFollowing, .deleteFollowing:
+        case .getUser(let nickname):
+            return  .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
+        case .postFollowing, .deleteFollowing:
             return .requestPlain
         }
     }
