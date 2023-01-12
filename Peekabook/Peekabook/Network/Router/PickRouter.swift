@@ -10,7 +10,6 @@ import Foundation
 import Moya
 
 enum PickRouter {
-    case sample
     case getPickAll
 }
 
@@ -21,17 +20,13 @@ extension PickRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.pick
         case .getPickAll:
-            return "/pick/all"
+            return URLConstant.pick + "/all"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
         case .getPickAll:
             return .get
         }
@@ -39,8 +34,6 @@ extension PickRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .sample:
-            return .requestPlain
         case .getPickAll:
             return .requestPlain
         }
