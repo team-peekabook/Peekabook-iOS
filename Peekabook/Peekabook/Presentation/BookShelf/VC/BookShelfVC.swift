@@ -191,6 +191,7 @@ final class BookShelfVC: UIViewController {
         case .user:
             let editPickVC = EditMyPickVC()
             editPickVC.hidesBottomBarWhenPushed = true
+            editPickVC.pickCount = picks.count
             navigationController?.pushViewController(editPickVC, animated: true)
         case .friend:
             // 어디로 가는지 물어보기

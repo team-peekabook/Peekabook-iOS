@@ -15,11 +15,18 @@ import Moya
 final class EditMyPickVC: UIViewController {
     
     // MARK: - Properties
+    var pickCount: Int?
     
     private var editPickModelList = SampleEditPickModel.data
     private var serverPickLists: [PickAllResponse]?
     
+    private var firstPick: Int = 0
+    private var secondPick: Int = 0
+    private var thirdPick: Int = 0
+
     private var books: [EachBook] = []
+
+    private var selectedPickList: [Int] = []
 
     // MARK: - UI Components
     
@@ -77,8 +84,25 @@ final class EditMyPickVC: UIViewController {
     
     @objc
     private func completeButtonDidTap() {
-        print("confirmButtonDidTap")
-        self.navigationController?.popViewController(animated: true)
+        
+        if selectedPickList.isEmpty {
+            firstPick = 0
+            secondPick = 0
+            thirdPick = 0
+        } else if selectedPickList.count == 1 {
+            firstPick = books[selectedPickList[0]].id
+            secondPick = 0
+            thirdPick = 0
+        } else if selectedPickList.count == 2 {
+            firstPick = books[selectedPickList[0]].id
+            secondPick = books[selectedPickList[1]].id
+            thirdPick = 0
+        } else {
+            firstPick = books[selectedPickList[0]].id
+            secondPick = books[selectedPickList[1]].id
+            thirdPick = books[selectedPickList[2]].id
+        }
+        patchPickList(param: EditPickRequest(firstPick: firstPick, secondPick: secondPick, thirdPick: thirdPick))
     }
 }
 
@@ -148,12 +172,42 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
                 as? EditPickCVC else { return UICollectionViewCell() }
         cell.setData(model: books[indexPath.row], pickIndex: serverPickLists?[indexPath.row].pickIndex ?? 0)
-        cell.selectedLayout(model: editPickModelList[indexPath.row])
+        cell.initialLayout(model: editPickModelList[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected index is \(indexPath.row)")
+        
+        let cell = collectionView.cellForItem(at: indexPath) as? EditPickCVC
+        
+        if selectedPickList.count < 3 {
+            
+            if selectedPickList.contains(indexPath.row) {
+                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
+                selectedPickList.remove(at: index)
+                cell?.deselectedLayout()
+                selectedPickList.forEach {
+                    let cell = collectionView.cellForItem(at: [0, $0]) as? EditPickCVC
+                    guard let newIndex = selectedPickList.firstIndex(of: $0) else { return }
+                    cell?.plusCountLabel(index: newIndex)
+                }
+            } else {
+                selectedPickList.append(indexPath.row)
+                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
+                cell?.selectedLayout(index: index)
+            }
+        } else {
+            if selectedPickList.contains(indexPath.row) {
+                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
+                selectedPickList.remove(at: index)
+                cell?.deselectedLayout()
+                selectedPickList.forEach {
+                    let cell = collectionView.cellForItem(at: [0, $0]) as? EditPickCVC
+                    guard let newIndex = selectedPickList.firstIndex(of: $0) else { return }
+                    cell?.plusCountLabel(index: newIndex)
+                }
+            }
+        }
     }
 }
 
@@ -184,10 +238,30 @@ extension EditMyPickVC {
             
             guard let response = response, let data = response.data else { return }
             
-            for i in 0...data.count-1 {
+            guard let pickCount = self.pickCount else { return }
+            
+            var temp = [Int](repeating: 0, count: pickCount)
+            for i in 0..<data.count {
                 self.books.append(data[i].book)
+                if data[i].pickIndex != 0 {
+                    temp[data[i].pickIndex - 1] = i
+                }
             }
+            self.selectedPickList = temp
+        
             self.bookShelfCollectionView.reloadData()
+        }
+    }
+    
+    func patchPickList(param: EditPickRequest) {
+        PickAPI.shared.patchPickList(param: param) { response in
+            if response?.success == true {
+                print("edit pick success")
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                print("edit pick fail")
+                // 실패 토스트 띄우기
+            }
         }
     }
 }
