@@ -13,6 +13,7 @@ enum BookShelfRouter {
     case getMyBookShelf
     case watchBookDetail(bookId: Int)
     case getFriendBookShelf(friendId: Int)
+    case deleteBook(bookId: Int)
 }
 
 extension BookShelfRouter: TargetType {
@@ -28,6 +29,8 @@ extension BookShelfRouter: TargetType {
             return "\(URLConstant.detail)/\(bookId)"
         case .getFriendBookShelf(let friendId):
             return URLConstant.bookShelf + "/friend/\(friendId)"
+        case .deleteBook(let bookId):
+            return "\(URLConstant.bookShelf)/\(bookId)"
         }
     }
     
@@ -37,6 +40,8 @@ extension BookShelfRouter: TargetType {
             return .get
         case .watchBookDetail:
             return .get
+        case .deleteBook:
+            return .delete
         }
     }
     
@@ -48,6 +53,8 @@ extension BookShelfRouter: TargetType {
             return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
         case .getFriendBookShelf(let friendId):
             return .requestParameters(parameters: ["friendId": friendId], encoding: URLEncoding.queryString)
+        case .deleteBook(let bookId):
+            return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
         }
     }
     
