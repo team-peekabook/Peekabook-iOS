@@ -13,6 +13,10 @@ import Then
 
 final class BarcodeViewController: BarcodeScannerViewController {
     
+    var bookInfoList: [BookInfoModel] = []
+    var isbnCode: String = ""
+    var displayCount: Int = 10
+    
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
         $0.numberOfLines = 2
@@ -68,8 +72,24 @@ extension BarcodeViewController {
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(140)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(100)
             make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func fetchBooks() {
+        let ls = NaverSearchAPI.shared
+        ls.getNaverBookTitleAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
+            if let result = result {
+                self?.bookInfoList = result
+                DispatchQueue.main.async {
+                    let nextVC = AddBookVC()
+                    nextVC.bookInfo = result
+                    nextVC.modalPresentationStyle = .fullScreen
+                    nextVC.dataBind(model: result[0])
+                    self?.present(nextVC, animated: true, completion: nil)
+                }
+            }
         }
     }
 }
@@ -82,22 +102,35 @@ extension BarcodeViewController {
     }
     
     @objc private func textSearchButtonDidTap() {
-//        let nextVC = BookSearchVC()
-//        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil)
-        let errorPopUpVC = ErrorPopUpViewController()
-        errorPopUpVC.modalPresentationStyle = .overFullScreen
-        self.present(errorPopUpVC, animated: false)
+        let nextVC = BookSearchVC()
+        nextVC.modalPresentationStyle = .fullScreen
+        self.present(nextVC, animated: true, completion: nil)
+        
+//        let errorPopUpVC = ErrorPopUpViewController()
+//        errorPopUpVC.modalPresentationStyle = .overFullScreen
+//        self.present(errorPopUpVC, animated: false)
     }
 }
 
 extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-      print("Barcode Data: \(code)")
-      print("Symbology Type: \(type)")
-        let nextVC = AddBookVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+        print("Barcode Data: \(code)")
+        print("Symbology Type: \(type)")
+
+        if type != "org.gs1.EAN-13" {
+            // TO DO - 앱이 꺼짐.. 해결하기!
+            let errorPopUpVC = ErrorPopUpViewController()
+            errorPopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(errorPopUpVC, animated: false)
+        }
+        
+        isbnCode = code
+        fetchBooks()
+//
+//        let nextVC = AddBookVC()
+//        nextVC.bookInfoList =
+//        nextVC.modalPresentationStyle = .fullScreen
+//        self.present(nextVC, animated: true, completion: nil)
     }
 }
 
