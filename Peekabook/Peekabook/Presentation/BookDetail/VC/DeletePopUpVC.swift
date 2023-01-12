@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class DeletePopUpViewController: UIViewController {
+final class DeletePopUpVC: UIViewController {
     
     // MARK: - Properties
 
@@ -53,7 +53,7 @@ final class DeletePopUpViewController: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension DeletePopUpViewController {
+extension DeletePopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
@@ -94,7 +94,7 @@ extension DeletePopUpViewController {
 
 // MARK: - Methods
 
-extension DeletePopUpViewController {
+extension DeletePopUpVC {
     @objc private func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
@@ -104,3 +104,11 @@ extension DeletePopUpViewController {
         self.dismiss(animated: false, completion: nil)
     }
 }
+
+    private func deleteBookAPI(bookId: Int) {
+        BookShelfAPI.shared.deleteBook(bookId: bookId) { response in
+            if response?.success == true {
+                print("삭제완료")
+            }
+        }
+    }
