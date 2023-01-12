@@ -60,8 +60,8 @@ extension BookShelfRouter: TargetType {
             return .requestParameters(parameters: ["friendId": friendId], encoding: URLEncoding.queryString)
         case .deleteBook(let bookId):
             return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
-        case .postMyBook:
-            return .requestPlain
+        case .postMyBook(let param):
+            return .requestJSONEncodable(param)
         }
     }
     

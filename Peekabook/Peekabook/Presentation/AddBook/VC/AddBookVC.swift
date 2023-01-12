@@ -19,6 +19,7 @@ final class AddBookVC: UIViewController {
     var bookInfo: [BookInfoModel] = []
     private var focus = 0
     var seletedBookIndex = 0
+    var imgaeUrl: String = ""
     
     private var serverAddBookInfo: PostBookRequest?
     
@@ -40,7 +41,7 @@ final class AddBookVC: UIViewController {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(AddBookVC.self, action: #selector(checkButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
     private let containerView = UIScrollView().then {
@@ -302,15 +303,20 @@ extension AddBookVC {
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        postMyBook(param: PostBookRequest)
-        
-        let imgString = self.bookImgView.image
-        let titleName = self.nameLabel.text
-        let authorName = self.authorLabel.text
-        let commentContent = self.commentView.text
-        let memoContent = self.memoView.text
-        let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
-        print(list)
+        print(bookImgView)
+        print(bookImgView.image)
+        guard let bookImage = self.bookImgView.image,
+              let bookTitle = self.nameLabel.text,
+              let author = self.authorLabel.text,
+              let description = self.commentView.text,
+              let memo = self.memoView.text else { return }
+        print("으갸갹")
+        print(bookImage)
+        postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
+                                          bookTitle: bookTitle,
+                                          author: author,
+                                          description: description,
+                                          memo: memo))
     }
     
     private func registerForKeyboardNotification() {
@@ -352,8 +358,8 @@ extension AddBookVC {
     func dataBind(model: BookInfoModel) {
         nameLabel.text = model.title
         authorLabel.text = model.author
-        let url = URL(string: model.image)!
-        bookImgView.kf.setImage(with: url)
+        imgaeUrl = model.image
+        bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
     }
 }
 
@@ -403,9 +409,9 @@ extension AddBookVC: UITextViewDelegate {
 
 extension AddBookVC {
     private func postMyBook(param: PostBookRequest) {
-        BookShelfAPI.shared.postMyBookInfo() { response in
+        BookShelfAPI.shared.postMyBookInfo(param: param) { response in
             if response?.success == true {
-                print("성공")
+                
             }
         }
     }

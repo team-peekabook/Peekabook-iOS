@@ -99,8 +99,8 @@ final class BookShelfAPI {
     
     // 5. 내 책장에 책 등록하기
     
-    func postMyBookInfo(completion: @escaping (GeneralResponse<PostBookRequest>?) -> Void) {
-        bookShelfProvider.request(.postMyBook) { [self] (result) in
+    func postMyBookInfo(param: PostBookRequest, completion: @escaping (GeneralResponse<PostBookRequest>?) -> Void) {
+        bookShelfProvider.request(.postMyBook(param: param)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
