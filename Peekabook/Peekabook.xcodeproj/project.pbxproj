@@ -164,7 +164,6 @@
 		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
 		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
 		8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAlarmResponse.swift; sourceTree = "<group>"; };
-		8E4083EA2970C01900B53339 /* GetAlarmResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetAlarmResponse.swift; path = Peekabook/Network/DTO/Alarm/GetAlarmResponse.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -607,7 +606,6 @@
 		8E5A3095295DAE6D00285A15 = {
 			isa = PBXGroup;
 			children = (
-				8E4083EA2970C01900B53339 /* GetAlarmResponse.swift */,
 				8E10BA4D2960026600BCF58B /* .swiftlint.yml */,
 				8E5A30A0295DAE6D00285A15 /* Peekabook */,
 				8E5A309F295DAE6D00285A15 /* Products */,
