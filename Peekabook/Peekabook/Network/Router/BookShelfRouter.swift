@@ -12,6 +12,7 @@ import Moya
 enum BookShelfRouter {
     case getMyBookShelf
     case getFriendBookShelf(friendId: Int)
+    case deleteBook(bookId: Int)
     case watchBookDetail(bookId: Int)
 }
 
@@ -28,6 +29,8 @@ extension BookShelfRouter: TargetType {
             return URLConstant.bookShelf + "/friend/\(friendId)"
         case .watchBookDetail(let bookId):
             return "\(URLConstant.detail)/\(bookId)"
+        case .deleteBook(let bookId):
+            return "\(URLConstant.bookShelf)/\(bookId)"
         }
     }
     
@@ -35,12 +38,14 @@ extension BookShelfRouter: TargetType {
         switch self {
         case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail:
             return .get
+        case .deleteBook:
+            return .delete
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail, .deleteBook:
             return .requestPlain
         }
     }

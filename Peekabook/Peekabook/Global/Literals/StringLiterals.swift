@@ -26,6 +26,7 @@ struct I18N {
     struct Confirm {
         static let cancel = "취소하기"
         static let recommend = "추천하기"
+        static let delete = "삭제하기"
     }
     
     struct PlaceHolder {
@@ -94,5 +95,9 @@ struct I18N {
     struct BookRecommend {
         static let recommended = "추천받은 책"
         static let recommending = "추천한 책"
+    }
+    
+    struct BookDelete {
+        static let popUpComment = "해당 책을\n정말 삭제하시겠습니까?"
     }
 }
