@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-enum GetAlarmType: CaseIterable {
+enum AlarmType: CaseIterable {
     case follow
     case recommended
     case addBook
@@ -88,10 +88,6 @@ extension MyNotificationTVC {
         contentView.addSubviews(notiContainerView)
         backgroundColor = .peekaBeige
         notiContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        notiImageView.layer.opacity = 1
-//        contentLabel.textColor = .peekaGray2
-//        bookNameLabel.textColor = .peekaGray2_60
-//        dateLabel.textColor = .peekaGray2
         notiContainerView.addSubviews(
             notiImageView,
             contentStackView,

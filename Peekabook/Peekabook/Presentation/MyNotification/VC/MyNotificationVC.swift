@@ -109,10 +109,10 @@ extension MyNotificationVC {
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let i = serverGetAlarmData[indexPath.row]
-        if i.senderName.count > 4 && serverGetAlarmData[indexPath.row].typeID != 1 {
+        let data = serverGetAlarmData[indexPath.row]
+        if data.senderName.count > 4 && serverGetAlarmData[indexPath.row].typeID != 1 {
             return 96
-        } else if i.typeID == 1 || (i.senderName.count < 5 && i.typeID == 2) {
+        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) {
             return 80
         } else {
             return 96
