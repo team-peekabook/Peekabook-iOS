@@ -68,7 +68,7 @@ extension BarcodeViewController {
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(140)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(100)
             make.centerX.equalToSuperview()
         }
     }
@@ -82,12 +82,12 @@ extension BarcodeViewController {
     }
     
     @objc private func textSearchButtonDidTap() {
-//        let nextVC = BookSearchVC()
-//        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil)
-        let errorPopUpVC = ErrorPopUpViewController()
-        errorPopUpVC.modalPresentationStyle = .overFullScreen
-        self.present(errorPopUpVC, animated: false)
+        let nextVC = BookSearchVC()
+        nextVC.modalPresentationStyle = .fullScreen
+        self.present(nextVC, animated: true, completion: nil)
+//        let errorPopUpVC = ErrorPopUpViewController()
+//        errorPopUpVC.modalPresentationStyle = .overFullScreen
+//        self.present(errorPopUpVC, animated: false)
     }
 }
 
@@ -95,6 +95,10 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
       print("Barcode Data: \(code)")
       print("Symbology Type: \(type)")
+        
+//        let ls = NaverSearchAPI()
+//        ls.getNaverBookAPI(d_titl: "", d_isbn: "\(code)")
+        
         let nextVC = AddBookVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)

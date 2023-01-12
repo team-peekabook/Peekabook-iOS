@@ -8,7 +8,7 @@
 import UIKit
 
 struct BookInfoModel {
-    let image: UIImage!
-    let title: String
-    let author: String
+    var image: String
+    var title: String
+    var author: String
 }

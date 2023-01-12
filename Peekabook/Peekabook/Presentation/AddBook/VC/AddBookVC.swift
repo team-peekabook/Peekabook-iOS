@@ -17,6 +17,7 @@ final class AddBookVC: UIViewController {
     // MARK: - Properties
     
     private var focus = 0
+    var seletedBookIndex = 0
 
     // MARK: - UI Components
     
