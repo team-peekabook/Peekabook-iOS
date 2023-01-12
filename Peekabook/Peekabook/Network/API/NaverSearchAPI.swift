@@ -30,8 +30,10 @@ final class NaverSearchAPI {
                     model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
                     print(model)
                     print("호호")
+//                    addBookVC.bookInfo = model
                 }
             } else {
+                print("설마..?")
                 for i in 0...9 {
                     model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
                 }
@@ -77,14 +79,14 @@ final class NaverSearchAPI {
                     if bookTitle == "" {
                         print("isbn 검색을 하겠습니다")
                         let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
-                        print(searchInfo)
+//                        print(searchInfo)
                         print("아아")
                         DataManager.shared.searchResult = searchInfo
                         completion(self.urlTitleTaskDone())
                     } else {
                         print("텍스트 검색을 하겠습니다")
                         let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
-                        print(searchInfo)
+//                        print(searchInfo)ㅁ
                         DataManager.shared.searchResult = searchInfo
                         completion(self.urlTitleTaskDone())
                     }

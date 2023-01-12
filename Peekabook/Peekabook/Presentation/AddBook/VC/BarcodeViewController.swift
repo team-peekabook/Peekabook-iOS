@@ -82,8 +82,14 @@ extension BarcodeViewController {
         ls.getNaverBookTitleAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
+                DispatchQueue.main.async {
+                    let nextVC = AddBookVC()
+                    nextVC.bookInfo = result
+                    nextVC.modalPresentationStyle = .fullScreen
+                    nextVC.dataBind(model: result[0])
+                    self?.present(nextVC, animated: true, completion: nil)
+                }
             }
-            
         }
     }
 }
@@ -111,11 +117,11 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
       print("Barcode Data: \(code)")
         isbnCode = code
         fetchBooks()
-        
-        let nextVC = AddBookVC()
-//        nextVC.bookInfoList = 
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+//
+//        let nextVC = AddBookVC()
+//        nextVC.bookInfoList =
+//        nextVC.modalPresentationStyle = .fullScreen
+//        self.present(nextVC, animated: true, completion: nil)
     }
 }
 

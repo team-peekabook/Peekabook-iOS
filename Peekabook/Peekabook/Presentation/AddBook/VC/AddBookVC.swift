@@ -16,7 +16,7 @@ final class AddBookVC: UIViewController {
     
     // MARK: - Properties
     
-    var bookInfo: BookInfoModel?
+    var bookInfo: [BookInfoModel] = []
     private var focus = 0
     var seletedBookIndex = 0
 
@@ -122,9 +122,12 @@ final class AddBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let info = bookInfo else { return }
-        self.registerForKeyboardNotification()
-        dataBind(model: info)
+        print("아앙아아ㅏ아앙")
+        print(bookInfo)
+//        let info = bookInfo[0]
+//        self.registerForKeyboardNotification()
+////        dataBind(model: bookInfo)
+//        dataBind(model: info)
         }
     
     deinit {
@@ -212,6 +215,8 @@ extension AddBookVC {
         bookImgView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
+            make.width.equalTo(99)
+            make.height.equalTo(160)
         }
         
         nameLabel.snp.makeConstraints { make in
