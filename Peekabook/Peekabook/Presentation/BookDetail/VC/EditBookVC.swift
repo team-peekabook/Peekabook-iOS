@@ -342,11 +342,7 @@ extension EditBookVC {
 }
 
 extension EditBookVC: UITextViewDelegate {
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String
-    ) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentComment = commentView.text ?? ""
         guard let commentRange = Range(range, in: currentComment)
         else { return false }
@@ -384,4 +380,3 @@ extension EditBookVC: UITextViewDelegate {
         }
     }
 }
-
