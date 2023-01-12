@@ -520,7 +520,7 @@ extension BookShelfVC {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
-            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage)))
+            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage ?? "")))
             self.myNameLabel.text = data.myIntro.nickname
             self.introNameLabel.text = data.myIntro.nickname
             self.introductionLabel.text = data.myIntro.intro
