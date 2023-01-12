@@ -98,6 +98,6 @@ struct I18N {
     }
     
     struct BookDelete {
-        static let popUpComment = "해당 책을/정말 삭제하시겠습니까?"
+        static let popUpComment = "해당 책을\n정말 삭제하시겠습니까?"
     }
 }
