@@ -244,6 +244,7 @@ extension BookSearchVC {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
                     self?.setView()
+                    self?.bookTableView.reloadData()
                 }
             }
         }
