@@ -72,7 +72,7 @@ final class EditBookVC: UIViewController {
     }
     
     private let commentView = UITextView().then {
-        $0.text = I18N.BookDetail.comment
+        $0.text = I18N.BookDetail.commentSample
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -96,7 +96,7 @@ final class EditBookVC: UIViewController {
     }
     
     private lazy var memoView = UITextView().then {
-        $0.text = I18N.BookDetail.memo
+        $0.text = I18N.BookDetail.memoSample
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -241,7 +241,7 @@ extension EditBookVC {
         commentView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(170)
+            make.height.equalTo(300)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -269,7 +269,7 @@ extension EditBookVC {
         memoView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(40)
+            make.height.equalTo(70)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
