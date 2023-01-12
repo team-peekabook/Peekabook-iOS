@@ -26,7 +26,7 @@ final class BookShelfCVC: UICollectionViewCell {
     }
     
     private let pickImageView = UIImageView().then {
-        $0.image = ImageLiterals.Icn.pick
+        $0.image = ImageLiterals.Icn.newPick
         $0.contentMode = .scaleToFill
         $0.layer.masksToBounds = true
         $0.clipsToBounds = true
@@ -76,8 +76,8 @@ extension BookShelfCVC {
         }
         
         pickImageView.snp.makeConstraints { make in
-            make.bottom.equalTo(bookImageView.snp.top)
-            make.trailing.equalTo(bookImageView)
+            make.top.equalTo(bookImageView.snp.top).offset(-4)
+            make.trailing.equalTo(bookImageView).inset(8)
         }
     }
     
@@ -86,6 +86,6 @@ extension BookShelfCVC {
         pickImageView.isHidden = model.pickIndex == 0 ? true : false
         
         bookId = model.bookID
-        bookImageView.kf.setImage(with: URL(string: model.book.bookImage ?? ""))
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
     }
 }
