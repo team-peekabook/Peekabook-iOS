@@ -234,7 +234,7 @@ extension BookSearchVC {
     
     private func fetchBooks() {
         let ls = NaverSearchAPI.shared
-        ls.getNaverBookAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
+        ls.getNaverBookTitleAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {

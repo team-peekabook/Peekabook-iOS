@@ -17,6 +17,7 @@ final class NaverSearchAPI {
     
     var bookInfoList: [BookInfoModel] = []
     let booksearchVC = BookSearchVC()
+    let addBookVC = AddBookVC()
     
     func urlTitleTaskDone() -> [BookInfoModel] {
         let SearchData = DataManager.shared.searchResult
@@ -27,6 +28,8 @@ final class NaverSearchAPI {
             } else if (SearchData?.total ?? 0) < 10 {
                 for i in 0...((SearchData?.total ?? 1)-1) {
                     model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
+                    print(model)
+                    print("호호")
                 }
             } else {
                 for i in 0...9 {
@@ -39,7 +42,7 @@ final class NaverSearchAPI {
     
     // 네이버 책검색 API 불러오기
     
-    func getNaverBookAPI(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
+    func getNaverBookTitleAPI(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
         
         let clientID: String = Config.naverClientId
         let clientKEY: String = Config.naverClientSecret
@@ -72,21 +75,26 @@ final class NaverSearchAPI {
                     bookTitle = titleQ
                     print(bookTitle)
                     if bookTitle == "" {
-                        print("isbn 검색을 하겠습니당")
-                        self.urlTitleTaskDone()
+                        print("isbn 검색을 하겠습니다")
+                        let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
+                        print(searchInfo)
+                        print("아아")
+                        DataManager.shared.searchResult = searchInfo
+                        completion(self.urlTitleTaskDone())
                     } else {
-                        print("텍스트 검색을 하겠습니당")
+                        print("텍스트 검색을 하겠습니다")
                         let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
                         print(searchInfo)
                         DataManager.shared.searchResult = searchInfo
-                        print("여기까지 왔나?4")
                         completion(self.urlTitleTaskDone())
                     }
                 }
             } catch {
                 print(fatalError())
             }
+            
         }
         task.resume()
+
     }
 }

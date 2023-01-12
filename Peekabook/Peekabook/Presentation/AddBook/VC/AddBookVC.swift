@@ -16,6 +16,7 @@ final class AddBookVC: UIViewController {
     
     // MARK: - Properties
     
+    var bookInfo: BookInfoModel?
     private var focus = 0
     var seletedBookIndex = 0
 
@@ -121,7 +122,9 @@ final class AddBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        guard let info = bookInfo else { return }
         self.registerForKeyboardNotification()
+        dataBind(model: info)
         }
     
     deinit {
@@ -339,6 +342,14 @@ extension AddBookVC {
     private func keyboardHide(notification: NSNotification) {
         self.view.transform = .identity
     }
+    
+    func dataBind(model: BookInfoModel) {
+        nameLabel.text = model.title
+        authorLabel.text = model.author
+        let url = URL(string: model.image)!
+        bookImgView.kf.setImage(with: url)
+    }
+    
 }
 
 extension AddBookVC: UITextViewDelegate {

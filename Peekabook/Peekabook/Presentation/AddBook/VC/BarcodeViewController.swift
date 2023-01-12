@@ -79,10 +79,11 @@ extension BarcodeViewController {
     
     private func fetchBooks() {
         let ls = NaverSearchAPI.shared
-        ls.getNaverBookAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
+        ls.getNaverBookTitleAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
             }
+            
         }
     }
 }
@@ -108,12 +109,13 @@ extension BarcodeViewController {
 extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
       print("Barcode Data: \(code)")
-        var isbnCode = code
+        isbnCode = code
         fetchBooks()
         
-//        let nextVC = AddBookVC()
-//        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil)
+        let nextVC = AddBookVC()
+//        nextVC.bookInfoList = 
+        nextVC.modalPresentationStyle = .fullScreen
+        self.present(nextVC, animated: true, completion: nil)
     }
 }
 
