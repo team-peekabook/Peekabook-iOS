@@ -412,6 +412,7 @@ extension BookShelfVC {
             myNameLabel.font = .s2
         }
     }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
