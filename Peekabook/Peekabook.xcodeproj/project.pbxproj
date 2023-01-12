@@ -122,6 +122,7 @@
 		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042142966C8C700081B8E /* BookInfoModel.swift */; };
+		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,6 +246,7 @@
 		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98A042142966C8C700081B8E /* BookInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoModel.swift; sourceTree = "<group>"; };
+		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -786,6 +788,7 @@
 				8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */,
 				98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */,
 				8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */,
+				98D775E22970979200FF9FBA /* PostBookRequest.swift */,
 			);
 			path = BookShelf;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
 				8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */,
+				98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */,
 				986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,

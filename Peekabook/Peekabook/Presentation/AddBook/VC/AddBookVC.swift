@@ -20,6 +20,8 @@ final class AddBookVC: UIViewController {
     private var focus = 0
     var seletedBookIndex = 0
     
+    private var serverAddBookInfo: PostBookRequest?
+    
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -300,7 +302,14 @@ extension AddBookVC {
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        // doSomething()
+        postMyBook()
+        guard let imgString = self.bookImgView.image else { return }
+        guard let titleName = self.nameLabel.text else { return }
+        guard let authorName = self.authorLabel.text else { return }
+        guard let commentContent = self.commentView.text else { return }
+        guard let memoContent = self.memoView.text else { return }
+        let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
+        
     }
     
     private func registerForKeyboardNotification() {
@@ -385,9 +394,28 @@ extension AddBookVC: UITextViewDelegate {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             commentView.text = I18N.BookDetail.comment
             commentView.textColor = .peekaGray1
+            
+            guard let imgString = self.bookImgView.image else { return }
+            guard let titleName = self.nameLabel.text else { return }
+            guard let authorName = self.authorLabel.text else { return }
+            guard let commentContent = self.commentView.text else { return }
+            guard let memoContent = self.memoView.text else { return }
+            let list = PostBookRequest(bookImage: "\(imgString)", bookTitle: titleName, author: authorName, description: commentContent, memo: memoContent)
+            
+            
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             memoView.text = I18N.BookDetail.memo
             memoView.textColor = .peekaGray1
+        }
+    }
+}
+
+extension AddBookVC {
+    private func postMyBook() {
+        BookShelfAPI.shared.postMyBookInfo() { response in
+            if response?.success == true {
+                print("성공")
+            }
         }
     }
 }
