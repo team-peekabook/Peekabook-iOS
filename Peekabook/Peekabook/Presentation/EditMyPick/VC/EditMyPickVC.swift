@@ -17,6 +17,9 @@ final class EditMyPickVC: UIViewController {
     // MARK: - Properties
     
     private var editPickModelList = SampleEditPickModel.data
+    private var serverPickLists: [PickAllResponse]?
+    
+    private var books: [EachBook] = []
 
     // MARK: - UI Components
     
@@ -58,6 +61,11 @@ final class EditMyPickVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllPicks()
     }
     
     // MARK: - @objc Function
@@ -133,13 +141,13 @@ extension EditMyPickVC {
 extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return editPickModelList.count
+        return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
                 as? EditPickCVC else { return UICollectionViewCell() }
-        cell.initCell(model: editPickModelList[indexPath.row])
+        cell.setData(model: books[indexPath.row], pickIndex: serverPickLists?[indexPath.row].pickIndex ?? 0)
         cell.selectedLayout(model: editPickModelList[indexPath.row])
         return cell
     }
@@ -164,5 +172,22 @@ extension EditMyPickVC: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+// MARK: - Network
+
+extension EditMyPickVC {
+    func getAllPicks() {
+        PickAPI.shared.getAllPicks { response in
+            self.serverPickLists = response?.data
+            
+            guard let response = response, let data = response.data else { return }
+            
+            for i in 0...data.count-1 {
+                self.books.append(data[i].book)
+            }
+            self.bookShelfCollectionView.reloadData()
+        }
     }
 }
