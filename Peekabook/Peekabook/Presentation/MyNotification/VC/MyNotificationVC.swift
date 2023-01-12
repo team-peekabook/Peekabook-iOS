@@ -15,69 +15,8 @@ import Moya
 final class MyNotificationVC: UIViewController {
     
     // MARK: - Properties
-
-    var notiDummy: [NotificationModel] = [
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "추천",
-            bookName: "책이름",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile1,
-            userName: "뇽잉깅",
-            bookName: "bookName",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "인영케이",
-            bookName: "책이름",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile6,
-            userName: "샬라샬리샬라",
-            bookName: "",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile2,
-            userName: "안녕하세요",
-            bookName: "뷰공장입니다",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile3,
-            userName: "추천",
-            bookName: "하하 웃으며 살자",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "두두두",
-            bookName: "",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "문수선배",
-            bookName: "",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "윤수선배",
-            bookName: "수빈은윤수빈",
-            date: "12월 2일"
-        ),
-        NotificationModel(
-            image: ImageLiterals.Sample.profile4,
-            userName: "가나다라마",
-            bookName: "안녕?",
-            date: "12월 2일"
-        )
-    ]
+    
+    private var serverGetAlarmData: [GetAlarmResponse] = []
     
     // MARK: - UI Components
     
@@ -110,6 +49,11 @@ final class MyNotificationVC: UIViewController {
         setUI()
         setLayout()
         registerCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAlarmAPI()
     }
     
     @objc private func backButtonTapped() {
@@ -165,16 +109,18 @@ extension MyNotificationVC {
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let bookText = notiDummy[indexPath.row].bookName
-        if notiDummy[indexPath.row].userName.count > 4 && bookText.isEmpty == false {
+        let data = serverGetAlarmData[indexPath.row]
+        if data.senderName.count > 4 && serverGetAlarmData[indexPath.row].typeID != 1 {
             return 96
-        } else {
+        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) {
             return 80
+        } else {
+            return 96
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notiDummy.count
+        return serverGetAlarmData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -184,13 +130,23 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: notiDummy[indexPath.row])
-        for i in notiDummy.count - 7...notiDummy.count - 1 {
-            if i == indexPath.row {
-                cell.changeRead(model: notiDummy[i])
-            }
+        cell.dataBind(model: serverGetAlarmData[indexPath.row])
+        cell.changeUserNameFont(model: serverGetAlarmData[indexPath.row])
+        if indexPath.row > 2 {
+            cell.changeRead()
         }
-        cell.changeUserNameFont(model: notiDummy[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - Network
+
+extension MyNotificationVC {
+    private func getAlarmAPI() {
+        AlarmAPI.shared.getAlarmAPI { response in
+            guard let response = response, let data = response.data else { return }
+            self.serverGetAlarmData = data
+            self.notificationTableView.reloadData()
+        }
     }
 }
