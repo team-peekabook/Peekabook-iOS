@@ -14,11 +14,11 @@ import Moya
 
 final class BookSearchVC: UIViewController {
     
-    var titleList: [String] = []
-    var imageList: [String] = []
-    var authorList: [String] = []
-    
     // MARK: - Properties
+    
+    var getTitleList: [String] = []
+    var getImageList: [String] = []
+    var getAuthorList: [String] = []
 
     // MARK: - UI Components
     
@@ -217,10 +217,14 @@ extension BookSearchVC {
         let ls = NaverSearchAPI()
         ls.getNaverBookAPI(d_titl: searchField.text!, d_isbn: "")
 //        getNaverBookAPI(d_titl: searchField.text!)
-        
-//        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
-//        print(bookInfoList[0])
-//        setView()
+        print("-----------아아아아 getTItleList가 나와야합니다-----------")
+        print(getTitleList)
+        print("-----------아아아아 getTItleList가 나왔어야합니다-----------")
+
+        bookInfoList.append(BookInfoModel(image: "bookSample3", title: "아무튼, 여름", author: "김신회"))
+//        bookInfoList.append(BookInfoModel(image: "아아", title: "\(getTitleList[0])", author: "\(getAuthorList[0])"))
+        print(bookInfoList[0])
+        setView()
     }
     
 }
@@ -236,6 +240,13 @@ extension BookSearchVC: UITableViewDelegate {
 extension BookSearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookInfoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.item) click")
+        let addBookVC = AddBookVC()
+        addBookVC.modalPresentationStyle = .fullScreen
+        present(addBookVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
