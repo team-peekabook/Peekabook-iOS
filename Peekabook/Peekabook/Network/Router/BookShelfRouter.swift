@@ -14,7 +14,7 @@ enum BookShelfRouter {
     case watchBookDetail(bookId: Int)
     case getFriendBookShelf(friendId: Int)
     case deleteBook(bookId: Int)
-    case postMyBook
+    case postMyBook(param: PostBookRequest)
 }
 
 extension BookShelfRouter: TargetType {

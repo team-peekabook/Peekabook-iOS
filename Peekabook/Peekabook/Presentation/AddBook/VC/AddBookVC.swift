@@ -302,7 +302,7 @@ extension AddBookVC {
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        postMyBook()
+        postMyBook(param: PostBookRequest)
         
         let imgString = self.bookImgView.image
         let titleName = self.nameLabel.text
@@ -402,7 +402,7 @@ extension AddBookVC: UITextViewDelegate {
 }
 
 extension AddBookVC {
-    private func postMyBook() {
+    private func postMyBook(param: PostBookRequest) {
         BookShelfAPI.shared.postMyBookInfo() { response in
             if response?.success == true {
                 print("성공")

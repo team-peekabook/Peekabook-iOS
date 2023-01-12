@@ -9,6 +9,6 @@ import Foundation
 
 // MARK: - PostBookResponse
 struct PostBookRequest: Codable {
-    let bookImage, bookTitle, author, description: String
-    let memo: String
+    let bookImage, bookTitle, author: String
+    let description, memo: String?
 }
