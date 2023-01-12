@@ -248,7 +248,21 @@ extension BookDetailVC {
 // MARK: - Methods
 
 extension BookDetailVC {
-    func getBookDetail(bookId: Int) {
+    func changeUserViewLayout() {
+        self.editButton.isHidden = false
+        self.deleteButton.isHidden = false
+    }
+    
+    func changeFriendViewLayout() {
+        self.editButton.isHidden = true
+        self.deleteButton.isHidden = true
+    }
+}
+
+// MARK: - Network
+
+extension BookDetailVC {
+    private func getBookDetail(bookId: Int) {
         BookShelfAPI.shared.getBookDetail(bookId: bookId) { response in
             guard let serverWatchBookDetail = response?.data else { return }
             self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
