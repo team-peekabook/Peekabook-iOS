@@ -100,4 +100,10 @@ struct I18N {
     struct BookDelete {
         static let popUpComment = "해당 책을\n정말 삭제하시겠습니까?"
     }
+    
+    struct Alarm {
+        static let followAlarm = "당신을 팔로우했어요!"
+        static let recommendAlarm = "당신에게 책을 추천했어요!"
+        static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
+    }
 }
