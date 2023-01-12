@@ -41,7 +41,7 @@ final class PickAPI {
     // 2. Pick한 책 수정하기
     
     func patchPickList(param: EditPickRequest, completion: @escaping (GeneralResponse<[BlankData]>?) -> Void) {
-        pickProvider.request(.getPickAll) { [self] (result) in
+        pickProvider.request(.editPickList(param: param)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
