@@ -11,6 +11,7 @@ import Moya
 
 enum PickRouter {
     case getPickAll
+    case editPickList(param: EditPickRequest)
 }
 
 extension PickRouter: TargetType {
@@ -22,6 +23,8 @@ extension PickRouter: TargetType {
         switch self {
         case .getPickAll:
             return URLConstant.pick + "/all"
+        case .editPickList:
+            return URLConstant.pick
         }
     }
     
@@ -29,6 +32,8 @@ extension PickRouter: TargetType {
         switch self {
         case .getPickAll:
             return .get
+        case .editPickList:
+            return .patch
         }
     }
     
@@ -36,6 +41,8 @@ extension PickRouter: TargetType {
         switch self {
         case .getPickAll:
             return .requestPlain
+        case .editPickList(let param):
+            return .requestJSONEncodable(param)
         }
     }
     
