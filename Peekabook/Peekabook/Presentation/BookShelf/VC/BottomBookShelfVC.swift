@@ -11,9 +11,11 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
-    private var bookModelList = SampleBookModel.data
+    private var serverMyBookShelfInfo: MyBookShelfResponse?
+    private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
+    private var picks: [Pick] = []
 
     // MARK: - UI Components
     
@@ -22,7 +24,7 @@ final class BottomBookShelfVC: UIViewController {
     private let holdView = UIView()
     
     private let booksCountLabel = UILabel().then {
-        $0.text = "\(SampleBookModel.data.count) Books"
+        $0.text = "Books"
         $0.font = .engSb
         $0.textColor = .peekaRed
     }
@@ -199,19 +201,29 @@ extension BottomBookShelfVC {
         
         view.insertSubview(bluredView, at: 0)
     }
+    
+    func setData(books: [Book], bookTotalNum: Int) {
+        self.books = books
+        self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
+        bookShelfCollectionView.reloadData()
+    }
+    
+    func hideAddBookButton(wantsToHide: Bool) {
+        addBookButton.isHidden = wantsToHide
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bookModelList.count
+        return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
-        cell.initCell(model: bookModelList[indexPath.row])
+        cell.setData(model: books[indexPath.row])
         return cell
     }
     
@@ -224,9 +236,8 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
+            bookDetailVC.selectedBookIndex = books[indexPath.row].bookID
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            
-            print("selected index is \(indexPath.row)")
         }
     }
 }
@@ -240,7 +251,7 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -265,3 +276,5 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         return false
     }
 }
+
+// MARK: - Network

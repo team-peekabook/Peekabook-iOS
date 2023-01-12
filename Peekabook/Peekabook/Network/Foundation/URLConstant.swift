@@ -14,6 +14,7 @@ struct URLConstant {
     // MARK: - Route
     
     static let bookShelf = "/bookshelf"
+    static let detail = "/bookshelf/detail"
     static let pick = "/pick"
     static let recommend = "/recommend"
     static let friend = "/friend"

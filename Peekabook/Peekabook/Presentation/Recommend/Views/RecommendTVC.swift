@@ -29,13 +29,11 @@ final class RecommendTVC: UITableViewCell {
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
     private let bookNameLabel = UILabel().then {
-        $0.text = "책 이름"
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
     private let bookDividerView = UIView()
     private let bookWriterLabel = UILabel().then {
-        $0.text = "작가"
         $0.font = .s3
         $0.textColor = .peekaWhite
     }
@@ -47,22 +45,19 @@ final class RecommendTVC: UITableViewCell {
         $0.layer.shadowOpacity = 0.3
     }
     private let bookRecommendedPersonImage = UIImageView().then {
-        $0.layer.cornerRadius = 50
+        $0.layer.cornerRadius = 7.5
+        $0.clipsToBounds = true
     }
     private let bookRecommendedPersonLabel = UILabel().then {
-        $0.text = "인영케이"
         $0.font = .s2
         $0.textColor = .peekaRed
     }
     private let bookRecommendDateLabel = UILabel().then {
-        $0.text = "2022.12.25"
-        $0.font = .s4
+        $0.font = .c2
         $0.textColor = .peekaRed
     }
-    
     private let bookRecommendTextLabel = UILabel().then {
-        $0.text = "추천문구샬라샬라"
-        $0.font = .c2
+        $0.font = .s2
         $0.textColor = .peekaRed
         $0.numberOfLines = 0
         $0.lineBreakMode = .byCharWrapping
@@ -193,12 +188,13 @@ extension RecommendTVC {
 
 extension RecommendTVC {
     
-    func dataBind(model: RecommendModel) {
-        bookImage.image = model.image
-        bookNameLabel.text = model.bookName
-        bookWriterLabel.text = model.writer
-        bookRecommendedPersonImage.image = model.recommendedPersonImage
-        bookRecommendedPersonLabel.text = model.recommendedPerson
-        bookRecommendTextLabel.text = model.memo
+    func dataBind(model: RecommendBook) {
+        bookImage.kf.setImage(with: URL(string: model.bookImage))
+        bookNameLabel.text = model.bookTitle
+        bookWriterLabel.text = model.author
+        bookRecommendDateLabel.text = model.createdAt
+        bookRecommendedPersonImage.kf.setImage(with: URL(string: model.friendImage))
+        bookRecommendedPersonLabel.text = model.friendNickname
+        bookRecommendTextLabel.text = model.recommendDesc
     }
 }
