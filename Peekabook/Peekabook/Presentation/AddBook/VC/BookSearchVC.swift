@@ -88,6 +88,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
+        searchField.delegate = self
         setUI()
         setLayout()
         register()
@@ -285,3 +286,11 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
 }
+extension BookSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.endEditing(true)
+        fetchBooks()
+        return true
+    }
+}
+
