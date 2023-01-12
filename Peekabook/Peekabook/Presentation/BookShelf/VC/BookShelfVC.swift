@@ -150,6 +150,15 @@ final class BookShelfVC: UIViewController {
         return collectionView
     }()
     
+    private let emptyView = UIView()
+    
+    private let emptyPickViewDescription = UILabel().then {
+        $0.font = .h2
+        $0.textColor = .peekaRed_60
+        $0.textAlignment = .center
+        $0.numberOfLines = 3
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -160,7 +169,13 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-        getMyBookShelfInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if selectedUserIndex == nil {
+            getMyBookShelfInfo()
+        }
     }
     
     // MARK: - @objc Function
@@ -185,6 +200,7 @@ final class BookShelfVC: UIViewController {
         case .user:
             let editPickVC = EditMyPickVC()
             editPickVC.hidesBottomBarWhenPushed = true
+            editPickVC.pickCount = picks.count
             navigationController?.pushViewController(editPickVC, animated: true)
         case .friend:
             // 어디로 가는지 물어보기
@@ -231,7 +247,9 @@ extension BookShelfVC {
         
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
         
-        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView)
+        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
+        
+        emptyView.addSubview(emptyPickViewDescription)
         
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -364,6 +382,16 @@ extension BookShelfVC {
             make.bottom.equalToSuperview().inset(10)
             make.height.equalTo(250)
         }
+        
+        emptyView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(300)
+            make.height.equalTo(70)
+        }
+        
+        emptyPickViewDescription.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
@@ -413,6 +441,16 @@ extension BookShelfVC {
         }
     }
     
+    private func setEmptyView(description: String) {
+        if picks.isEmpty {
+            emptyView.isHidden = false
+            pickCollectionView.isHidden = true
+            emptyPickViewDescription.text = description
+        } else {
+            emptyView.isHidden = true
+            pickCollectionView.isHidden = false
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -519,6 +557,7 @@ extension BookShelfVC {
             self.introductionLabel.text = data.myIntro.intro
             self.friends = data.friendList
             self.picks = data.picks
+            self.setEmptyView(description: I18N.BookShelf.emptyPickViewDescription)
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             self.friendsCollectionView.reloadData()
@@ -533,6 +572,7 @@ extension BookShelfVC {
             self.introNameLabel.text = data.friendIntro.nickname
             self.introductionLabel.text = data.friendIntro.intro
             self.picks = data.picks
+            self.setEmptyView(description: I18N.BookShelf.emptyFriendPickDescription)
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             self.pickCollectionView.reloadData()

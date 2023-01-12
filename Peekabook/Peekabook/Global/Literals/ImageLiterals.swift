@@ -37,6 +37,7 @@ struct ImageLiterals {
         static let search = UIImage(named: "icn_search")
         static let empty = UIImage(named: "icn_emptyView")
         static let pick = UIImage(named: "icn_pick")
+        static let newPick = UIImage(named: "icn_newPick")
     }
     
     struct Sample {

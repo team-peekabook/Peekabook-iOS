@@ -15,7 +15,8 @@ import Moya
 final class UserSearchVC: UIViewController {
     
     // MARK: - Properties
-        
+    
+    private let bookShelfVC = BookShelfVC()
     private var serverGetUserData: SearchUserResponse?
     
     private var friendId: Int = 0
@@ -279,6 +280,7 @@ extension UserSearchVC {
         FriendAPI.shared.postFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = true
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
         }
     }
@@ -287,7 +289,28 @@ extension UserSearchVC {
         FriendAPI.shared.deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = false
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension UserSearchVC {
+    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        if animated {
+            UIView.transition(with: window, duration: 1.5, options: .transitionCrossDissolve, animations: {
+                let oldState: Bool = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                window.rootViewController = rootViewController
+                UIView.setAnimationsEnabled(oldState)
+            }, completion: { (finished: Bool) -> Void in
+                if completion != nil {
+                    completion!()
+                }
+            })
+        } else {
+            window.rootViewController = rootViewController
         }
     }
 }

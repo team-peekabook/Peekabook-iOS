@@ -79,7 +79,7 @@ extension EditPickCVC {
         }
     }
     
-    func selectedLayout(model: SampleEditPickModel) {
+    func initialLayout(model: SampleEditPickModel) {
         if countLabel.text != "0" {
             bookImageView.layer.opacity = 0.4
             countLabel.isHidden = false
@@ -92,5 +92,20 @@ extension EditPickCVC {
     func setData(model: EachBook, pickIndex: Int) {
         bookImageView.kf.setImage(with: URL(string: model.bookImage))
         countLabel.text = String(pickIndex)
+    }
+    
+    func plusCountLabel(index: Int) {
+        countLabel.text = String(index + 1)
+    }
+    
+    func selectedLayout(index: Int) {
+        bookImageView.layer.opacity = 0.4
+        countLabel.isHidden = false
+        countLabel.text = String(index + 1)
+    }
+    
+    func deselectedLayout() {
+        bookImageView.layer.opacity = 1
+        countLabel.isHidden = true
     }
 }

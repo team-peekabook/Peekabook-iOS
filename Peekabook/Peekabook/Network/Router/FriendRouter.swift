@@ -10,8 +10,7 @@ import Foundation
 import Moya
 
 enum FriendRouter {
-    case sample
-    case getuser(nickname: String)
+    case getUser(nickname: String)
     case postFollowing(id: Int)
     case deleteFollowing(id: Int)
 }
@@ -23,9 +22,7 @@ extension FriendRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.friend
-        case .getuser:
+        case .getUser:
             return URLConstant.friend
         case .postFollowing(let id):
             return "\(URLConstant.friend)/\(id)"
@@ -36,9 +33,7 @@ extension FriendRouter: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
-        case .getuser:
+        case .getUser:
             return .get
         case .postFollowing:
             return .post
@@ -49,14 +44,10 @@ extension FriendRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .sample:
+        case .getUser(let nickname):
+            return  .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
+        case .postFollowing, .deleteFollowing:
             return .requestPlain
-        case .getuser(let nickname):
-            return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
-        case .postFollowing(let id):
-            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .deleteFollowing(let id):
-            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
         }
     }
     

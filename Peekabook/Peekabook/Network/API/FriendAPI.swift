@@ -23,14 +23,13 @@ final class FriendAPI {
     // 1. 사용자 검색하기
     
     func searchUserData(nickname: String, completion: @escaping (GeneralResponse<SearchUserResponse>?) -> Void) {
-        friendProvider.request(.getuser(nickname: nickname)) { [self] (result) in
+        friendProvider.request(.getUser(nickname: nickname)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
                     self.searchUserData = try response.map(GeneralResponse<SearchUserResponse>.self)
                     completion(searchUserData)
                 } catch let error {
-                    print("error")
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):
@@ -49,7 +48,6 @@ final class FriendAPI {
                     self.postFollowing = try response.map(GeneralResponse<BlankData>.self)
                     completion(postFollowing)
                 } catch let error {
-                    print("error")
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):
@@ -58,7 +56,7 @@ final class FriendAPI {
         }
     }
     
-    // 2. 팔로우 취소하기
+    // 3. 친구 팔로우 취소하기
     
     func deleteFollowing(id: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
         friendProvider.request(.deleteFollowing(id: id)) { [self] (result) in
@@ -68,7 +66,6 @@ final class FriendAPI {
                     self.deleteFollowing = try response.map(GeneralResponse<BlankData>.self)
                     completion(deleteFollowing)
                 } catch let error {
-                    print("error")
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):

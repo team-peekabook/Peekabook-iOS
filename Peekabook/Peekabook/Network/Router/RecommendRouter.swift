@@ -10,7 +10,6 @@ import Foundation
 import Moya
 
 enum RecommendRouter {
-    case sample
     case getRecommend
 }
 
@@ -21,8 +20,6 @@ extension RecommendRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.recommend
         case .getRecommend:
             return URLConstant.recommend
         }
@@ -30,8 +27,6 @@ extension RecommendRouter: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
         case .getRecommend:
             return .get
         }
@@ -39,8 +34,6 @@ extension RecommendRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .sample:
-            return .requestPlain
         case .getRecommend:
             return .requestPlain
         }
