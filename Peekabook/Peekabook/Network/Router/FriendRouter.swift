@@ -51,12 +51,12 @@ extension FriendRouter: TargetType {
         switch self {
         case .sample:
             return .requestPlain
-        case .getuser(let nickname):
-            return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
-        case .postFollowing(let id):
-            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .deleteFollowing(let id):
-            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
+        case .getuser:
+            return .requestPlain
+        case .postFollowing:
+            return .requestPlain
+        case .deleteFollowing:
+            return .requestPlain
         }
     }
     

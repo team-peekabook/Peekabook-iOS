@@ -44,10 +44,8 @@ extension BookShelfRouter: TargetType {
         switch self {
         case .getMyBookShelf, .getFriendBookShelf:
             return .requestPlain
-        case .watchBookDetail(let bookId):
-            return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
-        case .getFriendBookShelf(let friendId):
-            return .requestParameters(parameters: ["friendId": friendId], encoding: URLEncoding.queryString)
+        case .watchBookDetail:
+            return .requestPlain
         }
     }
     
