@@ -21,10 +21,11 @@ struct MyBookShelfResponse: Codable {
 
 // MARK: - Book
 struct Book: Codable {
-    let bookID, pickIndex: Int
-    let book: BookBook
+    let id, bookID, pickIndex: Int
+    let book: BookImage
 
     enum CodingKeys: String, CodingKey {
+        case id
         case bookID = "bookId"
         case pickIndex
         case book = "Book"
@@ -32,21 +33,21 @@ struct Book: Codable {
 }
 
 // MARK: - BookBook
-struct BookBook: Codable {
+struct BookImage: Codable {
     let bookImage: String
 }
 
 // MARK: - MyIntro
 struct MyIntro: Codable {
     let id: Int
-    let nickname, profileImage: String
-    let intro: String?
+    let nickname: String
+    let intro, profileImage: String?
 }
 
 // MARK: - Pick
 struct Pick: Codable {
     let pickIndex: Int
-    let book: PickBook
+    let book: PickBookDetail
     let description: String?
 
     enum CodingKeys: String, CodingKey {
@@ -57,7 +58,7 @@ struct Pick: Codable {
 }
 
 // MARK: - PickBook
-struct PickBook: Codable {
+struct PickBookDetail: Codable {
     let id: Int
     let bookImage, bookTitle: String
 }
