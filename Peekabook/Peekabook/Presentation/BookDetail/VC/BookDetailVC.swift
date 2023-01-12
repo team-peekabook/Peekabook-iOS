@@ -44,20 +44,17 @@ final class BookDetailVC: UIViewController {
     }
     
     private let bookImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.book1
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
     private var bookNameLabel = UILabel().then {
-        $0.text = "아무튼, 여름"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private var bookAuthorLabel = UILabel().then {
-        $0.text = "김신회"
         $0.font = .h2
         $0.textColor = .peekaRed
     }
@@ -69,7 +66,6 @@ final class BookDetailVC: UIViewController {
     }
     
     private let commentTextView = UITextView().then {
-        $0.text = I18N.BookDetail.commentSample
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.backgroundColor = .clear
@@ -84,7 +80,6 @@ final class BookDetailVC: UIViewController {
     }
     
     private lazy var memoTextView = UITextView().then {
-        $0.text = I18N.BookDetail.memoSample
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.backgroundColor = .clear
