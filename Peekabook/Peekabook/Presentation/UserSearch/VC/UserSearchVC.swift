@@ -16,6 +16,8 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - Properties
     
+    private let bookShelfVC = BookShelfVC()
+    
     private var serverGetUserData: SearchUserResponse?
     
     private var friendId: Int = 0
@@ -279,6 +281,7 @@ extension UserSearchVC {
         FriendAPI.shared.postFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = true
+                self.bookShelfVC.changeUser()
             }
         }
     }
@@ -287,6 +290,7 @@ extension UserSearchVC {
         FriendAPI.shared.deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = false
+                self.bookShelfVC.changeUser()
             }
         }
     }

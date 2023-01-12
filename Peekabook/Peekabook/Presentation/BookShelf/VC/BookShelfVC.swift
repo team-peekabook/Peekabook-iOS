@@ -416,6 +416,10 @@ extension BookShelfVC {
             myNameLabel.font = .s2
         }
     }
+    
+    func changeUser() {
+        selectedUserIndex = nil
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
