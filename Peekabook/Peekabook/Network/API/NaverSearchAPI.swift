@@ -21,17 +21,29 @@ final class NaverSearchAPI {
     let booksearchVC = BookSearchVC()
     
     func urlTitleTaskDone() {
-        let wholeList = DataManager.shared.searchResult
+        let SearchData = DataManager.shared.searchResult
         do {
-            for i in 0...9 {
-                titleList.append((wholeList?.items[i].title)!)
-                imageList.append((wholeList?.items[i].image)!)
-                authorList.append((wholeList?.items[i].author)!)
+            print(SearchData?.total)
+            if (SearchData?.total ?? 0) > 10 {
+                for i in 0...9 {
+                    titleList.append((SearchData?.items[i].title)!)
+                    imageList.append((SearchData?.items[i].image)!)
+                    authorList.append((SearchData?.items[i].author)!)
+                }
+            }
+            else {
+                for i in 0...((SearchData?.total ?? 1)-1) {
+                    titleList.append((SearchData?.items[i].title)!)
+                    imageList.append((SearchData?.items[i].image)!)
+                    authorList.append((SearchData?.items[i].author)!)
+                }
             }
             print(titleList)
             print(imageList)
             print(authorList)
-//            booksearchVC.titleList = titleList
+            booksearchVC.getTitleList = titleList
+            booksearchVC.getImageList = imageList
+            booksearchVC.getAuthorList = authorList
         } catch {}
     }
     
