@@ -160,10 +160,6 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         getMyBookShelfInfo()
     }
     
@@ -417,9 +413,6 @@ extension BookShelfVC {
         }
     }
     
-    func changeUser() {
-        selectedUserIndex = nil
-    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
