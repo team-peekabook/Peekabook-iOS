@@ -99,6 +99,7 @@ final class BookDetailVC: UIViewController {
         setUI()
         setLayout()
         getBookDetail(bookId: selectedBookIndex)
+        print(selectedBookIndex)
     }
     
     // MARK: - @objc Function
@@ -117,6 +118,7 @@ final class BookDetailVC: UIViewController {
     @objc
     private func deleteButtonDidTap() {
         let popupViewController = DeletePopUpVC()
+        popupViewController.bookId = self.selectedBookIndex
         popupViewController.modalPresentationStyle = .overFullScreen
         self.present(popupViewController, animated: false)
     }
@@ -254,6 +256,7 @@ extension BookDetailVC {
             self.bookAuthorLabel.text = serverWatchBookDetail.book.author
             self.commentTextView.text = serverWatchBookDetail.description
             self.memoTextView.text = serverWatchBookDetail.memo
+            self.selectedBookIndex = bookId
         }
     }
 }

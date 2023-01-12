@@ -16,6 +16,9 @@ final class DeletePopUpVC: UIViewController {
     
     // MARK: - Properties
 
+    private var serverGetUserData: MyBookShelfResponse?
+    var bookId: Int = 0
+    
     // MARK: - UI Components
     private let popUpView = UIView()
     
@@ -98,13 +101,15 @@ extension DeletePopUpVC {
     @objc private func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
-    
-    // TODO: - 서버통신 시 POST
+
     @objc private func touchConfirmButtonDipTap() {
-        self.dismiss(animated: false, completion: nil)
+        deleteBookAPI(bookId: bookId)
     }
 }
 
+// MARK: - Network
+
+extension DeletePopUpVC {
     private func deleteBookAPI(bookId: Int) {
         BookShelfAPI.shared.deleteBook(bookId: bookId) { response in
             if response?.success == true {
@@ -112,3 +117,4 @@ extension DeletePopUpVC {
             }
         }
     }
+}
