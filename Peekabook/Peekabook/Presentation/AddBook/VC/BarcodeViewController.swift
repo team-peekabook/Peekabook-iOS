@@ -114,7 +114,16 @@ extension BarcodeViewController {
 
 extension BarcodeViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-      print("Barcode Data: \(code)")
+        print("Barcode Data: \(code)")
+        print("Symbology Type: \(type)")
+
+        if type != "org.gs1.EAN-13" {
+            // TO DO - 앱이 꺼짐.. 해결하기!
+            let errorPopUpVC = ErrorPopUpViewController()
+            errorPopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(errorPopUpVC, animated: false)
+        }
+        
         isbnCode = code
         fetchBooks()
 //
