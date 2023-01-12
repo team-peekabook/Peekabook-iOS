@@ -40,6 +40,7 @@
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
 		8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */; };
 		8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DB296F334500B53339 /* PickAllResponse.swift */; };
+		8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DD2970114C00B53339 /* EditPickRequest.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -157,6 +158,7 @@
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
+		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
 		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				8E4083DB296F334500B53339 /* PickAllResponse.swift */,
+				8E4083DD2970114C00B53339 /* EditPickRequest.swift */,
 			);
 			path = Pick;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
+				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */,
 				8E6F7B87296496590013F744 /* SampleBookModel.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
