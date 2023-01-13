@@ -95,6 +95,9 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         getBookDetail(id: selectedBookIndex)
     }
     

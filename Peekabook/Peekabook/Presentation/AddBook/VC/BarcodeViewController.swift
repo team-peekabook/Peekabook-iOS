@@ -21,7 +21,7 @@ final class BarcodeViewController: BarcodeScannerViewController {
         $0.text = I18N.Barcode.infoLabel
         $0.numberOfLines = 2
         $0.textColor = .peekaWhite
-        $0.font = .h2
+        $0.font = .s3
     }
     
     private lazy var textSearchButton = UIButton().then {

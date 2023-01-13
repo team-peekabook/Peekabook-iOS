@@ -298,7 +298,6 @@ extension AddBookVC {
         self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
     
-    // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
         guard let bookImage = self.bookImgView.image,
               let bookTitle = self.nameLabel.text,
@@ -311,7 +310,6 @@ extension AddBookVC {
                                           description: description,
                                           memo: memo))
     }
-    
     
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
@@ -424,8 +422,28 @@ extension AddBookVC {
     private func postMyBook(param: PostBookRequest) {
         BookShelfAPI.shared.postMyBookInfo(param: param) { response in
             if response?.success == true {
-                
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension AddBookVC {
+    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        if animated {
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                let oldState: Bool = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                window.rootViewController = rootViewController
+                UIView.setAnimationsEnabled(oldState)
+            }, completion: { (finished: Bool) -> Void in
+                if completion != nil {
+                    completion!()
+                }
+            })
+        } else {
+            window.rootViewController = rootViewController
         }
     }
 }
