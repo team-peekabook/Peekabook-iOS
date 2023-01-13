@@ -57,9 +57,7 @@ class BookInfoTableViewCell: UITableViewCell {
         $0.text = "내 책장에 추가하기"
     }
     
-    private lazy var addButton = UIButton().then {
-        $0.addTarget(self, action: #selector(addButtonDidTap), for: .touchUpInside)
-    }
+    private let addButton = UIButton()
     
     override func awakeFromNib() {
         super.awakeFromNib()
