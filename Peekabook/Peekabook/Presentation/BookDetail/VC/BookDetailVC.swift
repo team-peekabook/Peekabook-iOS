@@ -43,7 +43,7 @@ final class BookDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
     
-    private let bookImageView = UIImageView().then {
+    private var bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
@@ -52,6 +52,8 @@ final class BookDetailVC: UIViewController {
     private var bookNameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
     }
     
     private var bookAuthorLabel = UILabel().then {
@@ -93,6 +95,11 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUI()
+        setLayout()
         getBookDetail(id: selectedBookIndex)
     }
     
@@ -105,6 +112,9 @@ final class BookDetailVC: UIViewController {
     @objc
     private func editButtonDidTap() {
         let editVC = EditBookVC()
+        editVC.bookImgView = bookImageView
+        editVC.nameLabel = bookNameLabel
+        editVC.authorLabel = bookAuthorLabel
         editVC.descriptions = commentTextView.text
         editVC.memo = memoTextView.text
         editVC.bookIndex = selectedBookIndex
@@ -187,6 +197,7 @@ extension BookDetailVC {
         bookNameLabel.snp.makeConstraints { make in
             make.top.equalTo(bookImageView.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
+            make.width.equalTo(300)
         }
         
         bookAuthorLabel.snp.makeConstraints { make in
@@ -276,7 +287,7 @@ extension BookDetailVC {
 // MARK: - Network
 
 extension BookDetailVC {
-    private func getBookDetail(id: Int) {
+    func getBookDetail(id: Int) {
         BookShelfAPI.shared.getBookDetail(id: id) { response in
             guard let serverWatchBookDetail = response?.data else { return }
             self.bookImageView.kf.indicatorType = .activity

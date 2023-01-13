@@ -15,11 +15,15 @@ import Moya
 final class EditBookVC: UIViewController {
     
     // MARK: - Properties
-
+    var status: Int = 0
     private var focus = 0
     var bookIndex: Int = 0
-    var descriptions: String?
-    var memo: String?
+    var descriptions: String = ""
+    var memo: String = ""
+    
+//    var bookImage: String = ""
+//    var titleName: String = ""
+//    var authorName: String = ""
 
     // MARK: - UI Components
     
@@ -47,7 +51,7 @@ final class EditBookVC: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    let bookImgView = UIImageView().then {
+    var bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFit
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
@@ -73,7 +77,7 @@ final class EditBookVC: UIViewController {
     }
     
     private var commentView = UITextView().then {
-        $0.text = I18N.BookDetail.commentSample
+        $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.backgroundColor = .clear
@@ -97,7 +101,7 @@ final class EditBookVC: UIViewController {
     }
     
     private lazy var memoView = UITextView().then {
-        $0.text = I18N.BookDetail.memoSample
+        $0.text = I18N.BookDetail.memoHint
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.backgroundColor = .clear
@@ -119,18 +123,18 @@ final class EditBookVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
+        addKeyboardObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
+//        self.registerForKeyboardNotification()
         commentView.text = descriptions
         memoView.text = memo
     }
     
     deinit {
-        self.removeRegisterForKeyboardNotification()
+        NotificationCenter.default.removeObserver(self)
     }
-    
 }
 
 // MARK: - UI & Layout
@@ -141,12 +145,12 @@ extension EditBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBoxView.backgroundColor = .peekaWhite
+        commentBoxView.backgroundColor = .peekaBeige
         commentBoxView.layer.borderWidth = 2
         commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         commentHeaderView.backgroundColor = .peekaRed
         
-        memoBoxView.backgroundColor = .peekaWhite
+        memoBoxView.backgroundColor = .peekaBeige
         memoBoxView.layer.borderWidth = 2
         memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         memoHeaderView.backgroundColor = .peekaRed
@@ -296,50 +300,66 @@ extension EditBookVC {
     
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
-        
-        editMyBookInfo(bookId: bookIndex, param: EditBookRequest(description: descriptions, memo: memo))
-        navigationController?.popViewController(animated: true)
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: commentView.text, memo: memoView.text))
+        let vc = BookDetailVC()
+        vc.getBookDetail(id: bookIndex)
     }
     
     private func config() {
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
-    private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-    
-    @objc
-    private func keyboardShow(notification: NSNotification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-
-        if focus == 1 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                                                    y: (containerView.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-        } else if focus == 2 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
-        }
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
-
-    @objc
-    private func keyboardHide(notification: NSNotification) {
-        self.view.transform = .identity
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        if commentView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = commentBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
+        if memoView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = memoBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
     }
 }
 
@@ -365,10 +385,10 @@ extension EditBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.comment {
+        if textView.text == I18N.BookDetail.commentHint {
             textView.text = nil
             textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memo {
+        } else if textView.text == I18N.BookDetail.memoHint {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -376,14 +396,43 @@ extension EditBookVC: UITextViewDelegate {
 }
 
 extension EditBookVC {
-    func editMyBookInfo(bookId: Int, param: EditBookRequest) {
-        BookShelfAPI.shared.editMyBookInfo(bookId: bookId, param: param) { response in
+    func editMyBookInfo(id: Int, param: EditBookRequest) {
+        BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
-                print("책 수정 성공")
                 self.navigationController?.popViewController(animated: true)
             } else {
                 print("책 수정 실패")
             }
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            commentView.text = I18N.BookDetail.commentHint
+            commentView.textColor = .peekaGray1
+        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            memoView.text = I18N.BookDetail.memoHint
+            memoView.textColor = .peekaGray1
+        }
+    }
+}
+
+extension EditBookVC {
+    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        if animated {
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                let oldState: Bool = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                window.rootViewController = rootViewController
+                UIView.setAnimationsEnabled(oldState)
+            }, completion: { (finished: Bool) -> Void in
+                if completion != nil {
+                    completion!()
+                }
+            })
+        } else {
+            window.rootViewController = rootViewController
         }
     }
 }
