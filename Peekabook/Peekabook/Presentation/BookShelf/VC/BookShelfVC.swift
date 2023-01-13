@@ -143,7 +143,7 @@ final class BookShelfVC: UIViewController {
     private lazy var pickCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -277,8 +277,7 @@ extension BookShelfVC {
         
         pickContainerView.snp.makeConstraints { make in
             make.top.equalTo(introProfileView.snp.bottom).offset(24)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
@@ -366,7 +365,7 @@ extension BookShelfVC {
         
         pickLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
         }
         
         editOrRecommendButton.snp.makeConstraints { make in
