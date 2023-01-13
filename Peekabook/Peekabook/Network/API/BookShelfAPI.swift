@@ -63,8 +63,8 @@ final class BookShelfAPI {
     
     // 3. 등록한 책 상세 정보 불러오기
     
-    func getBookDetail(bookId: Int, completion: @escaping (GeneralResponse<WatchBookDetailResponse>?) -> Void) {
-        bookShelfProvider.request(.watchBookDetail(bookId: bookId)) { [self] (result) in
+    func getBookDetail(id: Int, completion: @escaping (GeneralResponse<WatchBookDetailResponse>?) -> Void) {
+        bookShelfProvider.request(.watchBookDetail(id: id)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
