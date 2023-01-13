@@ -57,6 +57,7 @@ final class UserSearchVC: UIViewController {
         $0.textColor = .peekaRed
         $0.font = .h2
         $0.autocorrectionType = .no
+        $0.delegate = self
     }
     private lazy var searchBarButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
@@ -313,5 +314,13 @@ extension UserSearchVC {
         } else {
             window.rootViewController = rootViewController
         }
+    }
+}
+
+extension UserSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        searchBtnTapped()
+        return true
     }
 }
