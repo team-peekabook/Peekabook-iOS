@@ -204,7 +204,7 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true { // 아무 값이 없으면
+        if self.bookInfoList.isEmpty == true || searchField.text!.isEmpty { // 아무 값이 없으면
             self.emptyView.isHidden = false // 히든뷰가 보이게
             self.bookTableView.isHidden = true
         } else {
@@ -227,6 +227,14 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
+        guard ((searchField.text?.isEmpty) == nil) else {
+            return setView()
+        }
+        
+
+//        if searchField.text?.isEmpty == true {
+//            setView()
+//        }
         fetchBooks()
     }
     
@@ -238,7 +246,10 @@ extension BookSearchVC {
             if let result = result {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
-                    self?.setView()
+                    guard ((self!.searchField.text?.isEmpty) == nil) else {
+                        return self!.setView()
+                        self?.bookTableView.reloadData()
+                    }
                     self?.bookTableView.reloadData()
                 }
             }
@@ -285,6 +296,7 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
 }
+
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchField.endEditing(true)
@@ -292,4 +304,3 @@ extension BookSearchVC: UITextFieldDelegate {
         return true
     }
 }
-
