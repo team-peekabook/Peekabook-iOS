@@ -55,13 +55,11 @@ final class AddBookVC: UIViewController {
     }
     
     private var nameLabel = UILabel().then {
-        $0.text = "아무튼, 여름"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private var authorLabel = UILabel().then {
-        $0.text = "김신회"
         $0.font = .h2
         $0.textColor = .peekaRed
     }
@@ -128,7 +126,6 @@ final class AddBookVC: UIViewController {
     deinit {
         self.removeRegisterForKeyboardNotification()
     }
-    
 }
 
 // MARK: - UI & Layout
@@ -150,7 +147,6 @@ extension AddBookVC {
         memoHeaderView.backgroundColor = .peekaRed
         
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        bookImgView.image = ImageLiterals.Sample.book1
     }
     
     private func setLayout() {
