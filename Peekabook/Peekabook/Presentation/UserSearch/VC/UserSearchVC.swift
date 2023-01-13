@@ -249,10 +249,12 @@ extension UserSearchVC {
     private func followed() {
         followButton.backgroundColor = .peekaGray2
         followButton.setTitle(I18N.FollowStatus.following, for: .normal)
+        profileImage.layer.borderColor = UIColor.peekaGray2.cgColor
     }
     private func unfollowed() {
         followButton.backgroundColor = .peekaRed
         followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
+        profileImage.layer.borderColor = UIColor.peekaRed.cgColor
     }
     
 }

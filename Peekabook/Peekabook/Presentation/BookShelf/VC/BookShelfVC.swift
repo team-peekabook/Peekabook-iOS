@@ -25,10 +25,10 @@ final class BookShelfVC: UIViewController {
         didSet {
             switch bookShelfType {
             case .user:
-                bottomShelfVC.hideAddBookButton(wantsToHide: false)
+                bottomShelfVC.changeLayout(wantsToHide: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
             case .friend:
-                bottomShelfVC.hideAddBookButton(wantsToHide: true)
+                bottomShelfVC.changeLayout(wantsToHide: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
             }
         }
@@ -205,6 +205,9 @@ final class BookShelfVC: UIViewController {
         case .friend:
             let bookSearchVC = BookSearchVC()
             bookSearchVC.bookShelfType = .friend
+            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
+            bookSearchVC.personName = friend.nickname
+            bookSearchVC.personId = friend.id
             bookSearchVC.hidesBottomBarWhenPushed = true
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)

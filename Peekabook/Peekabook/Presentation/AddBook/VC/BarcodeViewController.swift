@@ -21,7 +21,7 @@ final class BarcodeViewController: BarcodeScannerViewController {
         $0.text = I18N.Barcode.infoLabel
         $0.numberOfLines = 2
         $0.textColor = .peekaWhite
-        $0.font = .h2
+        $0.font = .s3
     }
     
     private lazy var textSearchButton = UIButton().then {
@@ -86,8 +86,13 @@ extension BarcodeViewController {
                     let nextVC = AddBookVC()
                     nextVC.bookInfo = result
                     nextVC.modalPresentationStyle = .fullScreen
-                    nextVC.dataBind(model: result[0])
-                    self?.present(nextVC, animated: true, completion: nil)
+                    
+                    if result.isEmpty {
+                        self?.showErrorPopUp()
+                    } else {
+                        nextVC.dataBind(model: result[0])
+                        self?.present(nextVC, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -110,6 +115,12 @@ extension BarcodeViewController {
 //        errorPopUpVC.modalPresentationStyle = .overFullScreen
 //        self.present(errorPopUpVC, animated: false)
     }
+    
+    func showErrorPopUp() {
+        let errorPopUpVC = ErrorPopUpViewController()
+        errorPopUpVC.modalPresentationStyle = .overFullScreen
+        self.present(errorPopUpVC, animated: false)
+    }
 }
 
 extension BarcodeViewController: BarcodeScannerCodeDelegate {
@@ -129,7 +140,7 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
 //        let nextVC = AddBookVC()
 //        nextVC.bookInfoList =
 //        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil)
+//        self.present(nextVC, animated: true, completion: nil) 
     }
 }
 
