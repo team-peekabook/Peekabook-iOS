@@ -203,10 +203,10 @@ final class BookShelfVC: UIViewController {
             editPickVC.pickCount = picks.count
             navigationController?.pushViewController(editPickVC, animated: true)
         case .friend:
-            // 어디로 가는지 물어보기
-            let proposalVC = ProposalVC()
-            proposalVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(proposalVC, animated: true)
+            let bookSearchVC = BookSearchVC()
+            bookSearchVC.hidesBottomBarWhenPushed = true
+            bookSearchVC.modalPresentationStyle = .fullScreen
+            present(bookSearchVC, animated: true)
         }
         
     }
