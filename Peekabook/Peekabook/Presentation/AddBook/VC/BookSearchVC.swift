@@ -241,9 +241,8 @@ extension BookSearchVC {
             if let result = result {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
-                    guard self!.searchField.hasText else {
-                        return self!.setView()
-                    }
+                    guard (self!.searchField.text?.isEmpty) == nil else {
+                        return self!.setView()                    }
                     self?.bookTableView.reloadData()
                 }
             }

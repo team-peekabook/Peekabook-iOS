@@ -51,14 +51,15 @@ final class NaverSearchAPI {
         let encodedQuery: String = searchURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         var queryURL: URLComponents = URLComponents(string: searchURL)!
         
+        var queryItems: [URLQueryItem] = []
         var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
-        queryURL.queryItems?.append(titleQuery)
-        
-        var displayQuery: URLQueryItem = URLQueryItem(name: "display", value: "\(display)")
-        queryURL.queryItems?.append(displayQuery)
-        
+        var displayQuery: URLQueryItem = URLQueryItem(name: "displayl", value: "\(display)")
         var isbnQuery: URLQueryItem = URLQueryItem(name: "d_isbn", value: d_isbn)
-        queryURL.queryItems?.append(isbnQuery)
+        
+        queryItems.append(titleQuery)
+        queryItems.append(displayQuery)
+        queryItems.append(isbnQuery)
+        queryURL.queryItems = queryItems
         
         var requestURL = URLRequest(url: queryURL.url!)
         requestURL.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
