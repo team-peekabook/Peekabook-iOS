@@ -11,6 +11,8 @@
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
 		1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53F29634F3700CA72D0 /* RecommendModel.swift */; };
 		1431D542296354B200CA72D0 /* RecommendTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendTVC.swift */; };
+		143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */; };
+		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
 		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
@@ -133,6 +135,8 @@
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
 		1431D53F29634F3700CA72D0 /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
 		1431D541296354B200CA72D0 /* RecommendTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTVC.swift; sourceTree = "<group>"; };
+		143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
+		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
 		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
@@ -561,6 +565,8 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA40295FF8C800BCF58B /* .gitkeep */,
+				143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */,
+				143DBFD62971FA980056C609 /* MyPageHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1019,6 +1025,7 @@
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
+				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
@@ -1082,6 +1089,7 @@
 				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
+				143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */,
 				8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */,
 				8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */,
 				143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */,
