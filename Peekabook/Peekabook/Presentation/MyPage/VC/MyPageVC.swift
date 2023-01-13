@@ -44,6 +44,8 @@ final class MyPageVC: UIViewController {
         $0.dataSource = self
     }
     
+    
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -88,7 +90,10 @@ extension MyPageVC {
 extension MyPageVC {
     
     private func registerCells() {
-       myPageTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.className)
+        myPageTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.className)
+        myPageTableView.register(
+            MyPageHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: MyPageHeaderView.className)
     }
 }
 
@@ -109,6 +114,15 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.label.text = myPageArray[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as! MyPageHeaderView
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 104
     }
 }
 
