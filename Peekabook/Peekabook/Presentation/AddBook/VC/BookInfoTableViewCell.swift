@@ -163,9 +163,4 @@ extension BookInfoTableViewCell {
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: url)
     }
-    
-    @objc
-    private func addButtonDidTap() {
-        // dosomething
-    }
 }
