@@ -124,10 +124,11 @@ final class AddBookVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
+        addKeyboardObserver()
     }
     
     deinit {
-        self.removeRegisterForKeyboardNotification()
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -311,40 +312,58 @@ extension AddBookVC {
                                           memo: memo))
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyBoardShow),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardHide),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
-    private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc
-    private func keyBoardShow(notification: NSNotification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        
-        if focus == 1 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                                                    y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 100 ))
-        } else if focus == 2 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                                                    y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
         }
+        
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        if commentView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = commentBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
+        if memoView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = memoBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
     }
     
-    @objc
-    private func keyboardHide(notification: NSNotification) {
-        self.view.transform = .identity
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
     }
     
     func dataBind(model: BookInfoModel) {
