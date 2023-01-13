@@ -17,6 +17,9 @@ final class EditBookVC: UIViewController {
     // MARK: - Properties
 
     private var focus = 0
+    var beforeComment = ""
+    var beforedMemo = ""
+    var loadImage = ""
 
     // MARK: - UI Components
     
@@ -120,6 +123,8 @@ final class EditBookVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.registerForKeyboardNotification()
+        commentView.text = beforeComment
+        memoView.text = beforedMemo
         }
     
     deinit {
@@ -292,6 +297,10 @@ extension EditBookVC {
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
+        
+        let bookDetailVC = BookDetailVC()
+        bookDetailVC.afterComment = commentView.text
+        bookDetailVC.afterMemo = memoView.text
         navigationController?.popViewController(animated: true)
     }
     
@@ -339,31 +348,23 @@ extension EditBookVC {
 
 extension EditBookVC: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentComment = commentView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment)
-        else { return false }
-        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-        commentMaxLabel.text = "\(changedComment.count)/200"
-        
-        let currentMemo = memoView.text ?? ""
-        guard let memoRange = Range(range, in: currentMemo)
-        else { return false }
-        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
-        memoMaxLabel.text = "\(changedMemo.count)/50"
-        
-        return (changedComment.count < 200) && (changedMemo.count < 50)
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.comment {
-            textView.text = nil
-            textView.textColor = .peekaRed
-            focus = 1
-        } else if textView.text == I18N.BookDetail.memo {
-            textView.text = nil
-            textView.textColor = .peekaRed
-            focus = 2
+        if textView == commentView {
+            let currentComment = commentView.text ?? ""
+            guard let commentRange = Range(range, in: currentComment)
+            else { return false }
+            let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+            commentMaxLabel.text = "\(changedComment.count)/200"
+            return (changedComment.count < 200)
         }
+        if textView == memoView {
+            let currentMemo = memoView.text ?? ""
+            guard let memoRange = Range(range, in: currentMemo)
+            else { return false }
+            let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
+            memoMaxLabel.text = "\(changedMemo.count)/50"
+            return (changedMemo.count < 50)
+        }
+        return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -373,6 +374,19 @@ extension EditBookVC: UITextViewDelegate {
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             memoView.text = I18N.BookDetail.memo
             memoView.textColor = .peekaGray1
+        }
+    }
+}
+
+extension EditBookVC {
+    func editMyBookInfo(bookId: Int) {
+        BookShelfAPI.shared.editMyBookInfo(bookId: bookId) { response in
+            if response?.success == true {
+                print("책 수정 성공")
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                print("책 수정 실패")
+            }
         }
     }
 }

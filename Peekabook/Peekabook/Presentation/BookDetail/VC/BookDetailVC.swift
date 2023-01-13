@@ -18,6 +18,9 @@ final class BookDetailVC: UIViewController {
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
     var selectedBookIndex: Int = 0
+    var afterComment = ""
+    var afterMemo = ""
+    var loadImage = ""
 
     // MARK: - UI Components
     
@@ -105,6 +108,11 @@ final class BookDetailVC: UIViewController {
     @objc
     private func editButtonDidTap() {
         let editVC = EditBookVC()
+        editVC.beforeComment = commentTextView.text
+        editVC.beforedMemo = memoTextView.text
+        editVC.loadImage = "\(bookImageView.image)"
+        print(editVC.loadImage)
+        
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
     }
