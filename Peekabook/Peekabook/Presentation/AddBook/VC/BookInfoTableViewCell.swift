@@ -159,6 +159,7 @@ extension BookInfoTableViewCell {
 //        bookImgView.image = model.image
         let url = URL(string: model.image)!
         bookImgView.kf.setImage(with: url)
+        bookImgView.kf.indicatorType = .activity
     }
     
     @objc

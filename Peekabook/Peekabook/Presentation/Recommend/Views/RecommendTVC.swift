@@ -190,10 +190,12 @@ extension RecommendTVC {
     
     func dataBind(model: RecommendBook) {
         bookImage.kf.setImage(with: URL(string: model.bookImage))
+        bookImage.kf.indicatorType = .activity
         bookNameLabel.text = model.bookTitle
         bookWriterLabel.text = model.author
         bookRecommendDateLabel.text = model.createdAt
         bookRecommendedPersonImage.kf.setImage(with: URL(string: model.friendImage))
+        bookRecommendedPersonImage.kf.indicatorType = .activity
         bookRecommendedPersonLabel.text = model.friendNickname
         bookRecommendTextLabel.text = model.recommendDesc
     }

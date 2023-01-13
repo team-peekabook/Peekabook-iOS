@@ -133,6 +133,7 @@ extension PickCVC {
         bookId = model.book.id
         bookNameLabel.text = model.book.bookTitle
         bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
+        bookImageView.kf.indicatorType = .activity
         titleLabel.text = model.description
     }
 }

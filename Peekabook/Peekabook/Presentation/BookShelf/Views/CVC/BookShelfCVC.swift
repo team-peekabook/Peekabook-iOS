@@ -87,5 +87,6 @@ extension BookShelfCVC {
         
         bookId = model.bookID
         bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
+        bookImageView.kf.indicatorType = .activity
     }
 }

@@ -265,6 +265,7 @@ extension UserSearchVC {
                 guard let serverGetUserData = response?.data else { return }
                 self.nameLabel.text = serverGetUserData.nickname
                 self.profileImage.kf.setImage(with: URL(string: serverGetUserData.profileImage))
+                self.profileImage.kf.indicatorType = .activity
                 self.followButton.isSelected = serverGetUserData.isFollowed
                 self.isFollowingStatus = self.followButton.isSelected
                 self.friendId = serverGetUserData.friendID
