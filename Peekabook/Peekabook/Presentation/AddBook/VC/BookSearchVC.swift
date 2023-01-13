@@ -261,9 +261,11 @@ extension BookSearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.item) click")
+        
         let addBookVC = AddBookVC()
         addBookVC.modalPresentationStyle = .fullScreen
-        present(addBookVC, animated: true)
+        addBookVC.dataBind(model: bookInfoList[indexPath.row])
+        present(addBookVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

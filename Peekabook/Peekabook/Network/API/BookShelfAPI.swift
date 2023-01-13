@@ -23,6 +23,8 @@ final class BookShelfAPI {
     
     private(set) var deleteBookData: GeneralResponse<BlankData>?
     
+    private (set) var addBookData: GeneralResponse<PostBookRequest>?
+    
     // 1. 내 책장 (메인 뷰) 조회 하기
     
     func getMyBookShelfInfo(completion: @escaping (GeneralResponse<MyBookShelfResponse>?) -> Void) {
@@ -72,11 +74,11 @@ final class BookShelfAPI {
                     print(error.localizedDescription, 500)
                 }
             case .failure(let err):
-                print(err)
-            }
+            print(err)
+        }
         }
     }
-    
+
     // 4. 책장에서 책 삭제하기
     
     func deleteBook(bookId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
@@ -86,6 +88,24 @@ final class BookShelfAPI {
                 do {
                     self.deleteBookData = try response.map(GeneralResponse<BlankData>.self)
                     completion(deleteBookData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 5. 내 책장에 책 등록하기
+    
+    func postMyBookInfo(param: PostBookRequest, completion: @escaping (GeneralResponse<PostBookRequest>?) -> Void) {
+        bookShelfProvider.request(.postMyBook(param: param)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.addBookData = try response.map(GeneralResponse<PostBookRequest>.self)
+                    completion(addBookData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }
