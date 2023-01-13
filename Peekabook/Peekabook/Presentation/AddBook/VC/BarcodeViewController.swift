@@ -67,12 +67,12 @@ extension BarcodeViewController {
         ])
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(540)
+            make.bottom.equalTo(textSearchButton.snp.top).offset(-100)
             make.centerX.equalToSuperview()
         }
         
         textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(100)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
             make.centerX.equalToSuperview()
         }
     }
@@ -118,7 +118,6 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
         print("Symbology Type: \(type)")
 
         if type != "org.gs1.EAN-13" {
-            // TO DO - 해결하기!
             let errorPopUpVC = ErrorPopUpViewController()
             errorPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(errorPopUpVC, animated: false)
