@@ -7,7 +7,7 @@
 
 // MARK: - DataClass
 struct WatchBookDetailResponse: Codable {
-    let description, memo: String
+    let description, memo: String?
     let book: BookDetail
 
     enum CodingKeys: String, CodingKey {

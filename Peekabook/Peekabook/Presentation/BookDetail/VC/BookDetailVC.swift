@@ -17,7 +17,7 @@ final class BookDetailVC: UIViewController {
     // MARK: - Properties
     
     private var serverWatchBookDetail: WatchBookDetailResponse?
-    var selectedBookIndex = 0
+    var selectedBookIndex: Int = 0
 
     // MARK: - UI Components
     
@@ -93,8 +93,7 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        getBookDetail(bookId: selectedBookIndex)
-        print(selectedBookIndex)
+        getBookDetail(id: selectedBookIndex)
     }
     
     // MARK: - @objc Function
@@ -113,7 +112,7 @@ final class BookDetailVC: UIViewController {
     @objc
     private func deleteButtonDidTap() {
         let popupViewController = DeletePopUpVC()
-        popupViewController.bookId = self.selectedBookIndex
+        popupViewController.bookShelfId = self.selectedBookIndex
         popupViewController.modalPresentationStyle = .overFullScreen
         self.present(popupViewController, animated: false)
     }
@@ -252,20 +251,38 @@ extension BookDetailVC {
         self.editButton.isHidden = true
         self.deleteButton.isHidden = true
     }
+    
+    private func setEmptyView() {
+        if commentTextView.text.isEmpty == true {
+            commentTextView.textColor = .peekaGray2
+            commentTextView.text = I18N.BookDetail.emptyComment
+        } else {
+            commentTextView.textColor = .peekaRed
+        }
+        
+        if memoTextView.text.isEmpty == true {
+            memoTextView.textColor = .peekaGray2
+            memoTextView.text = I18N.BookDetail.emptyComment
+        } else {
+            memoTextView.textColor = .peekaRed
+        }
+    }
 }
 
 // MARK: - Network
 
 extension BookDetailVC {
-    private func getBookDetail(bookId: Int) {
-        BookShelfAPI.shared.getBookDetail(bookId: bookId) { response in
+    private func getBookDetail(id: Int) {
+        BookShelfAPI.shared.getBookDetail(id: id) { response in
             guard let serverWatchBookDetail = response?.data else { return }
+            self.bookImageView.kf.indicatorType = .activity
             self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             self.bookAuthorLabel.text = serverWatchBookDetail.book.author
             self.commentTextView.text = serverWatchBookDetail.description
             self.memoTextView.text = serverWatchBookDetail.memo
-            self.selectedBookIndex = bookId
+            self.selectedBookIndex = id
+            self.setEmptyView()
         }
     }
 }

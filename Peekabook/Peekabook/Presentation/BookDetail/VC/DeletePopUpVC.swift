@@ -16,7 +16,7 @@ final class DeletePopUpVC: UIViewController {
     
     // MARK: - Properties
 
-    var bookId: Int = 0
+    var bookShelfId: Int = 0
     
     // MARK: - UI Components
     private let popUpView = UIView()
@@ -102,15 +102,15 @@ extension DeletePopUpVC {
     }
 
     @objc private func touchConfirmButtonDipTap() {
-        deleteBookAPI(bookId: bookId)
+        deleteBookAPI(id: bookShelfId)
     }
 }
 
 // MARK: - Network
 
 extension DeletePopUpVC {
-    private func deleteBookAPI(bookId: Int) {
-        BookShelfAPI.shared.deleteBook(bookId: bookId) { response in
+    private func deleteBookAPI(id: Int) {
+        BookShelfAPI.shared.deleteBook(bookId: id) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

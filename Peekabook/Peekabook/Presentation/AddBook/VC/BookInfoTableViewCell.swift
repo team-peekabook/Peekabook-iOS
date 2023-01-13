@@ -156,8 +156,8 @@ extension BookInfoTableViewCell {
     func dataBind(model: BookInfoModel) {
         bookTitleLabel.text = model.title
         authorLabel.text = model.author
-//        bookImgView.image = model.image
         let url = URL(string: model.image)!
+        bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: url)
     }
     

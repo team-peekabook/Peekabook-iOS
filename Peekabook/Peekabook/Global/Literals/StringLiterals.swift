@@ -41,17 +41,19 @@ struct I18N {
         static let recommendBook = "책 추천하기"
         static let books = "Books"
         static let editPickDescription = "최대 3개까지 선택 가능해요."
-        static let emptyPickViewDescription = "잠깐! PICK 한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
-        static let emptyFriendPickDescription = "앗. 아직 친구가 고른 PICK이 없어요"
+        static let emptyPickViewDescription = "잠깐! PICK한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
+        static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천 해보세요!"
     }
     
     struct BookDetail {
         static let comment = "한 마디"
         static let memo = "메모"
-        static let commentHint = "한 마디를 남겨주세요."
-        static let memoHint = "메모를 남겨주세요."
+        static let commentHint = "한 마디를 남겨주세요"
+        static let memoHint = "메모를 남겨주세요"
         static let commentSample = "한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다."
         static let memoSample = "메모는 50자 작성이 가능합니다.메모는 50자 작성이 가능합니다.메모는 50자 작성이 가능합니다."
+        static let emptyComment = "작성된 한 마디가 없습니다"
+        static let emptyMemo = "작성된 메모가 없습니다"
     }
     
     struct BookSearch {

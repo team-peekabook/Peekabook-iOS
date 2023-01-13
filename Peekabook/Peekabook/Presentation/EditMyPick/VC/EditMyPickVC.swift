@@ -25,6 +25,7 @@ final class EditMyPickVC: UIViewController {
     private var thirdPick: Int = 0
 
     private var books: [EachBook] = []
+    private var pickAllResponse: [PickAllResponse] = []
 
     private var selectedPickList: [Int] = []
 
@@ -90,18 +91,19 @@ final class EditMyPickVC: UIViewController {
             secondPick = 0
             thirdPick = 0
         } else if selectedPickList.count == 1 {
-            firstPick = books[selectedPickList[0]].id
+            firstPick = pickAllResponse[selectedPickList[0]].id
             secondPick = 0
             thirdPick = 0
         } else if selectedPickList.count == 2 {
-            firstPick = books[selectedPickList[0]].id
-            secondPick = books[selectedPickList[1]].id
+            firstPick = pickAllResponse[selectedPickList[0]].id
+            secondPick = pickAllResponse[selectedPickList[1]].id
             thirdPick = 0
         } else {
-            firstPick = books[selectedPickList[0]].id
-            secondPick = books[selectedPickList[1]].id
-            thirdPick = books[selectedPickList[2]].id
+            firstPick = pickAllResponse[selectedPickList[0]].id
+            secondPick = pickAllResponse[selectedPickList[1]].id
+            thirdPick = pickAllResponse[selectedPickList[2]].id
         }
+    
         patchPickList(param: EditPickRequest(firstPick: firstPick, secondPick: secondPick, thirdPick: thirdPick))
     }
 }
@@ -242,12 +244,15 @@ extension EditMyPickVC {
             
             var temp = [Int](repeating: 0, count: pickCount)
             for i in 0..<data.count {
+                self.pickAllResponse.append(data[i])
                 self.books.append(data[i].book)
                 if data[i].pickIndex != 0 {
                     temp[data[i].pickIndex - 1] = i
                 }
             }
             self.selectedPickList = temp
+            
+            print(self.pickAllResponse)
         
             self.bookShelfCollectionView.reloadData()
         }
