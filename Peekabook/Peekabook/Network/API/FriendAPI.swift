@@ -19,6 +19,7 @@ final class FriendAPI {
     private(set) var searchUserData: GeneralResponse<SearchUserResponse>?
     private(set) var postFollowing: GeneralResponse<BlankData>?
     private(set) var deleteFollowing: GeneralResponse<BlankData>?
+    private(set) var proposalResponse: GeneralResponse<BlankData>?
     
     // 1. 사용자 검색하기
     
@@ -65,6 +66,23 @@ final class FriendAPI {
                 do {
                     self.deleteFollowing = try response.map(GeneralResponse<BlankData>.self)
                     completion(deleteFollowing)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 4. 친구에게 책 추천하기
+    func postProposalBook(friendId: Int, param: ProposalBookRequest, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        friendProvider.request(.postProposalBook(friendId: friendId, param: param)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.proposalResponse = try response.map(GeneralResponse<BlankData>.self)
+                    completion(proposalResponse)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

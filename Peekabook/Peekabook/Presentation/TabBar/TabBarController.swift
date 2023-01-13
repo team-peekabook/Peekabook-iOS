@@ -10,6 +10,9 @@ import SnapKit
 
 final class TabBarController: UITabBarController {
     
+    // MARK: - Properties
+    private var refreshLaunch = true
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -77,6 +80,13 @@ final class TabBarController: UITabBarController {
         UITabBar.appearance().shadowImage = UIImage()
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBar.appearance().backgroundColor = UIColor.white
+    }
+    
+    func changeRecommendTab() {
+        if refreshLaunch == true {
+            refreshLaunch = false
+            selectedIndex = 2
+        }
     }
 }
 

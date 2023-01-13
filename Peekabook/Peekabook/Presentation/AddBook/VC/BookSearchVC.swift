@@ -15,6 +15,8 @@ import Moya
 final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
+    var personName: String = ""
+    var personId: Int = 0
     var bookShelfType: BookShelfType = .user
     var bookInfoList: [BookInfoModel] = []
     var displayCount: Int = 10
@@ -52,6 +54,7 @@ final class BookSearchVC: UIViewController {
     
     lazy var bookTableView: UITableView = {
         let tableView = UITableView()
+        let backgroundView = UIView()
         tableView.showsVerticalScrollIndicator = true
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -223,6 +226,7 @@ extension BookSearchVC {
         guard searchField.hasText else {
             return setView()
         }
+        searchField.endEditing(true)
         fetchBooks()
     }
     
@@ -268,6 +272,8 @@ extension BookSearchVC: UITableViewDataSource {
             present(addBookVC, animated: true, completion: nil)
         case .friend:
             let proposalVC = ProposalVC()
+            proposalVC.personName = personName
+            proposalVC.personId = personId
             proposalVC.modalPresentationStyle = .fullScreen
             proposalVC.dataBind(model: bookInfoList[indexPath.row])
             present(proposalVC, animated: true, completion: nil)
@@ -279,6 +285,9 @@ extension BookSearchVC: UITableViewDataSource {
             withIdentifier: BookInfoTableViewCell.identifier,
             for: indexPath) as? BookInfoTableViewCell
         else { return UITableViewCell() }
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.peekaBeige
+        bookCell.selectedBackgroundView = backgroundView
         
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
@@ -291,11 +300,10 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
 }
-//
-//extension BookSearchVC: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        searchField.endEditing(true)
-//        fetchBooks()
-//        return true
-//    }
-//}
+
+extension BookSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.endEditing(true)
+        return true
+    }
+}

@@ -40,7 +40,7 @@ class BookInfoTableViewCell: UITableViewCell {
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.lineBreakMode = .byWordWrapping
         $0.font = UIFont.font(.notoSansBold, ofSize: 15)
         $0.textColor = .peekaRed
@@ -57,9 +57,7 @@ class BookInfoTableViewCell: UITableViewCell {
         $0.text = "내 책장에 추가하기"
     }
     
-    private lazy var addButton = UIButton().then {
-        $0.addTarget(self, action: #selector(addButtonDidTap), for: .touchUpInside)
-    }
+    private let addButton = UIButton()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -162,10 +160,5 @@ extension BookInfoTableViewCell {
         let url = URL(string: model.image)!
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: url)
-    }
-    
-    @objc
-    private func addButtonDidTap() {
-        // dosomething
     }
 }

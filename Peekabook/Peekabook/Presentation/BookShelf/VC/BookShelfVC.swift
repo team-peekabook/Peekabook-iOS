@@ -205,6 +205,9 @@ final class BookShelfVC: UIViewController {
         case .friend:
             let bookSearchVC = BookSearchVC()
             bookSearchVC.bookShelfType = .friend
+            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
+            bookSearchVC.personName = friend.nickname
+            bookSearchVC.personId = friend.id
             bookSearchVC.hidesBottomBarWhenPushed = true
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)
