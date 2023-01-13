@@ -15,6 +15,11 @@ import Moya
 final class ConfirmPopUpViewController: UIViewController {
     
     // MARK: - Properties
+    var recommendDesc: String? = ""
+    var bookTitle: String = ""
+    var author: String = ""
+    var bookImage: String = ""
+    var personId: Int = 0
 
     // MARK: - UI Components
     private let popUpView = UIView()
@@ -105,8 +110,12 @@ extension ConfirmPopUpViewController {
     }
     
     @objc private func touchConfirmButtonDipTap() {
-        let tabbar = TabBarController()
-        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+        print(personId)
+        
+        postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
+                                                                        bookTitle: bookTitle,
+                                                                        author: author,
+                                                                        bookImage: bookImage))
     }
 }
 
@@ -128,4 +137,15 @@ extension ConfirmPopUpViewController {
             window.rootViewController = rootViewController
         }
     }
+}
+
+extension ConfirmPopUpViewController {
+    private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
+        FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
+    }
+    
 }

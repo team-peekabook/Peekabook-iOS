@@ -18,6 +18,7 @@ final class ProposalVC: UIViewController {
     
     var imageUrl: String = ""
     var personName: String = ""
+    var personId: Int = 0
 
     // MARK: - UI Components
     
@@ -242,6 +243,13 @@ extension ProposalVC {
     @objc private func checkButtonDidTap() {
         let popupViewController = ConfirmPopUpViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
+        popupViewController.recommendDesc = recommendView.text
+        popupViewController.bookImage = imageUrl
+        popupViewController.author = authorLabel.text!
+        popupViewController.personId = personId
+        popupViewController.personNameLabel.text = personName
+        print(personName)
+        print(personId)
         self.present(popupViewController, animated: false)
     }
     

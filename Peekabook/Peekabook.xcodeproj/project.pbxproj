@@ -845,7 +845,6 @@
 			isa = PBXGroup;
 			children = (
 				143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */,
-				8E66566F2971A3DA00B79328 /* ProposalBookRequest.swift */,
 			);
 			path = Recommend;
 			sourceTree = "<group>";
@@ -854,6 +853,7 @@
 			isa = PBXGroup;
 			children = (
 				1481CDD8296D227500F2B207 /* SearchUserResponse.swift */,
+				8E66566F2971A3DA00B79328 /* ProposalBookRequest.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
