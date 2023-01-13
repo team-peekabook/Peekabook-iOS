@@ -52,6 +52,8 @@ final class BookDetailVC: UIViewController {
     private var bookNameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
     }
     
     private var bookAuthorLabel = UILabel().then {
@@ -183,6 +185,7 @@ extension BookDetailVC {
         bookNameLabel.snp.makeConstraints { make in
             make.top.equalTo(bookImageView.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
+            make.width.equalTo(300)
         }
         
         bookAuthorLabel.snp.makeConstraints { make in
