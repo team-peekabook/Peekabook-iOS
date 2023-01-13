@@ -45,6 +45,7 @@ final class EditBookVC: UIViewController {
     }
     
     private let bookImgView = UIImageView().then {
+        $0.image = ImageLiterals.Sample.book1
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFit
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
@@ -70,7 +71,7 @@ final class EditBookVC: UIViewController {
     }
     
     private let commentView = UITextView().then {
-        $0.text = I18N.BookDetail.commentSample
+        $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -94,7 +95,7 @@ final class EditBookVC: UIViewController {
     }
     
     private lazy var memoView = UITextView().then {
-        $0.text = I18N.BookDetail.memoSample
+        $0.text = I18N.BookDetail.memoHint
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -116,16 +117,12 @@ final class EditBookVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
+        addKeyboardObserver()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
-        }
     
     deinit {
-        self.removeRegisterForKeyboardNotification()
+        NotificationCenter.default.removeObserver(self)
     }
-    
 }
 
 // MARK: - UI & Layout
@@ -299,67 +296,84 @@ extension EditBookVC {
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
-    private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-    
-    @objc
-    private func keyboardShow(notification: NSNotification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-
-        if focus == 1 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                                                    y: (containerView.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36))
-        } else if focus == 2 {
-            self.view.transform = CGAffineTransform(translationX: 0,
-                y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
-        }
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
-
-    @objc
-    private func keyboardHide(notification: NSNotification) {
-        self.view.transform = .identity
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        if commentView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = commentBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
+        if memoView.isFirstResponder {
+            let contentViewHeight = containerView.contentSize.height
+            let textViewHeight = memoBoxView.frame.height
+            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            containerView.setContentOffset(position, animated: true)
+            return
+        }
+        
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
     }
 }
 
 extension EditBookVC: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentComment = commentView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment)
-        else { return false }
-        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-        commentMaxLabel.text = "\(changedComment.count)/200"
         
-        let currentMemo = memoView.text ?? ""
-        guard let memoRange = Range(range, in: currentMemo)
-        else { return false }
-        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
-        memoMaxLabel.text = "\(changedMemo.count)/50"
+//        let currentComment = commentView.text ?? ""
+//        guard let commentRange = Range(range, in: currentComment)
+//        else { return false }
+//        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+//        commentMaxLabel.text = "\(changedComment.count)/200"
+//
+//        let currentMemo = memoView.text ?? ""
+//        guard let memoRange = Range(range, in: currentMemo)
+//        else { return false }
+//        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
+//        memoMaxLabel.text = "\(changedMemo.count)/50"
         
-        return (changedComment.count < 200) && (changedMemo.count < 50)
+        return true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.comment {
+        if textView.text == I18N.BookDetail.commentHint {
             textView.text = nil
             textView.textColor = .peekaRed
             focus = 1
-        } else if textView.text == I18N.BookDetail.memo {
+        } else if textView.text == I18N.BookDetail.memoHint {
             textView.text = nil
             textView.textColor = .peekaRed
             focus = 2
@@ -368,10 +382,10 @@ extension EditBookVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.comment
+            commentView.text = I18N.BookDetail.commentHint
             commentView.textColor = .peekaGray1
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memo
+            memoView.text = I18N.BookDetail.memoHint
             memoView.textColor = .peekaGray1
         }
     }

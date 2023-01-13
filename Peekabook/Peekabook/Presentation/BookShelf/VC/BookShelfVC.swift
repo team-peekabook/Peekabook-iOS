@@ -25,10 +25,10 @@ final class BookShelfVC: UIViewController {
         didSet {
             switch bookShelfType {
             case .user:
-                bottomShelfVC.hideAddBookButton(wantsToHide: false)
+                bottomShelfVC.changeLayout(wantsToHide: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
             case .friend:
-                bottomShelfVC.hideAddBookButton(wantsToHide: true)
+                bottomShelfVC.changeLayout(wantsToHide: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
             }
         }

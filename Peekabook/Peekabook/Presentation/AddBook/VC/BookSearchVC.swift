@@ -24,11 +24,7 @@ final class BookSearchVC: UIViewController {
     // MARK: - UI Components
     
     private let headerView = UIView()
-    private let containerView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = false
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
+    private let containerView = UIView()
     private lazy var cancelButton = UIButton().then {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
@@ -91,6 +87,7 @@ final class BookSearchVC: UIViewController {
         setUI()
         setLayout()
         register()
+        setTableViewLayout()
     }
 }
 
@@ -184,11 +181,9 @@ extension BookSearchVC {
         
         bookTableView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
-        view.layoutIfNeeded()
     }
     
     func reLayout() {
@@ -210,7 +205,6 @@ extension BookSearchVC {
             self.emptyView.isHidden = false // 히든뷰가 보이게
             self.bookTableView.isHidden = true
         } else {
-            setTableViewLayout()
             self.bookTableView.isHidden = false
             self.emptyView.isHidden = true // 테이블뷰 보이게
         }
@@ -244,9 +238,9 @@ extension BookSearchVC {
             if let result = result {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
+                    self?.bookTableView.reloadData()
                     guard (self!.searchField.text?.isEmpty) == nil else {
                         return self!.setView()
-                        self?.bookTableView.reloadData()
                     }
                     self?.bookTableView.reloadData()
                 }

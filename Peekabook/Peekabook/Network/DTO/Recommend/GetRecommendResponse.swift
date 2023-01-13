@@ -13,7 +13,8 @@ struct GetRecommendResponse: Codable {
 // MARK: - RecommendBook
 struct RecommendBook: Codable {
     let recommendID: Int
-    let recommendDesc, createdAt: String
+    let recommendDesc: String?
+    let createdAt: String
     let friendID: Int
     let friendNickname: String
     let friendImage: String
