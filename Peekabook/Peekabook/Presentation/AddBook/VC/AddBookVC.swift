@@ -55,13 +55,11 @@ final class AddBookVC: UIViewController {
     }
     
     private var nameLabel = UILabel().then {
-        $0.text = "아무튼, 여름"
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
     private var authorLabel = UILabel().then {
-        $0.text = "김신회"
         $0.font = .h2
         $0.textColor = .peekaRed
     }
@@ -72,10 +70,10 @@ final class AddBookVC: UIViewController {
     private let commentLabel = UILabel().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
-    private let commentView = UITextView().then {
+    private var commentView = UITextView().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -84,7 +82,7 @@ final class AddBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    private let commentMaxLabel = UILabel().then {
+    private var commentMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -96,19 +94,20 @@ final class AddBookVC: UIViewController {
     private let memoLabel = UILabel().then {
         $0.text = I18N.BookDetail.memo
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
-    private let memoView = UITextView().then {
+    private var memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.memo
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
+
     }
     
-    private let memoMaxLabel = UILabel().then {
+    private var memoMaxLabel = UILabel().then {
         $0.text = "0/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -127,7 +126,6 @@ final class AddBookVC: UIViewController {
     deinit {
         self.removeRegisterForKeyboardNotification()
     }
-    
 }
 
 // MARK: - UI & Layout
@@ -138,18 +136,17 @@ extension AddBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBoxView.backgroundColor = .white
+        commentBoxView.backgroundColor = .peekaWhite_60
         commentBoxView.layer.borderWidth = 2
         commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         commentHeaderView.backgroundColor = .peekaRed
         
-        memoBoxView.backgroundColor = .white
+        memoBoxView.backgroundColor = .peekaWhite_60
         memoBoxView.layer.borderWidth = 2
         memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         memoHeaderView.backgroundColor = .peekaRed
         
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        bookImgView.image = ImageLiterals.Sample.book1
     }
     
     private func setLayout() {
@@ -244,9 +241,7 @@ extension AddBookVC {
         
         commentView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.equalTo(commentLabel)
-            make.width.equalTo(307)
-            make.height.equalTo(193)
+            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -275,15 +270,13 @@ extension AddBookVC {
         
         memoView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.equalTo(commentLabel)
-            make.width.equalTo(307)
-            make.height.equalTo(65)
+            make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
             make.top.equalTo(memoBoxView.snp.bottom).offset(8)
             make.trailing.equalTo(memoBoxView.snp.trailing)
-            make.bottom.equalToSuperview().offset(-8)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -296,9 +289,8 @@ extension AddBookVC {
         memoView.delegate = self
     }
     
-    // 바코드 스캔뷰로 다시 가게 해야함
     @objc private func backButtonDidTap() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
     
     // TODO: - 서버통신 시 구현 (POST)
@@ -343,7 +335,7 @@ extension AddBookVC {
         
         if focus == 1 {
             self.view.transform = CGAffineTransform(translationX: 0,
-                                                    y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 36 ))
+                                                    y: (self.view.frame.height - keyboardRectangle.height - commentBoxView.frame.maxY - 100 ))
         } else if focus == 2 {
             self.view.transform = CGAffineTransform(translationX: 0,
                                                     y: (self.view.frame.height - keyboardRectangle.height - memoBoxView.frame.maxY - 36))
@@ -365,35 +357,15 @@ extension AddBookVC {
 }
 
 extension AddBookVC: UITextViewDelegate {
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String
-    ) -> Bool {
-        let currentComment = commentView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment)
-        else { return false }
-        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-        commentMaxLabel.text = "\(changedComment.count)/200"
-        
-        let currentMemo = memoView.text ?? ""
-        guard let memoRange = Range(range, in: currentMemo)
-        else { return false }
-        let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
-        memoMaxLabel.text = "\(changedMemo.count)/50"
-        
-        return (changedComment.count < 200) && (changedMemo.count < 50)
-    }
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
-            focus = 1
+//            focus = 1
         } else if textView.text == I18N.BookDetail.memo {
             textView.text = nil
             textView.textColor = .peekaRed
-            focus = 2
+//            focus = 2
         }
     }
     
@@ -405,6 +377,27 @@ extension AddBookVC: UITextViewDelegate {
             memoView.text = I18N.BookDetail.memo
             memoView.textColor = .peekaGray1
         }
+        
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if textView == commentView {
+            let currentComment = commentView.text ?? ""
+            guard let commentRange = Range(range, in: currentComment)
+            else { return false }
+            let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
+            commentMaxLabel.text = "\(changedComment.count)/200"
+            return (changedComment.count < 200)
+        }
+        if textView == memoView {
+            let currentMemo = memoView.text ?? ""
+            guard let memoRange = Range(range, in: currentMemo)
+            else { return false }
+            let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
+            memoMaxLabel.text = "\(changedMemo.count)/50"
+            return (changedMemo.count < 50)
+        }
+        return true
     }
 }
 
