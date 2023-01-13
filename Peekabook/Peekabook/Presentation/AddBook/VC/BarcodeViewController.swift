@@ -86,8 +86,13 @@ extension BarcodeViewController {
                     let nextVC = AddBookVC()
                     nextVC.bookInfo = result
                     nextVC.modalPresentationStyle = .fullScreen
-                    nextVC.dataBind(model: result[0])
-                    self?.present(nextVC, animated: true, completion: nil)
+                    
+                    if result.isEmpty {
+                        self?.showErrorPopUp()
+                    } else {
+                        nextVC.dataBind(model: result[0])
+                        self?.present(nextVC, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -109,6 +114,12 @@ extension BarcodeViewController {
 //        let errorPopUpVC = ErrorPopUpViewController()
 //        errorPopUpVC.modalPresentationStyle = .overFullScreen
 //        self.present(errorPopUpVC, animated: false)
+    }
+    
+    func showErrorPopUp() {
+        let errorPopUpVC = ErrorPopUpViewController()
+        errorPopUpVC.modalPresentationStyle = .overFullScreen
+        self.present(errorPopUpVC, animated: false)
     }
 }
 
