@@ -298,7 +298,7 @@ extension AddBookVC {
     
     // 바코드 스캔뷰로 다시 가게 해야함
     @objc private func backButtonDidTap() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
     
     // TODO: - 서버통신 시 구현 (POST)
