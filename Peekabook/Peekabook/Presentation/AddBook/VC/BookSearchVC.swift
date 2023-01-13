@@ -15,7 +15,7 @@ import Moya
 final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
-    
+    var bookShelfType: BookShelfType = .user
     var bookInfoList: [BookInfoModel] = []
     var displayCount: Int = 10
     
@@ -84,7 +84,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        searchField.delegate = self
+//        searchField.delegate = self
         setUI()
         setLayout()
         register()
@@ -242,7 +242,9 @@ extension BookSearchVC {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
                     guard (self!.searchField.text?.isEmpty) == nil else {
-                        return self!.setView()                    }
+                        return self!.setView()
+                        self?.bookTableView.reloadData()
+                    }
                     self?.bookTableView.reloadData()
                 }
             }
@@ -264,12 +266,19 @@ extension BookSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.item) click")
         
-        let addBookVC = AddBookVC()
-        addBookVC.modalPresentationStyle = .fullScreen
-        addBookVC.dataBind(model: bookInfoList[indexPath.row])
-        present(addBookVC, animated: true, completion: nil)
+        switch bookShelfType {
+        case .user:
+            let addBookVC = AddBookVC()
+            addBookVC.modalPresentationStyle = .fullScreen
+            addBookVC.dataBind(model: bookInfoList[indexPath.row])
+            present(addBookVC, animated: true, completion: nil)
+        case .friend:
+            let proposalVC = ProposalVC()
+            proposalVC.modalPresentationStyle = .fullScreen
+            proposalVC.dataBind(model: bookInfoList[indexPath.row])
+            present(proposalVC, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -289,11 +298,11 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
 }
-
-extension BookSearchVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchField.endEditing(true)
-        fetchBooks()
-        return true
-    }
-}
+//
+//extension BookSearchVC: UITextFieldDelegate {
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        searchField.endEditing(true)
+//        fetchBooks()
+//        return true
+//    }
+//}

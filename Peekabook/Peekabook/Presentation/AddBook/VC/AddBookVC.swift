@@ -295,15 +295,11 @@ extension AddBookVC {
     
     // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
-        print(bookImgView)
-        print(bookImgView.image)
         guard let bookImage = self.bookImgView.image,
               let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
               let description = self.commentView.text,
               let memo = self.memoView.text else { return }
-        print("으갸갹")
-        print(bookImage)
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,

@@ -204,6 +204,7 @@ final class BookShelfVC: UIViewController {
             navigationController?.pushViewController(editPickVC, animated: true)
         case .friend:
             let bookSearchVC = BookSearchVC()
+            bookSearchVC.bookShelfType = .friend
             bookSearchVC.hidesBottomBarWhenPushed = true
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)

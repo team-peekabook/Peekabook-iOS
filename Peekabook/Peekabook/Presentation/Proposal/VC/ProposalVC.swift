@@ -15,6 +15,8 @@ import Moya
 final class ProposalVC: UIViewController {
 
     // MARK: - Properties
+    
+    var imageUrl: String = ""
 
     // MARK: - UI Components
     
@@ -69,7 +71,6 @@ final class ProposalVC: UIViewController {
     private let lineView = UIView()
         
     private var personNameLabel = UILabel().then {
-        $0.text = "고두영"
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
@@ -163,6 +164,8 @@ extension ProposalVC {
         bookImgView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(160)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -252,6 +255,14 @@ extension ProposalVC {
         NotificationCenter.default.removeObserver(self,
             name: UIResponder.keyboardWillHideNotification, object: nil)
         }
+    
+    func dataBind(model: BookInfoModel) {
+        nameLabel.text = model.title
+        authorLabel.text = model.author
+        imageUrl = model.image
+        bookImgView.kf.indicatorType = .activity
+        bookImgView.kf.setImage(with: URL(string: imageUrl)!)
+    }
     
     // MARK: - @objc Function
     
