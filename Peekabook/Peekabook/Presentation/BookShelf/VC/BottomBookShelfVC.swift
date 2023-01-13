@@ -11,6 +11,8 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var bookShelfType: BookShelfType = .user
+    
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
@@ -208,8 +210,9 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.reloadData()
     }
     
-    func hideAddBookButton(wantsToHide: Bool) {
+    func changeLayout(wantsToHide: Bool) {
         addBookButton.isHidden = wantsToHide
+        bookShelfType = .friend
     }
 }
 
@@ -237,6 +240,13 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             let bookDetailVC = BookDetailVC()
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = books[indexPath.row].id
+            
+            switch bookShelfType {
+            case .user:
+                bookDetailVC.changeUserViewLayout()
+            case .friend:
+                bookDetailVC.changeFriendViewLayout()
+            }
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
