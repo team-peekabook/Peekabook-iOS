@@ -1259,7 +1259,7 @@
 				DEVELOPMENT_TEAM = Z779U729AH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 스캔시 카메라 권한이 필요합니다. 뿡뿡";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1292,7 +1292,7 @@
 				DEVELOPMENT_TEAM = Z779U729AH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 스캔시 카메라 권한이 필요합니다. 뿡뿡";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

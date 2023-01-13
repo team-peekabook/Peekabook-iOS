@@ -55,8 +55,11 @@ final class AddBookVC: UIViewController {
     }
     
     private var nameLabel = UILabel().then {
+        $0.textAlignment = .center
         $0.font = .h3
         $0.textColor = .peekaRed
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byWordWrapping
     }
     
     private var authorLabel = UILabel().then {
@@ -213,6 +216,7 @@ extension AddBookVC {
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(bookImgView.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
+            make.width.equalTo(316)
         }
         
         authorLabel.snp.makeConstraints { make in
@@ -276,7 +280,7 @@ extension AddBookVC {
         memoMaxLabel.snp.makeConstraints { make in
             make.top.equalTo(memoBoxView.snp.bottom).offset(8)
             make.trailing.equalTo(memoBoxView.snp.trailing)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(8)
         }
     }
 }

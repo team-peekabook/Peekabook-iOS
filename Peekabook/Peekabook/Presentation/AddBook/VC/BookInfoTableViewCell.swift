@@ -40,6 +40,8 @@ class BookInfoTableViewCell: UITableViewCell {
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byWordWrapping
         $0.font = UIFont.font(.notoSansBold, ofSize: 15)
         $0.textColor = .peekaRed
     }
@@ -124,6 +126,7 @@ extension BookInfoTableViewCell {
         bookTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview().offset(15)
+            make.width.equalTo(199)
         }
         
         authorLabel.snp.makeConstraints { make in
