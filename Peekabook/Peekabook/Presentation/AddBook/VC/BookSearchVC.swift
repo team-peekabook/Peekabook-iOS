@@ -183,6 +183,7 @@ extension BookSearchVC {
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
+            make.height.equalTo(128 * bookInfoList.count)
         }
     }
     
@@ -191,7 +192,7 @@ extension BookSearchVC {
             make.top.equalToSuperview()
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview().offset(-1)
+            make.bottom.equalToSuperview()
             make.height.equalTo(128 * bookInfoList.count)
         }
     }

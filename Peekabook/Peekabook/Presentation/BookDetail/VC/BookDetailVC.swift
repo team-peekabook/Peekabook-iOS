@@ -43,7 +43,7 @@ final class BookDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
     
-    private let bookImageView = UIImageView().then {
+    private var bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
@@ -98,6 +98,8 @@ final class BookDetailVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setUI()
+        setLayout()
         getBookDetail(id: selectedBookIndex)
     }
     
@@ -110,6 +112,13 @@ final class BookDetailVC: UIViewController {
     @objc
     private func editButtonDidTap() {
         let editVC = EditBookVC()
+        editVC.bookImgView = bookImageView
+        editVC.nameLabel = bookNameLabel
+        editVC.authorLabel = bookAuthorLabel
+        editVC.descriptions = commentTextView.text
+        editVC.memo = memoTextView.text
+        editVC.bookIndex = selectedBookIndex
+        
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
     }
@@ -278,7 +287,7 @@ extension BookDetailVC {
 // MARK: - Network
 
 extension BookDetailVC {
-    private func getBookDetail(id: Int) {
+    func getBookDetail(id: Int) {
         BookShelfAPI.shared.getBookDetail(id: id) { response in
             guard let serverWatchBookDetail = response?.data else { return }
             self.bookImageView.kf.indicatorType = .activity
