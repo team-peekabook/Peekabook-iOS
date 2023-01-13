@@ -75,7 +75,7 @@ final class EditBookVC: UIViewController {
     private var commentView = UITextView().then {
         $0.text = I18N.BookDetail.commentSample
         $0.font = .h2
-        $0.textColor = .peekaGray1
+        $0.textColor = .peekaRed
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
@@ -99,7 +99,7 @@ final class EditBookVC: UIViewController {
     private lazy var memoView = UITextView().then {
         $0.text = I18N.BookDetail.memoSample
         $0.font = .h2
-        $0.textColor = .peekaGray1
+        $0.textColor = .peekaRed
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
@@ -362,16 +362,6 @@ extension EditBookVC: UITextViewDelegate {
             return (changedMemo.count < 50)
         }
         return true
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.comment
-            commentView.textColor = .peekaGray1
-        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memo
-            memoView.textColor = .peekaGray1
-        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

@@ -94,7 +94,6 @@ final class BookDetailVC: UIViewController {
         setUI()
         setLayout()
         getBookDetail(id: selectedBookIndex)
-        
     }
     
     // MARK: - @objc Function
