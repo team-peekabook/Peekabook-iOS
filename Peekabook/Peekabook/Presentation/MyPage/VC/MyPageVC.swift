@@ -15,6 +15,15 @@ import Moya
 final class MyPageVC: UIViewController {
     
     // MARK: - Properties
+
+    let myPageArray: [String] = [
+        "알림 설정",
+        "개인정보 보호 정책 & 서비스 이용 약관",
+        "문의하기",
+        "개발자 정보",
+        "로그아웃",
+        "서비스 탈퇴하기"
+    ]
     
     // MARK: - UI Components
     
@@ -25,14 +34,14 @@ final class MyPageVC: UIViewController {
         $0.image = ImageLiterals.Image.logo
         $0.clipsToBounds = true
     }
-    
-    private let horizontalLine = UIView()
-    
-    private let emptyNotiLabel = UILabel().then {
-        $0.text = I18N.Alert.emptyNoti
-        $0.font = .h2
-        $0.textColor = .peekaRed_60
-        $0.textAlignment = .center
+
+    private lazy var myPageTableView = UITableView().then {
+        $0.showsVerticalScrollIndicator = false
+        $0.allowsSelection = false
+        $0.backgroundColor = .peekaBeige
+        $0.separatorStyle = .none
+        $0.delegate = self
+        $0.dataSource = self
     }
     
     // MARK: - View Life Cycle
@@ -41,6 +50,7 @@ final class MyPageVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        registerCells()
     }
 }
 
@@ -50,12 +60,11 @@ extension MyPageVC {
     
     private func setUI() {
         view.backgroundColor = .peekaBeige
-        horizontalLine.backgroundColor = .peekaRed
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView, emptyNotiLabel)
-        naviContainerView.addSubviews(logoImage, horizontalLine)
+        view.addSubviews(naviContainerView, myPageTableView)
+        naviContainerView.addSubviews(logoImage)
         
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -67,16 +76,40 @@ extension MyPageVC {
             make.centerY.equalToSuperview()
         }
         
-        horizontalLine.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
-        }
-        
-        emptyNotiLabel.snp.makeConstraints { make in
-            make.center.equalTo(view.safeAreaLayoutGuide)
+        myPageTableView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(naviContainerView.snp.bottom)
         }
     }
 }
 
 // MARK: - Methods
+
+extension MyPageVC {
+    
+    private func registerCells() {
+       myPageTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.className)
+    }
+}
+
+extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myPageArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.className, for: indexPath) as? MyPageTableViewCell
+        else {
+            return UITableViewCell()
+        }
+        cell.label.text = myPageArray[indexPath.row]
+        return cell
+    }
+}
+
+// MARK: - Network
