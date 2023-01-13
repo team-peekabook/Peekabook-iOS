@@ -72,14 +72,14 @@ final class AddBookVC: UIViewController {
     private let commentLabel = UILabel().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
     private var commentView = UITextView().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.backgroundColor = .yellow
+        $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
@@ -96,14 +96,14 @@ final class AddBookVC: UIViewController {
     private let memoLabel = UILabel().then {
         $0.text = I18N.BookDetail.memo
         $0.font = .h1
-        $0.textColor = .white
+        $0.textColor = .peekaWhite
     }
     
     private var memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.memo
-        $0.backgroundColor = .yellow
+        $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
 
@@ -139,12 +139,12 @@ extension AddBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBoxView.backgroundColor = .systemPink
+        commentBoxView.backgroundColor = .peekaWhite_60
         commentBoxView.layer.borderWidth = 2
         commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeaderView.backgroundColor = .green
+        commentHeaderView.backgroundColor = .peekaRed
         
-        memoBoxView.backgroundColor = .systemPink
+        memoBoxView.backgroundColor = .peekaWhite_60
         memoBoxView.layer.borderWidth = 2
         memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
         memoHeaderView.backgroundColor = .peekaRed
