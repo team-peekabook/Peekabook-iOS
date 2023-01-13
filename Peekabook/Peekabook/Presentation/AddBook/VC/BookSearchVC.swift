@@ -227,14 +227,9 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
-        guard ((searchField.text?.isEmpty) == nil) else {
+        guard searchField.hasText else {
             return setView()
         }
-        
-
-//        if searchField.text?.isEmpty == true {
-//            setView()
-//        }
         fetchBooks()
     }
     
@@ -246,9 +241,8 @@ extension BookSearchVC {
             if let result = result {
                 self?.bookInfoList = result
                 DispatchQueue.main.async {
-                    guard ((self!.searchField.text?.isEmpty) == nil) else {
+                    guard self!.searchField.hasText else {
                         return self!.setView()
-                        self?.bookTableView.reloadData()
                     }
                     self?.bookTableView.reloadData()
                 }
