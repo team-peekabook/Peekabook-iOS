@@ -122,8 +122,8 @@ extension MyNotificationTVC {
     
     func dataBind(model: GetAlarmResponse) {
         if let image = model.profileImage {
-            self.notiImageView.kf.setImage(with: URL(string: image))
             self.notiImageView.kf.indicatorType = .activity
+            self.notiImageView.kf.setImage(with: URL(string: image))
         }
         userNameLabel.text = model.senderName
         contentLabel.text = "\(setContentLabel(model: model))"

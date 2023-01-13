@@ -93,6 +93,7 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        print(selectedBookIndex)
         getBookDetail(id: selectedBookIndex)
     }
     
@@ -259,8 +260,8 @@ extension BookDetailVC {
     private func getBookDetail(id: Int) {
         BookShelfAPI.shared.getBookDetail(id: id) { response in
             guard let serverWatchBookDetail = response?.data else { return }
-            self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
             self.bookImageView.kf.indicatorType = .activity
+            self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             self.bookAuthorLabel.text = serverWatchBookDetail.book.author
             self.commentTextView.text = serverWatchBookDetail.description

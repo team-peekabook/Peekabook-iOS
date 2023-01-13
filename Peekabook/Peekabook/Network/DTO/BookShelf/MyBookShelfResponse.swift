@@ -46,12 +46,12 @@ struct MyIntro: Codable {
 
 // MARK: - Pick
 struct Pick: Codable {
-    let pickIndex: Int
+    let id, pickIndex: Int
     let book: PickBookDetail
     let description: String?
 
     enum CodingKeys: String, CodingKey {
-        case pickIndex
+        case id, pickIndex
         case book = "Book"
         case description
     }

@@ -86,7 +86,7 @@ extension BookShelfCVC {
         pickImageView.isHidden = model.pickIndex == 0 ? true : false
         
         bookId = model.bookID
-        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
         bookImageView.kf.indicatorType = .activity
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
     }
 }

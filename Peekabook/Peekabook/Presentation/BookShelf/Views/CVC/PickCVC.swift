@@ -126,14 +126,13 @@ extension PickCVC {
     }
     
     func setData(model: Pick) {
-        
-        titleContainerView.isHidden = (model.description?.isEmpty) == nil
+        titleContainerView.isHidden = (model.description?.count) == 0
         
         countLabel.text = String(model.pickIndex)
         bookId = model.book.id
         bookNameLabel.text = model.book.bookTitle
-        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
         bookImageView.kf.indicatorType = .activity
+        bookImageView.kf.setImage(with: URL(string: model.book.bookImage))
         titleLabel.text = model.description
     }
 }

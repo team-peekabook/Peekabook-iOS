@@ -359,8 +359,8 @@ extension AddBookVC {
         nameLabel.text = model.title
         authorLabel.text = model.author
         imgaeUrl = model.image
-        bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
         bookImgView.kf.indicatorType = .activity
+        bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
     }
 }
 

@@ -508,7 +508,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 bookDetailVC.changeFriendViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.selectedBookIndex = picks[indexPath.row].book.id
+            bookDetailVC.selectedBookIndex = picks[indexPath.row].id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
@@ -557,8 +557,8 @@ extension BookShelfVC {
         BookShelfAPI.shared.getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
-            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage ?? "")))
             self.myProfileImageView.kf.indicatorType = .activity
+            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage ?? "")))
             self.myNameLabel.text = data.myIntro.nickname
             self.introNameLabel.text = data.myIntro.nickname
             self.introductionLabel.text = data.myIntro.intro

@@ -71,8 +71,8 @@ extension FriendsCVC {
     }
     
     func setData(model: MyIntro) {
-        profileImageView.kf.setImage(with: URL(string: model.profileImage ?? ""))
         profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: URL(string: model.profileImage ?? ""))
         userNameLabel.text = model.nickname
         userId = model.id
     }

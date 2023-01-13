@@ -90,8 +90,8 @@ extension EditPickCVC {
     }
     
     func setData(model: EachBook, pickIndex: Int) {
-        bookImageView.kf.setImage(with: URL(string: model.bookImage))
         bookImageView.kf.indicatorType = .activity
+        bookImageView.kf.setImage(with: URL(string: model.bookImage))
         countLabel.text = String(pickIndex)
     }
     
