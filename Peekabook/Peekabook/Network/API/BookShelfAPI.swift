@@ -24,6 +24,7 @@ final class BookShelfAPI {
     private(set) var deleteBookData: GeneralResponse<BlankData>?
     
     private (set) var addBookData: GeneralResponse<PostBookRequest>?
+    private (set) var editBookData: GeneralResponse<BlankData>?
     
     // 1. 내 책장 (메인 뷰) 조회 하기
     
@@ -106,6 +107,24 @@ final class BookShelfAPI {
                 do {
                     self.addBookData = try response.map(GeneralResponse<PostBookRequest>.self)
                     completion(addBookData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 6. 내 책장에 등록한 책 정보 수정하기
+    
+    func editMyBookInfo(bookId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        bookShelfProvider.request(.editBookInfo(bookId: bookId)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.editBookData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(editBookData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }
