@@ -11,9 +11,9 @@ import Moya
 
 enum BookShelfRouter {
     case getMyBookShelf
-    case watchBookDetail(bookId: Int)
     case getFriendBookShelf(friendId: Int)
     case deleteBook(bookId: Int)
+    case watchBookDetail(bookId: Int)
     case postMyBook(param: PostBookRequest)
 }
 
@@ -26,10 +26,10 @@ extension BookShelfRouter: TargetType {
         switch self {
         case .getMyBookShelf:
             return URLConstant.bookShelf
-        case .watchBookDetail(let bookId):
-            return "\(URLConstant.detail)/\(bookId)"
         case .getFriendBookShelf(let friendId):
             return URLConstant.bookShelf + "/friend/\(friendId)"
+        case .watchBookDetail(let bookId):
+            return "\(URLConstant.detail)/\(bookId)"
         case .deleteBook(let bookId):
             return "\(URLConstant.bookShelf)/\(bookId)"
         case .postMyBook:
@@ -39,9 +39,7 @@ extension BookShelfRouter: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf:
-            return .get
-        case .watchBookDetail:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail:
             return .get
         case .deleteBook:
             return .delete
@@ -52,14 +50,8 @@ extension BookShelfRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail, .deleteBook:
             return .requestPlain
-        case .watchBookDetail(let bookId):
-            return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
-        case .getFriendBookShelf(let friendId):
-            return .requestParameters(parameters: ["friendId": friendId], encoding: URLEncoding.queryString)
-        case .deleteBook(let bookId):
-            return .requestParameters(parameters: ["bookId": bookId], encoding: URLEncoding.queryString)
         case .postMyBook(let param):
             return .requestJSONEncodable(param)
         }

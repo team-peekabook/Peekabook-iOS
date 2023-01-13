@@ -43,25 +43,7 @@ final class BookShelfAPI {
         }
     }
     
-    // 2. 등록한 책 상세 정보 불러오기
-    
-    func getBookDetail(bookId: Int, completion: @escaping (GeneralResponse<WatchBookDetailResponse>?) -> Void) {
-        bookShelfProvider.request(.watchBookDetail(bookId: bookId)) { [self] (result) in
-            switch result {
-            case .success(let response):
-                do {
-                    self.watchBookDetailData = try response.map(GeneralResponse<WatchBookDetailResponse>.self)
-                    completion(watchBookDetailData)
-                    } catch let error {
-                    print(error.localizedDescription, 500)
-                }
-            case .failure(let err):
-                print(err)
-            }
-        }
-    }
-    
-    // 3. 친구 책장 조회 하기
+    // 2. 친구 책장 조회 하기
     
     func getFriendBookShelfInfo(friendId: Int, completion: @escaping (GeneralResponse<FriendBookShelfResponse>?) -> Void) {
         bookShelfProvider.request(.getFriendBookShelf(friendId: friendId)) { [self] (result) in
@@ -79,6 +61,24 @@ final class BookShelfAPI {
         }
     }
     
+    // 3. 등록한 책 상세 정보 불러오기
+    
+    func getBookDetail(bookId: Int, completion: @escaping (GeneralResponse<WatchBookDetailResponse>?) -> Void) {
+        bookShelfProvider.request(.watchBookDetail(bookId: bookId)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.watchBookDetailData = try response.map(GeneralResponse<WatchBookDetailResponse>.self)
+                    completion(watchBookDetailData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+            print(err)
+        }
+        }
+    }
+
     // 4. 책장에서 책 삭제하기
     
     func deleteBook(bookId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {

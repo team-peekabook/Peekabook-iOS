@@ -17,6 +17,8 @@ final class PickAPI {
     private init() { }
     
     private(set) var picksData: GeneralResponse<[PickAllResponse]>?
+    private(set) var editPicksData: GeneralResponse<[BlankData]>?
+
     
     // 1. Pick 수정뷰에서 책 전체 조회하기
     
@@ -36,4 +38,21 @@ final class PickAPI {
         }
     }
     
+    // 2. Pick한 책 수정하기
+    
+    func patchPickList(param: EditPickRequest, completion: @escaping (GeneralResponse<[BlankData]>?) -> Void) {
+        pickProvider.request(.editPickList(param: param)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.editPicksData = try response.map(GeneralResponse<[BlankData]>.self)
+                    completion(editPicksData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
 }
