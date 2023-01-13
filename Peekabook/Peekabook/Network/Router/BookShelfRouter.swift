@@ -15,7 +15,7 @@ enum BookShelfRouter {
     case deleteBook(bookId: Int)
     case watchBookDetail(id: Int)
     case postMyBook(param: PostBookRequest)
-    case editBookInfo(bookId: Int)
+    case editBookInfo(bookId: Int, param: EditBookRequest)
 }
 
 extension BookShelfRouter: TargetType {
@@ -35,7 +35,7 @@ extension BookShelfRouter: TargetType {
             return "\(URLConstant.bookShelf)/\(bookId)"
         case .postMyBook:
             return URLConstant.bookShelf
-        case .editBookInfo(let bookId):
+        case .editBookInfo(let bookId, _):
             return "\(URLConstant.bookShelf)/\(bookId)"
         }
     }
@@ -55,9 +55,11 @@ extension BookShelfRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail, .deleteBook, .editBookInfo:
+        case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail, .deleteBook:
             return .requestPlain
         case .postMyBook(let param):
+            return .requestJSONEncodable(param)
+        case .editBookInfo(_, let param):
             return .requestJSONEncodable(param)
         }
     }

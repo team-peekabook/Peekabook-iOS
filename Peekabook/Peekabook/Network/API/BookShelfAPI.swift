@@ -118,8 +118,8 @@ final class BookShelfAPI {
     
     // 6. 내 책장에 등록한 책 정보 수정하기
     
-    func editMyBookInfo(bookId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        bookShelfProvider.request(.editBookInfo(bookId: bookId)) { [self] (result) in
+    func editMyBookInfo(bookId: Int, param: EditBookRequest, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        bookShelfProvider.request(.editBookInfo(bookId: bookId, param: param)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {

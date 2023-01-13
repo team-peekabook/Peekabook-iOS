@@ -107,7 +107,6 @@ final class AddBookVC: UIViewController {
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-
     }
     
     private var memoMaxLabel = UILabel().then {

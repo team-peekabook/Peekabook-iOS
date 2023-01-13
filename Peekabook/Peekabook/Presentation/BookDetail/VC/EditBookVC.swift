@@ -17,9 +17,9 @@ final class EditBookVC: UIViewController {
     // MARK: - Properties
 
     private var focus = 0
-    var beforeComment = ""
-    var beforedMemo = ""
-    var loadImage = ""
+    var bookIndex: Int = 0
+    var descriptions: String?
+    var memo: String?
 
     // MARK: - UI Components
     
@@ -47,18 +47,18 @@ final class EditBookVC: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private let bookImgView = UIImageView().then {
+    let bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFit
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var nameLabel = UILabel().then {
+    var nameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
-    private var authorLabel = UILabel().then {
+    var authorLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .peekaRed
     }
@@ -72,7 +72,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private let commentView = UITextView().then {
+    private var commentView = UITextView().then {
         $0.text = I18N.BookDetail.commentSample
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -123,9 +123,9 @@ final class EditBookVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.registerForKeyboardNotification()
-        commentView.text = beforeComment
-        memoView.text = beforedMemo
-        }
+        commentView.text = descriptions
+        memoView.text = memo
+    }
     
     deinit {
         self.removeRegisterForKeyboardNotification()
@@ -294,13 +294,10 @@ extension EditBookVC {
         navigationController?.popViewController(animated: true)
     }
     
-    // TODO: - 서버통신 시 구현 (POST)
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
         
-        let bookDetailVC = BookDetailVC()
-        bookDetailVC.afterComment = commentView.text
-        bookDetailVC.afterMemo = memoView.text
+        editMyBookInfo(bookId: bookIndex, param: EditBookRequest(description: descriptions, memo: memo))
         navigationController?.popViewController(animated: true)
     }
     
@@ -376,11 +373,21 @@ extension EditBookVC: UITextViewDelegate {
             memoView.textColor = .peekaGray1
         }
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == I18N.BookDetail.comment {
+            textView.text = nil
+            textView.textColor = .peekaRed
+        } else if textView.text == I18N.BookDetail.memo {
+            textView.text = nil
+            textView.textColor = .peekaRed
+        }
+    }
 }
 
 extension EditBookVC {
-    func editMyBookInfo(bookId: Int) {
-        BookShelfAPI.shared.editMyBookInfo(bookId: bookId) { response in
+    func editMyBookInfo(bookId: Int, param: EditBookRequest) {
+        BookShelfAPI.shared.editMyBookInfo(bookId: bookId, param: param) { response in
             if response?.success == true {
                 print("책 수정 성공")
                 self.navigationController?.popViewController(animated: true)
