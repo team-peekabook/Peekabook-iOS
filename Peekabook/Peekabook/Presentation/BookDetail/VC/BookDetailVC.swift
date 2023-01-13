@@ -93,7 +93,6 @@ final class BookDetailVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        print(selectedBookIndex)
         getBookDetail(id: selectedBookIndex)
     }
     
@@ -113,7 +112,7 @@ final class BookDetailVC: UIViewController {
     @objc
     private func deleteButtonDidTap() {
         let popupViewController = DeletePopUpVC()
-        popupViewController.bookId = self.selectedBookIndex
+        popupViewController.bookShelfId = self.selectedBookIndex
         popupViewController.modalPresentationStyle = .overFullScreen
         self.present(popupViewController, animated: false)
     }
@@ -252,6 +251,22 @@ extension BookDetailVC {
         self.editButton.isHidden = true
         self.deleteButton.isHidden = true
     }
+    
+    private func setEmptyView() {
+        if commentTextView.text.isEmpty == true {
+            commentTextView.textColor = .peekaGray2
+            commentTextView.text = I18N.BookDetail.emptyComment
+        } else {
+            commentTextView.textColor = .peekaRed
+        }
+        
+        if memoTextView.text.isEmpty == true {
+            memoTextView.textColor = .peekaGray2
+            memoTextView.text = I18N.BookDetail.emptyComment
+        } else {
+            memoTextView.textColor = .peekaRed
+        }
+    }
 }
 
 // MARK: - Network
@@ -267,6 +282,7 @@ extension BookDetailVC {
             self.commentTextView.text = serverWatchBookDetail.description
             self.memoTextView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
+            self.setEmptyView()
         }
     }
 }
