@@ -19,8 +19,7 @@ final class ConfirmPopUpViewController: UIViewController {
     // MARK: - UI Components
     private let popUpView = UIView()
     
-    private var personNameLabel = UILabel().then {
-        $0.text = "고두영"
+    var personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
     }
@@ -105,8 +104,28 @@ extension ConfirmPopUpViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
-    // TODO: - 서버통신 시 POST
     @objc private func touchConfirmButtonDipTap() {
-        self.dismiss(animated: false, completion: nil)
+        let tabbar = TabBarController()
+        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+    }
+}
+
+extension ConfirmPopUpViewController {
+    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        if animated {
+            UIView.transition(with: window, duration: 1.0, options: .transitionCrossDissolve, animations: {
+                let oldState: Bool = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                window.rootViewController = rootViewController
+                UIView.setAnimationsEnabled(oldState)
+            }, completion: { (finished: Bool) -> Void in
+                if completion != nil {
+                    completion!()
+                }
+            })
+        } else {
+            window.rootViewController = rootViewController
+        }
     }
 }

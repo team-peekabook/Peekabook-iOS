@@ -230,6 +230,7 @@ extension BookSearchVC {
         guard searchField.hasText else {
             return setView()
         }
+        searchField.endEditing(true)
         fetchBooks()
     }
     
@@ -298,11 +299,10 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
 }
-//
-//extension BookSearchVC: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        searchField.endEditing(true)
-//        fetchBooks()
-//        return true
-//    }
-//}
+
+extension BookSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.endEditing(true)
+        return true
+    }
+}

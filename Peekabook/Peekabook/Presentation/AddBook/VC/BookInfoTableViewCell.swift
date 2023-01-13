@@ -40,7 +40,7 @@ class BookInfoTableViewCell: UITableViewCell {
     private let labelContainerView = UIView()
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.lineBreakMode = .byWordWrapping
         $0.font = UIFont.font(.notoSansBold, ofSize: 15)
         $0.textColor = .peekaRed

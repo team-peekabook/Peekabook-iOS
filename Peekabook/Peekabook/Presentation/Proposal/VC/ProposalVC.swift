@@ -17,6 +17,7 @@ final class ProposalVC: UIViewController {
     // MARK: - Properties
     
     var imageUrl: String = ""
+    var personName: String = ""
 
     // MARK: - UI Components
     
@@ -47,6 +48,9 @@ final class ProposalVC: UIViewController {
     
     private var nameLabel = UILabel().then {
         $0.font = .h3
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byWordWrapping
         $0.textColor = .peekaRed
     }
     
@@ -171,6 +175,7 @@ extension ProposalVC {
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(bookImgView.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
+            make.width.equalTo(310)
         }
         
         authorLabel.snp.makeConstraints { make in
@@ -231,7 +236,7 @@ extension ProposalVC {
     }
     
     @objc private func backButtonDidTap() {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
     @objc private func checkButtonDidTap() {
@@ -282,11 +287,7 @@ extension ProposalVC {
 }
 
 extension ProposalVC: UITextViewDelegate {
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String
-    ) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentComment = recommendView.text ?? ""
         guard let commentRange = Range(range, in: currentComment)
         else { return false }
