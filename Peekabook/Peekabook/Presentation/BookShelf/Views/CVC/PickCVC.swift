@@ -61,13 +61,6 @@ final class PickCVC: UICollectionViewCell {
 
 extension PickCVC {
     
-    func initCell(model: SamplePickModel) {
-        countLabel.text = String(model.bookId)
-        bookImageView.image = model.image
-        bookNameLabel.text = model.name
-        titleLabel.text = model.title
-    }
-    
     private func setUI() {
         self.clipsToBounds = true
         layer.borderWidth = 2

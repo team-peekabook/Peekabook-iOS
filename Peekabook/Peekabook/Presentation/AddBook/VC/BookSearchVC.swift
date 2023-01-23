@@ -17,9 +17,10 @@ final class BookSearchVC: UIViewController {
     // MARK: - Properties
     var personName: String = ""
     var personId: Int = 0
+
     var bookShelfType: BookShelfType = .user
     var bookInfoList: [BookInfoModel] = []
-    var displayCount: Int = 10
+    var displayCount: Int = 30
     
     // MARK: - UI Components
     
@@ -60,6 +61,7 @@ final class BookSearchVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -83,7 +85,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-//        searchField.delegate = self
+        searchField.delegate = self
         setUI()
         setLayout()
         register()
@@ -202,12 +204,12 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || searchField.text!.isEmpty { // 아무 값이 없으면
-            self.emptyView.isHidden = false // 히든뷰가 보이게
+        if self.bookInfoList.isEmpty == true || searchField.text!.isEmpty {
+            self.emptyView.isHidden = false
             self.bookTableView.isHidden = true
         } else {
             self.bookTableView.isHidden = false
-            self.emptyView.isHidden = true // 테이블뷰 보이게
+            self.emptyView.isHidden = true
         }
     }
     
@@ -238,6 +240,7 @@ extension BookSearchVC {
         ls.getNaverBookTitleAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
+                print(result)
                 DispatchQueue.main.async {
                     self?.bookTableView.reloadData()
                     guard (self!.searchField.text?.isEmpty) == nil else {
@@ -275,6 +278,9 @@ extension BookSearchVC: UITableViewDataSource {
             let proposalVC = ProposalVC()
             proposalVC.personName = personName
             proposalVC.personId = personId
+            proposalVC.author = bookInfoList[indexPath.row].author
+            proposalVC.bookTitle = bookInfoList[indexPath.row].title
+            proposalVC.imageUrl = bookInfoList[indexPath.row].image
             proposalVC.modalPresentationStyle = .fullScreen
             proposalVC.dataBind(model: bookInfoList[indexPath.row])
             present(proposalVC, animated: true, completion: nil)
@@ -304,7 +310,15 @@ extension BookSearchVC: UITableViewDataSource {
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchField.endEditing(true)
-        return true
+        guard let text = searchField.text else { return true }
+        if text.isEmpty {
+            setView()
+            searchField.endEditing(true)
+            return true
+        } else {
+            fetchBooks()
+            searchField.endEditing(true)
+            return true
+        }
     }
 }

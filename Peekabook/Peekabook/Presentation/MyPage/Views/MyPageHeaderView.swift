@@ -19,11 +19,12 @@ class MyPageHeaderView: UITableViewHeaderFooterView {
     private let topBoldUnderLineView = UIView()
     
     private let profileImageView = UIImageView().then {
-        $0.layer.cornerRadius = 32
-        $0.image = ImageLiterals.Sample.profile3
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = true
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 30
     }
     private let nameLabel = UILabel().then {
-        $0.text = "문수빈"
         $0.font = .h1
         $0.textColor = .peekaRed
     }
@@ -31,7 +32,6 @@ class MyPageHeaderView: UITableViewHeaderFooterView {
         $0.setImage(ImageLiterals.Icn.edit, for: .normal)
     }
     private let introLabel = UILabel().then {
-        $0.text = "사람들이 북적거리는 곳이라면\n어디든 달려갑니다"
         $0.font = .s3
         $0.numberOfLines = 2
         $0.textColor = .peekaRed
@@ -53,12 +53,16 @@ class MyPageHeaderView: UITableViewHeaderFooterView {
 
 extension MyPageHeaderView {
     private func setLayout() {
-        // backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         containerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         topThinUnderLineView.backgroundColor = .peekaRed
         topBoldUnderLineView.backgroundColor = .peekaRed
         bottomThinUnderLineView.backgroundColor = .peekaRed
         bottomBoldUnderLineView.backgroundColor = .peekaRed
+        
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: URL(string: UserDefaults.standard.string(forKey: "userProfileImage") ?? ""))
+        introLabel.text = UserDefaults.standard.string(forKey: "userIntro")
+        nameLabel.text = UserDefaults.standard.string(forKey: "userNickname")
         
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
@@ -83,7 +87,7 @@ extension MyPageHeaderView {
         profileImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
-            make.width.height.equalTo(64)
+            make.width.height.equalTo(60)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -93,13 +97,14 @@ extension MyPageHeaderView {
         
         editButton.snp.makeConstraints { make in
             make.top.equalTo(topThinUnderLineView).offset(3.5)
-            make.leading.equalTo(nameLabel.snp.leading).offset(27)
+            make.trailing.equalToSuperview()
             make.height.width.equalTo(48)
         }
         
         introLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel)
             make.top.equalTo(nameLabel.snp.bottom).offset(3)
+            make.trailing.equalToSuperview().inset(10)
         }
         
         bottomThinUnderLineView.snp.makeConstraints { make in

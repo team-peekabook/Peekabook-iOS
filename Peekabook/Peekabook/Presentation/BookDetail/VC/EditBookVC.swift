@@ -127,7 +127,6 @@ final class EditBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.registerForKeyboardNotification()
         commentView.text = descriptions
         memoView.text = memo
     }
@@ -337,19 +336,15 @@ extension EditBookVC {
         containerView.scrollIndicatorInsets = contentInset
         
         if commentView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = commentBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = memoBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
             containerView.setContentOffset(position, animated: true)
             return
         }

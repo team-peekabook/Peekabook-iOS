@@ -58,6 +58,7 @@ final class BookDetailVC: UIViewController {
     
     private var bookAuthorLabel = UILabel().then {
         $0.font = .h2
+        $0.textAlignment = .center
         $0.textColor = .peekaRed
     }
     
@@ -203,6 +204,7 @@ extension BookDetailVC {
         bookAuthorLabel.snp.makeConstraints { make in
             make.top.equalTo(bookNameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(300)
         }
         
         commentContainerView.snp.makeConstraints { make in
@@ -293,7 +295,8 @@ extension BookDetailVC {
             self.bookImageView.kf.indicatorType = .activity
             self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
-            self.bookAuthorLabel.text = serverWatchBookDetail.book.author
+            let bookAuthorLabelStr = serverWatchBookDetail.book.author
+            self.bookAuthorLabel.text = bookAuthorLabelStr.replacingOccurrences(of: "^", with: ", ")
             self.commentTextView.text = serverWatchBookDetail.description
             self.memoTextView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id

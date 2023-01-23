@@ -43,11 +43,6 @@ final class FriendsCVC: UICollectionViewCell {
 
 extension FriendsCVC {
     
-    func initCell(model: SampleFriendsModel) {
-        profileImageView.image = model.profileImage
-        userNameLabel.text = model.name
-    }
-    
     private func setUI() {
         contentView.backgroundColor = .peekaBeige
         backgroundColor = .clear

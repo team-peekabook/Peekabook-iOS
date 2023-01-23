@@ -34,7 +34,7 @@ final class RecommendVC: UIViewController {
     
     private let headerView = UIView()
     private let logoImage = UIImageView().then {
-        $0.image = UIImage(named: "peekabook_logo")
+        $0.image = ImageLiterals.Image.logo
     }
     private let headerUnderlineView = UIView()
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {

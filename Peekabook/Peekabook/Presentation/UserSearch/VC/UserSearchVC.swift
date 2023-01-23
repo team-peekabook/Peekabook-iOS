@@ -139,7 +139,11 @@ extension UserSearchVC {
     }
     
     private func setFollowStatus() {
-        followButton.isSelected == true ? followed() : unfollowed()
+        if followButton.isSelected {
+            followed()
+        } else {
+            unfollowed()
+        }
     }
     
     private func setBlankView() {

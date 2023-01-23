@@ -20,6 +20,7 @@ final class ConfirmPopUpViewController: UIViewController {
     var author: String = ""
     var bookImage: String = ""
     var personId: Int = 0
+    var personName: String = ""
 
     // MARK: - UI Components
     private let popUpView = UIView()
@@ -30,7 +31,6 @@ final class ConfirmPopUpViewController: UIViewController {
     }
     
     private lazy var confirmLabel = UILabel().then {
-        $0.text = "\(personNameLabel.text ?? "사용자")"+I18N.BookProposal.confirm
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
@@ -59,6 +59,7 @@ final class ConfirmPopUpViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        confirmLabel.text = personName + I18N.BookProposal.confirm
     }
 }
 
@@ -110,8 +111,6 @@ extension ConfirmPopUpViewController {
     }
     
     @objc private func touchConfirmButtonDipTap() {
-        print(personId)
-        
         postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
                                                                         bookTitle: bookTitle,
                                                                         author: author,

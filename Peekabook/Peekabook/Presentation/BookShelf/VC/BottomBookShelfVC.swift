@@ -11,13 +11,11 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
-    private var bookShelfType: BookShelfType = .user
-    
+    var bookShelfType: BookShelfType = .user
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
     private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
-    private var picks: [Pick] = []
 
     // MARK: - UI Components
     
@@ -238,8 +236,6 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             bookShelfCollectionView.isUserInteractionEnabled = true
             
             let bookDetailVC = BookDetailVC()
-            bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.selectedBookIndex = books[indexPath.row].id
             
             switch bookShelfType {
             case .user:
@@ -247,6 +243,8 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             case .friend:
                 bookDetailVC.changeFriendViewLayout()
             }
+            bookDetailVC.hidesBottomBarWhenPushed = true
+            bookDetailVC.selectedBookIndex = books[indexPath.row].id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
@@ -282,9 +280,6 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
             bookShelfCollectionView.isScrollEnabled = true
             bookShelfCollectionView.isUserInteractionEnabled = true
         }
-        
         return false
     }
 }
-
-// MARK: - Network

@@ -19,7 +19,6 @@ final class PickAPI {
     private(set) var picksData: GeneralResponse<[PickAllResponse]>?
     private(set) var editPicksData: GeneralResponse<[BlankData]>?
 
-    
     // 1. Pick 수정뷰에서 책 전체 조회하기
     
     func getAllPicks(completion: @escaping (GeneralResponse<[PickAllResponse]>?) -> Void) {

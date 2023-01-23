@@ -48,9 +48,6 @@ final class BookShelfCVC: UICollectionViewCell {
 // MARK: - Methods
 
 extension BookShelfCVC {
-    func initCell(model: SampleBookModel) {
-        bookImageView.image = model.bookImage
-    }
     
     private func setUI() {
         backgroundColor = .peekaLightBeige

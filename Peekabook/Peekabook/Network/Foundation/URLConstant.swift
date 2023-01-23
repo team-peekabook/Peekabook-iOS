@@ -9,7 +9,7 @@ import Foundation
 
 struct URLConstant {
     
-    /// Base URL은 Config에 있습니다.
+    // Base URL은 Config에 있습니다.
     
     // MARK: - Route
     

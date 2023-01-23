@@ -19,6 +19,8 @@ final class ProposalVC: UIViewController {
     var imageUrl: String = ""
     var personName: String = ""
     var personId: Int = 0
+    var bookTitle: String = ""
+    var author: String = ""
 
     // MARK: - UI Components
     
@@ -75,7 +77,7 @@ final class ProposalVC: UIViewController {
         
     private let lineView = UIView()
         
-    private var personNameLabel = UILabel().then {
+    var personNameLabel = UILabel().then {
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
@@ -102,6 +104,7 @@ final class ProposalVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
+        personNameLabel.text = personName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -244,12 +247,12 @@ extension ProposalVC {
         let popupViewController = ConfirmPopUpViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
         popupViewController.recommendDesc = recommendView.text
+        popupViewController.bookTitle = nameLabel.text!
         popupViewController.bookImage = imageUrl
         popupViewController.author = authorLabel.text!
         popupViewController.personId = personId
-        popupViewController.personNameLabel.text = personName
-        print(personName)
-        print(personId)
+        popupViewController.personName = personName
+        popupViewController.bookImage = imageUrl
         self.present(popupViewController, animated: false)
     }
     

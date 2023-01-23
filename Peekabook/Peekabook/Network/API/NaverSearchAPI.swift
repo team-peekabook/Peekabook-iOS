@@ -19,25 +19,14 @@ final class NaverSearchAPI {
     let booksearchVC = BookSearchVC()
     let addBookVC = AddBookVC()
     
-    func urlTitleTaskDone() -> [BookInfoModel] {
-        let SearchData = DataManager.shared.searchResult
+    private func urlTitleTaskDone() -> [BookInfoModel] {
         var model: [BookInfoModel] = []
-        do {
-            if (SearchData?.total ?? 0) == 0 {
-                print("값 없음")
-                        
-            } else if (SearchData?.total ?? 0) < 10 {
-                for i in 0...((SearchData?.total ?? 1)-1) {
-                    model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
-                    print(model)
-                }
-            } else {
-                for i in 0...9 {
-                    model.append(BookInfoModel(image: SearchData?.items[i].image ?? "", title: SearchData?.items[i].title ?? "", author: SearchData?.items[i].author ?? ""))
-                }
-            }
-            return model
-        } catch {}
+        guard let searchData = DataManager.shared.searchResult else { return model }
+        
+        for i in 0..<searchData.items.count {
+            model.append(BookInfoModel(image: searchData.items[i].image, title: searchData.items[i].title, author: searchData.items[i].author))
+        }
+        return model
     }
     
     // 네이버 책검색 API 불러오기
@@ -48,13 +37,13 @@ final class NaverSearchAPI {
         let clientKEY: String = Config.naverClientSecret
         
         let searchURL: String = Config.naverBookSearchURL
-        let encodedQuery: String = searchURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        let _: String = searchURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         var queryURL: URLComponents = URLComponents(string: searchURL)!
         
         var queryItems: [URLQueryItem] = []
-        var titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
-        var displayQuery: URLQueryItem = URLQueryItem(name: "displayl", value: "\(display)")
-        var isbnQuery: URLQueryItem = URLQueryItem(name: "d_isbn", value: d_isbn)
+        let titleQuery: URLQueryItem = URLQueryItem(name: "d_titl", value: d_titl)
+        let displayQuery: URLQueryItem = URLQueryItem(name: "display", value: "\(display)")
+        let isbnQuery: URLQueryItem = URLQueryItem(name: "d_isbn", value: d_isbn)
         
         queryItems.append(titleQuery)
         queryItems.append(displayQuery)
@@ -67,15 +56,14 @@ final class NaverSearchAPI {
         requestURL.addValue(clientKEY, forHTTPHeaderField: "X-Naver-Client-Secret")
         
         let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
-            guard error == nil else { print(error); return }
-            guard let data = data else { print(error); return }
+            guard error == nil else { print(error as Any); return }
+            guard let data = data else { print(error as Any); return }
             
             do {
                 var bookTitle = ""
                 if let titleQ = titleQuery.value {
                     bookTitle = titleQ
-                    print(bookTitle)
-                    if bookTitle == "" {
+                    if bookTitle.isEmpty {
                         print("isbn 검색을 하겠습니다")
                         let searchInfo: PostBook = try self.jsconDecoder.decode(PostBook.self, from: data)
                         DataManager.shared.searchResult = searchInfo
@@ -88,7 +76,7 @@ final class NaverSearchAPI {
                     }
                 }
             } catch {
-                print(fatalError())
+                fatalError()
             }
         }
         task.resume()
