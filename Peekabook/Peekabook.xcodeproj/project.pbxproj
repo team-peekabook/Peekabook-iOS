@@ -138,7 +138,6 @@
 		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
-		149CC16029700756002E61EC /* GetAlarmResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAlarmResponse.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCVC.swift; sourceTree = "<group>"; };
@@ -584,21 +583,12 @@
 			path = Alarm;
 			sourceTree = "<group>";
 		};
-		8E4083E72970BEBC00B53339 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				149CC16029700756002E61EC /* GetAlarmResponse.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		8E5A3095295DAE6D00285A15 = {
 			isa = PBXGroup;
 			children = (
 				8E10BA4D2960026600BCF58B /* .swiftlint.yml */,
 				8E5A30A0295DAE6D00285A15 /* Peekabook */,
 				8E5A309F295DAE6D00285A15 /* Products */,
-				8E4083E72970BEBC00B53339 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
