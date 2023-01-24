@@ -28,7 +28,7 @@
 <p align="left">
 <img src ="https://img.shields.io/badge/Swift-5.7-orange?logo=swift">
 <img src ="https://img.shields.io/badge/Xcode-14.2-blue?logo=xcode">
-<img src ="https://img.shields.io/badge/iOS-13.0-green.svg">
+<img src ="https://img.shields.io/badge/iOS-14.0-green.svg">
 
 <br>
 <br>
