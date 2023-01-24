@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecommendingVC: UIViewController {
+final class RecommendingVC: UIViewController {
     
     // MARK: - Properties
     

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MyPageHeaderView: UITableViewHeaderFooterView {
+final class MyPageHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - UI Components
     

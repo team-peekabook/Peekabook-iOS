@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MyPageTableViewCell: UITableViewCell {
+final class MyPageTableViewCell: UITableViewCell {
 
     var label = UILabel().then {
         $0.font = .h2

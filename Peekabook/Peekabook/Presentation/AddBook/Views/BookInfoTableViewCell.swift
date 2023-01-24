@@ -13,10 +13,8 @@ import Then
 
 import Moya
 
-class BookInfoTableViewCell: UITableViewCell {
-    
-    static let identifier = "BookInfoTableViewCell"
-    
+final class BookInfoTableViewCell: UITableViewCell {
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()

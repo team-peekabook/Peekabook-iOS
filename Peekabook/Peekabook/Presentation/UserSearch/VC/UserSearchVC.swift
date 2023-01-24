@@ -260,7 +260,14 @@ extension UserSearchVC {
         followButton.setTitle(I18N.FollowStatus.follow, for: .normal)
         profileImage.layer.borderColor = UIColor.peekaRed.cgColor
     }
-    
+}
+
+extension UserSearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        searchBtnTapped()
+        return true
+    }
 }
 
 // MARK: - Network
@@ -300,13 +307,5 @@ extension UserSearchVC {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
         }
-    }
-}
-
-extension UserSearchVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.endEditing(true)
-        searchBtnTapped()
-        return true
     }
 }

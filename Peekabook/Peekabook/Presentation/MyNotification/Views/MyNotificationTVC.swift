@@ -14,10 +14,7 @@ enum AlarmType: CaseIterable {
     case recommended
     case addBook
 }
-
-class MyNotificationTVC: UITableViewCell {
-    
-    // MARK: - Properties
+final class MyNotificationTVC: UITableViewCell {
     
     // MARK: - UI Components
     

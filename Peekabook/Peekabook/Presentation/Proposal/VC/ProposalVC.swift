@@ -104,7 +104,6 @@ final class ProposalVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
-        personNameLabel.text = personName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,7 +125,7 @@ extension ProposalVC {
         recommendHeaderView.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
         recommendView.backgroundColor = .clear
-        
+        personNameLabel.text = personName
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     

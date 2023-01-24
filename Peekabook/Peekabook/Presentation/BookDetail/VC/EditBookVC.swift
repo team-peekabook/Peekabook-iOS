@@ -21,10 +21,6 @@ final class EditBookVC: UIViewController {
     var descriptions: String = ""
     var memo: String = ""
     
-//    var bookImage: String = ""
-//    var titleName: String = ""
-//    var authorName: String = ""
-
     // MARK: - UI Components
     
     private let headerView = UIView()

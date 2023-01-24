@@ -110,10 +110,6 @@ extension BarcodeViewController {
         let nextVC = BookSearchVC()
         nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true, completion: nil)
-        
-//        let errorPopUpVC = ErrorPopUpViewController()
-//        errorPopUpVC.modalPresentationStyle = .overFullScreen
-//        self.present(errorPopUpVC, animated: false)
     }
     
     func showErrorPopUp() {
@@ -136,22 +132,17 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
         
         isbnCode = code
         fetchBooks()
-//
-//        let nextVC = AddBookVC()
-//        nextVC.bookInfoList =
-//        nextVC.modalPresentationStyle = .fullScreen
-//        self.present(nextVC, animated: true, completion: nil) 
     }
 }
 
 extension BarcodeViewController: BarcodeScannerDismissalDelegate {
-  func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
-    controller.dismiss(animated: true, completion: nil)
-  }
+    func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension BarcodeViewController: BarcodeScannerErrorDelegate {
-  func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
-    print(error)
-  }
+    func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+        print(error)
+    }
 }

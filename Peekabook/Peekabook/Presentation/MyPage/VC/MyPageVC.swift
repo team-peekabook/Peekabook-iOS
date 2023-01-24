@@ -16,7 +16,7 @@ final class MyPageVC: UIViewController {
     
     // MARK: - Properties
 
-    let myPageArray: [String] = [
+    private let myPageArray: [String] = [
         "알림 설정",
         "개인정보 보호 정책 & 서비스 이용 약관",
         "문의하기",
@@ -124,5 +124,3 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         return 104
     }
 }
-
-// MARK: - Network

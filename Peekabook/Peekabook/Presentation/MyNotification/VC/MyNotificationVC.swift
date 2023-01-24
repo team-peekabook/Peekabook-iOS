@@ -55,10 +55,6 @@ final class MyNotificationVC: UIViewController {
         super.viewWillAppear(animated)
         getAlarmAPI()
     }
-    
-    @objc private func backButtonTapped() {
-        self.dismiss(animated: true)
-    }
 }
 
 // MARK: - UI & Layout
@@ -136,6 +132,10 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             cell.changeRead()
         }
         return cell
+    }
+    
+    @objc private func backButtonTapped() {
+        self.dismiss(animated: true)
     }
 }
 

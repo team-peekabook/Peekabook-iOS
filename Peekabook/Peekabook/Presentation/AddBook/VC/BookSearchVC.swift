@@ -200,7 +200,7 @@ extension BookSearchVC {
     }
     private func register() {
         bookTableView.register(BookInfoTableViewCell.self,
-                               forCellReuseIdentifier: BookInfoTableViewCell.identifier)
+                               forCellReuseIdentifier: BookInfoTableViewCell.className)
     }
     
     func setView() {
@@ -289,7 +289,7 @@ extension BookSearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let bookCell = tableView.dequeueReusableCell(
-            withIdentifier: BookInfoTableViewCell.identifier,
+            withIdentifier: BookInfoTableViewCell.className,
             for: indexPath) as? BookInfoTableViewCell
         else { return UITableViewCell() }
         let backgroundView = UIView()
