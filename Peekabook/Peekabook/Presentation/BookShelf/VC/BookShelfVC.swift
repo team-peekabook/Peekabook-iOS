@@ -213,7 +213,6 @@ final class BookShelfVC: UIViewController {
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)
         }
-        
     }
     
     @objc private func myProfileViewDidTap() {
@@ -479,7 +478,6 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             } else {
                 cell.changeBorderLayout(isSelected: false)
             }
-            
             return cell
         }
         

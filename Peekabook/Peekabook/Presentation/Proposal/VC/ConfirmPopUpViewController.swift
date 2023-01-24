@@ -59,7 +59,6 @@ final class ConfirmPopUpViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        confirmLabel.text = personName + I18N.BookProposal.confirm
     }
 }
 
@@ -68,6 +67,7 @@ extension ConfirmPopUpViewController {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
+        confirmLabel.text = personName + I18N.BookProposal.confirm
     }
     
     private func setLayout() {
@@ -118,25 +118,7 @@ extension ConfirmPopUpViewController {
     }
 }
 
-extension ConfirmPopUpViewController {
-    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        if animated {
-            UIView.transition(with: window, duration: 1.0, options: .transitionCrossDissolve, animations: {
-                let oldState: Bool = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(false)
-                window.rootViewController = rootViewController
-                UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> Void in
-                if completion != nil {
-                    completion!()
-                }
-            })
-        } else {
-            window.rootViewController = rootViewController
-        }
-    }
-}
+// MARK: - Network
 
 extension ConfirmPopUpViewController {
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
@@ -146,5 +128,4 @@ extension ConfirmPopUpViewController {
             }
         }
     }
-    
 }

@@ -58,7 +58,7 @@ final class AddBookVC: UIViewController {
         $0.textAlignment = .center
         $0.font = .h3
         $0.textColor = .peekaRed
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.lineBreakMode = .byWordWrapping
     }
     
@@ -294,7 +294,7 @@ extension AddBookVC {
     }
     
     @objc private func backButtonDidTap() {
-        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func checkButtonDidTap() {
@@ -416,26 +416,6 @@ extension AddBookVC {
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
-        }
-    }
-}
-
-extension AddBookVC {
-    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        if animated {
-            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                let oldState: Bool = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(false)
-                window.rootViewController = rootViewController
-                UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> Void in
-                if completion != nil {
-                    completion!()
-                }
-            })
-        } else {
-            window.rootViewController = rootViewController
         }
     }
 }

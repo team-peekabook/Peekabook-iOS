@@ -285,7 +285,7 @@ extension ProposalVC {
     @objc
     private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        guard let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue else { return }
         let keyboardRectangle = keyboardFrame.cgRectValue
         self.view.transform = CGAffineTransform(translationX: 0,
             y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))

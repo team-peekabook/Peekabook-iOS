@@ -303,26 +303,6 @@ extension UserSearchVC {
     }
 }
 
-extension UserSearchVC {
-    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        if animated {
-            UIView.transition(with: window, duration: 1.5, options: .transitionCrossDissolve, animations: {
-                let oldState: Bool = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(false)
-                window.rootViewController = rootViewController
-                UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> Void in
-                if completion != nil {
-                    completion!()
-                }
-            })
-        } else {
-            window.rootViewController = rootViewController
-        }
-    }
-}
-
 extension UserSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextField.endEditing(true)

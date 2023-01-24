@@ -9,7 +9,7 @@ import UIKit
 
 final class PickCVC: UICollectionViewCell {
     
-    // MARK: - Protocols
+    // MARK: - Properties
 
     private var bookId: Int = 0
     

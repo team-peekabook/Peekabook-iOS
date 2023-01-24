@@ -39,6 +39,7 @@
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
 		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
+		8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E234769297F6A550066D7B3 /* switchRootViewController.swift */; };
 		8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */; };
 		8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DB296F334500B53339 /* PickAllResponse.swift */; };
 		8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DD2970114C00B53339 /* EditPickRequest.swift */; };
@@ -158,6 +159,7 @@
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
+		8E234769297F6A550066D7B3 /* switchRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = switchRootViewController.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
 		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
@@ -213,9 +215,7 @@
 		8E81F3E32960835A001815B4 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		8E81F3E729608421001815B4 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		8E81F3F0296089F7001815B4 /* EditMyPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPickVC.swift; sourceTree = "<group>"; };
-		8E81F3F729608A78001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E81F3F929608A83001815B4 /* BookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailVC.swift; sourceTree = "<group>"; };
-		8E81F40029608AF5001815B4 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E81F40229608B00001815B4 /* MyNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationVC.swift; sourceTree = "<group>"; };
 		8E81F40829608B36001815B4 /* UserSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchVC.swift; sourceTree = "<group>"; };
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
@@ -245,7 +245,6 @@
 		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
-		98A0420D296652CE00081B8E /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98A042142966C8C700081B8E /* BookInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoModel.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
@@ -365,13 +364,14 @@
 				8E81F3BB2960778B001815B4 /* getClassName.swift */,
 				8E81F3BF2960788F001815B4 /* makeAlert.swift */,
 				8E81F3C1296078BC001815B4 /* makeVibrate.swift */,
+				8E81F3DB296080D3001815B4 /* setClearButton.swift */,
 				8E81F3D729607DDA001815B4 /* setStatusBarBackgroundColor.swift */,
 				8E81F3D929608037001815B4 /* setTextStyle.swift */,
 				8E81F3D529607D6C001815B4 /* setTextLineHeight.swift */,
 				8E81F3BD296077BD001815B4 /* showNetworkAlert.swift */,
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
+				8E234769297F6A550066D7B3 /* switchRootViewController.swift */,
 				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
-				8E81F3DB296080D3001815B4 /* setClearButton.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -676,7 +676,6 @@
 		8E81F3F429608A41001815B4 /* BookDetail */ = {
 			isa = PBXGroup;
 			children = (
-				8E81F3F629608A6C001815B4 /* Views */,
 				8E81F3F529608A65001815B4 /* VC */,
 			);
 			path = BookDetail;
@@ -692,14 +691,6 @@
 			path = VC;
 			sourceTree = "<group>";
 		};
-		8E81F3F629608A6C001815B4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8E81F3F729608A78001815B4 /* .gitkeep */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		8E81F3FB29608A9F001815B4 /* UserSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,7 +704,7 @@
 			isa = PBXGroup;
 			children = (
 				146479282968218200370042 /* Model */,
-				8E81F40B29608B51001815B4 /* Views */,
+				8EB0A51A297F6EAF00E2C127 /* Views */,
 				8E81F40A29608B49001815B4 /* VC */,
 			);
 			path = AddBook;
@@ -740,7 +731,6 @@
 		8E81F3FF29608AE6001815B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8E81F40029608AF5001815B4 /* .gitkeep */,
 				14B35449296899CB00998925 /* MyNotificationTVC.swift */,
 			);
 			path = Views;
@@ -760,15 +750,15 @@
 				8E81F40C29608B66001815B4 /* AddBookVC.swift */,
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
 				98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */,
-				985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */,
 				986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
 		};
-		8E81F40B29608B51001815B4 /* Views */ = {
+		8EB0A51A297F6EAF00E2C127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -836,18 +826,9 @@
 		98A042052966469800081B8E /* Proposal */ = {
 			isa = PBXGroup;
 			children = (
-				98A04206296646CD00081B8E /* Views */,
 				98A04207296646D100081B8E /* VC */,
 			);
 			path = Proposal;
-			sourceTree = "<group>";
-		};
-		98A04206296646CD00081B8E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				98A0420D296652CE00081B8E /* .gitkeep */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		98A04207296646D100081B8E /* VC */ = {
@@ -1038,6 +1019,7 @@
 				14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
+				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,

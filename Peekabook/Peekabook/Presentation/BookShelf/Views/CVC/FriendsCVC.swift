@@ -9,6 +9,8 @@ import UIKit
 
 final class FriendsCVC: UICollectionViewCell {
     
+    // MARK: - Properties
+
     var userId: Int = 0
     
     // MARK: - UI Components
@@ -73,7 +75,6 @@ extension FriendsCVC {
     }
     
     func changeBorderLayout(isSelected: Bool) {
-
         if isSelected {
             profileImageView.layer.borderColor = UIColor.peekaRed.cgColor
             userNameLabel.font = .s1
