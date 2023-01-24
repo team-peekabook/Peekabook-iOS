@@ -1,9 +1,9 @@
-# Peekabook 
-친구의 책장을 구경하거나, 친구에게 책을 추천할 수 있는 책장 공유 서비스 📓
+# PEEK-A-BOOK
+친구의 책장을 구경하거나, 친구에게 책을 추천할 수 있는 책장 공유 서비스
 
 > 31st IN SOPT APP JAM <br>
 >
-> 프로젝트 기간 : 2022.12.11 ~ 2023.01.14
+> 프로젝트 기간 : 2022.12.11 ~ 진행중
 
 <br>
 
@@ -12,7 +12,7 @@
 <br>
 <br>
 
-##  Team-Peekabook iOS Developers
+## iOS Developers
 
 
 | 윤수빈 | 김인영 | 고두영 |
@@ -155,17 +155,9 @@
 
 <br>
 
-![최종1](https://user-images.githubusercontent.com/80062632/212297094-92ec794b-f8db-4c87-8b73-e3ad8836464f.png)
-
-![최종2](https://user-images.githubusercontent.com/80062632/212297106-bb14d5e8-dced-4aaf-ab18-d43a19acc855.png)
-
-![최종3](https://user-images.githubusercontent.com/80062632/212297116-a9e7d806-3f58-4ecc-a3e1-d0ad3092c58a.png)
-
-![최종4](https://user-images.githubusercontent.com/80062632/212297129-c6b8c84d-f6bf-436e-af68-71224fb306dd.png)
-
 ---
    
-> Team-Peekabook
+### TEAM PEEK-A-BOOK
    
 <img src="https://user-images.githubusercontent.com/80062632/210301655-95ec5d68-8255-447e-b9d7-96c4b7d79921.png" width="100px">
    
