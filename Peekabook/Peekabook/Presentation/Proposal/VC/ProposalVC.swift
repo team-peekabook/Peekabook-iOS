@@ -19,6 +19,8 @@ final class ProposalVC: UIViewController {
     var imageUrl: String = ""
     var personName: String = ""
     var personId: Int = 0
+    var bookTitle: String = ""
+    var author: String = ""
 
     // MARK: - UI Components
     
@@ -75,7 +77,7 @@ final class ProposalVC: UIViewController {
         
     private let lineView = UIView()
         
-    private var personNameLabel = UILabel().then {
+    var personNameLabel = UILabel().then {
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
@@ -123,7 +125,7 @@ extension ProposalVC {
         recommendHeaderView.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
         recommendView.backgroundColor = .clear
-        
+        personNameLabel.text = personName
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
@@ -244,12 +246,12 @@ extension ProposalVC {
         let popupViewController = ConfirmPopUpViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
         popupViewController.recommendDesc = recommendView.text
+        popupViewController.bookTitle = nameLabel.text!
         popupViewController.bookImage = imageUrl
         popupViewController.author = authorLabel.text!
         popupViewController.personId = personId
-        popupViewController.personNameLabel.text = personName
-        print(personName)
-        print(personId)
+        popupViewController.personName = personName
+        popupViewController.bookImage = imageUrl
         self.present(popupViewController, animated: false)
     }
     
@@ -282,7 +284,7 @@ extension ProposalVC {
     @objc
     private func keyBoardShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        guard let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue else { return }
         let keyboardRectangle = keyboardFrame.cgRectValue
         self.view.transform = CGAffineTransform(translationX: 0,
             y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))

@@ -9,7 +9,7 @@ import UIKit
 
 final class PickCVC: UICollectionViewCell {
     
-    // MARK: - Protocols
+    // MARK: - Properties
 
     private var bookId: Int = 0
     
@@ -60,13 +60,6 @@ final class PickCVC: UICollectionViewCell {
 // MARK: - Methods
 
 extension PickCVC {
-    
-    func initCell(model: SamplePickModel) {
-        countLabel.text = String(model.bookId)
-        bookImageView.image = model.image
-        bookNameLabel.text = model.name
-        titleLabel.text = model.title
-    }
     
     private func setUI() {
         self.clipsToBounds = true

@@ -16,7 +16,7 @@ final class MyPageVC: UIViewController {
     
     // MARK: - Properties
 
-    let myPageArray: [String] = [
+    private let myPageArray: [String] = [
         "알림 설정",
         "개인정보 보호 정책 & 서비스 이용 약관",
         "문의하기",
@@ -40,12 +40,11 @@ final class MyPageVC: UIViewController {
         $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
+        $0.isScrollEnabled = false
         $0.delegate = self
         $0.dataSource = self
     }
-    
-    
-    
+
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -117,7 +116,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as! MyPageHeaderView
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as? MyPageHeaderView else { return nil }
         return view
     }
     
@@ -125,5 +124,3 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         return 104
     }
 }
-
-// MARK: - Network

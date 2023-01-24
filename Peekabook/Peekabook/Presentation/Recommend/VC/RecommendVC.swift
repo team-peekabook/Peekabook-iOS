@@ -34,7 +34,7 @@ final class RecommendVC: UIViewController {
     
     private let headerView = UIView()
     private let logoImage = UIImageView().then {
-        $0.image = UIImage(named: "peekabook_logo")
+        $0.image = ImageLiterals.Image.logo
     }
     private let headerUnderlineView = UIView()
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
@@ -183,40 +183,21 @@ extension RecommendVC {
 }
 
 extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: RecommendCVC.className,
-            for: indexPath
-        ) as? RecommendCVC
-        else {
-            return UICollectionViewCell()
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCVC.className, for: indexPath) as? RecommendCVC else { return UICollectionViewCell() }
         cell.dataBind(menuLabel: recommendTypes[indexPath.item])
         return cell
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 30)
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             pageViewController.setViewControllers(
                 [recommendedVC],
@@ -236,47 +217,23 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
 }
 
 extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerBefore viewController: UIViewController
-    ) -> UIViewController? {
-        guard let index = dataViewControllers.firstIndex(of: viewController)
-        else {
-            return nil
-        }
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let previousIndex = index - 1
-        if previousIndex < 0 {
-            return nil
-        }
+        if previousIndex < 0 { return nil }
         return dataViewControllers[previousIndex]
     }
     
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        didFinishAnimating finished: Bool,
-        previousViewControllers: [UIViewController],
-        transitionCompleted completed: Bool
-    ) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let currentVC = pageViewController.viewControllers?.first,
-              let currentIndex = dataViewControllers.firstIndex(of: currentVC)
-        else {
-            return
-        }
+              let currentIndex = dataViewControllers.firstIndex(of: currentVC) else { return }
         currentPage = currentIndex
     }
     
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerAfter viewController: UIViewController
-    ) -> UIViewController? {
-        guard let index = dataViewControllers.firstIndex(of: viewController)
-        else {
-            return nil
-        }
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let nextIndex = index + 1
-        if nextIndex == dataViewControllers.count {
-            return nil
-        }
+        if nextIndex == dataViewControllers.count { return nil }
         return dataViewControllers[nextIndex]
     }
 }

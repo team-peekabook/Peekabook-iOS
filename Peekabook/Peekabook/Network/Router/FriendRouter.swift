@@ -48,11 +48,11 @@ extension FriendRouter: TargetType {
     var task: Moya.Task {
         switch self {
         case .getUser(let nickname):
-            return  .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
         case .postFollowing, .deleteFollowing:
             return .requestPlain
-        case .postProposalBook(let friendId, _):
-            return .requestParameters(parameters: ["friendId": friendId], encoding: URLEncoding.queryString)
+        case .postProposalBook(_, let param):
+            return .requestJSONEncodable(param)
         }
     }
     

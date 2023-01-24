@@ -15,20 +15,16 @@ import Moya
 final class EditMyPickVC: UIViewController {
     
     // MARK: - Properties
-    var pickCount: Int?
     
-    private var editPickModelList = SampleEditPickModel.data
-    private var serverPickLists: [PickAllResponse]?
-    
-    private var firstPick: Int = 0
-    private var secondPick: Int = 0
-    private var thirdPick: Int = 0
+    private var serverBookList: [PickAllResponse]?
 
     private var books: [EachBook] = []
-    private var pickAllResponse: [PickAllResponse] = []
-
-    private var selectedPickList: [Int] = []
-
+    private var pickedBooksList: [Int] = Array(repeating: -1, count: 3) {
+        didSet {
+            bookShelfCollectionView.reloadData()
+        }
+    }
+    
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
@@ -57,6 +53,7 @@ final class EditMyPickVC: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.bounces = false
+        collectionView.allowsMultipleSelection = true
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
@@ -85,26 +82,15 @@ final class EditMyPickVC: UIViewController {
     
     @objc
     private func completeButtonDidTap() {
-        
-        if selectedPickList.isEmpty {
-            firstPick = 0
-            secondPick = 0
-            thirdPick = 0
-        } else if selectedPickList.count == 1 {
-            firstPick = pickAllResponse[selectedPickList[0]].id
-            secondPick = 0
-            thirdPick = 0
-        } else if selectedPickList.count == 2 {
-            firstPick = pickAllResponse[selectedPickList[0]].id
-            secondPick = pickAllResponse[selectedPickList[1]].id
-            thirdPick = 0
-        } else {
-            firstPick = pickAllResponse[selectedPickList[0]].id
-            secondPick = pickAllResponse[selectedPickList[1]].id
-            thirdPick = pickAllResponse[selectedPickList[2]].id
+        guard let serverBookList = serverBookList else { return }
+        var selectedBookIdList = pickedBooksList.map { index in
+            serverBookList[index].id
         }
-    
-        patchPickList(param: EditPickRequest(firstPick: firstPick, secondPick: secondPick, thirdPick: thirdPick))
+        let paddingCount = 3 - selectedBookIdList.count
+        selectedBookIdList.append(contentsOf: Array(repeating: 0, count: paddingCount))
+        patchPickList(param: EditPickRequest(firstPick: selectedBookIdList[0],
+                                             secondPick: selectedBookIdList[1],
+                                             thirdPick: selectedBookIdList[2]))
     }
 }
 
@@ -172,43 +158,25 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditPickCVC.className, for: indexPath)
                 as? EditPickCVC else { return UICollectionViewCell() }
-        cell.setData(model: books[indexPath.row], pickIndex: serverPickLists?[indexPath.row].pickIndex ?? 0)
-        cell.initialLayout(model: editPickModelList[indexPath.row])
+        var pickIndex = -1
+        if let selectedBookIndex = pickedBooksList.firstIndex(of: indexPath.item) {
+            pickIndex = selectedBookIndex
+        }
+        cell.setData(model: books[indexPath.row], pickIndex: pickIndex)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let cell = collectionView.cellForItem(at: indexPath) as? EditPickCVC
-        
-        if selectedPickList.count < 3 {
-            
-            if selectedPickList.contains(indexPath.row) {
-                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
-                selectedPickList.remove(at: index)
-                cell?.deselectedLayout()
-                selectedPickList.forEach {
-                    let cell = collectionView.cellForItem(at: [0, $0]) as? EditPickCVC
-                    guard let newIndex = selectedPickList.firstIndex(of: $0) else { return }
-                    cell?.plusCountLabel(index: newIndex)
-                }
-            } else {
-                selectedPickList.append(indexPath.row)
-                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
-                cell?.selectedLayout(index: index)
-            }
-        } else {
-            if selectedPickList.contains(indexPath.row) {
-                guard let index = selectedPickList.firstIndex(of: indexPath.row) else { return }
-                selectedPickList.remove(at: index)
-                cell?.deselectedLayout()
-                selectedPickList.forEach {
-                    let cell = collectionView.cellForItem(at: [0, $0]) as? EditPickCVC
-                    guard let newIndex = selectedPickList.firstIndex(of: $0) else { return }
-                    cell?.plusCountLabel(index: newIndex)
-                }
-            }
+        guard collectionView.cellForItem(at: indexPath) as? EditPickCVC != nil else { return }
+                
+        if let selectedBookIndex = pickedBooksList.firstIndex(of: indexPath.item) {
+            pickedBooksList.remove(at: selectedBookIndex)
+            return
         }
+        guard pickedBooksList.count < 3 else { return }
+        
+        pickedBooksList.append(indexPath.item)
     }
 }
 
@@ -235,36 +203,28 @@ extension EditMyPickVC: UICollectionViewDelegateFlowLayout {
 extension EditMyPickVC {
     func getAllPicks() {
         PickAPI.shared.getAllPicks { response in
-            self.serverPickLists = response?.data
-            
             guard let response = response, let data = response.data else { return }
+            self.serverBookList = response.data
+
+            var count = 0
             
-            guard let pickCount = self.pickCount else { return }
-            
-            var temp = [Int](repeating: 0, count: pickCount)
             for i in 0..<data.count {
-                self.pickAllResponse.append(data[i])
                 self.books.append(data[i].book)
                 if data[i].pickIndex != 0 {
-                    temp[data[i].pickIndex - 1] = i
+                    count += 1
+                    self.pickedBooksList[data[i].pickIndex - 1] = i
                 }
             }
-            self.selectedPickList = temp
-            
-            print(self.pickAllResponse)
-        
-            self.bookShelfCollectionView.reloadData()
+            self.pickedBooksList = Array(self.pickedBooksList[0..<count])
         }
     }
     
     func patchPickList(param: EditPickRequest) {
         PickAPI.shared.patchPickList(param: param) { response in
             if response?.success == true {
-                print("edit pick success")
                 self.navigationController?.popViewController(animated: true)
             } else {
-                print("edit pick fail")
-                // 실패 토스트 띄우기
+                self.showToast(message: I18N.Alert.networkError)
             }
         }
     }

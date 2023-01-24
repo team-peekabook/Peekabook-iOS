@@ -46,10 +46,6 @@ final class EditPickCVC: UICollectionViewCell {
 // MARK: - Methods
 
 extension EditPickCVC {
-    func initCell(model: SampleEditPickModel) {
-        bookImageView.image = model.bookImage
-        countLabel.text = String(model.countLabel)
-    }
     
     private func setUI() {
         bookImageView.layer.applyShadow(color: .black, alpha: 0.25, x: 1, y: 1, blur: 4, spread: 0)
@@ -79,20 +75,15 @@ extension EditPickCVC {
         }
     }
     
-    func initialLayout(model: SampleEditPickModel) {
-        if countLabel.text != "0" {
-            bookImageView.layer.opacity = 0.4
-            countLabel.isHidden = false
-        } else {
-            bookImageView.layer.opacity = 1
-            countLabel.isHidden = true
-        }
-    }
-    
     func setData(model: EachBook, pickIndex: Int) {
         bookImageView.kf.indicatorType = .activity
         bookImageView.kf.setImage(with: URL(string: model.bookImage))
         countLabel.text = String(pickIndex)
+        if pickIndex != -1 {
+            selectedLayout(index: pickIndex)
+        } else {
+            deselectedLayout()
+        }
     }
     
     func plusCountLabel(index: Int) {

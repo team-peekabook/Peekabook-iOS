@@ -58,7 +58,7 @@ final class AddBookVC: UIViewController {
         $0.textAlignment = .center
         $0.font = .h3
         $0.textColor = .peekaRed
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.lineBreakMode = .byWordWrapping
     }
     
@@ -294,12 +294,11 @@ extension AddBookVC {
     }
     
     @objc private func backButtonDidTap() {
-        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func checkButtonDidTap() {
-        guard let bookImage = self.bookImgView.image,
-              let bookTitle = self.nameLabel.text,
+        guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
               let description = self.commentView.text,
               let memo = self.memoView.text else { return }
@@ -338,19 +337,15 @@ extension AddBookVC {
         containerView.scrollIndicatorInsets = contentInset
         
         if commentView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = commentBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = memoBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -377,11 +372,9 @@ extension AddBookVC: UITextViewDelegate {
         if textView.text == I18N.BookDetail.comment {
             textView.text = nil
             textView.textColor = .peekaRed
-//            focus = 1
         } else if textView.text == I18N.BookDetail.memo {
             textView.text = nil
             textView.textColor = .peekaRed
-//            focus = 2
         }
     }
     
@@ -423,26 +416,6 @@ extension AddBookVC {
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
-        }
-    }
-}
-
-extension AddBookVC {
-    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        if animated {
-            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                let oldState: Bool = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(false)
-                window.rootViewController = rootViewController
-                UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> Void in
-                if completion != nil {
-                    completion!()
-                }
-            })
-        } else {
-            window.rootViewController = rootViewController
         }
     }
 }

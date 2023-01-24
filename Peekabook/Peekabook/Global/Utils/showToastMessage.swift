@@ -19,9 +19,9 @@ final class Toast {
         let toastContainer = UIView()
         let toastLabel = UILabel()
         
-        toastContainer.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        toastContainer.backgroundColor = UIColor.peekaGray2.withAlphaComponent(0.8)
         toastContainer.alpha = 1
-        toastContainer.layer.cornerRadius = 5
+        toastContainer.layer.cornerRadius = 10
         toastContainer.clipsToBounds = true
         toastContainer.isUserInteractionEnabled = false
         
@@ -37,7 +37,8 @@ final class Toast {
         controller.view.addSubview(toastContainer)
         
         toastContainer.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(120)
             $0.width.equalTo(toastLabel.frame.width + 20)
             $0.height.equalTo(toastLabel.frame.height + 20)
         }

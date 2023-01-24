@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class RecommendCVC: UICollectionViewCell {
+final class RecommendCVC: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {

@@ -21,10 +21,6 @@ final class EditBookVC: UIViewController {
     var descriptions: String = ""
     var memo: String = ""
     
-//    var bookImage: String = ""
-//    var titleName: String = ""
-//    var authorName: String = ""
-
     // MARK: - UI Components
     
     private let headerView = UIView()
@@ -127,7 +123,6 @@ final class EditBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.registerForKeyboardNotification()
         commentView.text = descriptions
         memoView.text = memo
     }
@@ -337,19 +332,15 @@ extension EditBookVC {
         containerView.scrollIndicatorInsets = contentInset
         
         if commentView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = commentBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 5)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
-            let contentViewHeight = containerView.contentSize.height
             let textViewHeight = memoBoxView.frame.height
-            let textViewOffsetY = UIScreen.main.bounds.height - (contentInset.bottom + textViewHeight)
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -413,26 +404,6 @@ extension EditBookVC {
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             memoView.text = I18N.BookDetail.memoHint
             memoView.textColor = .peekaGray1
-        }
-    }
-}
-
-extension EditBookVC {
-    func switchRootViewController(rootViewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        if animated {
-            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                let oldState: Bool = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(false)
-                window.rootViewController = rootViewController
-                UIView.setAnimationsEnabled(oldState)
-            }, completion: { (finished: Bool) -> Void in
-                if completion != nil {
-                    completion!()
-                }
-            })
-        } else {
-            window.rootViewController = rootViewController
         }
     }
 }

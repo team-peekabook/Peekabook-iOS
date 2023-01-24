@@ -46,9 +46,11 @@ final class BookShelfVC: UIViewController {
             if selectedUserIndex == nil {
                 getMyBookShelfInfo()
                 bookShelfType = .user
+                bottomShelfVC.bookShelfType = .user
             } else {
                 getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
                 bookShelfType = .friend
+                bottomShelfVC.bookShelfType = .friend
             }
         }
     }
@@ -200,7 +202,6 @@ final class BookShelfVC: UIViewController {
         case .user:
             let editPickVC = EditMyPickVC()
             editPickVC.hidesBottomBarWhenPushed = true
-            editPickVC.pickCount = picks.count
             navigationController?.pushViewController(editPickVC, animated: true)
         case .friend:
             let bookSearchVC = BookSearchVC()
@@ -212,7 +213,6 @@ final class BookShelfVC: UIViewController {
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)
         }
-        
     }
     
     @objc private func myProfileViewDidTap() {
@@ -321,6 +321,7 @@ extension BookShelfVC {
         myNameLabel.snp.makeConstraints { make in
             make.top.equalTo(myProfileImageView.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(50)
         }
         
         verticalLine.snp.makeConstraints { make in
@@ -404,16 +405,13 @@ extension BookShelfVC {
     
     private func addBottomSheetView(scrollable: Bool? = true) {
         self.view.addSubview(bottomShelfVC.view)
-        
         self.addChild(bottomShelfVC)
-        
         bottomShelfVC.didMove(toParent: self)
         
         let height = view.frame.height
         let width = view.frame.width
         
         bottomShelfVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        
     }
     
     private func setDelegate() {
@@ -462,9 +460,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == friendsCollectionView {
             return friends.count
-        }
-        
-        if collectionView == pickCollectionView {
+        } else if collectionView == pickCollectionView {
             return picks.count
         }
         return 0
@@ -482,7 +478,6 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             } else {
                 cell.changeBorderLayout(isSelected: false)
             }
-            
             return cell
         }
         
@@ -528,20 +523,16 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == friendsCollectionView {
             return CGSize(width: 60, height: 84)
-        }
-        
-        if collectionView == pickCollectionView {
+        } else if collectionView == pickCollectionView {
             return CGSize(width: 145, height: 250)
         }
-        
         return CGSize(width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if collectionView == friendsCollectionView {
             return -5
-        }
-        if collectionView == pickCollectionView {
+        } else if collectionView == pickCollectionView {
             return 16
         }
         return 0
@@ -570,6 +561,9 @@ extension BookShelfVC {
             self.setEmptyView(description: I18N.BookShelf.emptyPickViewDescription)
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
+            UserDefaults.standard.setValue(data.myIntro.nickname, forKey: "userNickname")
+            UserDefaults.standard.setValue(data.myIntro.intro, forKey: "userIntro")
+            UserDefaults.standard.setValue(data.myIntro.profileImage, forKey: "userProfileImage")
             self.friendsCollectionView.reloadData()
             self.pickCollectionView.reloadData()
         }
