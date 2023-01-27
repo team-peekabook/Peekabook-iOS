@@ -15,8 +15,8 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
     
     private let containerView = UIView()
     
-    private let topThinUnderLineView = UIView()
-    private let topBoldUnderLineView = UIView()
+    private let headerLineview = DoubleHeaderLineView()
+    private let bottomLineview = DoubleBottomLineView()
     
     private let profileImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -36,8 +36,6 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
         $0.numberOfLines = 2
         $0.textColor = .peekaRed
     }
-    private let bottomThinUnderLineView = UIView()
-    private let bottomBoldUnderLineView = UIView()
     
     // MARK: - LifeCycle
     
@@ -54,10 +52,6 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
 extension MyPageHeaderView {
     private func setLayout() {
         containerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        topThinUnderLineView.backgroundColor = .peekaRed
-        topBoldUnderLineView.backgroundColor = .peekaRed
-        bottomThinUnderLineView.backgroundColor = .peekaRed
-        bottomBoldUnderLineView.backgroundColor = .peekaRed
         
         profileImageView.kf.indicatorType = .activity
         profileImageView.kf.setImage(with: URL(string: UserDefaults.standard.string(forKey: "userProfileImage") ?? ""))
@@ -70,18 +64,12 @@ extension MyPageHeaderView {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
-        containerView.addSubviews(topBoldUnderLineView, topThinUnderLineView, bottomBoldUnderLineView, bottomThinUnderLineView, profileImageView, nameLabel, editButton, introLabel)
+        containerView.addSubviews(headerLineview, bottomLineview, profileImageView, nameLabel, editButton, introLabel)
         
-        topBoldUnderLineView.snp.makeConstraints { make in
+        headerLineview.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(2)
-        }
-        
-        topThinUnderLineView.snp.makeConstraints { make in
-            make.top.equalTo(topBoldUnderLineView.snp.bottom).offset(1.5)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(4)
         }
         
         profileImageView.snp.makeConstraints { make in
@@ -96,7 +84,7 @@ extension MyPageHeaderView {
         }
         
         editButton.snp.makeConstraints { make in
-            make.top.equalTo(topThinUnderLineView).offset(3.5)
+            make.top.equalTo(headerLineview.snp.bottom).offset(3.5)
             make.trailing.equalToSuperview()
             make.height.width.equalTo(48)
         }
@@ -107,16 +95,10 @@ extension MyPageHeaderView {
             make.trailing.equalToSuperview().inset(10)
         }
         
-        bottomThinUnderLineView.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(14)
+        bottomLineview.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        
-        bottomBoldUnderLineView.snp.makeConstraints { make in
-            make.top.equalTo(bottomThinUnderLineView.snp.bottom).offset(1.5)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(2)
+            make.height.equalTo(4)
+            make.bottom.equalToSuperview()
         }
     }
 }
