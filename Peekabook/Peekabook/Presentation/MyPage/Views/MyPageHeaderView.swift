@@ -29,7 +29,7 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
         $0.textColor = .peekaRed
     }
     private let editButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.edit, for: .normal)
+        $0.setImage(ImageLiterals.Icn.profileEdit, for: .normal)
     }
     private let introLabel = UILabel().then {
         $0.font = .s3
@@ -84,8 +84,8 @@ extension MyPageHeaderView {
         }
         
         editButton.snp.makeConstraints { make in
-            make.top.equalTo(headerLineview.snp.bottom).offset(3.5)
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(nameLabel.snp.trailing).offset(-12)
+            make.centerY.equalTo(nameLabel)
             make.height.width.equalTo(48)
         }
         
