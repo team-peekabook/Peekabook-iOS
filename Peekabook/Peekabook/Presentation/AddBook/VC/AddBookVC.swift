@@ -77,7 +77,7 @@ final class AddBookVC: UIViewController {
     }
     
     private var commentView = UITextView().then {
-        $0.text = I18N.BookDetail.comment
+        $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -103,7 +103,7 @@ final class AddBookVC: UIViewController {
     private var memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.memo
+        $0.text = I18N.BookDetail.memoHint
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
@@ -369,10 +369,10 @@ extension AddBookVC {
 
 extension AddBookVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.comment {
+        if textView.text == I18N.BookDetail.commentHint {
             textView.text = nil
             textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memo {
+        } else if textView.text == I18N.BookDetail.memoHint {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -380,10 +380,10 @@ extension AddBookVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.comment
+            commentView.text = I18N.BookDetail.commentHint
             commentView.textColor = .peekaGray1
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memo
+            memoView.text = I18N.BookDetail.memoHint
             memoView.textColor = .peekaGray1
         }
         
