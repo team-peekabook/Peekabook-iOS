@@ -82,7 +82,7 @@ final class EditBookVC: UIViewController {
     }
     
     lazy var commentMaxLabel = UILabel().then {
-        $0.text = "0/200"
+        $0.text = "\(descriptions.count)/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -106,7 +106,7 @@ final class EditBookVC: UIViewController {
     }
     
     lazy var memoMaxLabel = UILabel().then {
-        $0.text = "0/50"
+        $0.text = "\(memo.count)/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -376,10 +376,10 @@ extension EditBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.commentHint {
+        if textView.text == I18N.BookDetail.emptyComment {
             textView.text = nil
             textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memoHint {
+        } else if textView.text == I18N.BookDetail.emptyMemo {
             textView.text = nil
             textView.textColor = .peekaRed
         }

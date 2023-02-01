@@ -119,7 +119,6 @@ final class BookDetailVC: UIViewController {
         editVC.descriptions = commentTextView.text
         editVC.memo = memoTextView.text
         editVC.bookIndex = selectedBookIndex
-        
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
     }
@@ -270,16 +269,16 @@ extension BookDetailVC {
     }
     
     private func setEmptyView() {
-        if commentTextView.text.isEmpty == true {
+        if (commentTextView.text == I18N.BookDetail.commentHint) || (commentTextView.text == I18N.BookDetail.emptyComment) {
             commentTextView.textColor = .peekaGray2
             commentTextView.text = I18N.BookDetail.emptyComment
         } else {
             commentTextView.textColor = .peekaRed
         }
-        
-        if memoTextView.text.isEmpty == true {
+            
+        if (memoTextView.text == I18N.BookDetail.memoHint) || (memoTextView.text == I18N.BookDetail.emptyMemo) {
             memoTextView.textColor = .peekaGray2
-            memoTextView.text = I18N.BookDetail.emptyComment
+            memoTextView.text = I18N.BookDetail.emptyMemo
         } else {
             memoTextView.textColor = .peekaRed
         }
