@@ -352,7 +352,6 @@ extension AddBookVC {
             containerView.setContentOffset(position, animated: true)
             return
         }
-        
     }
     
     @objc private func keyboardWillHide() {

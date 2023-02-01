@@ -52,14 +52,15 @@ final class ProposalVC: UIViewController {
     private var nameLabel = UILabel().then {
         $0.font = .h3
         $0.textAlignment = .center
-        $0.numberOfLines = 0
-        $0.lineBreakMode = .byWordWrapping
+        $0.numberOfLines = 2
+        $0.lineBreakMode = .byTruncatingTail
         $0.textColor = .peekaRed
     }
     
     private var authorLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .peekaRed
+        $0.textAlignment = .center
     }
     
     private let recommendBoxView = UIView().then {
@@ -184,6 +185,7 @@ extension ProposalVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(310)
         }
         
         recommendBoxView.snp.makeConstraints { make in
@@ -243,7 +245,7 @@ extension ProposalVC {
     }
     
     @objc private func checkButtonDidTap() {
-        let popupViewController = ConfirmPopUpViewController()
+        let popupViewController = ConfirmPopUpVC()
         popupViewController.modalPresentationStyle = .overFullScreen
         popupViewController.recommendDesc = recommendView.text
         popupViewController.bookTitle = nameLabel.text!
@@ -273,7 +275,7 @@ extension ProposalVC {
     
     func dataBind(model: BookInfoModel) {
         nameLabel.text = model.title
-        authorLabel.text = model.author
+        authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imageUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imageUrl)!)
