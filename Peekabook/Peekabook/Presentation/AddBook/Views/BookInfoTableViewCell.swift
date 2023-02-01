@@ -39,14 +39,15 @@ final class BookInfoTableViewCell: UITableViewCell {
     private let addContainerView = UIView()
     private let bookTitleLabel = UILabel().then {
         $0.numberOfLines = 2
-        $0.lineBreakMode = .byWordWrapping
         $0.font = UIFont.font(.notoSansBold, ofSize: 15)
         $0.textColor = .peekaRed
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     private let authorLabel = UILabel().then {
         $0.font = .s1
         $0.textColor = .peekaRed
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     private let addLabel = UILabel().then {
@@ -128,6 +129,7 @@ extension BookInfoTableViewCell {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(bookTitleLabel.snp.bottom)
             make.leading.equalTo(bookTitleLabel)
+            make.width.equalTo(199)
         }
         
         addContainerView.snp.makeConstraints { make in
@@ -154,7 +156,7 @@ extension BookInfoTableViewCell {
     
     func dataBind(model: BookInfoModel) {
         bookTitleLabel.text = model.title
-        authorLabel.text = model.author
+        authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         let url = URL(string: model.image)!
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: url)

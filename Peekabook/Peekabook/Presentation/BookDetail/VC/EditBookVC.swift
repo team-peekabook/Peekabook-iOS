@@ -241,8 +241,7 @@ extension EditBookVC {
         
         commentView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(300)
+            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -269,8 +268,7 @@ extension EditBookVC {
         
         memoView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(70)
+            make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
@@ -333,14 +331,14 @@ extension EditBookVC {
         
         if commentView.isFirstResponder {
             let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
             let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }

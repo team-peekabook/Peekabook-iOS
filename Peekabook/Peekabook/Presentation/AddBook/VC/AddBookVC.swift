@@ -59,12 +59,14 @@ final class AddBookVC: UIViewController {
         $0.font = .h3
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
-        $0.lineBreakMode = .byWordWrapping
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     private var authorLabel = UILabel().then {
         $0.font = .h2
+        $0.textAlignment = .center
         $0.textColor = .peekaRed
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     private let commentBoxView = UIView()
@@ -222,6 +224,7 @@ extension AddBookVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(316)
         }
         
         commentBoxView.snp.makeConstraints { make in
@@ -338,14 +341,14 @@ extension AddBookVC {
         
         if commentView.isFirstResponder {
             let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
             let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -360,7 +363,7 @@ extension AddBookVC {
     
     func dataBind(model: BookInfoModel) {
         nameLabel.text = model.title
-        authorLabel.text = model.author
+        authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imgaeUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
