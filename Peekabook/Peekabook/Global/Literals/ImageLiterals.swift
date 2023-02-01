@@ -38,6 +38,7 @@ struct ImageLiterals {
         static let empty = UIImage(named: "icn_emptyView")
         static let pick = UIImage(named: "icn_pick")
         static let newPick = UIImage(named: "icn_newPick")
+        static let profileEdit = UIImage(named: "icn_profileEdit")
     }
     
     struct Sample {
