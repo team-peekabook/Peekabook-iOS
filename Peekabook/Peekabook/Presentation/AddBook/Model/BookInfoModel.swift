@@ -7,8 +7,8 @@
 
 import UIKit
 
-struct BookInfoModel {
-    var image: String
-    var title: String
-    var author: String
-}
+//struct BookInfoModel {
+//    var image: String
+//    var title: String
+//    var author: String
+//}
