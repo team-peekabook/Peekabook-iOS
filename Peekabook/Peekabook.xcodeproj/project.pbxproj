@@ -115,15 +115,14 @@
 		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
 		985C529829684C3000994ED6 /* BookInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
-		986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */; };
+		986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */; };
 		98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */; };
 		98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */; };
-		98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */; };
+		98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeVC.swift */; };
 		98A04202296515ED00081B8E /* ConfirmPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
-		98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042142966C8C700081B8E /* BookInfoModel.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
 /* End PBXBuildFile section */
 
@@ -238,14 +237,13 @@
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		985C529729684C3000994ED6 /* BookInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTableViewCell.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
-		986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpViewController.swift; sourceTree = "<group>"; };
+		986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpVC.swift; sourceTree = "<group>"; };
 		98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchResponse.swift; sourceTree = "<group>"; };
 		98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBookDetailResponse.swift; sourceTree = "<group>"; };
-		98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeViewController.swift; sourceTree = "<group>"; };
+		98A00B9A2968213E002A5A23 /* BarcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeVC.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ConfirmPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpViewController.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
-		98A042142966C8C700081B8E /* BookInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoModel.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,14 +263,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		146479282968218200370042 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				98A042142966C8C700081B8E /* BookInfoModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		14B3544D296B08B800998925 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,7 +683,6 @@
 		8E81F3FC29608AAB001815B4 /* AddBook */ = {
 			isa = PBXGroup;
 			children = (
-				146479282968218200370042 /* Model */,
 				8EB0A51A297F6EAF00E2C127 /* Views */,
 				8E81F40A29608B49001815B4 /* VC */,
 			);
@@ -739,8 +728,8 @@
 			children = (
 				8E81F40C29608B66001815B4 /* AddBookVC.swift */,
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
-				98A00B9A2968213E002A5A23 /* BarcodeViewController.swift */,
-				986F5423296BBD92002EDD46 /* ErrorPopUpViewController.swift */,
+				98A00B9A2968213E002A5A23 /* BarcodeVC.swift */,
+				986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -961,7 +950,7 @@
 				14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
-				986F5424296BBD92002EDD46 /* ErrorPopUpViewController.swift in Sources */,
+				986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
 				98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */,
 				8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */,
@@ -999,7 +988,6 @@
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				14B354482968897C00998925 /* NotificationModel.swift in Sources */,
-				98A042152966C8C700081B8E /* BookInfoModel.swift in Sources */,
 				8E097202296C83C0007731E3 /* Config.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
@@ -1033,7 +1021,7 @@
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
-				98A00B9B2968213E002A5A23 /* BarcodeViewController.swift in Sources */,
+				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,

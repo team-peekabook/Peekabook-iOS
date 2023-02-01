@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class ErrorPopUpViewController: UIViewController {
+final class ErrorPopUpVC: UIViewController {
     
     // MARK: - Properties
 
@@ -50,7 +50,7 @@ final class ErrorPopUpViewController: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension ErrorPopUpViewController {
+extension ErrorPopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
@@ -90,7 +90,7 @@ extension ErrorPopUpViewController {
 
 // MARK: - Methods
 
-extension ErrorPopUpViewController {
+extension ErrorPopUpVC {
     @objc private func textSearchButtonDidTap() {
         let bookSearchVC = BookSearchVC()
         bookSearchVC.modalPresentationStyle = .fullScreen

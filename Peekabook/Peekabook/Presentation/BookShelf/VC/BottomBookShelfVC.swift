@@ -74,7 +74,7 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - @objc Function
     @objc
     private func addBookButtonDidTap() {
-        let barcodeVC = BarcodeViewController()
+        let barcodeVC = BarcodeVC()
         barcodeVC.modalPresentationStyle = .fullScreen
         self.present(barcodeVC, animated: true, completion: nil)
     }
