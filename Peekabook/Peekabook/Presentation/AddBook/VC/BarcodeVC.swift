@@ -11,7 +11,7 @@ import BarcodeScanner
 import SnapKit
 import Then
 
-final class BarcodeViewController: BarcodeScannerViewController {
+final class BarcodeVC: BarcodeScannerViewController {
     
     var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
@@ -42,7 +42,7 @@ final class BarcodeViewController: BarcodeScannerViewController {
     }
 }
 
-extension BarcodeViewController {
+extension BarcodeVC {
     private func setUI() {
         view.backgroundColor = .peekaBeige
 
@@ -99,7 +99,7 @@ extension BarcodeViewController {
     }
 }
 
-extension BarcodeViewController {
+extension BarcodeVC {
     private func setDelegate() {
         dismissalDelegate = self
         codeDelegate = self
@@ -113,19 +113,19 @@ extension BarcodeViewController {
     }
     
     func showErrorPopUp() {
-        let errorPopUpVC = ErrorPopUpViewController()
+        let errorPopUpVC = ErrorPopUpVC()
         errorPopUpVC.modalPresentationStyle = .overFullScreen
         self.present(errorPopUpVC, animated: false)
     }
 }
 
-extension BarcodeViewController: BarcodeScannerCodeDelegate {
+extension BarcodeVC: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
         print("Barcode Data: \(code)")
         print("Symbology Type: \(type)")
 
         if type != "org.gs1.EAN-13" {
-            let errorPopUpVC = ErrorPopUpViewController()
+            let errorPopUpVC = ErrorPopUpVC()
             errorPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(errorPopUpVC, animated: false)
         }
@@ -135,13 +135,13 @@ extension BarcodeViewController: BarcodeScannerCodeDelegate {
     }
 }
 
-extension BarcodeViewController: BarcodeScannerDismissalDelegate {
+extension BarcodeVC: BarcodeScannerDismissalDelegate {
     func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
 
-extension BarcodeViewController: BarcodeScannerErrorDelegate {
+extension BarcodeVC: BarcodeScannerErrorDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
         print(error)
     }

@@ -30,7 +30,7 @@ final class BookSearchVC: UIViewController {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
     }
     
-    private var headerTitleLabel = UILabel().then {
+    private let headerTitleLabel = UILabel().then {
         $0.text = I18N.BookSearch.title
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -43,7 +43,7 @@ final class BookSearchVC: UIViewController {
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var searchField = UITextField().then {
+    private let searchField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.backgroundColor = .white.withAlphaComponent(0.4)
@@ -67,7 +67,7 @@ final class BookSearchVC: UIViewController {
     
     // emptyView elements
     
-    let emptyView = UIView()
+    private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
     }

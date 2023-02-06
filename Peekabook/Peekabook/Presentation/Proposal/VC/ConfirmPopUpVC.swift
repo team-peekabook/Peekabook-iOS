@@ -1,5 +1,5 @@
 //
-//  ConfirmPopUpViewController.swift
+//  ConfirmPopUpVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/01/04.
@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class ConfirmPopUpViewController: UIViewController {
+final class ConfirmPopUpVC: UIViewController {
     
     // MARK: - Properties
     var recommendDesc: String? = ""
@@ -25,12 +25,12 @@ final class ConfirmPopUpViewController: UIViewController {
     // MARK: - UI Components
     private let popUpView = UIView()
     
-    var personNameLabel = UILabel().then {
+    private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
     }
     
-    private lazy var confirmLabel = UILabel().then {
+    private let confirmLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
@@ -63,7 +63,7 @@ final class ConfirmPopUpViewController: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension ConfirmPopUpViewController {
+extension ConfirmPopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
@@ -105,7 +105,7 @@ extension ConfirmPopUpViewController {
 
 // MARK: - Methods
 
-extension ConfirmPopUpViewController {
+extension ConfirmPopUpVC {
     @objc private func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
@@ -120,7 +120,7 @@ extension ConfirmPopUpViewController {
 
 // MARK: - Network
 
-extension ConfirmPopUpViewController {
+extension ConfirmPopUpVC {
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
         FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
             if response?.success == true {

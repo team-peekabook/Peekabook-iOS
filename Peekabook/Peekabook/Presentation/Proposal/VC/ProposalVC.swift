@@ -43,23 +43,28 @@ final class ProposalVC: UIViewController {
         $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFit
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var nameLabel = UILabel().then {
+    private let nameLabel = UILabel().then {
         $0.font = .h3
         $0.textAlignment = .center
-        $0.numberOfLines = 0
-        $0.lineBreakMode = .byWordWrapping
+        $0.numberOfLines = 2
+        $0.lineBreakMode = .byTruncatingTail
         $0.textColor = .peekaRed
     }
     
-    private var authorLabel = UILabel().then {
+    private let authorLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .peekaRed
+        $0.textAlignment = .center
     }
     
     private let recommendBoxView = UIView().then {
@@ -77,7 +82,7 @@ final class ProposalVC: UIViewController {
         
     private let lineView = UIView()
         
-    var personNameLabel = UILabel().then {
+    private let personNameLabel = UILabel().then {
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
@@ -104,14 +109,11 @@ final class ProposalVC: UIViewController {
         setLayout()
         setDelegate()
         addTapGesture()
+        addKeyboardObserver()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.registerForKeyboardNotification()
-        }
-    
     deinit {
-        self.removeRegisterForKeyboardNotification()
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -121,6 +123,7 @@ extension ProposalVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
+        containerView.backgroundColor = .clear
         recommendBoxView.backgroundColor = .white
         recommendHeaderView.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
@@ -130,14 +133,16 @@ extension ProposalVC {
     }
     
     private func setLayout() {
-        view.addSubview(headerView)
+        [containerView, headerView].forEach {
+            view.addSubview($0)
+        }
         
         [backButton, headerTitle, checkButton].forEach {
             headerView.addSubview($0)
         }
         
         [bookImgView, nameLabel, authorLabel, recommendBoxView, recommendMaxLabel].forEach {
-            view.addSubview($0)
+            containerView.addSubview($0)
         }
         
         [recommendHeaderView, recommendView].forEach {
@@ -146,6 +151,11 @@ extension ProposalVC {
         
         [recommendLabel, lineView, personNameLabel].forEach {
             recommendHeaderView.addSubview($0)
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         headerView.snp.makeConstraints { make in
@@ -169,7 +179,7 @@ extension ProposalVC {
         }
         
         bookImgView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(160)
@@ -184,6 +194,7 @@ extension ProposalVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(310)
         }
         
         recommendBoxView.snp.makeConstraints { make in
@@ -227,6 +238,7 @@ extension ProposalVC {
         recommendMaxLabel.snp.makeConstraints { make in
             make.top.equalTo(recommendBoxView.snp.bottom).offset(8)
             make.trailing.equalTo(recommendBoxView.snp.trailing)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -243,7 +255,7 @@ extension ProposalVC {
     }
     
     @objc private func checkButtonDidTap() {
-        let popupViewController = ConfirmPopUpViewController()
+        let popupViewController = ConfirmPopUpVC()
         popupViewController.modalPresentationStyle = .overFullScreen
         popupViewController.recommendDesc = recommendView.text
         popupViewController.bookTitle = nameLabel.text!
@@ -255,25 +267,22 @@ extension ProposalVC {
         self.present(popupViewController, animated: false)
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyBoardShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardHide),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
-    private func removeRegisterForKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,
-            name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
     
     func dataBind(model: BookInfoModel) {
         nameLabel.text = model.title
-        authorLabel.text = model.author
+        authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imageUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imageUrl)!)
@@ -282,17 +291,29 @@ extension ProposalVC {
     // MARK: - @objc Function
     
     @objc
-    private func keyBoardShow(notification: NSNotification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        guard let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue else { return }
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        self.view.transform = CGAffineTransform(translationX: 0,
-            y: (self.view.frame.height - keyboardRectangle.height - recommendBoxView.frame.maxY - 36))
+    private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        let textViewHeight = recommendBoxView.frame.height
+        let position = CGPoint(x: 0, y: recommendBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+        containerView.setContentOffset(position, animated: true)
     }
-
-    @objc
-    private func keyboardHide(notification: NSNotification) {
-        self.view.transform = .identity
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
     }
 }
 

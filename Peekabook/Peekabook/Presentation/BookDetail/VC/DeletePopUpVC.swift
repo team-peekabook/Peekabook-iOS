@@ -21,7 +21,7 @@ final class DeletePopUpVC: UIViewController {
     // MARK: - UI Components
     private let popUpView = UIView()
     
-    private lazy var confirmLabel = UILabel().then {
+    private let confirmLabel = UILabel().then {
         $0.text = I18N.BookDelete.popUpComment
         $0.font = .h4
         $0.textColor = .peekaRed

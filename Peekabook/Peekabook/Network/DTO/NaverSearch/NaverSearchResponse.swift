@@ -32,3 +32,9 @@ struct Item: Codable {
     let author, discount, publisher, pubdate: String
     let isbn, description: String
 }
+
+struct BookInfoModel {
+    var image: String
+    var title: String
+    var author: String
+}

@@ -43,20 +43,21 @@ final class BookDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
     
-    private var bookImageView = UIImageView().then {
+    private lazy var bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var bookNameLabel = UILabel().then {
+    private lazy var bookNameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
+        $0.lineBreakMode = .byTruncatingTail
     }
     
-    private var bookAuthorLabel = UILabel().then {
+    private lazy var bookAuthorLabel = UILabel().then {
         $0.font = .h2
         $0.textAlignment = .center
         $0.textColor = .peekaRed
@@ -82,7 +83,7 @@ final class BookDetailVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private lazy var memoTextView = UITextView().then {
+    private let memoTextView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.backgroundColor = .clear
@@ -119,7 +120,6 @@ final class BookDetailVC: UIViewController {
         editVC.descriptions = commentTextView.text
         editVC.memo = memoTextView.text
         editVC.bookIndex = selectedBookIndex
-        
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
     }
@@ -198,13 +198,13 @@ extension BookDetailVC {
         bookNameLabel.snp.makeConstraints { make in
             make.top.equalTo(bookImageView.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
-            make.width.equalTo(300)
+            make.width.equalTo(316)
         }
         
         bookAuthorLabel.snp.makeConstraints { make in
             make.top.equalTo(bookNameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
-            make.width.equalTo(300)
+            make.width.equalTo(316)
         }
         
         commentContainerView.snp.makeConstraints { make in
@@ -270,16 +270,18 @@ extension BookDetailVC {
     }
     
     private func setEmptyView() {
-        if commentTextView.text.isEmpty == true {
+        if (commentTextView.text == I18N.BookDetail.commentHint) || (commentTextView.text == I18N.BookDetail.emptyComment)
+            || (commentTextView.text.isEmpty == true) {
             commentTextView.textColor = .peekaGray2
             commentTextView.text = I18N.BookDetail.emptyComment
         } else {
             commentTextView.textColor = .peekaRed
         }
-        
-        if memoTextView.text.isEmpty == true {
+            
+        if (memoTextView.text == I18N.BookDetail.memoHint) || (memoTextView.text == I18N.BookDetail.emptyMemo)
+            || (memoTextView.text.isEmpty == true) {
             memoTextView.textColor = .peekaGray2
-            memoTextView.text = I18N.BookDetail.emptyComment
+            memoTextView.text = I18N.BookDetail.emptyMemo
         } else {
             memoTextView.textColor = .peekaRed
         }

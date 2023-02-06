@@ -72,7 +72,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var commentView = UITextView().then {
+    private let commentView = UITextView().then {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -81,8 +81,8 @@ final class EditBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    lazy var commentMaxLabel = UILabel().then {
-        $0.text = "0/200"
+    private lazy var commentMaxLabel = UILabel().then {
+        $0.text = "\(descriptions.count)/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -96,7 +96,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private lazy var memoView = UITextView().then {
+    private let memoView = UITextView().then {
         $0.text = I18N.BookDetail.memoHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -105,8 +105,8 @@ final class EditBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    lazy var memoMaxLabel = UILabel().then {
-        $0.text = "0/50"
+    private lazy var memoMaxLabel = UILabel().then {
+        $0.text = "\(memo.count)/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -241,8 +241,7 @@ extension EditBookVC {
         
         commentView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(300)
+            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
         }
         
         commentMaxLabel.snp.makeConstraints { make in
@@ -269,8 +268,7 @@ extension EditBookVC {
         
         memoView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(70)
+            make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
         }
         
         memoMaxLabel.snp.makeConstraints { make in
@@ -333,14 +331,14 @@ extension EditBookVC {
         
         if commentView.isFirstResponder {
             let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
             let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -376,10 +374,10 @@ extension EditBookVC: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.commentHint {
+        if textView.text == I18N.BookDetail.emptyComment {
             textView.text = nil
             textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memoHint {
+        } else if textView.text == I18N.BookDetail.emptyMemo {
             textView.text = nil
             textView.textColor = .peekaRed
         }

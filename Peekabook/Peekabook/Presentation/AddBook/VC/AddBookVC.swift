@@ -54,17 +54,19 @@ final class AddBookVC: UIViewController {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var nameLabel = UILabel().then {
+    private let nameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.font = .h3
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
-        $0.lineBreakMode = .byWordWrapping
+        $0.lineBreakMode = .byTruncatingTail
     }
     
-    private var authorLabel = UILabel().then {
+    private let authorLabel = UILabel().then {
         $0.font = .h2
+        $0.textAlignment = .center
         $0.textColor = .peekaRed
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     private let commentBoxView = UIView()
@@ -76,8 +78,8 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var commentView = UITextView().then {
-        $0.text = I18N.BookDetail.comment
+    private let commentView = UITextView().then {
+        $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.backgroundColor = .clear
@@ -85,7 +87,7 @@ final class AddBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    private var commentMaxLabel = UILabel().then {
+    private let commentMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -100,16 +102,16 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var memoView = UITextView().then {
+    private let memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.memo
+        $0.text = I18N.BookDetail.memoHint
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    private var memoMaxLabel = UILabel().then {
+    private let memoMaxLabel = UILabel().then {
         $0.text = "0/50"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -222,6 +224,7 @@ extension AddBookVC {
         authorLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
+            make.width.equalTo(316)
         }
         
         commentBoxView.snp.makeConstraints { make in
@@ -338,18 +341,17 @@ extension AddBookVC {
         
         if commentView.isFirstResponder {
             let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 30)
+            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if memoView.isFirstResponder {
             let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 50)
+            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
             containerView.setContentOffset(position, animated: true)
             return
         }
-        
     }
     
     @objc private func keyboardWillHide() {
@@ -360,7 +362,7 @@ extension AddBookVC {
     
     func dataBind(model: BookInfoModel) {
         nameLabel.text = model.title
-        authorLabel.text = model.author
+        authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imgaeUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
@@ -369,10 +371,10 @@ extension AddBookVC {
 
 extension AddBookVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.comment {
+        if textView.text == I18N.BookDetail.commentHint {
             textView.text = nil
             textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memo {
+        } else if textView.text == I18N.BookDetail.memoHint {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -380,10 +382,10 @@ extension AddBookVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.comment
+            commentView.text = I18N.BookDetail.commentHint
             commentView.textColor = .peekaGray1
         } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memo
+            memoView.text = I18N.BookDetail.memoHint
             memoView.textColor = .peekaGray1
         }
         
