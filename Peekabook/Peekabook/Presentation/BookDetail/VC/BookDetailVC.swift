@@ -270,14 +270,16 @@ extension BookDetailVC {
     }
     
     private func setEmptyView() {
-        if (commentTextView.text == I18N.BookDetail.commentHint) || (commentTextView.text == I18N.BookDetail.emptyComment) {
+        if (commentTextView.text == I18N.BookDetail.commentHint) || (commentTextView.text == I18N.BookDetail.emptyComment)
+            || (commentTextView.text.isEmpty == true) {
             commentTextView.textColor = .peekaGray2
             commentTextView.text = I18N.BookDetail.emptyComment
         } else {
             commentTextView.textColor = .peekaRed
         }
             
-        if (memoTextView.text == I18N.BookDetail.memoHint) || (memoTextView.text == I18N.BookDetail.emptyMemo) {
+        if (memoTextView.text == I18N.BookDetail.memoHint) || (memoTextView.text == I18N.BookDetail.emptyMemo)
+            || (memoTextView.text.isEmpty == true) {
             memoTextView.textColor = .peekaGray2
             memoTextView.text = I18N.BookDetail.emptyMemo
         } else {

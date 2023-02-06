@@ -307,10 +307,6 @@ extension ProposalVC {
         
         let textViewHeight = recommendBoxView.frame.height
         let position = CGPoint(x: 0, y: recommendBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
-        print(recommendBoxView.frame.origin.y)
-        print(keyboardFrame.size.height)
-        print(textViewHeight)
-        print(position)
         containerView.setContentOffset(position, animated: true)
     }
     
