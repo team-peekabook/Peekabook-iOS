@@ -25,12 +25,12 @@ final class ConfirmPopUpVC: UIViewController {
     // MARK: - UI Components
     private let popUpView = UIView()
     
-    var personNameLabel = UILabel().then {
+    private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
     }
     
-    private lazy var confirmLabel = UILabel().then {
+    private let confirmLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2

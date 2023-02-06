@@ -54,7 +54,7 @@ final class AddBookVC: UIViewController {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var nameLabel = UILabel().then {
+    private let nameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -62,7 +62,7 @@ final class AddBookVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    private var authorLabel = UILabel().then {
+    private let authorLabel = UILabel().then {
         $0.font = .h2
         $0.textAlignment = .center
         $0.textColor = .peekaRed
@@ -78,7 +78,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var commentView = UITextView().then {
+    private let commentView = UITextView().then {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -87,7 +87,7 @@ final class AddBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    private var commentMaxLabel = UILabel().then {
+    private let commentMaxLabel = UILabel().then {
         $0.text = "0/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -102,7 +102,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var memoView = UITextView().then {
+    private let memoView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.BookDetail.memoHint
@@ -111,7 +111,7 @@ final class AddBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    private var memoMaxLabel = UILabel().then {
+    private let memoMaxLabel = UILabel().then {
         $0.text = "0/50"
         $0.font = .h2
         $0.textColor = .peekaGray2

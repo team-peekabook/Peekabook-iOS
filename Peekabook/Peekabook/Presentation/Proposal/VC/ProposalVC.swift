@@ -53,7 +53,7 @@ final class ProposalVC: UIViewController {
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private var nameLabel = UILabel().then {
+    private let nameLabel = UILabel().then {
         $0.font = .h3
         $0.textAlignment = .center
         $0.numberOfLines = 2
@@ -61,7 +61,7 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private var authorLabel = UILabel().then {
+    private let authorLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.textAlignment = .center
@@ -82,7 +82,7 @@ final class ProposalVC: UIViewController {
         
     private let lineView = UIView()
         
-    var personNameLabel = UILabel().then {
+    private let personNameLabel = UILabel().then {
         $0.font = .h1
         $0.textColor = .peekaWhite
     }

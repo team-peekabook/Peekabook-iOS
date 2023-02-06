@@ -72,7 +72,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private var commentView = UITextView().then {
+    private let commentView = UITextView().then {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -81,7 +81,7 @@ final class EditBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    lazy var commentMaxLabel = UILabel().then {
+    private lazy var commentMaxLabel = UILabel().then {
         $0.text = "\(descriptions.count)/200"
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -96,7 +96,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private lazy var memoView = UITextView().then {
+    private let memoView = UITextView().then {
         $0.text = I18N.BookDetail.memoHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -105,7 +105,7 @@ final class EditBookVC: UIViewController {
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
     }
     
-    lazy var memoMaxLabel = UILabel().then {
+    private lazy var memoMaxLabel = UILabel().then {
         $0.text = "\(memo.count)/50"
         $0.font = .h2
         $0.textColor = .peekaGray2

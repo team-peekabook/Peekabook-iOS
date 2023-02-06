@@ -19,7 +19,7 @@ final class ErrorPopUpVC: UIViewController {
     // MARK: - UI Components
     private let popUpView = UIView()
     
-    private var emptyLabel = UILabel().then {
+    private let emptyLabel = UILabel().then {
         $0.numberOfLines = 0
         $0.textAlignment = .center
         $0.text = I18N.ErrorPopUp.empty
