@@ -270,7 +270,7 @@ extension BookSearchVC {
 
 extension BookSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 128
+        return 138
     }
 }
 
