@@ -196,9 +196,6 @@ extension BookSearchVC {
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
-            
-            
-//            make.height.equalTo(128 * bookInfoList.count)
         }
     }
     
@@ -212,8 +209,8 @@ extension BookSearchVC {
         }
     }
     private func register() {
-        bookTableView.register(BookInfoTableViewCell.self,
-                               forCellReuseIdentifier: BookInfoTableViewCell.className)
+        bookTableView.register(BookInfoTVC.self,
+                               forCellReuseIdentifier: BookInfoTVC.className)
     }
     
     func setView() {
@@ -302,8 +299,8 @@ extension BookSearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let bookCell = tableView.dequeueReusableCell(
-            withIdentifier: BookInfoTableViewCell.className,
-            for: indexPath) as? BookInfoTableViewCell
+            withIdentifier: BookInfoTVC.className,
+            for: indexPath) as? BookInfoTVC
         else { return UITableViewCell() }
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.peekaBeige
