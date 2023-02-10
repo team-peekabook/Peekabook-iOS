@@ -136,8 +136,8 @@ extension RecommendVC {
     
     private func registerCells() {
         recommendCollectionView.register(
-            RecommendCVC.self,
-            forCellWithReuseIdentifier: RecommendCVC.className
+            RecommendTypeCVC.self,
+            forCellWithReuseIdentifier: RecommendTypeCVC.className
         )
     }
     
@@ -188,7 +188,7 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCVC.className, for: indexPath) as? RecommendCVC else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTypeCVC.className, for: indexPath) as? RecommendTypeCVC else { return UICollectionViewCell() }
         cell.dataBind(menuLabel: recommendTypes[indexPath.item])
         return cell
     }

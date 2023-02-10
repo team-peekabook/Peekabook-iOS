@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RecommendTVC: UITableViewCell {
+final class RecommendListTVC: UITableViewCell {
     
     // MARK: - UI Components
     
@@ -91,7 +91,7 @@ final class RecommendTVC: UITableViewCell {
 
 // MARK: - UI & Layout
 
-extension RecommendTVC {
+extension RecommendListTVC {
     private func setSubviews() {
         contentView.addSubviews(
             [bookHeaderView,
@@ -186,7 +186,7 @@ extension RecommendTVC {
 
 // MARK: - Methods
 
-extension RecommendTVC {
+extension RecommendListTVC {
     
     func dataBind(model: RecommendBook) {
         bookImage.kf.setImage(with: URL(string: model.bookImage))

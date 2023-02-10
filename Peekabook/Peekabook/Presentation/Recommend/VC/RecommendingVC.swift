@@ -67,8 +67,8 @@ extension RecommendingVC {
     
     private func registerCells() {
         tableView.register(
-            RecommendTVC.self,
-            forCellReuseIdentifier: RecommendTVC.className
+            RecommendListTVC.self,
+            forCellReuseIdentifier: RecommendListTVC.className
         )
     }
     
@@ -89,7 +89,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC
         else { return UITableViewCell() }
         cell.dataBind(model: recommendingBooks[indexPath.row])
         return cell
