@@ -124,7 +124,6 @@ extension RecommendListTVC {
     }
     
     private func setLayout() {
-        
         bookHeaderView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(30)

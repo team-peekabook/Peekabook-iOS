@@ -104,12 +104,14 @@ extension RecommendVC {
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(52)
         }
+        
         logoImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
             make.width.equalTo(150)
             make.height.equalTo(18)
         }
+        
         headerUnderlineView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
