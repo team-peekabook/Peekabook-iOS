@@ -388,27 +388,22 @@ extension AddBookVC: UITextViewDelegate {
             memoView.text = I18N.BookDetail.memoHint
             memoView.textColor = .peekaGray1
         }
-        
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textViewDidChange(_ textView: UITextView) {
         if textView == commentView {
-            let currentComment = commentView.text ?? ""
-            guard let commentRange = Range(range, in: currentComment)
-            else { return false }
-            let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-            commentMaxLabel.text = "\(changedComment.count)/200"
-            return (changedComment.count < 200)
+            commentMaxLabel.text = "\(commentView.text.count)/200"
+            if commentView.text.count > 200 {
+                commentView.deleteBackward()
+            }
         }
+        
         if textView == memoView {
-            let currentMemo = memoView.text ?? ""
-            guard let memoRange = Range(range, in: currentMemo)
-            else { return false }
-            let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
-            memoMaxLabel.text = "\(changedMemo.count)/50"
-            return (changedMemo.count < 50)
+            memoMaxLabel.text = "\(memoView.text.count)/50"
+            if memoView.text.count > 50 {
+                memoView.deleteBackward()
+            }
         }
-        return true
     }
 }
 
