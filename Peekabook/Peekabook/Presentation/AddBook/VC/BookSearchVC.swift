@@ -143,7 +143,7 @@ extension BookSearchVC {
         
         searchContainerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(16)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(40)
         }
         
