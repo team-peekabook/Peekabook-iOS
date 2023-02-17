@@ -79,6 +79,7 @@ final class EditBookVC: UIViewController {
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
+        $0.returnKeyType = .done
     }
     
     private lazy var commentMaxLabel = UILabel().then {
@@ -103,6 +104,7 @@ final class EditBookVC: UIViewController {
         $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
+        $0.returnKeyType = .done
     }
     
     private lazy var memoMaxLabel = UILabel().then {
@@ -353,24 +355,20 @@ extension EditBookVC {
 }
 
 extension EditBookVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textViewDidChange(_ textView: UITextView) {
         if textView == commentView {
-            let currentComment = commentView.text ?? ""
-            guard let commentRange = Range(range, in: currentComment)
-            else { return false }
-            let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-            commentMaxLabel.text = "\(changedComment.count)/200"
-            return (changedComment.count < 200)
+            commentMaxLabel.text = "\(commentView.text.count)/200"
+            if commentView.text.count > 200 {
+                commentView.deleteBackward()
+            }
         }
+        
         if textView == memoView {
-            let currentMemo = memoView.text ?? ""
-            guard let memoRange = Range(range, in: currentMemo)
-            else { return false }
-            let changedMemo = currentMemo.replacingCharacters(in: memoRange, with: text)
-            memoMaxLabel.text = "\(changedMemo.count)/50"
-            return (changedMemo.count < 50)
+            memoMaxLabel.text = "\(memoView.text.count)/50"
+            if memoView.text.count > 50 {
+                memoView.deleteBackward()
+            }
         }
-        return true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

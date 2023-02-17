@@ -32,8 +32,6 @@ final class BarcodeVC: BarcodeScannerViewController {
         $0.setUnderline()
     }
     
-    private let lineView = UIView()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()

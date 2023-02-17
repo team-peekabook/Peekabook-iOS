@@ -1,5 +1,5 @@
 //
-//  BookInfoTableViewCell.swift
+//  BookInfoTVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/01/06.
@@ -13,7 +13,7 @@ import Then
 
 import Moya
 
-final class BookInfoTableViewCell: UITableViewCell {
+final class BookInfoTVC: UITableViewCell {
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -72,7 +72,7 @@ final class BookInfoTableViewCell: UITableViewCell {
     }
 }
 
-extension BookInfoTableViewCell {
+extension BookInfoTVC {
     private func setUI() {
         contentView.backgroundColor = .white
         contentView.layer.borderWidth = 2

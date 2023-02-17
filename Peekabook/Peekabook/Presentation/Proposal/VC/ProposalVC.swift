@@ -93,6 +93,7 @@ final class ProposalVC: UIViewController {
         $0.text = I18N.PlaceHolder.recommend
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
+        $0.returnKeyType = .done
     }
         
     private let recommendMaxLabel = UILabel().then {
@@ -318,14 +319,12 @@ extension ProposalVC {
 }
 
 extension ProposalVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentComment = recommendView.text ?? ""
-        guard let commentRange = Range(range, in: currentComment)
-        else { return false }
-        let changedComment = currentComment.replacingCharacters(in: commentRange, with: text)
-        recommendMaxLabel.text = "\(changedComment.count)/200"
+    func textViewDidChange(_ textView: UITextView) {
+        recommendMaxLabel.text = "\(recommendView.text.count)/200"
+        if recommendView.text.count > 200 {
+            recommendView.deleteBackward()
+        }
         
-        return (changedComment.count < 200)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

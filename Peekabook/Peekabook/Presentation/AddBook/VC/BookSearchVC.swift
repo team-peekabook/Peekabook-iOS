@@ -38,6 +38,7 @@ final class BookSearchVC: UIViewController {
     
     private let headerLineView = UIView()
     
+    private let searchContainerView = UIView()
     private lazy var searchButton = UIButton().then {
         $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
@@ -100,44 +101,54 @@ extension BookSearchVC {
         headerView.backgroundColor = .clear
         headerLineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
+        searchContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         
         cancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
         searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
-        view.addSubview(headerView)
-        
-        [cancelButton, headerTitleLabel, searchField, searchButton, headerLineView].forEach {
+        [headerView, searchContainerView].forEach {
+            view.addSubview($0)
+        }
+
+        [cancelButton, headerTitleLabel, headerLineView].forEach {
             headerView.addSubview($0)
+        }
+        
+        [searchField, searchButton].forEach {
+            searchContainerView.addSubview($0)
         }
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(110)
+            make.height.equalTo(52)
         }
         
         cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(2)
-            make.trailing.equalToSuperview().inset(11)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(8)
             make.width.height.equalTo(48)
         }
         
         headerTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalTo(cancelButton)
+            make.center.equalToSuperview()
         }
         
         headerLineView.snp.makeConstraints { make in
-            make.top.equalTo(headerTitleLabel.snp.bottom).offset(14)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
             make.height.equalTo(2)
         }
         
+        searchContainerView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(40)
+        }
+        
         searchButton.snp.makeConstraints { make in
-            make.top.equalTo(searchField.snp.top)
-            make.trailing.equalTo(headerLineView)
+            make.top.bottom.trailing.equalToSuperview()
             make.width.height.equalTo(40)
         }
         
@@ -177,7 +188,7 @@ extension BookSearchVC {
         containerView.addSubview(bookTableView)
         
         containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
+            make.top.equalTo(searchContainerView.snp.bottom).offset(24)
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -185,7 +196,6 @@ extension BookSearchVC {
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
-            make.height.equalTo(128 * bookInfoList.count)
         }
     }
     
@@ -199,8 +209,8 @@ extension BookSearchVC {
         }
     }
     private func register() {
-        bookTableView.register(BookInfoTableViewCell.self,
-                               forCellReuseIdentifier: BookInfoTableViewCell.className)
+        bookTableView.register(BookInfoTVC.self,
+                               forCellReuseIdentifier: BookInfoTVC.className)
     }
     
     func setView() {
@@ -257,7 +267,7 @@ extension BookSearchVC {
 
 extension BookSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 128
+        return 138
     }
 }
 
@@ -289,8 +299,8 @@ extension BookSearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let bookCell = tableView.dequeueReusableCell(
-            withIdentifier: BookInfoTableViewCell.className,
-            for: indexPath) as? BookInfoTableViewCell
+            withIdentifier: BookInfoTVC.className,
+            for: indexPath) as? BookInfoTVC
         else { return UITableViewCell() }
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.peekaBeige
