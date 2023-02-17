@@ -70,6 +70,7 @@ final class RecommendListTVC: UITableViewCell {
         setSubviews()
         setUI()
         setLayout()
+        setPriority()
     }
     
     required init?(coder: NSCoder) {
@@ -143,7 +144,8 @@ extension RecommendListTVC {
         
         bookWriterLabel.snp.makeConstraints { make in
             make.centerY.equalTo(bookDividerView)
-            make.leading.equalTo(bookDividerView.snp.trailing).offset(7)
+            make.leading.equalTo(bookDividerView.snp.trailing).offset(7).priority(750)
+            make.trailing.equalToSuperview().inset(15).priority(750)
         }
         
         recommendStackView.snp.makeConstraints { make in
@@ -180,6 +182,10 @@ extension RecommendListTVC {
             make.top.equalToSuperview().inset(40)
             make.leading.trailing.equalToSuperview().inset(13)
         }
+    }
+    
+    private func setPriority() {
+        bookWriterLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
     }
 }
 
