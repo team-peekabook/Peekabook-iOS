@@ -44,7 +44,7 @@ final class BookSearchVC: UIViewController {
         $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
-    private let searchField = UITextField().then {
+    private let searchTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.backgroundColor = .white.withAlphaComponent(0.4)
@@ -88,7 +88,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        searchField.delegate = self
+        searchTextField.delegate = self
         setUI()
         setLayout()
         register()
@@ -118,7 +118,7 @@ extension BookSearchVC {
             headerView.addSubview($0)
         }
         
-        [searchField, searchButton].forEach {
+        [searchTextField, searchButton].forEach {
             searchContainerView.addSubview($0)
         }
         
@@ -154,7 +154,7 @@ extension BookSearchVC {
             make.width.height.equalTo(40)
         }
         
-        searchField.snp.makeConstraints { make in
+        searchTextField.snp.makeConstraints { make in
             make.top.equalTo(headerLineView.snp.bottom).offset(16)
             make.leading.equalTo(headerLineView)
             make.trailing.equalTo(searchButton.snp.leading)
@@ -216,7 +216,7 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || searchField.text!.isEmpty {
+        if self.bookInfoList.isEmpty == true || searchTextField.text!.isEmpty {
             self.emptyView.isHidden = false
             self.bookTableView.isHidden = true
         } else {
@@ -238,10 +238,10 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
-        guard searchField.hasText else {
+        guard searchTextField.hasText else {
             return setView()
         }
-        searchField.endEditing(true)
+        searchTextField.endEditing(true)
         fetchBooks()
     }
     
@@ -249,13 +249,13 @@ extension BookSearchVC {
     
     private func fetchBooks() {
         let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
+        ls.getNaverBookTitleAPI(d_titl: searchTextField.text!, d_isbn: "", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
                 print(result)
                 DispatchQueue.main.async {
                     self?.bookTableView.reloadData()
-                    guard (self!.searchField.text?.isEmpty) == nil else {
+                    guard (self!.searchTextField.text?.isEmpty) == nil else {
                         return self!.setView()
                     }
                     self?.bookTableView.reloadData()
@@ -322,14 +322,14 @@ extension BookSearchVC: UITableViewDataSource {
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = searchField.text else { return true }
+        guard let text = searchTextField.text else { return true }
         if text.isEmpty {
             setView()
-            searchField.endEditing(true)
+            searchTextField.endEditing(true)
             return true
         } else {
             fetchBooks()
-            searchField.endEditing(true)
+            searchTextField.endEditing(true)
             return true
         }
     }

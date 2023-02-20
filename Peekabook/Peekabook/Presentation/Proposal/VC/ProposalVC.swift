@@ -87,13 +87,14 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private let recommendView = UITextView().then {
+    private let recommendTextView = UITextView().then {
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.text = I18N.PlaceHolder.recommend
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         $0.returnKeyType = .done
+        $0.becomeFirstResponder()
     }
         
     private let recommendMaxLabel = UILabel().then {
@@ -128,7 +129,7 @@ extension ProposalVC {
         recommendBoxView.backgroundColor = .white
         recommendHeaderView.backgroundColor = .peekaRed
         lineView.backgroundColor = .white
-        recommendView.backgroundColor = .clear
+        recommendTextView.backgroundColor = .clear
         personNameLabel.text = personName
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
@@ -146,7 +147,7 @@ extension ProposalVC {
             containerView.addSubview($0)
         }
         
-        [recommendHeaderView, recommendView].forEach {
+        [recommendHeaderView, recommendTextView].forEach {
             recommendBoxView.addSubview($0)
         }
         
@@ -229,7 +230,7 @@ extension ProposalVC {
             make.leading.equalTo(lineView.snp.trailing).offset(8)
         }
                 
-        recommendView.snp.makeConstraints { make in
+        recommendTextView.snp.makeConstraints { make in
             make.top.equalTo(recommendHeaderView.snp.bottom).offset(10)
             make.leading.equalTo(recommendLabel)
             make.width.equalTo(307)
@@ -248,7 +249,7 @@ extension ProposalVC {
 
 extension ProposalVC {
     private func setDelegate() {
-        recommendView.delegate = self
+        recommendTextView.delegate = self
     }
     
     @objc private func backButtonDidTap() {
@@ -258,7 +259,7 @@ extension ProposalVC {
     @objc private func checkButtonDidTap() {
         let popupViewController = ConfirmPopUpVC()
         popupViewController.modalPresentationStyle = .overFullScreen
-        popupViewController.recommendDesc = recommendView.text
+        popupViewController.recommendDesc = recommendTextView.text
         popupViewController.bookTitle = nameLabel.text!
         popupViewController.bookImage = imageUrl
         popupViewController.author = authorLabel.text!
@@ -320,9 +321,9 @@ extension ProposalVC {
 
 extension ProposalVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        recommendMaxLabel.text = "\(recommendView.text.count)/200"
-        if recommendView.text.count > 200 {
-            recommendView.deleteBackward()
+        recommendMaxLabel.text = "\(recommendTextView.text.count)/200"
+        if recommendTextView.text.count > 200 {
+            recommendTextView.deleteBackward()
         }
         
     }
@@ -335,9 +336,9 @@ extension ProposalVC: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if recommendView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            recommendView.text = I18N.PlaceHolder.recommend
-            recommendView.textColor = .peekaGray1
+        if recommendTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            recommendTextView.text = I18N.PlaceHolder.recommend
+            recommendTextView.textColor = .peekaGray1
         }
     }
 }

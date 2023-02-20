@@ -29,7 +29,7 @@ final class EditBookVC: UIViewController {
         $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
     }
     
-    private let headerTitle = UILabel().then {
+    private let headerTitleLabel = UILabel().then {
         $0.text = I18N.BookEdit.title
         $0.font = .h3
         $0.textColor = .peekaRed
@@ -72,7 +72,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private let commentView = UITextView().then {
+    private let commentTextView = UITextView().then {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -97,7 +97,7 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     
-    private let memoView = UITextView().then {
+    private let memoTextView = UITextView().then {
         $0.text = I18N.BookDetail.memoHint
         $0.font = .h2
         $0.textColor = .peekaRed
@@ -125,8 +125,8 @@ final class EditBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        commentView.text = descriptions
-        memoView.text = memo
+        commentTextView.text = descriptions
+        memoTextView.text = memo
     }
     
     deinit {
@@ -160,7 +160,7 @@ extension EditBookVC {
             view.addSubview($0)
         }
         
-        [backButton, headerTitle, checkButton].forEach {
+        [backButton, headerTitleLabel, checkButton].forEach {
             headerView.addSubview($0)
         }
         
@@ -168,7 +168,7 @@ extension EditBookVC {
             containerView.addSubview($0)
         }
         
-        [commentHeaderView, commentView].forEach {
+        [commentHeaderView, commentTextView].forEach {
             commentBoxView.addSubview($0)
         }
         
@@ -176,7 +176,7 @@ extension EditBookVC {
             commentHeaderView.addSubview($0)
         }
         
-        [memoHeaderView, memoView].forEach {
+        [memoHeaderView, memoTextView].forEach {
             memoBoxView.addSubview($0)
         }
         
@@ -199,7 +199,7 @@ extension EditBookVC {
             make.leading.equalToSuperview()
         }
         
-        headerTitle.snp.makeConstraints { make in
+        headerTitleLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
@@ -241,7 +241,7 @@ extension EditBookVC {
             make.leading.equalToSuperview().offset(14)
         }
         
-        commentView.snp.makeConstraints { make in
+        commentTextView.snp.makeConstraints { make in
             make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
         }
@@ -268,7 +268,7 @@ extension EditBookVC {
             make.leading.equalToSuperview().offset(14)
         }
         
-        memoView.snp.makeConstraints { make in
+        memoTextView.snp.makeConstraints { make in
             make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
         }
@@ -285,8 +285,8 @@ extension EditBookVC {
 
 extension EditBookVC {
     private func setDelegate() {
-        commentView.delegate = self
-        memoView.delegate = self
+        commentTextView.delegate = self
+        memoTextView.delegate = self
     }
     
     @objc private func backButtonDidTap() {
@@ -295,7 +295,7 @@ extension EditBookVC {
     
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: commentView.text, memo: memoView.text))
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: commentTextView.text, memo: memoTextView.text))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }
@@ -331,14 +331,14 @@ extension EditBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if commentView.isFirstResponder {
+        if commentTextView.isFirstResponder {
             let textViewHeight = commentBoxView.frame.height
             let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
-        if memoView.isFirstResponder {
+        if memoTextView.isFirstResponder {
             let textViewHeight = memoBoxView.frame.height
             let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 36)
             containerView.setContentOffset(position, animated: true)
@@ -356,17 +356,17 @@ extension EditBookVC {
 
 extension EditBookVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if textView == commentView {
-            commentMaxLabel.text = "\(commentView.text.count)/200"
-            if commentView.text.count > 200 {
-                commentView.deleteBackward()
+        if textView == commentTextView {
+            commentMaxLabel.text = "\(commentTextView.text.count)/200"
+            if commentTextView.text.count > 200 {
+                commentTextView.deleteBackward()
             }
         }
         
-        if textView == memoView {
-            memoMaxLabel.text = "\(memoView.text.count)/50"
-            if memoView.text.count > 50 {
-                memoView.deleteBackward()
+        if textView == memoTextView {
+            memoMaxLabel.text = "\(memoTextView.text.count)/50"
+            if memoTextView.text.count > 50 {
+                memoTextView.deleteBackward()
             }
         }
     }
@@ -394,12 +394,12 @@ extension EditBookVC {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.commentHint
-            commentView.textColor = .peekaGray1
-        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memoHint
-            memoView.textColor = .peekaGray1
+        if commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            commentTextView.text = I18N.BookDetail.commentHint
+            commentTextView.textColor = .peekaGray1
+        } else if memoTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            memoTextView.text = I18N.BookDetail.memoHint
+            memoTextView.textColor = .peekaGray1
         }
     }
 }
