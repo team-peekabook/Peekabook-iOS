@@ -203,7 +203,7 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         if indexPath.item == 0 {
             pageViewController.setViewControllers(
                 [recommendedVC],
-                direction: .forward,
+                direction: .reverse,
                 animated: true,
                 completion: nil
             )
