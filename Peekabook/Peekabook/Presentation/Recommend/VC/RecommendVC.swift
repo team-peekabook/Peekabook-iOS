@@ -89,14 +89,11 @@ extension RecommendVC {
     
     private func setSubviews() {
         view.addSubviews(
-            [headerView,
+            headerView,
             recommendCollectionView,
-            pageViewController.view]
+            pageViewController.view
         )
-        headerView.addSubviews(
-            [logoImage,
-             headerUnderlineView]
-        )
+        headerView.addSubviews(logoImage, headerUnderlineView)
     }
     
     private func setLayout() {

@@ -94,26 +94,23 @@ final class RecommendListTVC: UITableViewCell {
 
 extension RecommendListTVC {
     private func setSubviews() {
-        contentView.addSubviews(
-            [bookHeaderView,
-             recommendStackView]
-        )
-        bookHeaderView.addSubviews([
+        contentView.addSubviews(bookHeaderView,recommendStackView)
+        bookHeaderView.addSubviews(
             bookNameLabel,
             bookDividerView,
             bookWriterLabel
-        ])
+        )
         recommendStackView.addArrangedSubviews(
             bookImageContainerView,
             bookCommentsContainerView
         )
         bookImageContainerView.addSubview(bookImage)
-        bookCommentsContainerView.addSubviews([
+        bookCommentsContainerView.addSubviews(
             bookRecommendedPersonImage,
             bookRecommendedPersonLabel,
             bookRecommendDateLabel,
             bookRecommendTextLabel
-        ])
+        )
     }
 
     private func setUI() {
