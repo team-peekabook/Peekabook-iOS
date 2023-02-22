@@ -40,8 +40,8 @@ extension RecommendTypeCVC {
     
     private func setLayout() {
         contentView.addSubview(menuLabel)
-        menuLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        menuLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
     

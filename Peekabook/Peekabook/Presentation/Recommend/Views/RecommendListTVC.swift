@@ -125,62 +125,62 @@ extension RecommendListTVC {
     }
     
     private func setLayout() {
-        bookHeaderView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(30)
+        bookHeaderView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(30)
         }
         
-        bookNameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(15)
+        bookNameLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(15)
         }
         
-        bookDividerView.snp.makeConstraints { make in
-            make.width.equalTo(1)
-            make.height.equalTo(12)
-            make.centerY.equalTo(bookNameLabel)
-            make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
+        bookDividerView.snp.makeConstraints {
+            $0.width.equalTo(1)
+            $0.height.equalTo(12)
+            $0.centerY.equalTo(bookNameLabel)
+            $0.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
         
-        bookWriterLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookDividerView)
-            make.leading.equalTo(bookDividerView.snp.trailing).offset(7).priority(750)
-            make.trailing.equalToSuperview().inset(15).priority(750)
+        bookWriterLabel.snp.makeConstraints {
+            $0.centerY.equalTo(bookDividerView)
+            $0.leading.equalTo(bookDividerView.snp.trailing).offset(7).priority(750)
+            $0.trailing.equalToSuperview().inset(15).priority(750)
         }
         
-        recommendStackView.snp.makeConstraints { make in
-            make.top.equalTo(bookHeaderView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+        recommendStackView.snp.makeConstraints {
+            $0.top.equalTo(bookHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        bookImageContainerView.snp.makeConstraints { make in
-            make.width.equalTo(122)
+        bookImageContainerView.snp.makeConstraints {
+            $0.width.equalTo(122)
         }
         
-        bookImage.snp.makeConstraints { make in
-            make.centerY.centerX.equalToSuperview()
-            make.width.equalTo(92)
-            make.height.equalTo(150)
+        bookImage.snp.makeConstraints {
+            $0.centerY.centerX.equalToSuperview()
+            $0.width.equalTo(92)
+            $0.height.equalTo(150)
         }
         
-        bookRecommendedPersonImage.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(14)
-            make.width.height.equalTo(15)
+        bookRecommendedPersonImage.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(14)
+            $0.width.height.equalTo(15)
         }
         
-        bookRecommendedPersonLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookRecommendedPersonImage)
-            make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
+        bookRecommendedPersonLabel.snp.makeConstraints {
+            $0.centerY.equalTo(bookRecommendedPersonImage)
+            $0.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
         }
         
-        bookRecommendDateLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
-            make.trailing.equalToSuperview().inset(18)
+        bookRecommendDateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(15)
+            $0.trailing.equalToSuperview().inset(18)
         }
         
-        bookRecommendTextLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(40)
-            make.leading.trailing.equalToSuperview().inset(13)
+        bookRecommendTextLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(40)
+            $0.leading.trailing.equalToSuperview().inset(13)
         }
     }
     
