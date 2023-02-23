@@ -69,30 +69,7 @@ final class AddBookVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    private let commentBoxView = UIView()
-    private let commentHeaderView = UIView()
-    
-    private let commentLabel = UILabel().then {
-        $0.text = I18N.BookDetail.comment
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let commentTextView = UITextView().then {
-        $0.text = I18N.BookDetail.commentHint
-        $0.font = .h2
-        $0.textColor = .peekaGray1
-        $0.backgroundColor = .clear
-        $0.autocorrectionType = .no
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-        $0.returnKeyType = .done
-    }
-    
-    private let commentMaxLabel = UILabel().then {
-        $0.text = "0/200"
-        $0.font = .h2
-        $0.textColor = .peekaGray2
-    }
+    private let peekaCommentView = CommentView()
     
     private let memoBoxView = UIView()
     private let memoHeaderView = UIView()
@@ -143,11 +120,6 @@ extension AddBookVC {
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         
-        commentBoxView.backgroundColor = .peekaWhite_60
-        commentBoxView.layer.borderWidth = 2
-        commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeaderView.backgroundColor = .peekaRed
-        
         memoBoxView.backgroundColor = .peekaWhite_60
         memoBoxView.layer.borderWidth = 2
         memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
@@ -165,16 +137,8 @@ extension AddBookVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, commentBoxView, commentMaxLabel, memoBoxView, memoMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, peekaCommentView, memoBoxView, memoMaxLabel].forEach {
             containerView.addSubview($0)
-        }
-        
-        [commentHeaderView, commentTextView].forEach {
-            commentBoxView.addSubview($0)
-        }
-        
-        [commentLabel].forEach {
-            commentHeaderView.addSubview($0)
         }
         
         [memoHeaderView, memoTextView].forEach {
@@ -229,37 +193,15 @@ extension AddBookVC {
             make.width.equalTo(316)
         }
         
-        commentBoxView.snp.makeConstraints { make in
+        peekaCommentView.snp.makeConstraints { make in
             make.top.equalTo(authorLabel.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(229)
         }
         
-        commentHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        commentLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        commentTextView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
-        }
-        
-        commentMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(commentBoxView.snp.bottom).offset(8)
-            make.trailing.equalTo(commentBoxView.snp.trailing)
-        }
-        
         memoBoxView.snp.makeConstraints { make in
-            make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
+            make.top.equalTo(peekaCommentView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(101)
@@ -294,7 +236,7 @@ extension AddBookVC {
 
 extension AddBookVC {
     private func setDelegate() {
-        commentTextView.delegate = self
+        peekaCommentView.commentTextView.delegate = self
         memoTextView.delegate = self
     }
     
@@ -305,7 +247,7 @@ extension AddBookVC {
     @objc private func checkButtonDidTap() {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
-              let description = self.commentTextView.text,
+              let description = peekaCommentView.commentTextView.text,
               let memo = self.memoTextView.text else { return }
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
@@ -341,9 +283,9 @@ extension AddBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if commentTextView.isFirstResponder {
-            let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+        if peekaCommentView.commentTextView.isFirstResponder {
+            let textViewHeight = peekaCommentView.commentBoxView.frame.height
+            let position = CGPoint(x: 0, y: peekaCommentView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -383,9 +325,9 @@ extension AddBookVC: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentTextView.text = I18N.BookDetail.commentHint
-            commentTextView.textColor = .peekaGray1
+        if peekaCommentView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            peekaCommentView.commentTextView.text = I18N.BookDetail.commentHint
+            peekaCommentView.commentTextView.textColor = .peekaGray1
         } else if memoTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             memoTextView.text = I18N.BookDetail.memoHint
             memoTextView.textColor = .peekaGray1
@@ -393,10 +335,10 @@ extension AddBookVC: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView == commentTextView {
-            commentMaxLabel.text = "\(commentTextView.text.count)/200"
-            if commentTextView.text.count > 200 {
-                commentTextView.deleteBackward()
+        if textView == peekaCommentView.commentTextView {
+            peekaCommentView.commentMaxLabel.text = "\(peekaCommentView.commentTextView.text.count)/200"
+            if peekaCommentView.commentTextView.text.count > 200 {
+                peekaCommentView.commentTextView.deleteBackward()
             }
         }
         

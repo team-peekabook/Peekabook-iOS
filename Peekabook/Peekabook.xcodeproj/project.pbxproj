@@ -123,6 +123,7 @@
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 		98A04211296668F900081B8E /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 98A04210296668F900081B8E /* BarcodeScanner */; };
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
+		98BA610C29A6403000A4C4E2 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CommentView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +245,7 @@
 		98A04201296515ED00081B8E /* ConfirmPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUpVC.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
+		98BA610B29A6403000A4C4E2 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -552,6 +554,7 @@
 			children = (
 				8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */,
 				8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */,
+				98BA610B29A6403000A4C4E2 /* CommentView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
 				8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */,
+				98BA610C29A6403000A4C4E2 /* CommentView.swift in Sources */,
 				98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */,
 				986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */,
 				8E6656702971A3DA00B79328 /* ProposalBookRequest.swift in Sources */,
