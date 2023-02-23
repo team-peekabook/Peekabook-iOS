@@ -77,7 +77,8 @@ struct I18N {
     struct BookAdd {
         static let title = "책 등록하기"
         static let done = "완료"
-        static let length = "0/200"
+        static let commentLength = "0/200"
+        static let memoLength = "0/50"
     }
     
     struct Barcode {

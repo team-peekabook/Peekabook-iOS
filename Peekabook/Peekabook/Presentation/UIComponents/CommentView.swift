@@ -11,10 +11,10 @@ class CommentView: UIView {
 
     // MARK: - UI Components
     
-    let commentBoxView = UIView()
+    let commentBoxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229))
     private let commentHeaderView = UIView()
     
-    private let commentLabel = UILabel().then {
+    let commentLabel = UILabel().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h1
         $0.textColor = .peekaWhite
@@ -31,7 +31,7 @@ class CommentView: UIView {
     }
     
     let commentMaxLabel = UILabel().then {
-        $0.text = I18N.BookAdd.length
+        $0.text = I18N.BookAdd.commentLength
         $0.font = .h2
         $0.textColor = .peekaGray2
     }
@@ -71,13 +71,6 @@ extension CommentView {
         
         [commentLabel].forEach {
             commentHeaderView.addSubview($0)
-        }
-        
-        commentBoxView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(229)
         }
         
         commentHeaderView.snp.makeConstraints { make in
