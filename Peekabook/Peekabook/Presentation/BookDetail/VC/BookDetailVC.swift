@@ -23,9 +23,8 @@ final class BookDetailVC: UIViewController {
     
     private let naviContainerView = UIView()
     private let containerScrollView = UIScrollView()
-    private let commentContainerView = UIView()
-    private let commentHeaderView = UIView()
-    private let memoContainerView = UIView()
+    private let peekaCommentView = CommentView()
+    private let peekaMemoView = CommentView()
     private let memoHeaderView = UIView()
     
     private lazy var backButton = UIButton(type: .system).then {
@@ -62,44 +61,18 @@ final class BookDetailVC: UIViewController {
         $0.textAlignment = .center
         $0.textColor = .peekaRed
     }
-    
-    private let commentLabel = UILabel().then {
-        $0.text = I18N.BookDetail.comment
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let commentTextView = UITextView().then {
-        $0.font = .h2
-        $0.textColor = .peekaRed
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = false
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-    }
-    
-    private let memoLabel = UILabel().then {
-        $0.text = I18N.BookDetail.memo
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let memoTextView = UITextView().then {
-        $0.font = .h2
-        $0.textColor = .peekaRed
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = false
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-    }
 
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setReusableView()
         setUI()
         setLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setReusableView()
         setUI()
         setLayout()
         getBookDetail(id: selectedBookIndex)
@@ -117,8 +90,8 @@ final class BookDetailVC: UIViewController {
         editVC.bookImgView = bookImageView
         editVC.nameLabel = bookNameLabel
         editVC.authorLabel = bookAuthorLabel
-        editVC.descriptions = commentTextView.text
-        editVC.memo = memoTextView.text
+        editVC.descriptions = peekaCommentView.commentTextView.text
+        editVC.memo = peekaMemoView.commentTextView.text
         editVC.bookIndex = selectedBookIndex
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
@@ -136,17 +109,17 @@ final class BookDetailVC: UIViewController {
 // MARK: - UI & Layout
 extension BookDetailVC {
     
+    private func setReusableView() {
+        peekaCommentView.commentBoxView.backgroundColor = .clear
+        peekaCommentView.commentMaxLabel.isHidden = true
+        
+        peekaMemoView.commentBoxView.backgroundColor = .clear
+        peekaMemoView.commentMaxLabel.isHidden = true
+        peekaMemoView.commentBoxView.frame.size.height = 101
+    }
+    
     private func setUI() {
         view.backgroundColor = .peekaBeige
-        
-        commentContainerView.layer.borderWidth = 2
-        commentContainerView.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeaderView.backgroundColor = .peekaRed
-        
-        memoContainerView.layer.borderWidth = 2
-        memoContainerView.layer.borderColor = UIColor.peekaRed.cgColor
-        memoHeaderView.backgroundColor = .peekaRed
-        
         containerScrollView.showsVerticalScrollIndicator = false
     }
     
@@ -154,13 +127,7 @@ extension BookDetailVC {
         view.addSubviews(naviContainerView, containerScrollView)
         naviContainerView.addSubviews(backButton, deleteButton, editButton)
         
-        containerScrollView.addSubviews(bookImageView, bookNameLabel, bookAuthorLabel, commentContainerView, memoContainerView)
-        
-        commentContainerView.addSubviews(commentHeaderView, commentTextView)
-        commentHeaderView.addSubview(commentLabel)
-        
-        memoContainerView.addSubviews(memoHeaderView, memoTextView)
-        memoHeaderView.addSubview(memoLabel)
+        containerScrollView.addSubviews(bookImageView, bookNameLabel, bookAuthorLabel, peekaCommentView, peekaMemoView)
         
         naviContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -207,51 +174,19 @@ extension BookDetailVC {
             make.width.equalTo(316)
         }
         
-        commentContainerView.snp.makeConstraints { make in
+        peekaCommentView.snp.makeConstraints { make in
             make.top.equalTo(bookAuthorLabel.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(230)
         }
         
-        commentHeaderView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        commentLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        commentTextView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(170)
-        }
-        
-        memoContainerView.snp.makeConstraints { make in
-            make.top.equalTo(commentContainerView.snp.bottom).offset(12)
+        peekaMemoView.snp.makeConstraints { make in
+            make.top.equalTo(peekaCommentView.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(100)
-        }
-        
-        memoHeaderView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        memoLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        memoTextView.snp.makeConstraints { make in
-            make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
-            make.height.equalTo(40)
+            make.bottom.equalToSuperview().inset(15)
+            make.height.equalTo(101)
         }
     }
 }
@@ -270,20 +205,20 @@ extension BookDetailVC {
     }
     
     private func setEmptyView() {
-        if (commentTextView.text == I18N.BookDetail.commentHint) || (commentTextView.text == I18N.BookDetail.emptyComment)
-            || (commentTextView.text.isEmpty == true) {
-            commentTextView.textColor = .peekaGray2
-            commentTextView.text = I18N.BookDetail.emptyComment
+        if (peekaCommentView.commentTextView.text == I18N.BookDetail.commentHint) || (peekaCommentView.commentTextView.text == I18N.BookDetail.emptyComment)
+            || (peekaCommentView.commentTextView.text.isEmpty == true) {
+            peekaCommentView.commentTextView.textColor = .peekaGray2
+            peekaCommentView.commentTextView.text = I18N.BookDetail.emptyComment
         } else {
-            commentTextView.textColor = .peekaRed
+            peekaCommentView.commentTextView.textColor = .peekaRed
         }
             
-        if (memoTextView.text == I18N.BookDetail.memoHint) || (memoTextView.text == I18N.BookDetail.emptyMemo)
-            || (memoTextView.text.isEmpty == true) {
-            memoTextView.textColor = .peekaGray2
-            memoTextView.text = I18N.BookDetail.emptyMemo
+        if (peekaMemoView.commentTextView.text == I18N.BookDetail.memoHint) || (peekaMemoView.commentTextView.text == I18N.BookDetail.emptyMemo)
+            || (peekaMemoView.commentTextView.text.isEmpty == true) {
+            peekaMemoView.commentTextView.textColor = .peekaGray2
+            peekaMemoView.commentTextView.text = I18N.BookDetail.emptyMemo
         } else {
-            memoTextView.textColor = .peekaRed
+            peekaMemoView.commentTextView.textColor = .peekaRed
         }
     }
 }
@@ -299,8 +234,8 @@ extension BookDetailVC {
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             let bookAuthorLabelStr = serverWatchBookDetail.book.author
             self.bookAuthorLabel.text = bookAuthorLabelStr.replacingOccurrences(of: "^", with: ", ")
-            self.commentTextView.text = serverWatchBookDetail.description
-            self.memoTextView.text = serverWatchBookDetail.memo
+            self.peekaCommentView.commentTextView.text = serverWatchBookDetail.description
+            self.peekaMemoView.commentTextView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
             self.setEmptyView()
         }
