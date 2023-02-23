@@ -15,7 +15,7 @@ final class BarcodeVC: BarcodeScannerViewController {
     
     var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
-    var displayCount: Int = 30
+    var displayCount: Int = 100
     
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel

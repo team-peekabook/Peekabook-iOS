@@ -70,31 +70,7 @@ final class AddBookVC: UIViewController {
     }
     
     private let peekaCommentView = CommentView()
-    
-    private let memoBoxView = UIView()
-    private let memoHeaderView = UIView()
-    
-    private let memoLabel = UILabel().then {
-        $0.text = I18N.BookDetail.memo
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let memoTextView = UITextView().then {
-        $0.font = .h2
-        $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.memoHint
-        $0.backgroundColor = .clear
-        $0.autocorrectionType = .no
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-        $0.returnKeyType = .done
-    }
-    
-    private let memoMaxLabel = UILabel().then {
-        $0.text = "0/50"
-        $0.font = .h2
-        $0.textColor = .peekaGray2
-    }
+    private let peekaMemoView = MemoView()
     
     // MARK: - View Life Cycle
     
@@ -119,12 +95,6 @@ extension AddBookVC {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
-        
-        memoBoxView.backgroundColor = .peekaWhite_60
-        memoBoxView.layer.borderWidth = 2
-        memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
-        memoHeaderView.backgroundColor = .peekaRed
-        
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
@@ -137,16 +107,8 @@ extension AddBookVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, peekaCommentView, memoBoxView, memoMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, peekaCommentView, peekaMemoView].forEach {
             containerView.addSubview($0)
-        }
-        
-        [memoHeaderView, memoTextView].forEach {
-            memoBoxView.addSubview($0)
-        }
-        
-        [memoLabel].forEach {
-            memoHeaderView.addSubview($0)
         }
         
         containerView.snp.makeConstraints { make in
@@ -200,34 +162,12 @@ extension AddBookVC {
             make.height.equalTo(229)
         }
         
-        memoBoxView.snp.makeConstraints { make in
+        peekaMemoView.snp.makeConstraints { make in
             make.top.equalTo(peekaCommentView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(101)
-        }
-        
-        memoHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        memoLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        memoTextView.snp.makeConstraints { make in
-            make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
-        }
-        
-        memoMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoBoxView.snp.bottom).offset(8)
-            make.trailing.equalTo(memoBoxView.snp.trailing)
-            make.bottom.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -237,7 +177,7 @@ extension AddBookVC {
 extension AddBookVC {
     private func setDelegate() {
         peekaCommentView.commentTextView.delegate = self
-        memoTextView.delegate = self
+        peekaMemoView.memoTextView.delegate = self
     }
     
     @objc private func backButtonDidTap() {
@@ -248,7 +188,7 @@ extension AddBookVC {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
               let description = peekaCommentView.commentTextView.text,
-              let memo = self.memoTextView.text else { return }
+              let memo = peekaMemoView.memoTextView.text else { return }
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
@@ -290,9 +230,9 @@ extension AddBookVC {
             return
         }
         
-        if memoTextView.isFirstResponder {
-            let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+        if peekaMemoView.memoTextView.isFirstResponder {
+            let textViewHeight = peekaMemoView.memoBoxView.frame.height
+            let position = CGPoint(x: 0, y: peekaMemoView.memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -328,9 +268,9 @@ extension AddBookVC: UITextViewDelegate {
         if peekaCommentView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             peekaCommentView.commentTextView.text = I18N.BookDetail.commentHint
             peekaCommentView.commentTextView.textColor = .peekaGray1
-        } else if memoTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoTextView.text = I18N.BookDetail.memoHint
-            memoTextView.textColor = .peekaGray1
+        } else if peekaMemoView.memoTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            peekaMemoView.memoTextView.text = I18N.BookDetail.memoHint
+            peekaMemoView.memoTextView.textColor = .peekaGray1
         }
     }
     
@@ -342,10 +282,10 @@ extension AddBookVC: UITextViewDelegate {
             }
         }
         
-        if textView == memoTextView {
-            memoMaxLabel.text = "\(memoTextView.text.count)/50"
-            if memoTextView.text.count > 50 {
-                memoTextView.deleteBackward()
+        if textView == peekaMemoView.memoTextView {
+            peekaMemoView.memoMaxLabel.text = "\(peekaMemoView.memoTextView.text.count)/50"
+            if peekaMemoView.memoTextView.text.count > 50 {
+                peekaMemoView.memoTextView.deleteBackward()
             }
         }
     }
