@@ -125,7 +125,6 @@
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98BA610C29A6403000A4C4E2 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CommentView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
-		98DF54C229A7067200344D64 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF54C129A7067200344D64 /* MemoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -248,7 +247,6 @@
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98BA610B29A6403000A4C4E2 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
-		98DF54C129A7067200344D64 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,7 +555,6 @@
 				8E13F66F2966BDD100E61B47 /* DoubleHeaderLineView.swift */,
 				8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */,
 				98BA610B29A6403000A4C4E2 /* CommentView.swift */,
-				98DF54C129A7067200344D64 /* MemoView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1036,7 +1033,6 @@
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
 				8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */,
-				98DF54C229A7067200344D64 /* MemoView.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
 				8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */,
 				8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */,

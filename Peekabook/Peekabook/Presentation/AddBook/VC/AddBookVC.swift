@@ -175,7 +175,7 @@ extension AddBookVC {
             make.centerX.equalToSuperview()
             make.width.equalTo(335)
             make.height.equalTo(101)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(36)
         }
     }
 }
@@ -233,14 +233,14 @@ extension AddBookVC {
         
         if peekaCommentView.commentTextView.isFirstResponder {
             let textViewHeight = peekaCommentView.commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+            let position = CGPoint(x: 0, y: peekaCommentView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
         if peekaMemoView.commentTextView.isFirstResponder {
             let textViewHeight = peekaMemoView.commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+            let position = CGPoint(x: 0, y: peekaMemoView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
             containerView.setContentOffset(position, animated: true)
             return
         }
