@@ -183,6 +183,7 @@ extension AddBookVC {
 // MARK: - Methods
 
 extension AddBookVC {
+    
     private func setDelegate() {
         peekaCommentView.commentTextView.delegate = self
         peekaMemoView.commentTextView.delegate = self
