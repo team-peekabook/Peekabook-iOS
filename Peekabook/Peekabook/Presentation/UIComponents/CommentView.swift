@@ -12,7 +12,7 @@ class CommentView: UIView {
     // MARK: - UI Components
     
     let commentBoxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229))
-    private let commentHeaderView = UIView()
+    let commentHeaderView = UIView()
     
     let commentLabel = UILabel().then {
         $0.text = I18N.BookDetail.comment
@@ -108,34 +108,37 @@ extension CommentView {
 
 extension CommentView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentHint) || (textView.text == I18N.BookDetail.memoHint) ||  (textView.text == I18N.BookDetail.emptyComment) || (textView.text == I18N.BookDetail.emptyMemo) {
+        if (textView.text == I18N.BookDetail.commentHint) ||
+            (textView.text == I18N.BookDetail.memoHint) ||
+            (textView.text == I18N.BookDetail.emptyComment) ||
+            (textView.text == I18N.BookDetail.emptyMemo) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             if commentLabel.text == I18N.BookDetail.comment {
-                commentTextView.text = I18N.BookDetail.commentHint
-                commentTextView.textColor = .peekaGray1
+                textView.text = I18N.BookDetail.commentHint
+                textView.textColor = .peekaGray1
             } else {
-                commentTextView.text = I18N.BookDetail.memoHint
-                commentTextView.textColor = .peekaGray1
+                textView.text = I18N.BookDetail.memoHint
+                textView.textColor = .peekaGray1
             }
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         if commentLabel.text == I18N.BookDetail.comment {
-            commentMaxLabel.text = "\(commentTextView.text.count)/200"
-            if commentTextView.text.count > 200 {
-                commentTextView.deleteBackward()
+            commentMaxLabel.text = "\(textView.text.count)/200"
+            if textView.text.count > 200 {
+                textView.deleteBackward()
             }
         } else {
-            commentMaxLabel.text = "\(commentTextView.text.count)/50"
-            if commentTextView.text.count > 50 {
-                commentTextView.deleteBackward()
+            commentMaxLabel.text = "\(textView.text.count)/50"
+            if textView.text.count > 50 {
+                textView.deleteBackward()
             }
         }
     }

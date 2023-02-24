@@ -25,7 +25,6 @@ final class BookDetailVC: UIViewController {
     private let containerScrollView = UIScrollView()
     private let peekaCommentView = CommentView()
     private let peekaMemoView = CommentView()
-    private let memoHeaderView = UIView()
     
     private lazy var backButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
@@ -204,8 +203,9 @@ extension BookDetailVC {
         self.deleteButton.isHidden = true
     }
     
-    private func setEmptyView() {
-        if (peekaCommentView.commentTextView.text == I18N.BookDetail.commentHint) || (peekaCommentView.commentTextView.text == I18N.BookDetail.emptyComment)
+    private func setCommentColor() {
+        if (peekaCommentView.commentTextView.text == I18N.BookDetail.commentHint)
+            || (peekaCommentView.commentTextView.text == I18N.BookDetail.emptyComment)
             || (peekaCommentView.commentTextView.text.isEmpty == true) {
             peekaCommentView.commentTextView.textColor = .peekaGray2
             peekaCommentView.commentTextView.text = I18N.BookDetail.emptyComment
@@ -213,7 +213,8 @@ extension BookDetailVC {
             peekaCommentView.commentTextView.textColor = .peekaRed
         }
             
-        if (peekaMemoView.commentTextView.text == I18N.BookDetail.memoHint) || (peekaMemoView.commentTextView.text == I18N.BookDetail.emptyMemo)
+        if (peekaMemoView.commentTextView.text == I18N.BookDetail.memoHint)
+            || (peekaMemoView.commentTextView.text == I18N.BookDetail.emptyMemo)
             || (peekaMemoView.commentTextView.text.isEmpty == true) {
             peekaMemoView.commentTextView.textColor = .peekaGray2
             peekaMemoView.commentTextView.text = I18N.BookDetail.emptyMemo
@@ -237,7 +238,7 @@ extension BookDetailVC {
             self.peekaCommentView.commentTextView.text = serverWatchBookDetail.description
             self.peekaMemoView.commentTextView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
-            self.setEmptyView()
+            self.setCommentColor()
         }
     }
 }

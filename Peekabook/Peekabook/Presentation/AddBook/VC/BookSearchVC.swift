@@ -71,8 +71,8 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        bookSearchView.searchTextField.delegate = self
         setReusableView()
+        setDelegate()
         setUI()
         setLayout()
         register()
@@ -82,16 +82,21 @@ final class BookSearchVC: UIViewController {
 
 // MARK: - UI & Layout
 extension BookSearchVC {
+    
+    private func setReusableView() {
+        bookSearchView.searchButton.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
+    }
+    
+    private func setDelegate() {
+        bookSearchView.searchTextField.delegate = self
+    }
+    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
         headerLineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
         cancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
-    }
-    
-    private func setReusableView() {
-        bookSearchView.searchButton.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
     private func setLayout() {
@@ -179,6 +184,7 @@ extension BookSearchVC {
             $0.height.equalTo(128 * bookInfoList.count)
         }
     }
+    
     private func register() {
         bookTableView.register(BookInfoTVC.self,
                                forCellReuseIdentifier: BookInfoTVC.className)
@@ -218,7 +224,8 @@ extension BookSearchVC {
     
     private func fetchBooks() {
         let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount) { [weak self] result in
+        ls.getNaverBookTitleAPI(d_titl: bookSearchView.searchTextField.text!,
+                                d_isbn: "", display: displayCount) { [weak self] result in
             if let result = result {
                 self?.bookInfoList = result
                 print(result)
