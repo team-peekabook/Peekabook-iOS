@@ -97,7 +97,7 @@ final class ProposalVC: UIViewController {
     }
         
     private let recommendMaxLabel = UILabel().then {
-        $0.text = "0/200"
+        $0.text = I18N.BookAdd.commentLength
         $0.font = .h2
         $0.textColor = .peekaGray2
     }

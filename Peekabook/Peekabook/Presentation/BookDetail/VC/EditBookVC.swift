@@ -269,14 +269,4 @@ extension EditBookVC {
             }
         }
     }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if peekaCommentView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            peekaCommentView.commentTextView.text = I18N.BookDetail.commentHint
-            peekaCommentView.commentTextView.textColor = .peekaGray1
-        } else if peekaMemoView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            peekaMemoView.commentTextView.text = I18N.BookDetail.memoHint
-            peekaMemoView.commentTextView.textColor = .peekaGray1
-        }
-    }
 }
