@@ -108,7 +108,7 @@ extension CommentView {
 
 extension CommentView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentHint) || (textView.text == I18N.BookDetail.memoHint) {
+        if (textView.text == I18N.BookDetail.commentHint) || (textView.text == I18N.BookDetail.memoHint) ||  (textView.text == I18N.BookDetail.emptyComment) || (textView.text == I18N.BookDetail.emptyMemo) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
