@@ -79,7 +79,6 @@ final class AddBookVC: UIViewController {
         setReusableView()
         setUI()
         setLayout()
-        setDelegate()
         addTapGesture()
         addKeyboardObserver()
     }
@@ -184,11 +183,6 @@ extension AddBookVC {
 
 extension AddBookVC {
     
-    private func setDelegate() {
-        peekaCommentView.commentTextView.delegate = self
-        peekaMemoView.commentTextView.delegate = self
-    }
-    
     @objc private func backButtonDidTap() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -259,41 +253,6 @@ extension AddBookVC {
         imgaeUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
-    }
-}
-
-extension AddBookVC: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentHint) || (textView.text == I18N.BookDetail.memoHint) {
-            textView.text = nil
-            textView.textColor = .peekaRed
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if peekaCommentView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            peekaCommentView.commentTextView.text = I18N.BookDetail.commentHint
-            peekaCommentView.commentTextView.textColor = .peekaGray1
-        } else if peekaMemoView.commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            peekaMemoView.commentTextView.text = I18N.BookDetail.memoHint
-            peekaMemoView.commentTextView.textColor = .peekaGray1
-        }
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if textView == peekaCommentView.commentTextView {
-            peekaCommentView.commentMaxLabel.text = "\(peekaCommentView.commentTextView.text.count)/200"
-            if peekaCommentView.commentTextView.text.count > 200 {
-                peekaCommentView.commentTextView.deleteBackward()
-            }
-        }
-        
-        if textView == peekaMemoView.commentTextView {
-            peekaMemoView.commentMaxLabel.text = "\(peekaMemoView.commentTextView.text.count)/50"
-            if peekaMemoView.commentTextView.text.count > 50 {
-                peekaMemoView.commentTextView.deleteBackward()
-            }
-        }
     }
 }
 

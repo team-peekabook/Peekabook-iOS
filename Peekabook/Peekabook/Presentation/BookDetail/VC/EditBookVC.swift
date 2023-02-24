@@ -73,7 +73,6 @@ final class EditBookVC: UIViewController {
         setReusableView()
         setUI()
         setLayout()
-        setDelegate()
         addTapGesture()
         addKeyboardObserver()
     }
@@ -195,11 +194,6 @@ extension EditBookVC {
 
 extension EditBookVC {
     
-    private func setDelegate() {
-        peekaCommentView.commentTextView.delegate = self
-        peekaMemoView.commentTextView.delegate = self
-    }
-    
     @objc private func backButtonDidTap() {
         navigationController?.popViewController(animated: true)
     }
@@ -262,31 +256,6 @@ extension EditBookVC {
         let contentInset = UIEdgeInsets.zero
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
-    }
-}
-
-extension EditBookVC: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        if textView == peekaCommentView.commentTextView {
-            peekaCommentView.commentMaxLabel.text = "\(peekaCommentView.commentTextView.text.count)/200"
-            if peekaCommentView.commentTextView.text.count > 200 {
-                peekaCommentView.commentTextView.deleteBackward()
-            }
-        }
-        
-        if textView == peekaMemoView.commentTextView {
-            peekaMemoView.commentMaxLabel.text = "\(peekaMemoView.commentTextView.text.count)/50"
-            if peekaMemoView.commentTextView.text.count > 50 {
-                peekaMemoView.commentTextView.deleteBackward()
-            }
-        }
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.emptyComment) || (textView.text == I18N.BookDetail.emptyMemo) {
-            textView.text = nil
-            textView.textColor = .peekaRed
-        }
     }
 }
 

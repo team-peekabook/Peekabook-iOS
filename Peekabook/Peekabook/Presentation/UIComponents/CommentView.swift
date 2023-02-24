@@ -42,16 +42,25 @@ class CommentView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setDelegate()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 // MARK: - Methods
 
 extension CommentView {
+    
+    private func setDelegate() {
+        commentTextView.delegate = self
+    }
     
     private func setUI() {
         backgroundColor = .clear
@@ -93,6 +102,41 @@ extension CommentView {
         commentMaxLabel.snp.makeConstraints { make in
             make.top.equalTo(commentBoxView.snp.bottom).offset(8)
             make.trailing.equalTo(commentBoxView.snp.trailing)
+        }
+    }
+}
+
+extension CommentView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (textView.text == I18N.BookDetail.commentHint) || (textView.text == I18N.BookDetail.memoHint) {
+            textView.text = nil
+            textView.textColor = .peekaRed
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if commentLabel.text == I18N.BookDetail.comment {
+                commentTextView.text = I18N.BookDetail.commentHint
+                commentTextView.textColor = .peekaGray1
+            } else {
+                commentTextView.text = I18N.BookDetail.memoHint
+                commentTextView.textColor = .peekaGray1
+            }
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if commentLabel.text == I18N.BookDetail.comment {
+            commentMaxLabel.text = "\(commentTextView.text.count)/200"
+            if commentTextView.text.count > 200 {
+                commentTextView.deleteBackward()
+            }
+        } else {
+            commentMaxLabel.text = "\(commentTextView.text.count)/50"
+            if commentTextView.text.count > 50 {
+                commentTextView.deleteBackward()
+            }
         }
     }
 }

@@ -94,7 +94,6 @@ final class ProposalVC: UIViewController {
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         $0.returnKeyType = .done
-        $0.becomeFirstResponder()
     }
         
     private let recommendMaxLabel = UILabel().then {
