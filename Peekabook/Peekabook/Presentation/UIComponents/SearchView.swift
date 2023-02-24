@@ -64,22 +64,22 @@ extension SearchView: UITextFieldDelegate {
             searchContainerView.addSubview($0)
         }
 
-        searchContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(40)
+        searchContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(40)
         }
         
-        searchButton.snp.makeConstraints { make in
-            make.top.bottom.trailing.equalToSuperview()
-            make.width.height.equalTo(40)
+        searchButton.snp.makeConstraints {
+            $0.top.bottom.trailing.equalToSuperview()
+            $0.width.height.equalTo(40)
         }
         
-        searchTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.top.leading.equalToSuperview()
-            make.trailing.equalTo(searchButton.snp.leading)
-            make.height.equalTo(40)
+        searchTextField.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.top.leading.equalToSuperview()
+            $0.trailing.equalTo(searchButton.snp.leading)
+            $0.height.equalTo(40)
         }
     }
 }

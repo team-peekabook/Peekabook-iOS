@@ -103,31 +103,31 @@ extension BookSearchVC {
             headerView.addSubview($0)
         }
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        cancelButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(8)
-            make.width.height.equalTo(48)
+        cancelButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(8)
+            $0.width.height.equalTo(48)
         }
         
-        headerTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        headerTitleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
-        headerLineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        headerLineView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        bookSearchView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(40)
+        bookSearchView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(40)
         }
         
         // emptyView Layout
@@ -137,20 +137,20 @@ extension BookSearchVC {
             emptyView.addSubview($0)
         }
         
-        emptyView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(247)
-            make.height.equalTo(96)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(247)
+            $0.height.equalTo(96)
         }
         
-        emptyImgView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
+        emptyImgView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
         
-        emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyImgView.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyImgView.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
         }
     }
     
@@ -158,25 +158,25 @@ extension BookSearchVC {
         view.addSubview(containerView)
         containerView.addSubview(bookTableView)
         
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(bookSearchView.searchContainerView.snp.bottom).offset(24)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(bookSearchView.searchContainerView.snp.bottom).offset(24)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        bookTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+        bookTableView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
     
     func reLayout() {
-        bookTableView.snp.remakeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(128 * bookInfoList.count)
+        bookTableView.snp.remakeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(128 * bookInfoList.count)
         }
     }
     private func register() {

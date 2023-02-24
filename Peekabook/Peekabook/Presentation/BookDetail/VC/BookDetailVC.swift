@@ -129,64 +129,64 @@ extension BookDetailVC {
         
         containerScrollView.addSubviews(bookImageView, bookNameLabel, bookAuthorLabel, peekaCommentView, peekaMemoView)
         
-        naviContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        naviContainerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        backButton.snp.makeConstraints { make in
-            make.leading.centerY.equalToSuperview()
-            make.width.height.equalTo(48)
+        backButton.snp.makeConstraints {
+            $0.leading.centerY.equalToSuperview()
+            $0.width.height.equalTo(48)
         }
         
-        deleteButton.snp.makeConstraints { make in
-            make.trailing.centerY.equalToSuperview()
-            make.width.height.equalTo(48)
+        deleteButton.snp.makeConstraints {
+            $0.trailing.centerY.equalToSuperview()
+            $0.width.height.equalTo(48)
         }
         
-        editButton.snp.makeConstraints { make in
-            make.trailing.equalTo(deleteButton.snp.leading)
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(48)
+        editButton.snp.makeConstraints {
+            $0.trailing.equalTo(deleteButton.snp.leading)
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(48)
         }
         
-        containerScrollView.snp.makeConstraints { make in
-            make.top.equalTo(naviContainerView.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        containerScrollView.snp.makeConstraints {
+            $0.top.equalTo(naviContainerView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        bookImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(160)
+        bookImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(160)
         }
         
-        bookNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookImageView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
+        bookNameLabel.snp.makeConstraints {
+            $0.top.equalTo(bookImageView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        bookAuthorLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookNameLabel.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
+        bookAuthorLabel.snp.makeConstraints {
+            $0.top.equalTo(bookNameLabel.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        peekaCommentView.snp.makeConstraints { make in
-            make.top.equalTo(bookAuthorLabel.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(230)
+        peekaCommentView.snp.makeConstraints {
+            $0.top.equalTo(bookAuthorLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(230)
         }
         
-        peekaMemoView.snp.makeConstraints { make in
-            make.top.equalTo(peekaCommentView.snp.bottom).offset(12)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(15)
-            make.height.equalTo(101)
+        peekaMemoView.snp.makeConstraints {
+            $0.top.equalTo(peekaCommentView.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15)
+            $0.height.equalTo(101)
         }
     }
 }

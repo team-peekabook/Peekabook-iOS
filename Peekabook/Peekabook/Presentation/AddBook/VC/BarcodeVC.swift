@@ -64,14 +64,14 @@ extension BarcodeVC {
             textSearchButton
         ])
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(textSearchButton.snp.top).offset(-100)
-            make.centerX.equalToSuperview()
+        descriptionLabel.snp.makeConstraints {
+            $0.bottom.equalTo(textSearchButton.snp.top).offset(-100)
+            $0.centerX.equalToSuperview()
         }
         
-        textSearchButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
-            make.centerX.equalToSuperview()
+        textSearchButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+            $0.centerX.equalToSuperview()
         }
     }
     

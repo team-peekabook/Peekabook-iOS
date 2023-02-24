@@ -82,26 +82,26 @@ extension CommentView {
             commentHeaderView.addSubview($0)
         }
         
-        commentHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
+        commentHeaderView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(36)
         }
         
-        commentLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
+        commentLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(14)
         }
         
-        commentTextView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
+        commentTextView.snp.makeConstraints {
+            $0.top.equalTo(commentHeaderView.snp.bottom).offset(10)
+            $0.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
         }
         
-        commentMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(commentBoxView.snp.bottom).offset(8)
-            make.trailing.equalTo(commentBoxView.snp.trailing)
+        commentMaxLabel.snp.makeConstraints {
+            $0.top.equalTo(commentBoxView.snp.bottom).offset(8)
+            $0.trailing.equalTo(commentBoxView.snp.trailing)
         }
     }
 }

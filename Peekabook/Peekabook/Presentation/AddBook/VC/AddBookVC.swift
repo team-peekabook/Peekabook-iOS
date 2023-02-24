@@ -118,63 +118,63 @@ extension AddBookVC {
             containerView.addSubview($0)
         }
         
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        backButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
+        backButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
         }
         
-        headerTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        headerTitleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
-        checkButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(11)
-            make.width.height.equalTo(48)
+        checkButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(11)
+            $0.width.height.equalTo(48)
         }
         
-        bookImgView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(99)
-            make.height.equalTo(160)
+        bookImgView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(99)
+            $0.height.equalTo(160)
         }
         
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookImgView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(bookImgView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        authorLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
+        authorLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        peekaCommentView.snp.makeConstraints { make in
-            make.top.equalTo(authorLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(229)
+        peekaCommentView.snp.makeConstraints {
+            $0.top.equalTo(authorLabel.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
+            $0.height.equalTo(229)
         }
         
-        peekaMemoView.snp.makeConstraints { make in
-            make.top.equalTo(peekaCommentView.snp.bottom).offset(40)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(101)
-            make.bottom.equalToSuperview().inset(36)
+        peekaMemoView.snp.makeConstraints {
+            $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
+            $0.height.equalTo(101)
+            $0.bottom.equalToSuperview().inset(36)
         }
     }
 }
