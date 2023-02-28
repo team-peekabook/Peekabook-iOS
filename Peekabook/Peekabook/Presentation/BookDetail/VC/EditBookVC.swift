@@ -63,8 +63,8 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let peekaCommentView = CommentView()
-    private let peekaMemoView = CommentView()
+    private let peekaCommentView = CustomTextView()
+    private let peekaMemoView = CustomTextView()
 
     // MARK: - View Life Cycle
 
@@ -78,8 +78,8 @@ final class EditBookVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        peekaCommentView.commentTextView.text = descriptions
-        peekaMemoView.commentTextView.text = memo
+        peekaCommentView.textView.text = descriptions
+        peekaMemoView.textView.text = memo
     }
     
     deinit {
@@ -91,25 +91,25 @@ final class EditBookVC: UIViewController {
 extension EditBookVC {
     
     private func setReusableView() {
-        peekaCommentView.commentBoxView.backgroundColor = .clear
+        peekaCommentView.boxView.backgroundColor = .clear
         
-        peekaMemoView.commentBoxView.backgroundColor = .clear
-        peekaMemoView.commentBoxView.frame.size.height = 101
-        peekaMemoView.commentLabel.text = I18N.BookDetail.memo
-        peekaMemoView.commentTextView.text = I18N.BookDetail.memoHint
+        peekaMemoView.boxView.backgroundColor = .clear
+        peekaMemoView.boxView.frame.size.height = 101
+        peekaMemoView.label.text = I18N.BookDetail.memo
+        peekaMemoView.textView.text = I18N.BookDetail.memoHint
         
         if descriptions != I18N.BookDetail.emptyComment {
-            peekaCommentView.commentTextView.textColor = .peekaRed
-            peekaCommentView.commentMaxLabel.text = "\(descriptions.count)/200"
+            peekaCommentView.textView.textColor = .peekaRed
+            peekaCommentView.maxLabel.text = "\(descriptions.count)/200"
         } else {
-            peekaCommentView.commentMaxLabel.text = I18N.BookAdd.commentLength
+            peekaCommentView.maxLabel.text = I18N.BookAdd.commentLength
         }
         
         if memo != I18N.BookDetail.emptyMemo {
-            peekaMemoView.commentTextView.textColor = .peekaRed
-            peekaMemoView.commentMaxLabel.text = "\(memo.count)/50"
+            peekaMemoView.textView.textColor = .peekaRed
+            peekaMemoView.maxLabel.text = "\(memo.count)/50"
         } else {
-            peekaMemoView.commentMaxLabel.text = I18N.BookAdd.memoLength
+            peekaMemoView.maxLabel.text = I18N.BookAdd.memoLength
         }
     }
     
@@ -200,7 +200,7 @@ extension EditBookVC {
     
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.commentTextView.text, memo: peekaMemoView.commentTextView.text))
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.textView.text, memo: peekaMemoView.textView.text))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }
@@ -236,16 +236,16 @@ extension EditBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if peekaCommentView.commentTextView.isFirstResponder {
-            let textViewHeight = peekaCommentView.commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+        if peekaCommentView.textView.isFirstResponder {
+            let textViewHeight = peekaCommentView.boxView.frame.height
+            let position = CGPoint(x: 0, y: peekaCommentView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
-        if peekaMemoView.commentTextView.isFirstResponder {
-            let textViewHeight = peekaMemoView.commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
+        if peekaMemoView.textView.isFirstResponder {
+            let textViewHeight = peekaMemoView.boxView.frame.height
+            let position = CGPoint(x: 0, y: peekaMemoView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
             containerView.setContentOffset(position, animated: true)
             return
         }

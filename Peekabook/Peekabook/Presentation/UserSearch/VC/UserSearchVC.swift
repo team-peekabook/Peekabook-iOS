@@ -51,7 +51,7 @@ final class UserSearchVC: UIViewController {
         $0.font = .h3
     }
     private let headerUnderlineView = UIView()
-    private let userSearchView = SearchView()
+    private let userSearchView = CustomSearchView()
     
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
@@ -88,6 +88,7 @@ final class UserSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setReusableView()
         setUI()
         setLayout()
         setBlankView()
@@ -98,7 +99,7 @@ final class UserSearchVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func searchBtnTapped() {
+    @objc func searchBtnTapped() {
         getUserAPI(nickname: userSearchView.searchTextField.text!)
     }
 }
@@ -109,6 +110,7 @@ extension UserSearchVC {
     
     private func setReusableView() {
         userSearchView.searchTextField.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
+        userSearchView.searchButton.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
     }
     
     private func setUI() {

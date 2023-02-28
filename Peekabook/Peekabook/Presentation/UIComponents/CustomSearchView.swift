@@ -7,19 +7,16 @@
 
 import UIKit
 
-class SearchView: UIView {
+final class CustomSearchView: UIView {
 
     // MARK: - UI Components
     
     let searchContainerView = UIView()
-    lazy var searchButton = UIButton().then {
-        $0.backgroundColor = .white.withAlphaComponent(0.4)
-    }
+    lazy var searchButton = UIButton()
     
     let searchTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
-        $0.backgroundColor = .white.withAlphaComponent(0.4)
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
@@ -44,7 +41,7 @@ class SearchView: UIView {
 
 // MARK: - Methods
 
-extension SearchView: UITextFieldDelegate {
+extension CustomSearchView: UITextFieldDelegate {
     
     private func setDelegate() {
         searchTextField.delegate = self
@@ -52,21 +49,23 @@ extension SearchView: UITextFieldDelegate {
     
     private func setUI() {
         backgroundColor = .clear
+        
         searchContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
+        searchTextField.backgroundColor = .white.withAlphaComponent(0.4)
+        searchButton.backgroundColor = .white.withAlphaComponent(0.4)
         searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
         
-        addSubviews(searchContainerView)
+        addSubview(searchContainerView)
         
         [searchButton, searchTextField].forEach {
             searchContainerView.addSubview($0)
         }
 
         searchContainerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(40)
         }
         
