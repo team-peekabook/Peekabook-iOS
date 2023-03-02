@@ -112,6 +112,7 @@ extension BookDetailVC {
         peekaCommentView.boxView.backgroundColor = .clear
         peekaCommentView.maxLabel.isHidden = true
         
+        peekaMemoView.label.text = I18N.BookDetail.memo
         peekaMemoView.boxView.backgroundColor = .clear
         peekaMemoView.maxLabel.isHidden = true
         peekaMemoView.boxView.frame.size.height = 101
