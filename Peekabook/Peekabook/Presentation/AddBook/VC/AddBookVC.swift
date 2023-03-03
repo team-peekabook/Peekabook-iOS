@@ -17,6 +17,7 @@ final class AddBookVC: UIViewController {
     // MARK: - Properties
     
     var bookInfo: [BookInfoModel] = []
+    
     private var focus = 0
     var seletedBookIndex = 0
     var imgaeUrl: String = ""

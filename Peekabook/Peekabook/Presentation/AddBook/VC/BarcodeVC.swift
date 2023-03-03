@@ -77,18 +77,18 @@ extension BarcodeVC {
     
     private func fetchBooks() {
         let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
+        ls.getNaverSearchData(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
             if let result = result {
-                self?.bookInfoList = result
+                self?.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
                 DispatchQueue.main.async {
                     let nextVC = AddBookVC()
-                    nextVC.bookInfo = result
+                    nextVC.bookInfo = [BookInfoModel(image: "", title: "", author: "")]
                     nextVC.modalPresentationStyle = .fullScreen
                     
-                    if result.isEmpty {
+                    if [BookInfoModel(image: "", title: "", author: "")].isEmpty {
                         self?.showErrorPopUp()
                     } else {
-                        nextVC.dataBind(model: result[0])
+                        nextVC.dataBind(model: [BookInfoModel(image: "", title: "", author: "")][0])
                         self?.present(nextVC, animated: true, completion: nil)
                     }
                 }

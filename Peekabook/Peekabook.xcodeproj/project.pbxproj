@@ -111,6 +111,7 @@
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
 		9823E7212971BD8600F3713D /* EditBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823E7202971BD8600F3713D /* EditBookRequest.swift */; };
+		983C13FA29B2281F003A1D1F /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C13F929B2281F003A1D1F /* TestModel.swift */; };
 		983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D556D29A881BF00EB6E53 /* CustomSearchView.swift */; };
 		98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D89296BDF9500B78724 /* UIButton+.swift */; };
 		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
@@ -233,8 +234,8 @@
 		8EEF8E2B296B129400F37AFD /* FriendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
-		8EEF8E3E296B133F00F37AFD /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		9823E7202971BD8600F3713D /* EditBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookRequest.swift; sourceTree = "<group>"; };
+		983C13F929B2281F003A1D1F /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		983D556D29A881BF00EB6E53 /* CustomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchView.swift; sourceTree = "<group>"; };
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
@@ -673,6 +674,7 @@
 				8E81F3F929608A83001815B4 /* BookDetailVC.swift */,
 				986F5421296934EB002EDD46 /* EditBookVC.swift */,
 				148C2E44296F64D200E04662 /* DeletePopUpVC.swift */,
+				983C13F929B2281F003A1D1F /* TestModel.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -802,7 +804,6 @@
 		8EEF8E3D296B132900F37AFD /* NaverSearch */ = {
 			isa = PBXGroup;
 			children = (
-				8EEF8E3E296B133F00F37AFD /* .gitkeep */,
 				98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */,
 			);
 			path = NaverSearch;
@@ -997,6 +998,7 @@
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				14B354482968897C00998925 /* NotificationModel.swift in Sources */,
 				8E097202296C83C0007731E3 /* Config.swift in Sources */,
+				983C13FA29B2281F003A1D1F /* TestModel.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,

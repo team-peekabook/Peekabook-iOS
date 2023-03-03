@@ -15,6 +15,9 @@ import Moya
 final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
+    
+    private var serverNaverSearch: [NaverSearchResponse]?
+    
     var personName: String = ""
     var personId: Int = 0
 
@@ -217,28 +220,31 @@ extension BookSearchVC {
             return setView()
         }
         bookSearchView.searchTextField.endEditing(true)
-        fetchBooks()
+        getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
     }
     
     // MARK: - Server Helpers
     
-    private func fetchBooks() {
-        let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: bookSearchView.searchTextField.text!,
-                                d_isbn: "", display: displayCount) { [weak self] result in
-            if let result = result {
-                self?.bookInfoList = result
-                print(result)
-                DispatchQueue.main.async {
-                    self?.bookTableView.reloadData()
-                    guard (self!.bookSearchView.searchTextField.text?.isEmpty) == nil else {
-                        return self!.setView()
-                    }
-                    self?.bookTableView.reloadData()
-                }
-            }
-        }
-    }
+//    private func fetchBooks() {
+//        let ls = NaverSearchAPI.shared
+//        ls.getNaverSearchData(d_titl: bookSearchView.searchTextField.text!,
+//                                d_isbn: "", display: displayCount) { [weak self] result in
+//            if let result = result {
+//                print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+//                print(result)
+//                print("😈😈")
+////                self?.bookInfoList = result
+////                print(result)
+//                DispatchQueue.main.async {
+//                    self?.bookTableView.reloadData()
+//                    guard (self!.bookSearchView.searchTextField.text?.isEmpty) == nil else {
+//                        return self!.setView()
+//                    }
+//                    self?.bookTableView.reloadData()
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: - Methods
@@ -291,7 +297,7 @@ extension BookSearchVC: UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == scrollView.frame.height - 20 {
             displayCount += 10
-            fetchBooks()
+            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
         }
     }
 }
@@ -304,9 +310,44 @@ extension BookSearchVC: UITextFieldDelegate {
             bookSearchView.searchTextField.endEditing(true)
             return true
         } else {
-            fetchBooks()
+            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
             bookSearchView.searchTextField.endEditing(true)
             return true
         }
     }
+}
+
+extension BookSearchVC {
+    
+    func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+            // 여기에 response에 값이 안들어옴
+            print(response)
+            
+            guard let serverNaverSearch = response?.data else { return }
+            print(response)
+            
+            // 밑에서 바인딩, reloadData 해주기
+        }
+    }
+    
+//    private func fetchBooks() {
+//        let ls = NaverSearchAPI.shared
+//        ls.getNaverSearchData(d_titl: bookSearchView.searchTextField.text!,
+//                                d_isbn: "", display: displayCount) { [weak self] result in
+//            if let result = result {
+//                print(result)
+////                self?.bookInfoList = result
+////                print(result)
+//                DispatchQueue.main.async {
+//                    self?.bookTableView.reloadData()
+//                    guard (self!.bookSearchView.searchTextField.text?.isEmpty) == nil else {
+//                        return self!.setView()
+//                    }
+//                    self?.bookTableView.reloadData()
+//                }
+//            }
+//        }
+//    }
+    
 }
