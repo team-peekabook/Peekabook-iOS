@@ -100,7 +100,8 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc func searchBtnTapped() {
-        getUserAPI(nickname: userSearchView.searchTextField.text!)
+        guard let friendName = userSearchView.searchTextField.text else { return }
+        getUserAPI(nickname: friendName)
     }
 }
 
