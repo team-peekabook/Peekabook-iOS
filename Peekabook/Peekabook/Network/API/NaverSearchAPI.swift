@@ -16,21 +16,18 @@ final class NaverSearchAPI {
     
     private init() { }
     
-    private(set) var NaverSearchData: GeneralResponse<[NaverSearchResponse]>?
+    private(set) var NaverSearchData: NaverSearchResponse?
     
     // 네이버 책검색 API 불러오기
     
-    func getNaverSearchData(d_titl: String, d_isbn: String, display: Int, completion: @escaping (GeneralResponse<[NaverSearchResponse]>?) -> Void) {
-        NaverSearchProvider.request(.getBook(d_titl: d_titl, d_isbn: d_isbn, display: display)) { [self] (result) in
+    func getNaverSearchData(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([Item]?) -> Void) {
+        NaverSearchProvider.request(.getBook(d_titl: d_titl, d_isbn: d_isbn, display: display)) { (result) in
             switch result {
             case .success(let response):
                 do {
-                    print("⚡️")
-                    print(response)
-                    print("✏️")
-                    self.NaverSearchData = try response.map(GeneralResponse<[NaverSearchResponse]>.self)
-                    print(NaverSearchData)
-                    completion(NaverSearchData)
+                    let response = try response.map(NaverSearchResponse.self)
+                    let items: [Item] = response.items
+                    completion(items)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

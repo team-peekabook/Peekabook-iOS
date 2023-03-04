@@ -8,10 +8,15 @@
 import Foundation
 
 // MARK: - Item
+
 struct NaverSearchResponse: Codable {
+    let lastBuildDate: String
+    let total, start, display: Int
+    let items: [Item]
+}
+
+struct Item: Codable {
     let title: String
-    let link: String
     let image: String
-    let author, discount, publisher, pubdate: String
-    let isbn, description: String
+    let author: String
 }

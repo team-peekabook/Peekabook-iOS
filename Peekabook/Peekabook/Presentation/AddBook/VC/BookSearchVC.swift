@@ -16,7 +16,7 @@ final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverNaverSearch: [NaverSearchResponse]?
+    private var serverNaverSearch: [Item]?
     
     var personName: String = ""
     var personId: Int = 0
@@ -178,16 +178,6 @@ extension BookSearchVC {
         }
     }
     
-    func reLayout() {
-        bookTableView.snp.remakeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(128 * bookInfoList.count)
-        }
-    }
-    
     private func register() {
         bookTableView.register(BookInfoTVC.self,
                                forCellReuseIdentifier: BookInfoTVC.className)
@@ -222,29 +212,6 @@ extension BookSearchVC {
         bookSearchView.searchTextField.endEditing(true)
         getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
     }
-    
-    // MARK: - Server Helpers
-    
-//    private func fetchBooks() {
-//        let ls = NaverSearchAPI.shared
-//        ls.getNaverSearchData(d_titl: bookSearchView.searchTextField.text!,
-//                                d_isbn: "", display: displayCount) { [weak self] result in
-//            if let result = result {
-//                print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
-//                print(result)
-//                print("😈😈")
-////                self?.bookInfoList = result
-////                print(result)
-//                DispatchQueue.main.async {
-//                    self?.bookTableView.reloadData()
-//                    guard (self!.bookSearchView.searchTextField.text?.isEmpty) == nil else {
-//                        return self!.setView()
-//                    }
-//                    self?.bookTableView.reloadData()
-//                }
-//            }
-//        }
-//    }
 }
 
 // MARK: - Methods
@@ -321,33 +288,21 @@ extension BookSearchVC {
     
     func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
         NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
-            // 여기에 response에 값이 안들어옴
-            print(response)
+            self.bookInfoList = []
             
-            guard let serverNaverSearch = response?.data else { return }
-            print(response)
+            guard let response = response else { return }
             
-            // 밑에서 바인딩, reloadData 해주기
+            for i in 0..<response.count {
+                self.bookInfoList.append(BookInfoModel(image: response[i].image, title: response[i].title, author: response[i].author))
+            }
+            
+            DispatchQueue.main.async {
+                self.bookTableView.reloadData()
+                guard (self.bookSearchView.searchTextField.text?.isEmpty) == nil else {
+                    return self.setView()
+                }
+                self.bookTableView.reloadData()
+            }
         }
     }
-    
-//    private func fetchBooks() {
-//        let ls = NaverSearchAPI.shared
-//        ls.getNaverSearchData(d_titl: bookSearchView.searchTextField.text!,
-//                                d_isbn: "", display: displayCount) { [weak self] result in
-//            if let result = result {
-//                print(result)
-////                self?.bookInfoList = result
-////                print(result)
-//                DispatchQueue.main.async {
-//                    self?.bookTableView.reloadData()
-//                    guard (self!.bookSearchView.searchTextField.text?.isEmpty) == nil else {
-//                        return self!.setView()
-//                    }
-//                    self?.bookTableView.reloadData()
-//                }
-//            }
-//        }
-//    }
-    
 }
