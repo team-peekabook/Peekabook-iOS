@@ -286,7 +286,7 @@ extension BookSearchVC: UITextFieldDelegate {
 
 extension BookSearchVC {
     
-    func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
+    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
         NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
             self.bookInfoList = []
             

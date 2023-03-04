@@ -75,22 +75,20 @@ extension BarcodeVC {
         }
     }
     
-    private func fetchBooks() {
-        let ls = NaverSearchAPI.shared
-        ls.getNaverSearchData(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
-            if let result = result {
-                self?.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
-                DispatchQueue.main.async {
-                    let nextVC = AddBookVC()
-                    nextVC.bookInfo = [BookInfoModel(image: "", title: "", author: "")]
+    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+            if let response = response {
+                let nextVC = AddBookVC()
+                nextVC.searchType = 1
+                self.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
+                
+                if [BookInfoModel(image: "", title: "", author: "")].isEmpty {
+                    self.showErrorPopUp()
+                } else {
+                    nextVC.bookInfo = [BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author)]
+                    nextVC.dataBind(model: BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author))
                     nextVC.modalPresentationStyle = .fullScreen
-                    
-                    if [BookInfoModel(image: "", title: "", author: "")].isEmpty {
-                        self?.showErrorPopUp()
-                    } else {
-                        nextVC.dataBind(model: [BookInfoModel(image: "", title: "", author: "")][0])
-                        self?.present(nextVC, animated: true, completion: nil)
-                    }
+                    self.present(nextVC, animated: true, completion: nil)
                 }
             }
         }
@@ -129,7 +127,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
         }
         
         isbnCode = code
-        fetchBooks()
+        getNaverSearchData(d_titl: "", d_isbn: "\(code)", display: displayCount)
     }
 }
 

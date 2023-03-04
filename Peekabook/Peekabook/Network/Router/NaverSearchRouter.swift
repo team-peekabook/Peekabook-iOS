@@ -35,7 +35,7 @@ extension NaverSearchRouter: TargetType {
     var task: Moya.Task {
         switch self {
         case .getBook(let d_titl, let d_isbn, let display):
-            return .requestParameters(parameters: ["d_titl" : d_titl, "d_isbn": d_isbn, "display": display], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: ["d_titl": d_titl, "d_isbn": d_isbn, "display": display], encoding: URLEncoding.queryString)
         }
     }
     

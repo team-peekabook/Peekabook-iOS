@@ -19,6 +19,7 @@ final class AddBookVC: UIViewController {
     var bookInfo: [BookInfoModel] = []
     
     private var focus = 0
+    var searchType = 0
     var seletedBookIndex = 0
     var imgaeUrl: String = ""
     
@@ -183,9 +184,12 @@ extension AddBookVC {
 // MARK: - Methods
 
 extension AddBookVC {
-    
     @objc private func backButtonDidTap() {
-        self.dismiss(animated: true, completion: nil)
+        if searchType == 1 {
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc private func checkButtonDidTap() {
