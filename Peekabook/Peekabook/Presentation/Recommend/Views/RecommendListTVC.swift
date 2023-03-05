@@ -27,6 +27,7 @@ final class RecommendListTVC: UITableViewCell {
     private let bookCommentsContainerView = UIView().then {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
+        $0.clipsToBounds = true
     }
     private let bookNameLabel = UILabel().then {
         $0.font = .h1
@@ -94,7 +95,7 @@ final class RecommendListTVC: UITableViewCell {
 
 extension RecommendListTVC {
     private func setSubviews() {
-        contentView.addSubviews(bookHeaderView,recommendStackView)
+        contentView.addSubviews(bookHeaderView, recommendStackView)
         bookHeaderView.addSubviews(
             bookNameLabel,
             bookDividerView,
@@ -141,8 +142,9 @@ extension RecommendListTVC {
         
         bookWriterLabel.snp.makeConstraints {
             $0.centerY.equalTo(bookDividerView)
-            $0.leading.equalTo(bookDividerView.snp.trailing).offset(7).priority(750)
-            $0.trailing.equalToSuperview().inset(15).priority(750)
+            $0.leading.equalTo(bookDividerView.snp.trailing).offset(7)
+            $0.trailing.lessThanOrEqualToSuperview().inset(15)
+            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.3).constraint.isActive = true
         }
         
         recommendStackView.snp.makeConstraints {
@@ -176,13 +178,17 @@ extension RecommendListTVC {
         }
         
         bookRecommendTextLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(40)
+            $0.top.equalTo(bookRecommendedPersonLabel.snp.bottom).offset(11)
             $0.leading.trailing.equalToSuperview().inset(13)
+            
         }
     }
     
     private func setPriority() {
-        bookWriterLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
+        bookWriterLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        bookNameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        bookNameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        bookWriterLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
 }
 
