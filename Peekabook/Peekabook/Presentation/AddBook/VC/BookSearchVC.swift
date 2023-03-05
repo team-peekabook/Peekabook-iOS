@@ -299,7 +299,7 @@ extension BookSearchVC {
             
             DispatchQueue.main.async {
                 self.bookTableView.reloadData()
-                guard (self.bookSearchView.searchTextField.text?.isEmpty) == nil else {
+                guard (self.bookSearchView.searchTextField.text!.isEmpty) else {
                     return self.setView()
                 }
                 self.bookTableView.reloadData()
