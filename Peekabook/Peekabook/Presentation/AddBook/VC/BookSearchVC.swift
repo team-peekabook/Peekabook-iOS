@@ -15,6 +15,10 @@ import Moya
 final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
+    
+    private var serverNaverSearch: [NaverSearchResponse]?
+    
+    var searchType: SearchType = .text
     var personName: String = ""
     var personId: Int = 0
 
@@ -37,22 +41,7 @@ final class BookSearchVC: UIViewController {
     }
     
     private let headerLineView = UIView()
-    
-    private let searchContainerView = UIView()
-    private lazy var searchButton = UIButton().then {
-        $0.backgroundColor = .white.withAlphaComponent(0.4)
-        $0.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
-    }
-    
-    private let searchField = UITextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
-                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
-        $0.backgroundColor = .white.withAlphaComponent(0.4)
-        $0.font = .h2
-        $0.textColor = .peekaRed
-        $0.addLeftPadding()
-        $0.autocorrectionType = .no
-    }
+    private let bookSearchView = CustomSearchView()
     
     lazy var bookTableView: UITableView = {
         let tableView = UITableView()
@@ -86,7 +75,8 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        searchField.delegate = self
+        setReusableView()
+        setDelegate()
         setUI()
         setLayout()
         register()
@@ -96,19 +86,25 @@ final class BookSearchVC: UIViewController {
 
 // MARK: - UI & Layout
 extension BookSearchVC {
+    
+    private func setReusableView() {
+        bookSearchView.searchButton.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
+    }
+    
+    private func setDelegate() {
+        bookSearchView.searchTextField.delegate = self
+    }
+    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
         headerLineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
-        searchContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        
         cancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
-        searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
-        [headerView, searchContainerView].forEach {
+        [headerView, bookSearchView].forEach {
             view.addSubview($0)
         }
 
@@ -116,47 +112,31 @@ extension BookSearchVC {
             headerView.addSubview($0)
         }
         
-        [searchField, searchButton].forEach {
-            searchContainerView.addSubview($0)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        cancelButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(8)
+            $0.width.height.equalTo(48)
         }
         
-        cancelButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(8)
-            make.width.height.equalTo(48)
+        headerTitleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
-        headerTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        headerLineView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        headerLineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
-        }
-        
-        searchContainerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(40)
-        }
-        
-        searchButton.snp.makeConstraints { make in
-            make.top.bottom.trailing.equalToSuperview()
-            make.width.height.equalTo(40)
-        }
-        
-        searchField.snp.makeConstraints { make in
-            make.top.equalTo(headerLineView.snp.bottom).offset(16)
-            make.leading.equalTo(headerLineView)
-            make.trailing.equalTo(searchButton.snp.leading)
-            make.height.equalTo(40)
+        bookSearchView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(40)
         }
         
         // emptyView Layout
@@ -166,20 +146,20 @@ extension BookSearchVC {
             emptyView.addSubview($0)
         }
         
-        emptyView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(247)
-            make.height.equalTo(96)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(247)
+            $0.height.equalTo(96)
         }
         
-        emptyImgView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
+        emptyImgView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
         
-        emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyImgView.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyImgView.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
         }
     }
     
@@ -187,34 +167,25 @@ extension BookSearchVC {
         view.addSubview(containerView)
         containerView.addSubview(bookTableView)
         
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(searchContainerView.snp.bottom).offset(24)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(bookSearchView.searchContainerView.snp.bottom).offset(24)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        bookTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+        bookTableView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
     
-    func reLayout() {
-        bookTableView.snp.remakeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(128 * bookInfoList.count)
-        }
-    }
     private func register() {
         bookTableView.register(BookInfoTVC.self,
                                forCellReuseIdentifier: BookInfoTVC.className)
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || searchField.text!.isEmpty {
+        if self.bookInfoList.isEmpty == true || bookSearchView.searchTextField.text!.isEmpty {
             self.emptyView.isHidden = false
             self.bookTableView.isHidden = true
         } else {
@@ -236,30 +207,11 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
-        guard searchField.hasText else {
+        guard bookSearchView.searchTextField.hasText else {
             return setView()
         }
-        searchField.endEditing(true)
-        fetchBooks()
-    }
-    
-    // MARK: - Server Helpers
-    
-    private func fetchBooks() {
-        let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: searchField.text!, d_isbn: "", display: displayCount) { [weak self] result in
-            if let result = result {
-                self?.bookInfoList = result
-                print(result)
-                DispatchQueue.main.async {
-                    self?.bookTableView.reloadData()
-                    guard (self!.searchField.text?.isEmpty) == nil else {
-                        return self!.setView()
-                    }
-                    self?.bookTableView.reloadData()
-                }
-            }
-        }
+        bookSearchView.searchTextField.endEditing(true)
+        getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
     }
 }
 
@@ -313,22 +265,45 @@ extension BookSearchVC: UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == scrollView.frame.height - 20 {
             displayCount += 10
-            fetchBooks()
+            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
         }
     }
 }
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = searchField.text else { return true }
+        guard let text = bookSearchView.searchTextField.text else { return true }
         if text.isEmpty {
             setView()
-            searchField.endEditing(true)
+            bookSearchView.searchTextField.endEditing(true)
             return true
         } else {
-            fetchBooks()
-            searchField.endEditing(true)
+            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
+            bookSearchView.searchTextField.endEditing(true)
             return true
+        }
+    }
+}
+
+extension BookSearchVC {
+    
+    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+            self.bookInfoList = []
+            
+            guard let response = response else { return }
+            
+            for i in 0..<response.count {
+                self.bookInfoList.append(BookInfoModel(image: response[i].image, title: response[i].title, author: response[i].author))
+            }
+            
+            DispatchQueue.main.async {
+                self.bookTableView.reloadData()
+                guard (self.bookSearchView.searchTextField.text!.isEmpty) else {
+                    return self.setView()
+                }
+                self.bookTableView.reloadData()
+            }
         }
     }
 }

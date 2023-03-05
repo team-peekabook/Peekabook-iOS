@@ -102,51 +102,51 @@ extension BookInfoTVC {
             addContainerView.addSubview($0)
         }
         
-        imgContainerView.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview()
-            make.width.equalTo(106)
+        imgContainerView.snp.makeConstraints {
+            $0.top.leading.bottom.equalToSuperview()
+            $0.width.equalTo(106)
         }
         
-        bookImgView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(61)
-            make.height.equalTo(100)
+        bookImgView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(61)
+            $0.height.equalTo(100)
         }
         
-        labelContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(imgContainerView.snp.trailing).offset(-1)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(99)
+        labelContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(imgContainerView.snp.trailing).offset(-1)
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(99)
         }
         
-        bookTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.leading.equalToSuperview().offset(15)
-            make.width.equalTo(199)
+        bookTitleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(15)
+            $0.leading.equalToSuperview().offset(15)
+            $0.width.equalTo(199)
         }
         
-        authorLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookTitleLabel.snp.bottom)
-            make.leading.equalTo(bookTitleLabel)
-            make.width.equalTo(199)
+        authorLabel.snp.makeConstraints {
+            $0.top.equalTo(bookTitleLabel.snp.bottom)
+            $0.leading.equalTo(bookTitleLabel)
+            $0.width.equalTo(199)
         }
         
-        addContainerView.snp.makeConstraints { make in
-            make.top.equalTo(labelContainerView.snp.bottom)
-            make.leading.trailing.equalTo(labelContainerView)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(29)
+        addContainerView.snp.makeConstraints {
+            $0.top.equalTo(labelContainerView.snp.bottom)
+            $0.leading.trailing.equalTo(labelContainerView)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(29)
         }
         
-        addButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(10)
+        addButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(10)
         }
         
-        addLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(addButton.snp.leading).offset(-4)
+        addLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalTo(addButton.snp.leading).offset(-4)
         }
     }
     

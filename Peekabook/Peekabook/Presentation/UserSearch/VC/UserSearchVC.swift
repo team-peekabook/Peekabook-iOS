@@ -51,21 +51,7 @@ final class UserSearchVC: UIViewController {
         $0.font = .h3
     }
     private let headerUnderlineView = UIView()
-    private let searchBarContainerView = UIView()
-    private lazy var searchTextField = UITextField().then {
-        $0.placeholder = I18N.PlaceHolder.userSearch
-        $0.textColor = .peekaRed
-        $0.font = .h2
-        $0.autocorrectionType = .no
-        $0.delegate = self
-    }
-    private lazy var searchBarButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.search, for: .normal)
-        $0.addTarget(
-            self,
-            action: #selector(searchBtnTapped),
-            for: .touchUpInside)
-    }
+    private let userSearchView = CustomSearchView()
     
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
@@ -102,17 +88,20 @@ final class UserSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setReusableView()
         setUI()
         setLayout()
         setBlankView()
+        userSearchView.searchTextField.delegate = self
     }
     
     @objc private func backBtnTapped() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func searchBtnTapped() {
-        getUserAPI(nickname: searchTextField.text!)
+    @objc func searchBtnTapped() {
+        guard let friendName = userSearchView.searchTextField.text else { return }
+        getUserAPI(nickname: friendName)
     }
 }
 
@@ -120,11 +109,15 @@ final class UserSearchVC: UIViewController {
 
 extension UserSearchVC {
     
+    private func setReusableView() {
+        userSearchView.searchTextField.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
+        userSearchView.searchButton.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
+    }
+    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerUnderlineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
-        searchBarContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendProfileContainerView.backgroundColor = .white
     }
     
@@ -153,7 +146,7 @@ extension UserSearchVC {
     
     private func setLayout() {
         view.addSubviews(
-            [searchBarContainerView,
+            [userSearchView,
             friendProfileContainerView,
             headerView,
             emptyView]
@@ -162,10 +155,6 @@ extension UserSearchVC {
             [backButton,
              searchTitleLabel,
              headerUnderlineView]
-        )
-        searchBarContainerView.addSubviews(
-            [searchTextField,
-             searchBarButton]
         )
         emptyView.addSubviews(emptyImgView, emptyLabel)
         friendProfileContainerView.addSubviews(
@@ -192,25 +181,15 @@ extension UserSearchVC {
             make.height.equalTo(2)
         }
         
-        searchBarContainerView.snp.makeConstraints { make in
+        userSearchView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(16)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(48)
-        }
-        searchBarButton.snp.makeConstraints { make in
-            make.top.bottom.trailing.equalToSuperview()
-            make.height.width.equalTo(48)
-        }
-        searchTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalTo(searchBarButton.snp.leading).offset(-5)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(20)
+            make.height.equalTo(40)
         }
         
         emptyView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(searchBarContainerView).offset(204)
+            make.top.equalTo(userSearchView.searchContainerView).offset(204)
             make.height.equalTo(96)
             make.width.equalTo(247)
         }
@@ -224,7 +203,7 @@ extension UserSearchVC {
         }
         
         friendProfileContainerView.snp.makeConstraints { make in
-            make.top.equalTo(searchBarContainerView.snp.bottom).offset(24)
+            make.top.equalTo(userSearchView.searchContainerView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(176)
         }
@@ -264,7 +243,7 @@ extension UserSearchVC {
 
 extension UserSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.endEditing(true)
+        userSearchView.searchTextField.endEditing(true)
         searchBtnTapped()
         return true
     }
