@@ -13,9 +13,10 @@ import Then
 
 final class BarcodeVC: BarcodeScannerViewController {
     
+    var searchType: SearchType = .camera
     var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
-    var displayCount: Int = 30
+    var displayCount: Int = 100
     
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
@@ -64,33 +65,32 @@ extension BarcodeVC {
             textSearchButton
         ])
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(textSearchButton.snp.top).offset(-100)
-            make.centerX.equalToSuperview()
+        descriptionLabel.snp.makeConstraints {
+            $0.bottom.equalTo(textSearchButton.snp.top).offset(-100)
+            $0.centerX.equalToSuperview()
         }
         
-        textSearchButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
-            make.centerX.equalToSuperview()
+        textSearchButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+            $0.centerX.equalToSuperview()
         }
     }
     
-    private func fetchBooks() {
-        let ls = NaverSearchAPI.shared
-        ls.getNaverBookTitleAPI(d_titl: "", d_isbn: "\(isbnCode)", display: displayCount) { [weak self] result in
-            if let result = result {
-                self?.bookInfoList = result
-                DispatchQueue.main.async {
-                    let nextVC = AddBookVC()
-                    nextVC.bookInfo = result
-                    nextVC.modalPresentationStyle = .fullScreen
-                    
-                    if result.isEmpty {
-                        self?.showErrorPopUp()
-                    } else {
-                        nextVC.dataBind(model: result[0])
-                        self?.present(nextVC, animated: true, completion: nil)
-                    }
+    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+            if let response = response {
+                let addBookVC = AddBookVC()
+                addBookVC.searchType = .camera
+                self.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
+                
+                if self.bookInfoList.isEmpty {
+                    self.showErrorPopUp()
+                } else {
+                    let info = response[0]
+                    addBookVC.bookInfo = [BookInfoModel(image: info.image, title: info.title, author: info.author)]
+                    addBookVC.dataBind(model: BookInfoModel(image: info.image, title: info.title, author: info.author))
+                    addBookVC.modalPresentationStyle = .fullScreen
+                    self.present(addBookVC, animated: true, completion: nil)
                 }
             }
         }
@@ -128,8 +128,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
             self.present(errorPopUpVC, animated: false)
         }
         
-        isbnCode = code
-        fetchBooks()
+        getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
     }
 }
 

@@ -7,34 +7,14 @@
 
 import Foundation
 
-class DataManager {
-    static let shared: DataManager = DataManager()
-    var searchResult: PostBook?
-    
-    private init() {
-        
-    }
-}
+// MARK: - NaverResponse
 
-// MARK: - PostBook
-struct PostBook: Codable {
+struct NaverResponse: Codable {
     let lastBuildDate: String
-    let total, start: Int
-    var display: Int
-    let items: [Item]
+    let total, start, display: Int
+    let items: [NaverSearchResponse]
 }
 
-// MARK: - Item
-struct Item: Codable {
-    let title: String
-    let link: String
-    let image: String
-    let author, discount, publisher, pubdate: String
-    let isbn, description: String
-}
-
-struct BookInfoModel {
-    var image: String
-    var title: String
-    var author: String
+struct NaverSearchResponse: Codable {
+    let title, image, author: String
 }

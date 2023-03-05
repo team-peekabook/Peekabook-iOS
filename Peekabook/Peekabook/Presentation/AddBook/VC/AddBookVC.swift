@@ -12,13 +12,17 @@ import Then
 
 import Moya
 
+enum SearchType: CaseIterable {
+    case camera
+    case text
+}
+
 final class AddBookVC: UIViewController {
-    
     // MARK: - Properties
     
     var bookInfo: [BookInfoModel] = []
+    var searchType: SearchType = .text
     private var focus = 0
-    var seletedBookIndex = 0
     var imgaeUrl: String = ""
     
     private var serverAddBookInfo: PostBookRequest?
@@ -69,63 +73,16 @@ final class AddBookVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    private let commentBoxView = UIView()
-    private let commentHeaderView = UIView()
-    
-    private let commentLabel = UILabel().then {
-        $0.text = I18N.BookDetail.comment
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let commentView = UITextView().then {
-        $0.text = I18N.BookDetail.commentHint
-        $0.font = .h2
-        $0.textColor = .peekaGray1
-        $0.backgroundColor = .clear
-        $0.autocorrectionType = .no
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-        $0.returnKeyType = .done
-    }
-    
-    private let commentMaxLabel = UILabel().then {
-        $0.text = "0/200"
-        $0.font = .h2
-        $0.textColor = .peekaGray2
-    }
-    
-    private let memoBoxView = UIView()
-    private let memoHeaderView = UIView()
-    
-    private let memoLabel = UILabel().then {
-        $0.text = I18N.BookDetail.memo
-        $0.font = .h1
-        $0.textColor = .peekaWhite
-    }
-    
-    private let memoView = UITextView().then {
-        $0.font = .h2
-        $0.textColor = .peekaGray1
-        $0.text = I18N.BookDetail.memoHint
-        $0.backgroundColor = .clear
-        $0.autocorrectionType = .no
-        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
-        $0.returnKeyType = .done
-    }
-    
-    private let memoMaxLabel = UILabel().then {
-        $0.text = "0/50"
-        $0.font = .h2
-        $0.textColor = .peekaGray2
-    }
+    private let peekaCommentView = CustomTextView()
+    private let peekaMemoView = CustomTextView()
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setReusableView()
         setUI()
         setLayout()
-        setDelegate()
         addTapGesture()
         addKeyboardObserver()
     }
@@ -138,21 +95,17 @@ final class AddBookVC: UIViewController {
 // MARK: - UI & Layout
 
 extension AddBookVC {
+    private func setReusableView() {
+        peekaMemoView.boxView.frame.size.height = 101
+        peekaMemoView.label.text = I18N.BookDetail.memo
+        peekaMemoView.textView.text = I18N.BookDetail.memoHint
+        peekaMemoView.maxLabel.text = I18N.BookAdd.memoLength
+    }
+    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
-        
-        commentBoxView.backgroundColor = .peekaWhite_60
-        commentBoxView.layer.borderWidth = 2
-        commentBoxView.layer.borderColor = UIColor.peekaRed.cgColor
-        commentHeaderView.backgroundColor = .peekaRed
-        
-        memoBoxView.backgroundColor = .peekaWhite_60
-        memoBoxView.layer.borderWidth = 2
-        memoBoxView.layer.borderColor = UIColor.peekaRed.cgColor
-        memoHeaderView.backgroundColor = .peekaRed
-        
         backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
@@ -165,127 +118,67 @@ extension AddBookVC {
             headerView.addSubview($0)
         }
         
-        [bookImgView, nameLabel, authorLabel, commentBoxView, commentMaxLabel, memoBoxView, memoMaxLabel].forEach {
+        [bookImgView, nameLabel, authorLabel, peekaCommentView, peekaMemoView].forEach {
             containerView.addSubview($0)
         }
         
-        [commentHeaderView, commentView].forEach {
-            commentBoxView.addSubview($0)
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        [commentLabel].forEach {
-            commentHeaderView.addSubview($0)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        [memoHeaderView, memoView].forEach {
-            memoBoxView.addSubview($0)
+        backButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
         }
         
-        [memoLabel].forEach {
-            memoHeaderView.addSubview($0)
+        headerTitleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        checkButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(11)
+            $0.width.height.equalTo(48)
         }
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        bookImgView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(99)
+            $0.height.equalTo(160)
         }
         
-        backButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(bookImgView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        headerTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        authorLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(316)
         }
         
-        checkButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(11)
-            make.width.height.equalTo(48)
+        peekaCommentView.snp.makeConstraints {
+            $0.top.equalTo(authorLabel.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
+            $0.height.equalTo(229)
         }
         
-        bookImgView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(99)
-            make.height.equalTo(160)
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookImgView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
-        }
-        
-        authorLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(316)
-        }
-        
-        commentBoxView.snp.makeConstraints { make in
-            make.top.equalTo(authorLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(229)
-        }
-        
-        commentHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        commentLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        commentView.snp.makeConstraints { make in
-            make.top.equalTo(commentHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalTo(commentBoxView).inset(14)
-        }
-        
-        commentMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(commentBoxView.snp.bottom).offset(8)
-            make.trailing.equalTo(commentBoxView.snp.trailing)
-        }
-        
-        memoBoxView.snp.makeConstraints { make in
-            make.top.equalTo(commentMaxLabel.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(335)
-            make.height.equalTo(101)
-        }
-        
-        memoHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(36)
-        }
-        
-        memoLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(14)
-        }
-        
-        memoView.snp.makeConstraints { make in
-            make.top.equalTo(memoHeaderView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalTo(memoBoxView).inset(14)
-        }
-        
-        memoMaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoBoxView.snp.bottom).offset(8)
-            make.trailing.equalTo(memoBoxView.snp.trailing)
-            make.bottom.equalToSuperview().inset(8)
+        peekaMemoView.snp.makeConstraints {
+            $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
+            $0.height.equalTo(101)
+            $0.bottom.equalToSuperview().inset(36)
         }
     }
 }
@@ -293,20 +186,20 @@ extension AddBookVC {
 // MARK: - Methods
 
 extension AddBookVC {
-    private func setDelegate() {
-        commentView.delegate = self
-        memoView.delegate = self
-    }
-    
     @objc private func backButtonDidTap() {
-        self.dismiss(animated: true, completion: nil)
+        switch searchType {
+        case .camera:
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        case .text:
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc private func checkButtonDidTap() {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
-              let description = self.commentView.text,
-              let memo = self.memoView.text else { return }
+              let description = peekaCommentView.textView.text,
+              let memo = peekaMemoView.textView.text else { return }
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
@@ -341,16 +234,16 @@ extension AddBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if commentView.isFirstResponder {
-            let textViewHeight = commentBoxView.frame.height
-            let position = CGPoint(x: 0, y: commentBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+        if peekaCommentView.textView.isFirstResponder {
+            let textViewHeight = peekaCommentView.boxView.frame.height
+            let position = CGPoint(x: 0, y: peekaCommentView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
-        if memoView.isFirstResponder {
-            let textViewHeight = memoBoxView.frame.height
-            let position = CGPoint(x: 0, y: memoBoxView.frame.origin.y - keyboardFrame.size.height + textViewHeight - 40)
+        if peekaMemoView.textView.isFirstResponder {
+            let textViewHeight = peekaMemoView.boxView.frame.height
+            let position = CGPoint(x: 0, y: peekaMemoView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -368,44 +261,6 @@ extension AddBookVC {
         imgaeUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
-    }
-}
-
-extension AddBookVC: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.BookDetail.commentHint {
-            textView.text = nil
-            textView.textColor = .peekaRed
-        } else if textView.text == I18N.BookDetail.memoHint {
-            textView.text = nil
-            textView.textColor = .peekaRed
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if commentView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            commentView.text = I18N.BookDetail.commentHint
-            commentView.textColor = .peekaGray1
-        } else if memoView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            memoView.text = I18N.BookDetail.memoHint
-            memoView.textColor = .peekaGray1
-        }
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if textView == commentView {
-            commentMaxLabel.text = "\(commentView.text.count)/200"
-            if commentView.text.count > 200 {
-                commentView.deleteBackward()
-            }
-        }
-        
-        if textView == memoView {
-            memoMaxLabel.text = "\(memoView.text.count)/50"
-            if memoView.text.count > 50 {
-                memoView.deleteBackward()
-            }
-        }
     }
 }
 
