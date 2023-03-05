@@ -11,7 +11,11 @@ final class CustomTextView: UIView {
 
     // MARK: - UI Components
     
-    private let boxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229))
+    private let boxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229)).then {
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+    
     private let headerView = UIView()
     
     private let label = UILabel().then {
@@ -24,7 +28,6 @@ final class CustomTextView: UIView {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
-        $0.backgroundColor = .clear
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         $0.returnKeyType = .done
@@ -40,7 +43,7 @@ final class CustomTextView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
+        setBackgroundColor()
         setLayout()
         setDelegate()
     }
@@ -58,11 +61,11 @@ extension CustomTextView {
         textView.delegate = self
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         backgroundColor = .clear
+        
         boxView.backgroundColor = .peekaWhite_60
-        boxView.layer.borderWidth = 2
-        boxView.layer.borderColor = UIColor.peekaRed.cgColor
+        textView.backgroundColor = .clear
         headerView.backgroundColor = .peekaRed
     }
     
@@ -74,9 +77,7 @@ extension CustomTextView {
             boxView.addSubview($0)
         }
         
-        [label].forEach {
-            headerView.addSubview($0)
-        }
+        headerView.addSubview(label)
         
         headerView.snp.makeConstraints {
             $0.top.equalToSuperview()

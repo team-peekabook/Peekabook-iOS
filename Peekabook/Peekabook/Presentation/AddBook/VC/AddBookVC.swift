@@ -33,6 +33,7 @@ final class AddBookVC: UIViewController {
     
     private lazy var backButton = UIButton().then {
         $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private let headerTitleLabel = UILabel().then {
@@ -80,8 +81,8 @@ final class AddBookVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
         addTapGesture()
         addKeyboardObserver()
@@ -95,15 +96,15 @@ final class AddBookVC: UIViewController {
 // MARK: - UI & Layout
 
 extension AddBookVC {
-    private func setReusableView() {
+    private func setCustomView() {
         peekaMemoView.setAddBookMemoTextView()
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
+        
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
-        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private func setLayout() {

@@ -32,6 +32,7 @@ final class BookSearchVC: UIViewController {
     private let containerView = UIView()
     private lazy var cancelButton = UIButton().then {
         $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.close, for: .normal)
     }
     
     private let headerTitleLabel = UILabel().then {
@@ -75,9 +76,9 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        setReusableView()
+        setCustomView()
         setDelegate()
-        setUI()
+        setBackgroundColor()
         setLayout()
         register()
         setTableViewLayout()
@@ -87,20 +88,20 @@ final class BookSearchVC: UIViewController {
 // MARK: - UI & Layout
 extension BookSearchVC {
     
-    private func setReusableView() {
-        bookSearchView.searchButton.addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
+    private func setCustomView() {
+        bookSearchView.getSearchButton().addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
     }
     
     private func setDelegate() {
-        bookSearchView.searchTextField.delegate = self
+        bookSearchView.getSearchTextField().delegate = self
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
+        
         headerView.backgroundColor = .clear
         headerLineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
-        cancelButton.setImage(ImageLiterals.Icn.close, for: .normal)
     }
     
     private func setLayout() {
@@ -168,7 +169,7 @@ extension BookSearchVC {
         containerView.addSubview(bookTableView)
         
         containerView.snp.makeConstraints {
-            $0.top.equalTo(bookSearchView.searchContainerView.snp.bottom).offset(24)
+            $0.top.equalTo(bookSearchView.snp.bottom).offset(24)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -185,7 +186,7 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || bookSearchView.searchTextField.text!.isEmpty {
+        if self.bookInfoList.isEmpty == true || bookSearchView.getSearchTextField().text!.isEmpty {
             self.emptyView.isHidden = false
             self.bookTableView.isHidden = true
         } else {
@@ -207,11 +208,11 @@ extension BookSearchVC {
     
     @objc
     private func searchButtonDidTap() {
-        guard bookSearchView.searchTextField.hasText else {
+        guard bookSearchView.getSearchTextField().hasText else {
             return setView()
         }
-        bookSearchView.searchTextField.endEditing(true)
-        getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
+        bookSearchView.getSearchTextField().endEditing(true)
+        getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
     }
 }
 
@@ -265,21 +266,22 @@ extension BookSearchVC: UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == scrollView.frame.height - 20 {
             displayCount += 10
-            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
+            getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
         }
     }
 }
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = bookSearchView.searchTextField.text else { return true }
+        print("터치선배")
+        guard let text = bookSearchView.getSearchTextField().text else { return true }
         if text.isEmpty {
             setView()
-            bookSearchView.searchTextField.endEditing(true)
+            bookSearchView.getSearchTextField().endEditing(true)
             return true
         } else {
-            getNaverSearchData(d_titl: bookSearchView.searchTextField.text!, d_isbn: "", display: displayCount)
-            bookSearchView.searchTextField.endEditing(true)
+            getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
+            bookSearchView.getSearchTextField().endEditing(true)
             return true
         }
     }
@@ -299,10 +301,11 @@ extension BookSearchVC {
             
             DispatchQueue.main.async {
                 self.bookTableView.reloadData()
-                guard (self.bookSearchView.searchTextField.text!.isEmpty) else {
-                    return self.setView()
+                if let searchText = self.bookSearchView.getSearchTextField().text, !searchText.isEmpty {
+                    self.bookTableView.reloadData()
+                } else {
+                    self.setView()
                 }
-                self.bookTableView.reloadData()
             }
         }
     }

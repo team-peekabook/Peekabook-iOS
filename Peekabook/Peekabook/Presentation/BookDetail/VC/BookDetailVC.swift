@@ -22,7 +22,10 @@ final class BookDetailVC: UIViewController {
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
-    private let containerScrollView = UIScrollView()
+    private let containerScrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let peekaCommentView = CustomTextView()
     private let peekaMemoView = CustomTextView()
     
@@ -65,14 +68,14 @@ final class BookDetailVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
         getBookDetail(id: selectedBookIndex)
     }
@@ -108,14 +111,13 @@ final class BookDetailVC: UIViewController {
 // MARK: - UI & Layout
 extension BookDetailVC {
     
-    private func setReusableView() {
+    private func setCustomView() {
         peekaCommentView.setBookDetailCommentTextView()
         peekaMemoView.setBookDetailMemoTextView()
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
-        containerScrollView.showsVerticalScrollIndicator = false
     }
     
     private func setLayout() {

@@ -88,11 +88,11 @@ final class UserSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setReusableView()
+        setDelegate()
+        setCustomView()
         setUI()
         setLayout()
         setBlankView()
-        userSearchView.searchTextField.delegate = self
     }
     
     @objc private func backBtnTapped() {
@@ -100,7 +100,7 @@ final class UserSearchVC: UIViewController {
     }
     
     @objc func searchBtnTapped() {
-        guard let friendName = userSearchView.searchTextField.text else { return }
+        guard let friendName = userSearchView.getSearchTextField().text else { return }
         getUserAPI(nickname: friendName)
     }
 }
@@ -109,9 +109,13 @@ final class UserSearchVC: UIViewController {
 
 extension UserSearchVC {
     
-    private func setReusableView() {
-        userSearchView.searchTextField.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
-        userSearchView.searchButton.addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
+    private func setCustomView() {
+        userSearchView.getSearchTextField().attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
+        userSearchView.getSearchButton().addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
+    }
+    
+    private func setDelegate() {
+        userSearchView.getSearchTextField().delegate = self
     }
     
     private func setUI() {
@@ -189,7 +193,7 @@ extension UserSearchVC {
         
         emptyView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(userSearchView.searchContainerView).offset(204)
+            make.top.equalTo(userSearchView).offset(204)
             make.height.equalTo(96)
             make.width.equalTo(247)
         }
@@ -203,7 +207,7 @@ extension UserSearchVC {
         }
         
         friendProfileContainerView.snp.makeConstraints { make in
-            make.top.equalTo(userSearchView.searchContainerView.snp.bottom).offset(24)
+            make.top.equalTo(userSearchView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(176)
         }
@@ -243,8 +247,8 @@ extension UserSearchVC {
 
 extension UserSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        userSearchView.searchTextField.endEditing(true)
         searchBtnTapped()
+        userSearchView.getSearchTextField().endEditing(true)
         return true
     }
 }

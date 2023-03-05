@@ -18,3 +18,9 @@ struct NaverResponse: Codable {
 struct NaverSearchResponse: Codable {
     let title, image, author: String
 }
+
+struct BookInfoModel: Codable {
+    var image: String
+    var title: String
+    var author: String
+}
