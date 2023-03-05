@@ -80,15 +80,15 @@ extension BarcodeVC {
         NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
             if let response = response {
                 let addBookVC = AddBookVC()
-                self.searchType = .camera
                 addBookVC.searchType = .camera
                 self.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
                 
-                if [BookInfoModel(image: "", title: "", author: "")].isEmpty {
+                if self.bookInfoList.isEmpty {
                     self.showErrorPopUp()
                 } else {
-                    addBookVC.bookInfo = [BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author)]
-                    addBookVC.dataBind(model: BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author))
+                    let info = response[0]
+                    addBookVC.bookInfo = [BookInfoModel(image: info.image, title: info.title, author: info.author)]
+                    addBookVC.dataBind(model: BookInfoModel(image: info.image, title: info.title, author: info.author))
                     addBookVC.modalPresentationStyle = .fullScreen
                     self.present(addBookVC, animated: true, completion: nil)
                 }
@@ -128,7 +128,6 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
             self.present(errorPopUpVC, animated: false)
         }
         
-        isbnCode = code
         getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
     }
 }
