@@ -12,14 +12,18 @@ import Then
 
 import Moya
 
+enum SearchType: CaseIterable {
+    case camera
+    case text
+}
+
 final class AddBookVC: UIViewController {
-    
     // MARK: - Properties
     
     var bookInfo: [BookInfoModel] = []
     
+    var searchType: SearchType = .text
     private var focus = 0
-    var searchType = 0
     var seletedBookIndex = 0
     var imgaeUrl: String = ""
     
@@ -185,9 +189,10 @@ extension AddBookVC {
 
 extension AddBookVC {
     @objc private func backButtonDidTap() {
-        if searchType == 1 {
+        switch searchType {
+        case .camera:
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        } else {
+        case .text:
             self.dismiss(animated: true, completion: nil)
         }
     }

@@ -7,16 +7,14 @@
 
 import Foundation
 
-// MARK: - Item
+// MARK: - NaverResponse
 
-struct NaverSearchResponse: Codable {
+struct NaverResponse: Codable {
     let lastBuildDate: String
     let total, start, display: Int
-    let items: [Item]
+    let items: [NaverSearchResponse]
 }
 
-struct Item: Codable {
-    let title: String
-    let image: String
-    let author: String
+struct NaverSearchResponse: Codable {
+    let title, image, author: String
 }

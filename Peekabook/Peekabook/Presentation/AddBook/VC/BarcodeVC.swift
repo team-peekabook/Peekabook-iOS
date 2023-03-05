@@ -13,6 +13,7 @@ import Then
 
 final class BarcodeVC: BarcodeScannerViewController {
     
+    var searchType: SearchType = .camera
     var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
     var displayCount: Int = 100
@@ -75,20 +76,21 @@ extension BarcodeVC {
         }
     }
     
-    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
             if let response = response {
-                let nextVC = AddBookVC()
-                nextVC.searchType = 1
+                let addBookVC = AddBookVC()
+                self.searchType = .camera
+                addBookVC.searchType = .camera
                 self.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
                 
                 if [BookInfoModel(image: "", title: "", author: "")].isEmpty {
                     self.showErrorPopUp()
                 } else {
-                    nextVC.bookInfo = [BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author)]
-                    nextVC.dataBind(model: BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author))
-                    nextVC.modalPresentationStyle = .fullScreen
-                    self.present(nextVC, animated: true, completion: nil)
+                    addBookVC.bookInfo = [BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author)]
+                    addBookVC.dataBind(model: BookInfoModel(image: response[0].image, title: response[0].title, author: response[0].author))
+                    addBookVC.modalPresentationStyle = .fullScreen
+                    self.present(addBookVC, animated: true, completion: nil)
                 }
             }
         }
@@ -127,7 +129,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
         }
         
         isbnCode = code
-        getNaverSearchData(d_titl: "", d_isbn: "\(code)", display: displayCount)
+        getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
     }
 }
 

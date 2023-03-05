@@ -16,8 +16,9 @@ final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverNaverSearch: [Item]?
+    private var serverNaverSearch: [NaverSearchResponse]?
     
+    var searchType: SearchType = .text
     var personName: String = ""
     var personId: Int = 0
 
@@ -287,7 +288,7 @@ extension BookSearchVC: UITextFieldDelegate {
 extension BookSearchVC {
     
     private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI.shared.getNaverSearchData(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
             self.bookInfoList = []
             
             guard let response = response else { return }
