@@ -11,7 +11,7 @@ final class CustomTextView: UIView {
 
     // MARK: - UI Components
     
-    private let boxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229)).then {
+    private let boxView = UIView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
@@ -41,11 +41,21 @@ final class CustomTextView: UIView {
     
     // MARK: - Initialization
     
+    override var intrinsicContentSize: CGSize {
+        return boxView.intrinsicContentSize
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setBackgroundColor()
         setLayout()
         setDelegate()
+        
+        addSubview(boxView)
+        boxView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
     }
     
     required init?(coder: NSCoder) {

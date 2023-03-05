@@ -167,14 +167,14 @@ extension AddBookVC {
         peekaCommentView.snp.makeConstraints {
             $0.top.equalTo(authorLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
+            $0.leading.trailing.equalToSuperview().offset(20)
             $0.height.equalTo(229)
         }
         
         peekaMemoView.snp.makeConstraints {
             $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
+            $0.leading.trailing.equalToSuperview().offset(20)
             $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(36)
         }
