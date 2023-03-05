@@ -11,16 +11,16 @@ final class CustomTextView: UIView {
 
     // MARK: - UI Components
     
-    let boxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229))
-    let headerView = UIView()
+    private let boxView = UIView(frame: CGRect(x: 0, y: 0, width: 335, height: 229))
+    private let headerView = UIView()
     
-    let label = UILabel().then {
+    private let label = UILabel().then {
         $0.text = I18N.BookDetail.comment
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
     
-    let textView = UITextView().then {
+    private let textView = UITextView().then {
         $0.text = I18N.BookDetail.commentHint
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -30,7 +30,7 @@ final class CustomTextView: UIView {
         $0.returnKeyType = .done
     }
     
-    let maxLabel = UILabel().then {
+    private let maxLabel = UILabel().then {
         $0.text = I18N.BookAdd.commentLength
         $0.font = .h2
         $0.textColor = .peekaGray2
@@ -137,5 +137,49 @@ extension CustomTextView: UITextViewDelegate {
                 textView.deleteBackward()
             }
         }
+    }
+}
+
+extension CustomTextView {
+    func setAddBookMemoTextView() {
+        boxView.frame.size.height = 101
+        label.text = I18N.BookDetail.memo
+        textView.text = I18N.BookDetail.memoHint
+        maxLabel.text = I18N.BookAdd.memoLength
+    }
+    
+    func setEditBookCommentTextView() {
+        boxView.backgroundColor = .clear
+    }
+    
+    func setEditBookMemoTextView() {
+        boxView.backgroundColor = .clear
+        boxView.frame.size.height = 101
+        label.text = I18N.BookDetail.memo
+        textView.text = I18N.BookDetail.memoHint
+    }
+    
+    func setBookDetailCommentTextView() {
+        boxView.backgroundColor = .clear
+        maxLabel.isHidden = true
+    }
+    
+    func setBookDetailMemoTextView() {
+        label.text = I18N.BookDetail.memo
+        boxView.backgroundColor = .clear
+        maxLabel.isHidden = true
+        boxView.frame.size.height = 101
+    }
+    
+    func getBoxView() -> UIView {
+        return self.boxView
+    }
+
+    func getTextView() -> UITextView {
+        return self.textView
+    }
+    
+    func getMaxLabel() -> UILabel {
+        return self.maxLabel
     }
 }

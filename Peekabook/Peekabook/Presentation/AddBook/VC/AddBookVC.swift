@@ -96,10 +96,7 @@ final class AddBookVC: UIViewController {
 
 extension AddBookVC {
     private func setReusableView() {
-        peekaMemoView.boxView.frame.size.height = 101
-        peekaMemoView.label.text = I18N.BookDetail.memo
-        peekaMemoView.textView.text = I18N.BookDetail.memoHint
-        peekaMemoView.maxLabel.text = I18N.BookAdd.memoLength
+        peekaMemoView.setAddBookMemoTextView()
     }
     
     private func setUI() {
@@ -198,8 +195,8 @@ extension AddBookVC {
     @objc private func checkButtonDidTap() {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
-              let description = peekaCommentView.textView.text,
-              let memo = peekaMemoView.textView.text else { return }
+              let description = peekaCommentView.getTextView().text,
+              let memo = peekaMemoView.getTextView().text else { return }
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
@@ -234,16 +231,16 @@ extension AddBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if peekaCommentView.textView.isFirstResponder {
-            let textViewHeight = peekaCommentView.boxView.frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+        if peekaCommentView.getTextView().isFirstResponder {
+            let textViewHeight = peekaCommentView.getBoxView().frame.height
+            let position = CGPoint(x: 0, y: peekaCommentView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
             containerView.setContentOffset(position, animated: true)
             return
         }
-        
-        if peekaMemoView.textView.isFirstResponder {
-            let textViewHeight = peekaMemoView.boxView.frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
+
+        if peekaMemoView.getTextView().isFirstResponder {
+            let textViewHeight = peekaMemoView.getBoxView().frame.height
+            let position = CGPoint(x: 0, y: peekaMemoView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
             containerView.setContentOffset(position, animated: true)
             return
         }
