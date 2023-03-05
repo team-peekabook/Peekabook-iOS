@@ -75,6 +75,7 @@ final class EditBookVC: UIViewController {
         setLayout()
         addTapGesture()
         addKeyboardObserver()
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
