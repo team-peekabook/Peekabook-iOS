@@ -21,10 +21,8 @@ final class AddBookVC: UIViewController {
     // MARK: - Properties
     
     var bookInfo: [BookInfoModel] = []
-    
     var searchType: SearchType = .text
     private var focus = 0
-    var seletedBookIndex = 0
     var imgaeUrl: String = ""
     
     private var serverAddBookInfo: PostBookRequest?
