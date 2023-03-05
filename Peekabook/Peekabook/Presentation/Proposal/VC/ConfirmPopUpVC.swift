@@ -23,34 +23,11 @@ final class ConfirmPopUpVC: UIViewController {
     var personName: String = ""
 
     // MARK: - UI Components
-    private let popUpView = UIView()
+    private let popUpView = CustomPopUpView()
     
     private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
-    }
-    
-    private let confirmLabel = UILabel().then {
-        $0.font = .h4
-        $0.textColor = .peekaRed
-        $0.numberOfLines = 2
-        $0.textAlignment = .center
-    }
-    
-    private lazy var cancelButton = UIButton().then {
-        $0.setTitle(I18N.Confirm.cancel, for: .normal)
-        $0.titleLabel!.font = .h1
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaGray2
-        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var confirmButton = UIButton().then {
-        $0.setTitle(I18N.Confirm.recommend, for: .normal)
-        $0.titleLabel!.font = .h1
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaRed
-        $0.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
     }
 
     // MARK: - View Life Cycle
@@ -59,6 +36,7 @@ final class ConfirmPopUpVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        addTargets()
     }
 }
 
@@ -67,38 +45,17 @@ extension ConfirmPopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
-        confirmLabel.text = personName + I18N.BookProposal.confirm
+        popUpView.confirmLabel.text = personName + I18N.BookProposal.confirm
+        popUpView.confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
     }
     
     private func setLayout() {
         view.addSubview(popUpView)
         
-        [confirmLabel, cancelButton, confirmButton].forEach {
-            popUpView.addSubview($0)
-        }
-        
         popUpView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalTo(295)
             make.height.equalTo(136)
-        }
-        
-        confirmLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(18)
-            make.centerX.equalToSuperview()
-        }
-        
-        cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(124)
-            make.height.equalTo(40)
-        }
-        
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.height.equalTo(cancelButton)
         }
     }
 }
@@ -106,6 +63,12 @@ extension ConfirmPopUpVC {
 // MARK: - Methods
 
 extension ConfirmPopUpVC {
+    
+    private func addTargets() {
+        popUpView.cancelButton.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
+        popUpView.confirmButton.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
+    }
+    
     @objc private func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
