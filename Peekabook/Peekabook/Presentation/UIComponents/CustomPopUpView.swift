@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomPopUpView: UIView {
+final class CustomPopUpView: UIView {
     
     let confirmLabel = UILabel().then {
         $0.text = I18N.BookDelete.popUpComment
