@@ -12,15 +12,9 @@ import Foundation
 struct NaverResponse: Codable {
     let lastBuildDate: String
     let total, start, display: Int
-    let items: [NaverSearchResponse]
-}
-
-struct NaverSearchResponse: Codable {
-    let title, image, author: String
+    let items: [BookInfoModel]
 }
 
 struct BookInfoModel: Codable {
-    var image: String
-    var title: String
-    var author: String
+    let title, image, author: String
 }

@@ -16,7 +16,7 @@ final class BookSearchVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverNaverSearch: [NaverSearchResponse]?
+    private var serverNaverSearch: [BookInfoModel]?
     
     var searchType: SearchType = .text
     var personName: String = ""
@@ -203,7 +203,7 @@ extension BookSearchVC {
     }
     
     func bookBind(image: String, title: String, author: String) {
-        bookInfoList.append(BookInfoModel(image: image, title: title, author: author))
+        bookInfoList.append(BookInfoModel(title: title, image: image, author: author))
     }
     
     @objc
@@ -296,7 +296,7 @@ extension BookSearchVC {
             guard let response = response else { return }
             
             for i in 0..<response.count {
-                self.bookInfoList.append(BookInfoModel(image: response[i].image, title: response[i].title, author: response[i].author))
+                self.bookInfoList.append(BookInfoModel(title: response[i].title, image: response[i].image, author: response[i].author))
             }
             
             DispatchQueue.main.async {

@@ -81,14 +81,14 @@ extension BarcodeVC {
             if let response = response {
                 let addBookVC = AddBookVC()
                 addBookVC.searchType = .camera
-                self.bookInfoList = [BookInfoModel(image: "", title: "", author: "")]
+                self.bookInfoList = [BookInfoModel(title: "", image: "", author: "")]
                 
                 if self.bookInfoList.isEmpty {
                     self.showErrorPopUp()
                 } else {
                     let info = response[0]
-                    addBookVC.bookInfo = [BookInfoModel(image: info.image, title: info.title, author: info.author)]
-                    addBookVC.dataBind(model: BookInfoModel(image: info.image, title: info.title, author: info.author))
+                    addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author)]
+                    addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author))
                     addBookVC.modalPresentationStyle = .fullScreen
                     self.present(addBookVC, animated: true, completion: nil)
                 }
