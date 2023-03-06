@@ -52,10 +52,10 @@ extension ConfirmPopUpVC {
     private func setLayout() {
         view.addSubview(popUpView)
         
-        popUpView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(295)
-            make.height.equalTo(136)
+        popUpView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(295)
+            $0.height.equalTo(136)
         }
     }
 }
