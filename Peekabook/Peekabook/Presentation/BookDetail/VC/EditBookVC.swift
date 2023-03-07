@@ -48,18 +48,18 @@ final class EditBookVC: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    var bookImgView = UIImageView().then {
+    private var bookImgView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFit
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    var nameLabel = UILabel().then {
+    private var nameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
     }
     
-    var authorLabel = UILabel().then {
+    private var authorLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .peekaRed
     }
@@ -192,6 +192,18 @@ extension EditBookVC {
 // MARK: - Methods
 
 extension EditBookVC {
+    
+    public func setBookImgView(_ imageView: UIImageView) {
+        self.bookImgView = imageView
+    }
+    
+    public func setNameLabel(_ label: UILabel) {
+        self.nameLabel = label
+    }
+    
+    public func setAuthorLabel(_ label: UILabel) {
+        self.authorLabel = label
+    }
     
     @objc private func backButtonDidTap() {
         navigationController?.popViewController(animated: true)

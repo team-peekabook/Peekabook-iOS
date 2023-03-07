@@ -44,7 +44,7 @@ final class BookSearchVC: UIViewController {
     private let headerLineView = UIView()
     private let bookSearchView = CustomSearchView()
     
-    lazy var bookTableView: UITableView = {
+    private lazy var bookTableView: UITableView = {
         let tableView = UITableView()
         let backgroundView = UIView()
         tableView.showsVerticalScrollIndicator = true

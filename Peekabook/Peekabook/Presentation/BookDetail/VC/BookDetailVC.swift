@@ -44,13 +44,13 @@ final class BookDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var bookImageView = UIImageView().then {
+    private let bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private lazy var bookNameLabel = UILabel().then {
+    private let bookNameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
@@ -58,7 +58,7 @@ final class BookDetailVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    private lazy var bookAuthorLabel = UILabel().then {
+    private let bookAuthorLabel = UILabel().then {
         $0.font = .h2
         $0.textAlignment = .center
         $0.textColor = .peekaRed
@@ -89,9 +89,9 @@ final class BookDetailVC: UIViewController {
     @objc
     private func editButtonDidTap() {
         let editVC = EditBookVC()
-        editVC.bookImgView = bookImageView
-        editVC.nameLabel = bookNameLabel
-        editVC.authorLabel = bookAuthorLabel
+        editVC.setBookImgView(bookImageView)
+        editVC.setNameLabel(bookNameLabel)
+        editVC.setAuthorLabel(bookAuthorLabel)
         editVC.descriptions = peekaCommentView.getTextView().text
         editVC.memo = peekaMemoView.getTextView().text
         editVC.bookIndex = selectedBookIndex
