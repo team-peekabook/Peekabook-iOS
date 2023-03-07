@@ -173,6 +173,7 @@ extension CustomTextView {
     func setBookDetailCommentTextView() {
         boxView.backgroundColor = .clear
         maxLabel.isHidden = true
+        textView.isUserInteractionEnabled = false
     }
     
     func setBookDetailMemoTextView() {
@@ -180,6 +181,7 @@ extension CustomTextView {
         boxView.backgroundColor = .clear
         maxLabel.isHidden = true
         boxView.frame.size.height = 101
+        textView.isUserInteractionEnabled = false
     }
     
     func getBoxView() -> UIView {

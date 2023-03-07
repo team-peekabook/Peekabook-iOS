@@ -273,7 +273,6 @@ extension BookSearchVC: UITableViewDataSource {
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("터치선배")
         guard let text = bookSearchView.getSearchTextField().text else { return true }
         if text.isEmpty {
             setView()
