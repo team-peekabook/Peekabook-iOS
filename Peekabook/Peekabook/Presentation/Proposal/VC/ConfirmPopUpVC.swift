@@ -77,28 +77,28 @@ extension ConfirmPopUpVC {
             popUpView.addSubview($0)
         }
         
-        popUpView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(295)
-            make.height.equalTo(136)
+        popUpView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(295)
+            $0.height.equalTo(136)
         }
         
-        confirmLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(18)
-            make.centerX.equalToSuperview()
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18)
+            $0.centerX.equalToSuperview()
         }
         
-        cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(124)
-            make.height.equalTo(40)
+        cancelButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(14)
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(124)
+            $0.height.equalTo(40)
         }
         
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.height.equalTo(cancelButton)
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(14)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.height.equalTo(cancelButton)
         }
     }
 }

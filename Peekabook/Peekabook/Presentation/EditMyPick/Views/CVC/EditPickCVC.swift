@@ -55,23 +55,23 @@ extension EditPickCVC {
     private func setLayout() {
         addSubviews(bookImageView, countLabel, horizontalLine)
         
-        bookImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(150)
+        bookImageView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(150)
         }
         
-        countLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookImageView).offset(8)
-            make.trailing.equalTo(bookImageView).inset(8)
-            make.width.height.equalTo(20)
+        countLabel.snp.makeConstraints {
+            $0.top.equalTo(bookImageView).offset(8)
+            $0.trailing.equalTo(bookImageView).inset(8)
+            $0.width.height.equalTo(20)
         }
         
-        horizontalLine.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(bookImageView.snp.bottom)
-            make.width.equalTo(UIScreen.main.bounds.width*2)
-            make.height.equalTo(6)
+        horizontalLine.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(bookImageView.snp.bottom)
+            $0.width.equalTo(UIScreen.main.bounds.width*2)
+            $0.height.equalTo(6)
         }
     }
     

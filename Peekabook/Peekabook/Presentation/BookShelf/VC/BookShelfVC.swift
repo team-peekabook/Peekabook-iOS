@@ -255,146 +255,146 @@ extension BookShelfVC {
         
         emptyView.addSubview(emptyPickViewDescription)
         
-        naviContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        naviContainerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        containerScrollView.snp.makeConstraints { make in
-            make.top.equalTo(naviContainerView.snp.bottom)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalToSuperview().inset(200.adjustedH)
+        containerScrollView.snp.makeConstraints {
+            $0.top.equalTo(naviContainerView.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview().inset(200.adjustedH)
         }
         
-        friendsListContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(86)
+        friendsListContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(86)
         }
         
-        introProfileView.snp.makeConstraints { make in
-            make.top.equalTo(friendsListContainerView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(70)
+        introProfileView.snp.makeConstraints {
+            $0.top.equalTo(friendsListContainerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(70)
         }
         
-        pickContainerView.snp.makeConstraints { make in
-            make.top.equalTo(introProfileView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+        pickContainerView.snp.makeConstraints {
+            $0.top.equalTo(introProfileView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
-        logoImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
+        logoImage.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
         }
         
-        notificationButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(4)
-            make.centerY.equalToSuperview()
+        notificationButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(4)
+            $0.centerY.equalToSuperview()
         }
         
-        addFriendButton.snp.makeConstraints { make in
-            make.trailing.equalTo(notificationButton.snp.leading)
-            make.centerY.equalToSuperview()
+        addFriendButton.snp.makeConstraints {
+            $0.trailing.equalTo(notificationButton.snp.leading)
+            $0.centerY.equalToSuperview()
         }
         
-        horizontalLine1.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        horizontalLine1.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        myProfileView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.width.equalTo(60)
-            make.height.equalTo(84)
+        myProfileView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.width.equalTo(60)
+            $0.height.equalTo(84)
         }
         
-        myProfileImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(14)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(44)
+        myProfileImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(14)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(44)
         }
         
-        myNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(myProfileImageView.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(50)
+        myNameLabel.snp.makeConstraints {
+            $0.top.equalTo(myProfileImageView.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(50)
         }
         
-        verticalLine.snp.makeConstraints { make in
-            make.leading.equalTo(myProfileView.snp.trailing)
-            make.centerY.equalToSuperview()
-            make.width.equalTo(1)
-            make.height.equalTo(62)
+        verticalLine.snp.makeConstraints {
+            $0.leading.equalTo(myProfileView.snp.trailing)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(1)
+            $0.height.equalTo(62)
         }
         
-        friendsCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(verticalLine.snp.trailing)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(84)
+        friendsCollectionView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(verticalLine.snp.trailing)
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(84)
         }
         
-        horizontalLine2.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        horizontalLine2.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        doubleheaderLine.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
+        doubleheaderLine.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
-        introNameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
-            make.width.equalTo(50)
+        introNameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(10)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(50)
         }
         
-        introductionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(introNameLabel.snp.trailing).offset(15)
-            make.trailing.equalToSuperview().inset(10)
-            make.centerY.equalToSuperview()
+        introductionLabel.snp.makeConstraints {
+            $0.leading.equalTo(introNameLabel.snp.trailing).offset(15)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
         }
         
-        doubleBottomLine.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
+        doubleBottomLine.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
-        pickLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.leading.equalToSuperview().offset(20)
+        pickLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(2)
+            $0.leading.equalToSuperview().offset(20)
         }
         
-        editOrRecommendButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.trailing.equalToSuperview().inset(20)
-            make.width.equalTo(70)
-            make.height.equalTo(25)
+        editOrRecommendButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(2)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(70)
+            $0.height.equalTo(25)
         }
         
-        pickCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(pickLabel.snp.bottom).offset(15)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(250)
+        pickCollectionView.snp.makeConstraints {
+            $0.top.equalTo(pickLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(250)
         }
         
-        emptyView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(300)
-            make.height.equalTo(70)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(70)
         }
         
-        emptyPickViewDescription.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        emptyPickViewDescription.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }

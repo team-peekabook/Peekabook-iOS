@@ -55,15 +55,15 @@ extension FriendsCVC {
     private func setLayout() {
         addSubviews(profileImageView, userNameLabel)
         
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(14)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(44)
+        profileImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(14)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(44)
         }
         
-        userNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(5)
+        userNameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImageView.snp.bottom).offset(4)
+            $0.leading.trailing.equalToSuperview().inset(5)
         }
     }
     

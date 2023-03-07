@@ -128,32 +128,32 @@ extension BottomBookShelfVC {
         view.addSubviews(headerContainerView, bookShelfCollectionView)
         headerContainerView.addSubviews(holdView, booksCountLabel, addBookButton)
         
-        headerContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(60)
+        headerContainerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
         }
         
-        holdView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(66)
-            make.height.equalTo(3)
+        holdView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(66)
+            $0.height.equalTo(3)
         }
         
-        booksCountLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.centerY.equalToSuperview()
+        booksCountLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.centerY.equalToSuperview()
         }
         
-        addBookButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(4)
-            make.centerY.equalToSuperview()
+        addBookButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(4)
+            $0.centerY.equalToSuperview()
         }
         
-        bookShelfCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(headerContainerView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
+        bookShelfCollectionView.snp.makeConstraints {
+            $0.top.equalTo(headerContainerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
         }
     }
 }
