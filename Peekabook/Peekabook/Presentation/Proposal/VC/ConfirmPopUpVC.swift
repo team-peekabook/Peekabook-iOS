@@ -15,6 +15,7 @@ import Moya
 final class ConfirmPopUpVC: UIViewController {
     
     // MARK: - Properties
+    
     var recommendDesc: String? = ""
     var bookTitle: String = ""
     var author: String = ""
@@ -23,8 +24,8 @@ final class ConfirmPopUpVC: UIViewController {
     var personName: String = ""
 
     // MARK: - UI Components
-    private let popUpView = CustomPopUpView()
     
+    private var confirmPopUpview: CustomPopUpView!
     private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
@@ -34,9 +35,9 @@ final class ConfirmPopUpVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        confirmPopUpview = CustomPopUpView(frame: .zero, style: .recommend, viewController: self)
         setUI()
         setLayout()
-        addTargets()
     }
 }
 
@@ -44,15 +45,14 @@ final class ConfirmPopUpVC: UIViewController {
 extension ConfirmPopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        popUpView.backgroundColor = .peekaBeige
-        popUpView.confirmLabel.text = personName + I18N.BookProposal.confirm
-        popUpView.confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
+        confirmPopUpview.backgroundColor = .peekaBeige
+        confirmPopUpview.getConfirmLabel().text = personName + I18N.BookProposal.confirm
     }
     
     private func setLayout() {
-        view.addSubview(popUpView)
+        view.addSubview(confirmPopUpview)
         
-        popUpView.snp.makeConstraints {
+        confirmPopUpview.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(136)
@@ -64,16 +64,11 @@ extension ConfirmPopUpVC {
 
 extension ConfirmPopUpVC {
     
-    private func addTargets() {
-        popUpView.cancelButton.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
-        popUpView.confirmButton.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
-    }
-    
-    @objc private func touchCancelButtonDidTap() {
+    @objc func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
     
-    @objc private func touchConfirmButtonDipTap() {
+    @objc func touchConfirmButtonDidTap() {
         postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
                                                                         bookTitle: bookTitle,
                                                                         author: author,

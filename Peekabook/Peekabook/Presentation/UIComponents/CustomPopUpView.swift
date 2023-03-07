@@ -7,24 +7,28 @@
 
 import UIKit
 
+enum ButtonLabelStyle: CaseIterable {
+    case recommend
+    case delete
+}
+
 final class CustomPopUpView: UIView {
     
-    let confirmLabel = UILabel().then {
-        $0.text = I18N.BookDelete.popUpComment
+    private let confirmLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
     }
     
-    lazy var cancelButton = UIButton().then {
+    private lazy var cancelButton = UIButton().then {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
         $0.titleLabel!.font = .h2
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaGray2
     }
     
-    lazy var confirmButton = UIButton().then {
+    private lazy var confirmButton = UIButton().then {
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .peekaRed
@@ -32,24 +36,46 @@ final class CustomPopUpView: UIView {
     
     // MARK: - Initialization
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, style: ButtonLabelStyle, viewController: UIViewController) {
         super.init(frame: frame)
+        
         setUI()
         setLayout()
+        
+        setButtonStyle(style: style, viewController: viewController)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getConfirmLabel() -> UILabel {
+        return self.confirmLabel
+    }
 }
 
 extension CustomPopUpView {
     
-    private func setUI() {
+    func setButtonStyle(style: ButtonLabelStyle, viewController: UIViewController) {
+        switch style {
+        case .recommend:
+            confirmLabel.text = I18N.BookProposal.confirm
+            confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)
+        case .delete:
+            confirmLabel.text = I18N.BookDelete.popUpComment
+            confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)
+        }
+    }
+    
+    func setUI() {
         backgroundColor = .peekaBeige
     }
     
-    private func setLayout() {
+    func setLayout() {
         addSubviews(confirmLabel, cancelButton, confirmButton)
         
         confirmLabel.snp.makeConstraints {

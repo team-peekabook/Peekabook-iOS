@@ -20,15 +20,15 @@ final class DeletePopUpVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let popUpView = CustomPopUpView()
-
+    private var deletePopUpview: CustomPopUpView!
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        deletePopUpview = CustomPopUpView(frame: .zero, style: .delete, viewController: self)
         setUI()
         setLayout()
-        addTargets()
     }
 }
 
@@ -36,13 +36,11 @@ final class DeletePopUpVC: UIViewController {
 extension DeletePopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        popUpView.confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
     }
-    
     private func setLayout() {
-        view.addSubview(popUpView)
+        view.addSubview(deletePopUpview)
         
-        popUpView.snp.makeConstraints {
+        deletePopUpview.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(136)
@@ -54,16 +52,11 @@ extension DeletePopUpVC {
 
 extension DeletePopUpVC {
     
-    private func addTargets() {
-        popUpView.cancelButton.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
-        popUpView.confirmButton.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
-    }
-    
-    @objc private func touchCancelButtonDidTap() {
+    @objc func touchCancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
 
-    @objc private func touchConfirmButtonDipTap() {
+    @objc func touchConfirmButtonDidTap() {
         deleteBookAPI(id: bookShelfId)
     }
 }
