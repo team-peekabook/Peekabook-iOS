@@ -86,7 +86,7 @@ extension CustomNavigationBar {
     
     @discardableResult
     func changeLeftButtonToLogo() -> Self {
-        self.leftButton.removeTarget(self, action: nil, for: .touchUpInside)
+        self.leftButton.isUserInteractionEnabled = false
         self.leftButton.setImage(ImageLiterals.Image.logo!, for: .normal)
         self.leftButton.snp.updateConstraints {
             $0.leading.equalToSuperview().inset(20)
