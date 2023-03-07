@@ -81,7 +81,7 @@ extension BarcodeVC {
             if let response = response {
                 let addBookVC = AddBookVC()
                 addBookVC.searchType = .camera
-                self.bookInfoList = [BookInfoModel(title: "", image: "", author: "")]
+                self.bookInfoList = []
                 
                 if self.bookInfoList.isEmpty {
                     self.showErrorPopUp()
@@ -92,6 +92,8 @@ extension BarcodeVC {
                     addBookVC.modalPresentationStyle = .fullScreen
                     self.present(addBookVC, animated: true, completion: nil)
                 }
+            } else {
+                self.showErrorPopUp()
             }
         }
     }
@@ -123,9 +125,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
         print("Symbology Type: \(type)")
 
         if type != "org.gs1.EAN-13" {
-            let errorPopUpVC = ErrorPopUpVC()
-            errorPopUpVC.modalPresentationStyle = .overFullScreen
-            self.present(errorPopUpVC, animated: false)
+            showErrorPopUp()
         }
         
         getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
