@@ -198,7 +198,8 @@ final class BookShelfVC: UIViewController {
         }
     }
     
-    @objc private func myProfileViewDidTap() {
+    @objc
+    private func myProfileViewDidTap() {
         getMyBookShelfInfo()
         selectedUserIndex = nil
     }
