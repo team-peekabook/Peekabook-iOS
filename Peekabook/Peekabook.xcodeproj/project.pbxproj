@@ -21,6 +21,7 @@
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCVC.swift */; };
 		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
+		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
 		8E10BA06295FF35F00BCF58B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA05295FF35F00BCF58B /* Then */; };
 		8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA08295FF37B00BCF58B /* Kingfisher */; };
@@ -144,6 +145,7 @@
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCVC.swift; sourceTree = "<group>"; };
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
+		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				8E81F3B72960769E001815B4 /* addPadding+UITextField.swift */,
+				8E0C3AF129B6D28C00D51E5A /* Array+.swift */,
 				8E81F3DD29608284001815B4 /* String+.swift */,
 				8E81F3DF296082C1001815B4 /* URL+.swift */,
 				8E81F3E32960835A001815B4 /* UIView+.swift */,
@@ -1008,6 +1011,7 @@
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
+				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,
