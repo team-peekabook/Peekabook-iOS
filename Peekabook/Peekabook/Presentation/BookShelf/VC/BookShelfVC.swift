@@ -58,9 +58,22 @@ final class BookShelfVC: UIViewController {
     // MARK: - UI Components
     
     private let bottomShelfVC = BottomBookShelfVC()
-
     private let containerScrollView = UIScrollView()
-    private let naviContainerView = UIView()
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
+        .changeLeftButtonToLogo()
+        .setRightButtonImage(ImageLiterals.Icn.notification!)
+        .setOhterRightButtonImage(ImageLiterals.Icn.friend!)
+        .rightButtonAction {
+            let vc = MyNotificationVC()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
+        .otherRightButtonAction {
+            let vc = UserSearchVC()
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    
     private let friendsListContainerView = UIView()
     private let introProfileView = UIView()
     private let pickContainerView = UIView()
@@ -71,22 +84,6 @@ final class BookShelfVC: UIViewController {
     private let verticalLine = UIView()
     private let doubleheaderLine = DoubleHeaderLineView()
     private let doubleBottomLine = DoubleBottomLineView()
-    
-    private let logoImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = ImageLiterals.Image.logo
-        $0.clipsToBounds = true
-    }
-    
-    private lazy var addFriendButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.friend, for: .normal)
-        $0.addTarget(self, action: #selector(addFriendButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var notificationButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.notification, for: .normal)
-        $0.addTarget(self, action: #selector(notiButtonDidTap), for: .touchUpInside)
-    }
     
     private lazy var friendsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -183,20 +180,6 @@ final class BookShelfVC: UIViewController {
     // MARK: - @objc Function
     
     @objc
-    private func addFriendButtonDidTap() {
-        let userSearchVC = UserSearchVC()
-        userSearchVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(userSearchVC, animated: true)
-    }
-    
-    @objc
-    private func notiButtonDidTap() {
-        let notiVC = MyNotificationVC()
-        notiVC.modalPresentationStyle = .fullScreen
-        present(notiVC, animated: true)
-    }
-    
-    @objc
     private func editOrRecommendButtonDidTap() {
         switch bookShelfType {
         case .user:
@@ -242,11 +225,11 @@ extension BookShelfVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView, containerScrollView)
-        naviContainerView.addSubviews(logoImage, notificationButton, addFriendButton, horizontalLine1)
+        
+        view.addSubviews(naviBar, containerScrollView)
         containerScrollView.addSubviews(friendsListContainerView, introProfileView, pickContainerView)
         
-        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine2)
+        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
         
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
@@ -255,22 +238,20 @@ extension BookShelfVC {
         
         emptyView.addSubview(emptyPickViewDescription)
         
-        naviContainerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
         }
         
         containerScrollView.snp.makeConstraints {
-            $0.top.equalTo(naviContainerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview().inset(200.adjustedH)
         }
         
         friendsListContainerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(86)
+            $0.height.equalTo(84)
         }
         
         introProfileView.snp.makeConstraints {
@@ -285,29 +266,8 @@ extension BookShelfVC {
             $0.bottom.equalToSuperview()
         }
         
-        logoImage.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
-        }
-        
-        notificationButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(4)
-            $0.centerY.equalToSuperview()
-        }
-        
-        addFriendButton.snp.makeConstraints {
-            $0.trailing.equalTo(notificationButton.snp.leading)
-            $0.centerY.equalToSuperview()
-        }
-        
-        horizontalLine1.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
         myProfileView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
+            $0.centerY.leading.equalToSuperview()
             $0.width.equalTo(60)
             $0.height.equalTo(84)
         }
@@ -338,9 +298,13 @@ extension BookShelfVC {
             $0.height.equalTo(84)
         }
         
+        horizontalLine1.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        
         horizontalLine2.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(2)
         }
         
@@ -522,7 +486,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension BookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == friendsCollectionView {
-            return CGSize(width: 60, height: 84)
+            return CGSize(width: 60, height: 86)
         } else if collectionView == pickCollectionView {
             return CGSize(width: 145, height: 250)
         }
