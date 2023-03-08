@@ -260,6 +260,12 @@ extension BookSearchVC: UITableViewDataSource {
         bookCell.selectedBackgroundView = backgroundView
         
         bookCell.dataBind(model: bookInfoList[indexPath.row])
+        
+        if !bookInfoList.isEmpty {
+            self.bookTableView.isHidden = false
+        }
+        self.setView()
+        
         return bookCell
     }
 
@@ -303,7 +309,7 @@ extension BookSearchVC {
             
             DispatchQueue.main.async {
                 self.bookTableView.reloadData()
-                if let searchText = self.bookSearchView.getSearchTextField().text, !searchText.isEmpty {
+                if let searchText = self.bookSearchView.getSearchTextField().text, !searchText.isEmpty, self.bookInfoList.isEmpty == false {
                     self.bookTableView.reloadData()
                 } else {
                     self.setView()
