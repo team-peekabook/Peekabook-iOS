@@ -20,7 +20,6 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - UI Components
     
     private let headerContainerView = UIView()
-    
     private let holdView = UIView()
     
     private let booksCountLabel = UILabel().then {
@@ -97,7 +96,7 @@ final class BottomBookShelfVC: UIViewController {
             duration = duration > 1.3 ? 1 : duration
             
             UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
-                if  velocity.y >= 0 {
+                if velocity.y >= 0 {
                     self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: self.view.frame.height)
@@ -178,11 +177,13 @@ extension BottomBookShelfVC {
     }
     
     private func animateView() {
-        UIView.animate(withDuration: 0.6, animations: { [weak self] in
-            let frame = self?.view.frame
-            let yComponent = self?.partialView
-            self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height)
-        })
+//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView {
+            UIView.animate(withDuration: 0.6, animations: { [weak self] in
+                let frame = self?.view.frame
+                let yComponent = self?.partialView
+                self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height)
+            })
+//        }
     }
     
     private func roundViews() {
@@ -273,7 +274,8 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         let direction = gesture?.velocity(in: view).y ?? 0
         
         let y = view.frame.minY
-        if (y == fullView && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (y == partialView) {
+        
+        if (Int(y) == Int(fullView) && bookShelfCollectionView.contentOffset.y == 0 && direction > 0) || (Int(y) == Int(partialView)) {
             bookShelfCollectionView.isScrollEnabled = false
             bookShelfCollectionView.isUserInteractionEnabled = false
         } else {
