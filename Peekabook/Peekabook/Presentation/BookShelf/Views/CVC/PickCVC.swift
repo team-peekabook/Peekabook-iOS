@@ -77,7 +77,6 @@ extension PickCVC {
     private func setLayout() {
         contentView.addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
         titleContainerView.addSubview(titleLabel)
-        
         countBackgroundView.addSubview(countLabel)
         
         countBackgroundView.snp.makeConstraints {
@@ -106,6 +105,13 @@ extension PickCVC {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(116)
             $0.height.equalTo(190)
+        }
+        
+        if UIScreen.main.isSmallThan712pt {
+            bookImageView.snp.updateConstraints {
+                $0.width.equalTo(104)
+                $0.height.equalTo(190)
+            }
         }
         
         titleContainerView.snp.makeConstraints {

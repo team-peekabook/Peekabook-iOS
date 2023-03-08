@@ -246,7 +246,7 @@ extension BookShelfVC {
         containerScrollView.snp.makeConstraints {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalToSuperview().inset(200.adjustedH)
+            $0.bottom.equalToSuperview().inset(180.adjustedH)
         }
         
         friendsListContainerView.snp.makeConstraints {
@@ -296,7 +296,7 @@ extension BookShelfVC {
             $0.top.equalToSuperview()
             $0.leading.equalTo(verticalLine.snp.trailing)
             $0.trailing.equalToSuperview()
-            $0.height.equalTo(84)
+            $0.height.equalTo(86)
         }
         
         horizontalLine1.snp.makeConstraints {
@@ -349,7 +349,7 @@ extension BookShelfVC {
             $0.top.equalTo(pickLabel.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(250)
+            $0.height.equalTo(270)
         }
         
         emptyView.snp.makeConstraints {
@@ -361,6 +361,8 @@ extension BookShelfVC {
         emptyPickViewDescription.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        checkSmallLayout()
     }
 }
 
@@ -415,6 +417,18 @@ extension BookShelfVC {
         } else {
             emptyView.isHidden = true
             pickCollectionView.isHidden = false
+        }
+    }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            containerScrollView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(140.adjustedH)
+            }
+            
+            pickCollectionView.snp.updateConstraints {
+                $0.height.equalTo(220)
+            }
         }
     }
 }
@@ -489,6 +503,9 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
         if collectionView == friendsCollectionView {
             return CGSize(width: 60, height: 86)
         } else if collectionView == pickCollectionView {
+            if UIScreen.main.isSmallThan712pt {
+                return CGSize(width: 145, height: 210)
+            }
             return CGSize(width: 145, height: 250)
         }
         return CGSize(width: 0, height: 0)
@@ -501,10 +518,6 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
             return 16
         }
         return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
     }
 }
 

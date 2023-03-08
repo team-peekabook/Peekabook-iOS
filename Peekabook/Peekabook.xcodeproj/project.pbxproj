@@ -100,6 +100,7 @@
 		8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */; };
 		8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FE296C6D010045AD7F /* BaseResponse.swift */; };
 		8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */; };
+		8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
 		8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */; };
 		8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */; };
@@ -226,6 +227,7 @@
 		8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		8EAB43FE296C6D010045AD7F /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTouchButton.swift; sourceTree = "<group>"; };
+		8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
 		8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfAPI.swift; sourceTree = "<group>"; };
 		8EEF8E1D296B11D400F37AFD /* NaverSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchRouter.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				8E5E088F29630F86000A8A3F /* UILabel+.swift */,
 				98470D89296BDF9500B78724 /* UIButton+.swift */,
 				98470D8B296C167C00B78724 /* UITextField+.swift */,
+				8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1032,6 +1035,7 @@
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
 				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
+				8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,

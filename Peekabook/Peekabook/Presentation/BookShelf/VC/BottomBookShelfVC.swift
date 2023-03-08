@@ -15,7 +15,7 @@ final class BottomBookShelfVC: UIViewController {
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
-    private var partialView: CGFloat = UIScreen.main.bounds.height - 200.adjustedH
+    private var partialView: CGFloat = UIScreen.main.bounds.height - 185.adjustedH
 
     // MARK: - UI Components
     
@@ -124,6 +124,7 @@ extension BottomBookShelfVC {
     }
     
     private func setLayout() {
+        
         view.addSubviews(headerContainerView, bookShelfCollectionView)
         headerContainerView.addSubviews(holdView, booksCountLabel, addBookButton)
         
@@ -154,6 +155,8 @@ extension BottomBookShelfVC {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
         }
+        
+        checkSmallLayout()
     }
 }
 
@@ -201,6 +204,12 @@ extension BottomBookShelfVC {
         bluredView.frame = UIScreen.main.bounds
         
         view.insertSubview(bluredView, at: 0)
+    }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            partialView = UIScreen.main.bounds.height - 140.adjustedH
+        }
     }
     
     func setData(books: [Book], bookTotalNum: Int) {
