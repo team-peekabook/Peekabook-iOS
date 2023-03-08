@@ -234,7 +234,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookShelfCVC.className, for: indexPath)
                 as? BookShelfCVC else { return UICollectionViewCell() }
-        cell.setData(model: books[indexPath.row])
+        cell.setData(model: books[safe: indexPath.row]!)
         return cell
     }
     
@@ -254,7 +254,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
                 bookDetailVC.changeFriendViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.selectedBookIndex = books[indexPath.row].id
+            bookDetailVC.selectedBookIndex = books[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }

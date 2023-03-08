@@ -111,7 +111,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.label.text = myPageArray[indexPath.row]
+        cell.label.text = myPageArray[safe: indexPath.row]!
         return cell
     }
     

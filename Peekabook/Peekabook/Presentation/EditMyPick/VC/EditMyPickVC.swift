@@ -162,7 +162,7 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if let selectedBookIndex = pickedBooksList.firstIndex(of: indexPath.item) {
             pickIndex = selectedBookIndex
         }
-        cell.setData(model: books[indexPath.row], pickIndex: pickIndex)
+        cell.setData(model: books[safe: indexPath.row]!, pickIndex: pickIndex)
         return cell
     }
     

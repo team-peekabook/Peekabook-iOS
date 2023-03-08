@@ -450,7 +450,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == friendsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsCVC.className, for: indexPath)
                     as? FriendsCVC else { return UICollectionViewCell() }
-            cell.setData(model: friends[indexPath.row])
+            cell.setData(model: friends[safe: indexPath.row]!)
             
             if selectedUserIndex == indexPath.row {
                 cell.changeBorderLayout(isSelected: true)
@@ -463,7 +463,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == pickCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickCVC.className, for: indexPath)
                     as? PickCVC else { return UICollectionViewCell() }
-            cell.setData(model: picks[indexPath.row])
+            cell.setData(model: picks[safe: indexPath.row]!)
             return cell
         }
         return UICollectionViewCell()
@@ -485,7 +485,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 bookDetailVC.changeFriendViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.selectedBookIndex = picks[indexPath.row].id
+            bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
