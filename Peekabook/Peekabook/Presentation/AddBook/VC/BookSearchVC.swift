@@ -262,9 +262,12 @@ extension BookSearchVC: UITableViewDataSource {
         bookCell.dataBind(model: bookInfoList[indexPath.row])
         return bookCell
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y == scrollView.frame.height - 20 {
+        let scrollViewContentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
+        let scrollViewOffset = scrollView.contentOffset.y
+        if scrollViewOffset + scrollViewHeight == scrollViewContentHeight {
             displayCount += 10
             getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
         }
