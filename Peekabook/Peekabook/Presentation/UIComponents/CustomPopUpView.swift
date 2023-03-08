@@ -25,23 +25,19 @@ final class CustomPopUpView: UIView {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
         $0.titleLabel!.font = .h2
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaGray2
     }
     
     private lazy var confirmButton = UIButton().then {
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaRed
     }
     
     // MARK: - Initialization
     
     init(frame: CGRect, style: ButtonLabelStyle, viewController: UIViewController) {
         super.init(frame: frame)
-        
-        setUI()
+        setBackgroundColor()
         setLayout()
-        
         setButtonStyle(style: style, viewController: viewController)
     }
     
@@ -71,7 +67,9 @@ extension CustomPopUpView {
         }
     }
     
-    func setUI() {
+    func setBackgroundColor() {
+        cancelButton.backgroundColor = .peekaGray2
+        confirmButton.backgroundColor = .peekaRed
         backgroundColor = .peekaBeige
     }
     
