@@ -37,7 +37,7 @@ extension DeletePopUpVC {
     
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        deletePopUpview.getConfirmLabel(.delete)
+        deletePopUpview.getConfirmLabel(style: .delete)
     }
     
     private func setLayout() {

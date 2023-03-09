@@ -46,7 +46,7 @@ extension ConfirmPopUpVC {
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         confirmPopUpview.backgroundColor = .peekaBeige
-        confirmPopUpview.getConfirmLabel(.recommend, personName)
+        confirmPopUpview.getConfirmLabel(style: .recommend, personName: personName)
     }
     
     private func setLayout() {
