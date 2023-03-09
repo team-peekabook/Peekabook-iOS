@@ -32,10 +32,13 @@ final class DeletePopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension DeletePopUpVC {
+    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
     }
+    
     private func setLayout() {
         view.addSubview(deletePopUpview)
         
@@ -63,6 +66,7 @@ extension DeletePopUpVC {
 // MARK: - Network
 
 extension DeletePopUpVC {
+    
     private func deleteBookAPI(id: Int) {
         BookShelfAPI.shared.deleteBook(bookId: id) { response in
             if response?.success == true {

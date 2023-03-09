@@ -36,6 +36,7 @@ final class CustomPopUpView: UIView {
     
     init(frame: CGRect, style: ButtonLabelStyle, viewController: UIViewController) {
         super.init(frame: frame)
+        
         setBackgroundColor()
         setLayout()
         setButtonStyle(style: style, viewController: viewController)
@@ -44,13 +45,13 @@ final class CustomPopUpView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CustomPopUpView {
     
     func getConfirmLabel() -> UILabel {
         return self.confirmLabel
     }
-}
-
-extension CustomPopUpView {
     
     func setButtonStyle(style: ButtonLabelStyle, viewController: UIViewController) {
         switch style {

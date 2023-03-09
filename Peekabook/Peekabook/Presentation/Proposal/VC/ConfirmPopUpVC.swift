@@ -42,6 +42,7 @@ final class ConfirmPopUpVC: UIViewController {
 
 // MARK: - UI & Layout
 extension ConfirmPopUpVC {
+    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         confirmPopUpview.backgroundColor = .peekaBeige
@@ -78,6 +79,7 @@ extension ConfirmPopUpVC {
 // MARK: - Network
 
 extension ConfirmPopUpVC {
+    
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
         FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
             if response?.success == true {
