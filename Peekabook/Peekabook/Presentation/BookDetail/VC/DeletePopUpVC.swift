@@ -20,13 +20,12 @@ final class DeletePopUpVC: UIViewController {
     
     // MARK: - UI Components
     
-    private var deletePopUpview: CustomPopUpView!
+    private lazy var deletePopUpview = CustomPopUpView(frame: .zero, style: .delete, viewController: self)
     
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        deletePopUpview = CustomPopUpView(frame: .zero, style: .delete, viewController: self)
         setUI()
         setLayout()
     }

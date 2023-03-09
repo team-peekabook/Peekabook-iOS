@@ -25,7 +25,7 @@ final class ConfirmPopUpVC: UIViewController {
 
     // MARK: - UI Components
     
-    private var confirmPopUpview: CustomPopUpView!
+    private lazy var confirmPopUpview = CustomPopUpView(frame: .zero, style: .recommend, viewController: self)
     private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
@@ -35,7 +35,6 @@ final class ConfirmPopUpVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmPopUpview = CustomPopUpView(frame: .zero, style: .recommend, viewController: self)
         setUI()
         setLayout()
     }
