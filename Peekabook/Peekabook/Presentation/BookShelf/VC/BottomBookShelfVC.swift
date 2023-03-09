@@ -240,7 +240,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if view.frame.minY == partialView {
+        if Int(view.frame.minY) == Int(partialView) {
             bookShelfCollectionView.isUserInteractionEnabled = false
         } else {
             bookShelfCollectionView.isUserInteractionEnabled = true
