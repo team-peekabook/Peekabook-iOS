@@ -68,13 +68,13 @@ extension CustomPopUpView {
         }
     }
     
-    func setBackgroundColor() {
+    private func setBackgroundColor() {
         cancelButton.backgroundColor = .peekaGray2
         confirmButton.backgroundColor = .peekaRed
         backgroundColor = .peekaBeige
     }
     
-    func setLayout() {
+    private func setLayout() {
         addSubviews(confirmLabel, cancelButton, confirmButton)
         
         confirmLabel.snp.makeConstraints {
