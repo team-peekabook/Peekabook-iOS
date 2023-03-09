@@ -62,7 +62,7 @@ final class BookShelfVC: UIViewController {
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
         .changeLeftButtonToLogo()
         .setRightButtonImage(ImageLiterals.Icn.notification!)
-        .setOhterRightButtonImage(ImageLiterals.Icn.friend!)
+        .setOtherRightButtonImage(ImageLiterals.Icn.friend!)
         .rightButtonAction {
             let vc = MyNotificationVC()
             vc.modalPresentationStyle = .fullScreen
