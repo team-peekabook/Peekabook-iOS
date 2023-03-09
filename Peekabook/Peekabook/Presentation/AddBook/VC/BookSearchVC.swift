@@ -250,16 +250,38 @@ extension BookSearchVC: UITableViewDataSource {
         }
     }
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let bookCell = tableView.dequeueReusableCell(
+//            withIdentifier: BookInfoTVC.className,
+//            for: indexPath) as? BookInfoTVC
+//        else { return UITableViewCell() }
+//        let backgroundView = UIView()
+//        backgroundView.backgroundColor = UIColor.peekaBeige
+//        bookCell.selectedBackgroundView = backgroundView
+//
+//        bookCell.dataBind(model: bookInfoList[indexPath.row])
+//
+//        if !bookInfoList.isEmpty {
+//            self.bookTableView.isHidden = false
+//        }
+//        self.setView()
+//
+//        return bookCell
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let bookCell = tableView.dequeueReusableCell(
             withIdentifier: BookInfoTVC.className,
             for: indexPath) as? BookInfoTVC
         else { return UITableViewCell() }
+        
+        bookCell.bookShelfType = self.bookShelfType
+        
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.peekaBeige
         bookCell.selectedBackgroundView = backgroundView
         
-        bookCell.dataBind(model: bookInfoList[indexPath.row])
+        bookCell.dataBind(model: bookInfoList[indexPath.row], bookShelfType: bookShelfType)
         
         if !bookInfoList.isEmpty {
             self.bookTableView.isHidden = false
