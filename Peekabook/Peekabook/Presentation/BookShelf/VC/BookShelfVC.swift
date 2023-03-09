@@ -60,18 +60,14 @@ final class BookShelfVC: UIViewController {
     private let bottomShelfVC = BottomBookShelfVC()
     private let containerScrollView = UIScrollView()
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
-        .changeLeftButtonToLogo()
-        .setRightButtonImage(ImageLiterals.Icn.notification!)
-        .setOtherRightButtonImage(ImageLiterals.Icn.friend!)
-        .rightButtonAction {
-            let vc = MyNotificationVC()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+        .changeLeftBackButtonToLogoImage()
+        .addRightButton(with: ImageLiterals.Icn.notification)
+        .addOtherRightButtonImage(ImageLiterals.Icn.friend)
+        .addRightButtonAction {
+            self.presentNotiVC()
         }
-        .otherRightButtonAction {
-            let vc = UserSearchVC()
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
+        .addOtherRightButtonAction {
+            self.pushUserSearchVC()
         }
     
     private let friendsListContainerView = UIView()
@@ -206,6 +202,7 @@ final class BookShelfVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension BookShelfVC {
     
     private func setUI() {
@@ -213,11 +210,8 @@ extension BookShelfVC {
         horizontalLine1.backgroundColor = .peekaRed
         horizontalLine2.backgroundColor = .peekaRed
         verticalLine.backgroundColor = .peekaRed
-        
         myProfileView.backgroundColor = .peekaBeige
-        
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        
         editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
@@ -232,9 +226,7 @@ extension BookShelfVC {
         
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
-        
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
-        
         pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
         
         emptyView.addSubview(emptyPickViewDescription)
@@ -263,8 +255,7 @@ extension BookShelfVC {
         
         pickContainerView.snp.makeConstraints {
             $0.top.equalTo(introProfileView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         myProfileView.snp.makeConstraints {
@@ -293,9 +284,8 @@ extension BookShelfVC {
         }
         
         friendsCollectionView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.trailing.equalToSuperview()
             $0.leading.equalTo(verticalLine.snp.trailing)
-            $0.trailing.equalToSuperview()
             $0.height.equalTo(86)
         }
         
@@ -310,8 +300,7 @@ extension BookShelfVC {
         }
         
         doubleheaderLine.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(4)
         }
         
@@ -328,8 +317,7 @@ extension BookShelfVC {
         }
         
         doubleBottomLine.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(4)
         }
         
@@ -369,6 +357,18 @@ extension BookShelfVC {
 // MARK: - Methods
 
 extension BookShelfVC {
+    
+    private func presentNotiVC() {
+        let vc = MyNotificationVC()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+    private func pushUserSearchVC() {
+        let vc = UserSearchVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func addBottomSheetView(scrollable: Bool? = true) {
         self.view.addSubview(bottomShelfVC.view)
