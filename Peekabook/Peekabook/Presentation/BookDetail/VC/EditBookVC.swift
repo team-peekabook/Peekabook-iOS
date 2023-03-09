@@ -74,15 +74,17 @@ final class EditBookVC: UIViewController {
         setCustomView()
         setBackgroundColor()
         setLayout()
-        addTapGesture()
         addKeyboardObserver()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         peekaCommentView.setEditBookCommentTextView()
         peekaMemoView.setEditBookMemoTextView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setCustomView()
+        setBackgroundColor()
+        setLayout()
         peekaCommentView.getTextView().text = descriptions
         peekaMemoView.getTextView().text = memo
     }
