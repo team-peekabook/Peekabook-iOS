@@ -63,13 +63,13 @@ extension CustomPopUpView {
         switch style {
         case .recommend:
             confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)
+            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .delete:
             // confirmLabel.text = I18N.BookDelete.popUpComment
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)
+            cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

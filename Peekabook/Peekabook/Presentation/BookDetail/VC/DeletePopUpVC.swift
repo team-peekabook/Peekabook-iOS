@@ -55,11 +55,11 @@ extension DeletePopUpVC {
 
 extension DeletePopUpVC {
     
-    @objc func touchCancelButtonDidTap() {
+    @objc func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
 
-    @objc func touchConfirmButtonDidTap() {
+    @objc func confirmButtonDidTap() {
         deleteBookAPI(id: bookShelfId)
     }
 }

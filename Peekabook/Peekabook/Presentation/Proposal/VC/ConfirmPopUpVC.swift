@@ -64,11 +64,11 @@ extension ConfirmPopUpVC {
 
 extension ConfirmPopUpVC {
     
-    @objc func touchCancelButtonDidTap() {
+    @objc func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
     
-    @objc func touchConfirmButtonDidTap() {
+    @objc func confirmButtonDidTap() {
         postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
                                                                         bookTitle: bookTitle,
                                                                         author: author,
