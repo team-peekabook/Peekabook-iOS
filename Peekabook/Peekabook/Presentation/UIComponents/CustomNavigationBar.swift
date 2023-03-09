@@ -37,7 +37,7 @@ final class CustomNavigationBar: UIView {
         self.vc = vc
         self.setUI(type, backgroundColor: backgroundColor)
         self.setLayout(type)
-        self.setBackButtonAction()
+        self.setLeftBackButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -49,12 +49,12 @@ final class CustomNavigationBar: UIView {
 
 extension CustomNavigationBar {
     
-    private func setBackButtonAction() {
+    private func setLeftBackButtonAction() {
         self.leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
     }
     
     @discardableResult
-    func setMiddleTitle(_ title: String) -> Self {
+    func addMiddleLabel(title: String?) -> Self {
         self.titleLabel.text = title
         self.titleLabel.font = .h3
         self.titleLabel.textColor = .peekaRed
@@ -62,7 +62,7 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
-    func setRightButtonTitle(_ title: String) -> Self {
+    func addRightButton(with title: String?) -> Self {
         self.rightButton.setTitle(title, for: .normal)
         self.rightButton.titleLabel?.font = .h4
         self.rightButton.setTitleColor(.peekaRed, for: .normal)
@@ -73,19 +73,19 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
-    func setRightButtonImage(_ image: UIImage) -> Self {
+    func addRightButton(with image: UIImage?) -> Self {
         self.rightButton.setImage(image, for: .normal)
         return self
     }
     
     @discardableResult
-    func setOtherRightButtonImage(_ image: UIImage) -> Self {
+    func addOtherRightButtonImage(_ image: UIImage?) -> Self {
         self.otherRightButton.setImage(image, for: .normal)
         return self
     }
     
     @discardableResult
-    func changeLeftButtonToLogo() -> Self {
+    func changeLeftBackButtonToLogoImage() -> Self {
         self.leftButton.isUserInteractionEnabled = false
         self.leftButton.setImage(ImageLiterals.Image.logo!, for: .normal)
         self.leftButton.snp.updateConstraints {
@@ -95,14 +95,14 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
-    func rightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
+    func addRightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.rightButtonClosure = closure
         self.rightButton.addTarget(self, action: #selector(touchupRightButton), for: .touchUpInside)
         return self
     }
     
     @discardableResult
-    func otherRightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
+    func addOtherRightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.otherRightButtonClosure = closure
         self.otherRightButton.addTarget(self, action: #selector(touchupOtherRightButton), for: .touchUpInside)
         return self
