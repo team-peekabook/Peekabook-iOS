@@ -49,19 +49,24 @@ final class CustomPopUpView: UIView {
 
 extension CustomPopUpView {
     
-    func getConfirmLabel() -> UILabel {
-        return self.confirmLabel
+    func getConfirmLabel(_ style: ButtonLabelStyle, _ personName: String = "") {
+        switch style {
+        case .recommend:
+            confirmLabel.text = personName + I18N.BookProposal.confirm
+        case .delete:
+            confirmLabel.text = I18N.BookDelete.popUpComment
+        }
+
     }
     
     func setButtonStyle(style: ButtonLabelStyle, viewController: UIViewController) {
         switch style {
         case .recommend:
-            confirmLabel.text = I18N.BookProposal.confirm
             confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)
         case .delete:
-            confirmLabel.text = I18N.BookDelete.popUpComment
+            // confirmLabel.text = I18N.BookDelete.popUpComment
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchCancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.touchConfirmButtonDidTap), for: .touchUpInside)

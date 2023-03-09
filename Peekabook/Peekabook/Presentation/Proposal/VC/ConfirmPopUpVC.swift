@@ -42,11 +42,11 @@ final class ConfirmPopUpVC: UIViewController {
 
 // MARK: - UI & Layout
 extension ConfirmPopUpVC {
-    
+
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         confirmPopUpview.backgroundColor = .peekaBeige
-        confirmPopUpview.getConfirmLabel().text = personName + I18N.BookProposal.confirm
+        confirmPopUpview.getConfirmLabel(.recommend, personName)
     }
     
     private func setLayout() {
