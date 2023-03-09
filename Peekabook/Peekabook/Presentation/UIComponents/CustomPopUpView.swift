@@ -49,7 +49,7 @@ final class CustomPopUpView: UIView {
 
 extension CustomPopUpView {
     
-    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = "") {
+    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
         switch style {
         case .recommend:
             if let personName = personName {
