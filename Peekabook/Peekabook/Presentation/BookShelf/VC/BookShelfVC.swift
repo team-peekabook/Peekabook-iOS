@@ -426,8 +426,13 @@ extension BookShelfVC {
                 $0.bottom.equalToSuperview().inset(140.adjustedH)
             }
             
+            pickContainerView.snp.makeConstraints {
+                $0.top.equalTo(introProfileView.snp.bottom).offset(20)
+            }
+            
             pickCollectionView.snp.updateConstraints {
-                $0.height.equalTo(220)
+                $0.top.equalTo(pickLabel.snp.bottom).offset(10)
+                $0.height.equalTo(230)
             }
         }
     }
