@@ -107,13 +107,6 @@ extension PickCVC {
             $0.height.equalTo(190)
         }
         
-        if UIScreen.main.isSmallThan712pt {
-            bookImageView.snp.updateConstraints {
-                $0.width.equalTo(104)
-                $0.height.equalTo(190)
-            }
-        }
-        
         titleContainerView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(64)
@@ -121,6 +114,17 @@ extension PickCVC {
         
         titleLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
+        }
+        
+        checkSmallLayout()
+    }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            bookImageView.snp.updateConstraints {
+                $0.width.equalTo(92)
+                $0.height.equalTo(152)
+            }
         }
     }
     
