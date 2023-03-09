@@ -195,20 +195,24 @@ extension AddBookVC {
     
     @objc private func checkButtonDidTap() {
         checkButton.isEnabled = false
-        guard let bookTitle = self.nameLabel.text,
-              let author = self.authorLabel.text,
-              let description = peekaCommentView.getTextView().text,
-              let memo = peekaMemoView.getTextView().text else {
+        
+        let description = (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.getTextView().text
+        let memo = (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.getTextView().text
+        
+        guard let bookTitle = nameLabel.text,
+              let author = authorLabel.text
+        else {
             checkButton.isEnabled = true
             return
         }
+        
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
                                           description: description,
                                           memo: memo))
     }
-    
+
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
             self,

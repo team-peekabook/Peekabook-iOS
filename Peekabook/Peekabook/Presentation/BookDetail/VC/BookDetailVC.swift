@@ -202,7 +202,7 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentHint)
+        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder)
             || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
             || (peekaCommentView.getTextView().text.isEmpty == true) {
             peekaCommentView.getTextView().textColor = .peekaGray2
@@ -211,7 +211,7 @@ extension BookDetailVC {
             peekaCommentView.getTextView().textColor = .peekaRed
         }
             
-        if (peekaMemoView.getTextView().text == I18N.BookDetail.memoHint)
+        if (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder)
             || (peekaMemoView.getTextView().text == I18N.BookDetail.emptyMemo)
             || (peekaMemoView.getTextView().text.isEmpty == true) {
             peekaMemoView.getTextView().textColor = .peekaGray2

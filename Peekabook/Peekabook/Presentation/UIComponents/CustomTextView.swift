@@ -25,7 +25,7 @@ final class CustomTextView: UIView {
     }
     
     private let textView = UITextView().then {
-        $0.text = I18N.BookDetail.commentHint
+        $0.text = I18N.BookDetail.commentPlaceholder
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.autocorrectionType = .no
@@ -115,8 +115,8 @@ extension CustomTextView {
 
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentHint) ||
-            (textView.text == I18N.BookDetail.memoHint) ||
+        if (textView.text == I18N.BookDetail.commentPlaceholder) ||
+            (textView.text == I18N.BookDetail.memoPlaceholder) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) {
             textView.text = nil
@@ -127,10 +127,10 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             if label.text == I18N.BookDetail.comment {
-                textView.text = I18N.BookDetail.commentHint
+                textView.text = I18N.BookDetail.commentPlaceholder
                 textView.textColor = .peekaGray1
             } else {
-                textView.text = I18N.BookDetail.memoHint
+                textView.text = I18N.BookDetail.memoPlaceholder
                 textView.textColor = .peekaGray1
             }
         }
@@ -155,7 +155,7 @@ extension CustomTextView {
     func setAddBookMemoTextView() {
         boxView.frame.size.height = 101
         label.text = I18N.BookDetail.memo
-        textView.text = I18N.BookDetail.memoHint
+        textView.text = I18N.BookDetail.memoPlaceholder
         maxLabel.text = I18N.BookAdd.memoLength
     }
     
@@ -167,7 +167,7 @@ extension CustomTextView {
         boxView.backgroundColor = .clear
         boxView.frame.size.height = 101
         label.text = I18N.BookDetail.memo
-        textView.text = I18N.BookDetail.memoHint
+        textView.text = I18N.BookDetail.memoPlaceholder
     }
     
     func setBookDetailCommentTextView() {
