@@ -23,7 +23,6 @@ final class RecommendVC: UIViewController {
     private lazy var dataViewControllers: [UIViewController] = {
         return [recommendedVC, recommendingVC]
     }()
-
     private var currentPage: Int = 0 {
         didSet {
             bind(newValue: currentPage)
@@ -68,6 +67,7 @@ final class RecommendVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setSubviews()
         setLayout()
@@ -82,8 +82,8 @@ final class RecommendVC: UIViewController {
 extension RecommendVC {
     
     private func setUI() {
-        headerUnderlineView.backgroundColor = .peekaRed
         self.view.backgroundColor = .peekaBeige
+        headerUnderlineView.backgroundColor = .peekaRed
         recommendCollectionView.backgroundColor = .clear
     }
     
@@ -182,6 +182,7 @@ extension RecommendVC {
 }
 
 extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
@@ -216,6 +217,7 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
 }
 
 extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let previousIndex = index - 1

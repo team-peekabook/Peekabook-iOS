@@ -10,7 +10,6 @@
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
-		1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53F29634F3700CA72D0 /* RecommendModel.swift */; };
 		1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendListTVC.swift */; };
 		143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
@@ -134,7 +133,6 @@
 		140E373129B48AD60004C8D2 /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
-		1431D53F29634F3700CA72D0 /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
 		1431D541296354B200CA72D0 /* RecommendListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendListTVC.swift; sourceTree = "<group>"; };
 		143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 		14B3544E296C0C9500998925 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1049,7 +1046,6 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
-				1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

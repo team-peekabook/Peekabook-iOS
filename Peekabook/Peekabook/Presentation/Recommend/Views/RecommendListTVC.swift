@@ -68,6 +68,7 @@ final class RecommendListTVC: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setSubviews()
         setUI()
         setLayout()
@@ -94,6 +95,7 @@ final class RecommendListTVC: UITableViewCell {
 // MARK: - UI & Layout
 
 extension RecommendListTVC {
+    
     private func setSubviews() {
         contentView.addSubviews(bookHeaderView, recommendStackView)
         bookHeaderView.addSubviews(
