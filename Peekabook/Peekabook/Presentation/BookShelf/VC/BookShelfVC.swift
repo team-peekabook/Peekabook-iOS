@@ -62,7 +62,7 @@ final class BookShelfVC: UIViewController {
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
         .changeLeftBackButtonToLogoImage()
         .addRightButton(with: ImageLiterals.Icn.notification)
-        .addOtherRightButtonImage(ImageLiterals.Icn.friend)
+        .addOtherRightButton(with: ImageLiterals.Icn.friend)
         .addRightButtonAction {
             self.presentNotiVC()
         }

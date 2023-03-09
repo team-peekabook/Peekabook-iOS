@@ -79,7 +79,7 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
-    func addOtherRightButtonImage(_ image: UIImage?) -> Self {
+    func addOtherRightButton(with image: UIImage?) -> Self {
         self.otherRightButton.setImage(image, for: .normal)
         return self
     }
