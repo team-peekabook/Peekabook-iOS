@@ -58,8 +58,8 @@ struct I18N {
         static let title = "책 검색하기"
         static let bookSearch = "책 제목을 입력해주세요."
         static let empty = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
-        static let userLabel = "내 책장에 추가하기"
-        static let friendLabel = "친구에게 책 추천하기"
+        static let addMyBookshelf = "내 책장에 추가하기"
+        static let recommendFriendBookShelf = "친구에게 책 추천하기"
     }
     
     struct BookEdit {

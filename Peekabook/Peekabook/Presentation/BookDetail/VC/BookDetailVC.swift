@@ -16,6 +16,7 @@ final class BookDetailVC: UIViewController {
     
     // MARK: - Properties
     
+    private let placeholderBlank: String = "          "
     private var serverWatchBookDetail: WatchBookDetailResponse?
     var selectedBookIndex: Int = 0
 
@@ -202,7 +203,7 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + "           ")
+        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
             || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
             || (peekaCommentView.getTextView().text.isEmpty == true) {
             peekaCommentView.getTextView().textColor = .peekaGray2

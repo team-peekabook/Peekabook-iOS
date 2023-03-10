@@ -11,6 +11,8 @@ final class CustomTextView: UIView {
 
     // MARK: - UI Components
     
+    private let placeholderBlank: String = "          "
+    
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
@@ -68,7 +70,7 @@ extension CustomTextView {
     private func setBackgroundColor() {
         backgroundColor = .clear
         
-        boxView.backgroundColor = .peekaWhite_60
+        boxView.backgroundColor = .clear
         textView.backgroundColor = .clear
         headerView.backgroundColor = .peekaRed
     }
@@ -84,8 +86,7 @@ extension CustomTextView {
         headerView.addSubview(label)
         
         boxView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
         
         headerView.snp.makeConstraints {
@@ -114,7 +115,7 @@ extension CustomTextView {
 
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentPlaceholder + "           ") ||
+        if (textView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ||
             (textView.text == I18N.BookDetail.memoPlaceholder) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) {
@@ -151,33 +152,31 @@ extension CustomTextView: UITextViewDelegate {
 }
 
 extension CustomTextView {
-    func updateAddBookMemoView() {
+    func updateAddBookMemoTextView() {
         boxView.frame.size.height = 101
+        boxView.backgroundColor = .peekaWhite_60
         label.text = I18N.BookDetail.memo
         textView.text = I18N.BookDetail.memoPlaceholder
         maxLabel.text = I18N.BookAdd.memoLength
     }
     
-    func updateEditBookCommentTextView() {
-        boxView.backgroundColor = .clear
+    func updateAddBookCommentColor() {
+        boxView.backgroundColor = .peekaWhite_60
     }
     
     func updateEditBookMemoTextView() {
-        boxView.backgroundColor = .clear
         boxView.frame.size.height = 101
         label.text = I18N.BookDetail.memo
         textView.text = I18N.BookDetail.memoPlaceholder
     }
     
     func updateBookDetailCommentTextView() {
-        boxView.backgroundColor = .clear
         maxLabel.isHidden = true
         textView.isUserInteractionEnabled = false
     }
     
     func updateBookDetailMemoTextView() {
         label.text = I18N.BookDetail.memo
-        boxView.backgroundColor = .clear
         maxLabel.isHidden = true
         boxView.frame.size.height = 101
         textView.isUserInteractionEnabled = false

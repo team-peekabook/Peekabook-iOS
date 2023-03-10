@@ -76,7 +76,6 @@ final class EditBookVC: UIViewController {
         setLayout()
         addKeyboardObserver()
         
-        peekaCommentView.updateEditBookCommentTextView()
         peekaMemoView.updateEditBookMemoTextView()
     }
     

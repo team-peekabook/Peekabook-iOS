@@ -166,9 +166,9 @@ extension BookInfoTVC {
         
         switch bookShelfType {
         case .user:
-            addLabel.text = I18N.BookSearch.userLabel
+            addLabel.text = I18N.BookSearch.addMyBookshelf
         case .friend:
-            addLabel.text = I18N.BookSearch.friendLabel
+            addLabel.text = I18N.BookSearch.recommendFriendBookShelf
         }
     }
 }
