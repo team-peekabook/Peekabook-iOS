@@ -16,7 +16,7 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var tableView = UITableView().then {
+    private lazy var recommendedTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = true
         $0.allowsSelection = false
@@ -47,13 +47,13 @@ extension RecommendedVC {
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
-        tableView.backgroundColor = .peekaBeige
+        recommendedTableView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
-        view.addSubview(tableView)
+        view.addSubview(recommendedTableView)
         
-        tableView.snp.makeConstraints {
+        recommendedTableView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -66,15 +66,15 @@ extension RecommendedVC {
 extension RecommendedVC {
     
     private func registerCells() {
-        tableView.register(
+        recommendedTableView.register(
             RecommendListTVC.self,
             forCellReuseIdentifier: RecommendListTVC.className
         )
     }
     
     private func setDelegate() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        recommendedTableView.delegate = self
+        recommendedTableView.dataSource = self
     }
 }
 
@@ -104,7 +104,7 @@ extension RecommendedVC {
             if response?.success == true {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
-                self.tableView.reloadData()
+                self.recommendedTableView.reloadData()
             }
         }
     }
