@@ -58,23 +58,23 @@ extension BookShelfCVC {
     private func setLayout() {
         addSubviews(bookImageView, horizontalLine, pickImageView)
         
-        bookImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(150)
+        bookImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(150)
         }
         
-        horizontalLine.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(bookImageView.snp.bottom)
-            make.width.equalTo(UIScreen.main.bounds.width*2)
-            make.height.equalTo(6)
+        horizontalLine.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(bookImageView.snp.bottom)
+            $0.width.equalTo(UIScreen.main.bounds.width*2)
+            $0.height.equalTo(6)
         }
         
-        pickImageView.snp.makeConstraints { make in
-            make.top.equalTo(bookImageView.snp.top).offset(-4)
-            make.trailing.equalTo(bookImageView).inset(8)
+        pickImageView.snp.makeConstraints {
+            $0.top.equalTo(bookImageView.snp.top).offset(-4)
+            $0.trailing.equalTo(bookImageView).inset(8)
         }
     }
     

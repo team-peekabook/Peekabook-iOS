@@ -41,7 +41,7 @@ final class AddBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var checkButton = UIButton().then {
+    private lazy var checkButton = SingleTouchButton(type: .system).then {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)

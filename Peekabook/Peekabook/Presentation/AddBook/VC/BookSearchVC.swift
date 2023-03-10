@@ -234,17 +234,17 @@ extension BookSearchVC: UITableViewDataSource {
         case .user:
             let addBookVC = AddBookVC()
             addBookVC.modalPresentationStyle = .fullScreen
-            addBookVC.dataBind(model: bookInfoList[indexPath.row])
+            addBookVC.dataBind(model: bookInfoList[safe: indexPath.row]!)
             present(addBookVC, animated: true, completion: nil)
         case .friend:
             let proposalVC = ProposalVC()
             proposalVC.personName = personName
             proposalVC.personId = personId
-            proposalVC.author = bookInfoList[indexPath.row].author
-            proposalVC.bookTitle = bookInfoList[indexPath.row].title
-            proposalVC.imageUrl = bookInfoList[indexPath.row].image
+            proposalVC.author = bookInfoList[safe: indexPath.row]!.author
+            proposalVC.bookTitle = bookInfoList[safe: indexPath.row]!.title
+            proposalVC.imageUrl = bookInfoList[safe: indexPath.row]!.image
             proposalVC.modalPresentationStyle = .fullScreen
-            proposalVC.dataBind(model: bookInfoList[indexPath.row])
+            proposalVC.dataBind(model: bookInfoList[safe: indexPath.row]!)
             present(proposalVC, animated: true, completion: nil)
         }
     }
@@ -258,7 +258,7 @@ extension BookSearchVC: UITableViewDataSource {
         backgroundView.backgroundColor = UIColor.peekaBeige
         bookCell.selectedBackgroundView = backgroundView
         
-        bookCell.dataBind(model: bookInfoList[indexPath.row])
+        bookCell.dataBind(model: bookInfoList[safe: indexPath.row]!)
         return bookCell
     }
     

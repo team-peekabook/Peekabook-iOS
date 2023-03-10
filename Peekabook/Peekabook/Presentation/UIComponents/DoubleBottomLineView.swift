@@ -41,16 +41,16 @@ extension DoubleBottomLineView {
         
         addSubviews(boldLine, thinLine)
         
-        boldLine.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(2)
+        boldLine.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        thinLine.snp.makeConstraints { make in
-            make.bottom.equalTo(boldLine.snp.top).offset(-1)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
+        thinLine.snp.makeConstraints {
+            $0.bottom.equalTo(boldLine.snp.top).offset(-1)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
         }
     }
 }

@@ -105,8 +105,8 @@ extension MyNotificationVC {
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data = serverGetAlarmData[indexPath.row]
-        if data.senderName.count > 4 && serverGetAlarmData[indexPath.row].typeID != 1 {
+        let data = serverGetAlarmData[safe: indexPath.row]!
+        if data.senderName.count > 4 && serverGetAlarmData[safe: indexPath.row]!.typeID != 1 {
             return 96
         } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) {
             return 80
@@ -126,8 +126,8 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.dataBind(model: serverGetAlarmData[indexPath.row])
-        cell.changeUserNameFont(model: serverGetAlarmData[indexPath.row])
+        cell.dataBind(model: serverGetAlarmData[safe: indexPath.row]!)
+        cell.changeUserNameFont(model: serverGetAlarmData[safe: indexPath.row]!)
         if indexPath.row > 2 {
             cell.changeRead()
         }

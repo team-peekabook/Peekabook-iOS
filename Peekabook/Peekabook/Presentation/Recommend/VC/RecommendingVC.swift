@@ -92,7 +92,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC
         else { return UITableViewCell() }
-        cell.dataBind(model: recommendingBooks[indexPath.row])
+        cell.dataBind(model: recommendingBooks[safe: indexPath.row]!)
         return cell
     }
 }
