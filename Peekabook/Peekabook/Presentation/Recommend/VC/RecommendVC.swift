@@ -23,7 +23,6 @@ final class RecommendVC: UIViewController {
     private lazy var dataViewControllers: [UIViewController] = {
         return [recommendedVC, recommendingVC]
     }()
-
     private var currentPage: Int = 0 {
         didSet {
             bind(newValue: currentPage)
@@ -68,8 +67,8 @@ final class RecommendVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setSubviews()
+        setBackgroundColor()
+        addSubviews()
         setLayout()
         setDelegate()
         registerCells()
@@ -81,51 +80,50 @@ final class RecommendVC: UIViewController {
 
 extension RecommendVC {
     
-    private func setUI() {
-        headerUnderlineView.backgroundColor = .peekaRed
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
+        headerUnderlineView.backgroundColor = .peekaRed
         recommendCollectionView.backgroundColor = .clear
     }
     
-    private func setSubviews() {
+    private func addSubviews() {
         view.addSubviews(
-            [headerView,
+            headerView,
             recommendCollectionView,
-            pageViewController.view]
+            pageViewController.view
         )
-        headerView.addSubviews(
-            [logoImage,
-             headerUnderlineView]
-        )
+        headerView.addSubviews(logoImage, headerUnderlineView)
     }
     
     private func setLayout() {
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
-        }
-        logoImage.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(20)
-            make.width.equalTo(150)
-            make.height.equalTo(18)
-        }
-        headerUnderlineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(52)
         }
         
-        recommendCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(63)
+        logoImage.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(150)
+            $0.height.equalTo(18)
         }
         
-        pageViewController.view.snp.makeConstraints { make in
-            make.top.equalTo(recommendCollectionView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        headerUnderlineView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        
+        recommendCollectionView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(63)
+        }
+        
+        pageViewController.view.snp.makeConstraints {
+            $0.top.equalTo(recommendCollectionView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -136,8 +134,8 @@ extension RecommendVC {
     
     private func registerCells() {
         recommendCollectionView.register(
-            RecommendCVC.self,
-            forCellWithReuseIdentifier: RecommendCVC.className
+            RecommendTypeCVC.self,
+            forCellWithReuseIdentifier: RecommendTypeCVC.className
         )
     }
     
@@ -183,12 +181,13 @@ extension RecommendVC {
 }
 
 extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendCVC.className, for: indexPath) as? RecommendCVC else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTypeCVC.className, for: indexPath) as? RecommendTypeCVC else { return UICollectionViewCell() }
         cell.dataBind(menuLabel: recommendTypes[indexPath.item])
         return cell
     }
@@ -198,25 +197,17 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            pageViewController.setViewControllers(
-                [recommendedVC],
-                direction: .forward,
-                animated: true,
-                completion: nil
-            )
-        } else {
-            pageViewController.setViewControllers(
-                [recommendingVC],
-                direction: .forward,
-                animated: true,
-                completion: nil
-            )
-        }
+        pageViewController.setViewControllers(
+            [dataViewControllers[indexPath.item]],
+            direction: indexPath.row == 0 ? .reverse : .forward,
+            animated: true,
+            completion: nil
+        )
     }
 }
 
 extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let previousIndex = index - 1

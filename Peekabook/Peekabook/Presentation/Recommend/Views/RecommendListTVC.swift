@@ -1,5 +1,5 @@
 //
-//  RecommendTableViewCell.swift
+//  RecommendListTVC.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/01/03.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RecommendTVC: UITableViewCell {
+final class RecommendListTVC: UITableViewCell {
     
     // MARK: - UI Components
     
@@ -27,6 +27,7 @@ final class RecommendTVC: UITableViewCell {
     private let bookCommentsContainerView = UIView().then {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.peekaRed.cgColor
+        $0.clipsToBounds = true
     }
     private let bookNameLabel = UILabel().then {
         $0.font = .h1
@@ -67,9 +68,10 @@ final class RecommendTVC: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setSubviews()
-        setUI()
+        addSubviews()
+        setBackgroundColor()
         setLayout()
+        setPriority()
     }
     
     required init?(coder: NSCoder) {
@@ -91,31 +93,29 @@ final class RecommendTVC: UITableViewCell {
 
 // MARK: - UI & Layout
 
-extension RecommendTVC {
-    private func setSubviews() {
-        contentView.addSubviews(
-            [bookHeaderView,
-             recommendStackView]
-        )
-        bookHeaderView.addSubviews([
+extension RecommendListTVC {
+    
+    private func addSubviews() {
+        contentView.addSubviews(bookHeaderView, recommendStackView)
+        bookHeaderView.addSubviews(
             bookNameLabel,
             bookDividerView,
             bookWriterLabel
-        ])
+        )
         recommendStackView.addArrangedSubviews(
             bookImageContainerView,
             bookCommentsContainerView
         )
         bookImageContainerView.addSubview(bookImage)
-        bookCommentsContainerView.addSubviews([
+        bookCommentsContainerView.addSubviews(
             bookRecommendedPersonImage,
             bookRecommendedPersonLabel,
             bookRecommendDateLabel,
             bookRecommendTextLabel
-        ])
+        )
     }
 
-    private func setUI() {
+    private func setBackgroundColor() {
         self.backgroundColor = .peekaBeige
         bookHeaderView.backgroundColor = .peekaRed
         bookDividerView.backgroundColor = .peekaWhite
@@ -124,69 +124,78 @@ extension RecommendTVC {
     }
     
     private func setLayout() {
-        
-        bookHeaderView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(30)
+        bookHeaderView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(30)
         }
         
-        bookNameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(15)
+        bookNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(15)
+            $0.centerY.equalToSuperview()
         }
         
-        bookDividerView.snp.makeConstraints { make in
-            make.width.equalTo(1)
-            make.height.equalTo(12)
-            make.centerY.equalTo(bookNameLabel)
-            make.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
+        bookDividerView.snp.makeConstraints {
+            $0.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
+            $0.centerY.equalTo(bookNameLabel)
+            $0.width.equalTo(1)
+            $0.height.equalTo(12)
         }
         
-        bookWriterLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookDividerView)
-            make.leading.equalTo(bookDividerView.snp.trailing).offset(7)
+        bookWriterLabel.snp.makeConstraints {
+            $0.leading.equalTo(bookDividerView.snp.trailing).offset(7)
+            $0.trailing.lessThanOrEqualToSuperview().inset(15)
+            $0.centerY.equalTo(bookDividerView)
+            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.3).constraint.isActive = true
         }
         
-        recommendStackView.snp.makeConstraints { make in
-            make.top.equalTo(bookHeaderView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+        recommendStackView.snp.makeConstraints {
+            $0.top.equalTo(bookHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        bookImageContainerView.snp.makeConstraints { make in
-            make.width.equalTo(122)
+        bookImageContainerView.snp.makeConstraints {
+            $0.width.equalTo(122)
         }
         
-        bookImage.snp.makeConstraints { make in
-            make.centerY.centerX.equalToSuperview()
-            make.width.equalTo(92)
-            make.height.equalTo(150)
+        bookImage.snp.makeConstraints {
+            $0.centerY.centerX.equalToSuperview()
+            $0.width.equalTo(92)
+            $0.height.equalTo(150)
         }
         
-        bookRecommendedPersonImage.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(14)
-            make.width.height.equalTo(15)
+        bookRecommendedPersonImage.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(14)
+            $0.width.height.equalTo(15)
         }
         
-        bookRecommendedPersonLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bookRecommendedPersonImage)
-            make.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
+        bookRecommendedPersonLabel.snp.makeConstraints {
+            $0.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
+            $0.centerY.equalTo(bookRecommendedPersonImage)
         }
         
-        bookRecommendDateLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
-            make.trailing.equalToSuperview().inset(18)
+        bookRecommendDateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(15)
+            $0.trailing.equalToSuperview().inset(18)
         }
         
-        bookRecommendTextLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(40)
-            make.leading.trailing.equalToSuperview().inset(13)
+        bookRecommendTextLabel.snp.makeConstraints {
+            $0.top.equalTo(bookRecommendedPersonLabel.snp.bottom).offset(11)
+            $0.leading.trailing.equalToSuperview().inset(13)
+            
         }
+    }
+    
+    private func setPriority() {
+        bookWriterLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        bookNameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        bookNameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        bookWriterLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
 }
 
 // MARK: - Methods
 
-extension RecommendTVC {
+extension RecommendListTVC {
     
     func dataBind(model: RecommendBook) {
         bookImage.kf.setImage(with: URL(string: model.bookImage))

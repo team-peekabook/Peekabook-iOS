@@ -16,7 +16,7 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var tableView = UITableView().then {
+    private lazy var recommendedTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = true
         $0.allowsSelection = false
@@ -29,7 +29,7 @@ final class RecommendedVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        setBackgroundColor()
         setLayout()
         setDelegate()
         registerCells()
@@ -45,18 +45,18 @@ final class RecommendedVC: UIViewController {
 
 extension RecommendedVC {
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
-        tableView.backgroundColor = .peekaBeige
+        recommendedTableView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
-        view.addSubview(tableView)
+        view.addSubview(recommendedTableView)
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        recommendedTableView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -66,15 +66,15 @@ extension RecommendedVC {
 extension RecommendedVC {
     
     private func registerCells() {
-        tableView.register(
-            RecommendTVC.self,
-            forCellReuseIdentifier: RecommendTVC.className
+        recommendedTableView.register(
+            RecommendListTVC.self,
+            forCellReuseIdentifier: RecommendListTVC.className
         )
     }
     
     private func setDelegate() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        recommendedTableView.delegate = self
+        recommendedTableView.dataSource = self
     }
 }
 
@@ -89,7 +89,7 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTVC.className, for: indexPath) as? RecommendTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC else { return UITableViewCell() }
         cell.dataBind(model: recommendedBooks[safe: indexPath.row]!)
         return cell
     }
@@ -104,7 +104,7 @@ extension RecommendedVC {
             if response?.success == true {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
-                self.tableView.reloadData()
+                self.recommendedTableView.reloadData()
             }
         }
     }
