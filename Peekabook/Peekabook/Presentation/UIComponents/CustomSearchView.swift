@@ -86,10 +86,6 @@ extension CustomSearchView: UITextFieldDelegate {
 
 extension CustomSearchView {
     
-    func setTextFieldDelegate() {
-        searchTextField.delegate = self
-    }
-    
     func getSearchTextField() -> UITextField {
             return searchTextField
         }

@@ -50,12 +50,6 @@ final class CustomTextView: UIView {
         setBackgroundColor()
         setLayout()
         setDelegate()
-        
-        addSubview(boxView)
-        boxView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -89,6 +83,11 @@ extension CustomTextView {
         
         headerView.addSubview(label)
         
+        boxView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
+        
         headerView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
@@ -115,7 +114,7 @@ extension CustomTextView {
 
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentPlaceholder) ||
+        if (textView.text == I18N.BookDetail.commentPlaceholder + "           ") ||
             (textView.text == I18N.BookDetail.memoPlaceholder) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) {
@@ -152,31 +151,31 @@ extension CustomTextView: UITextViewDelegate {
 }
 
 extension CustomTextView {
-    func setAddBookMemoTextView() {
+    func updateAddBookMemoView() {
         boxView.frame.size.height = 101
         label.text = I18N.BookDetail.memo
         textView.text = I18N.BookDetail.memoPlaceholder
         maxLabel.text = I18N.BookAdd.memoLength
     }
     
-    func setEditBookCommentTextView() {
+    func updateEditBookCommentTextView() {
         boxView.backgroundColor = .clear
     }
     
-    func setEditBookMemoTextView() {
+    func updateEditBookMemoTextView() {
         boxView.backgroundColor = .clear
         boxView.frame.size.height = 101
         label.text = I18N.BookDetail.memo
         textView.text = I18N.BookDetail.memoPlaceholder
     }
     
-    func setBookDetailCommentTextView() {
+    func updateBookDetailCommentTextView() {
         boxView.backgroundColor = .clear
         maxLabel.isHidden = true
         textView.isUserInteractionEnabled = false
     }
     
-    func setBookDetailMemoTextView() {
+    func updateBookDetailMemoTextView() {
         label.text = I18N.BookDetail.memo
         boxView.backgroundColor = .clear
         maxLabel.isHidden = true

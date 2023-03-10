@@ -112,8 +112,8 @@ final class BookDetailVC: UIViewController {
 extension BookDetailVC {
     
     private func setCustomView() {
-        peekaCommentView.setBookDetailCommentTextView()
-        peekaMemoView.setBookDetailMemoTextView()
+        peekaCommentView.updateBookDetailCommentTextView()
+        peekaMemoView.updateBookDetailMemoTextView()
     }
     
     private func setBackgroundColor() {
@@ -202,7 +202,7 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder)
+        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + "           ")
             || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
             || (peekaCommentView.getTextView().text.isEmpty == true) {
             peekaCommentView.getTextView().textColor = .peekaGray2

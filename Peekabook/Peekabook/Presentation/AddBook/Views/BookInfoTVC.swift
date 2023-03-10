@@ -166,9 +166,9 @@ extension BookInfoTVC {
         
         switch bookShelfType {
         case .user:
-            addLabel.text = "내 책장에 추가하기"
+            addLabel.text = I18N.BookSearch.userLabel
         case .friend:
-            addLabel.text = "친구에게 책 추천하기"
+            addLabel.text = I18N.BookSearch.friendLabel
         }
     }
 }

@@ -48,12 +48,8 @@ struct I18N {
     struct BookDetail {
         static let comment = "한 마디"
         static let memo = "메모"
-        static let commentHint = "한 마디를 남겨주세요          "
         static let commentPlaceholder = "한 마디를 남겨주세요"
-        static let memoHint = "메모를 남겨주세요          "
         static let memoPlaceholder = "메모를 남겨주세요"
-        static let commentSample = "한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다.한마디는200자작성이가능합니다."
-        static let memoSample = "메모는 50자 작성이 가능합니다.메모는 50자 작성이 가능합니다.메모는 50자 작성이 가능합니다."
         static let emptyComment = "작성된 한 마디가 없습니다"
         static let emptyMemo = "작성된 메모가 없습니다"
     }
@@ -62,6 +58,8 @@ struct I18N {
         static let title = "책 검색하기"
         static let bookSearch = "책 제목을 입력해주세요."
         static let empty = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
+        static let userLabel = "내 책장에 추가하기"
+        static let friendLabel = "친구에게 책 추천하기"
     }
     
     struct BookEdit {

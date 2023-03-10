@@ -88,7 +88,7 @@ final class UserSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDelegate()
+        userSearchView.getSearchTextField().delegate = self
         setCustomView()
         setUI()
         setLayout()
@@ -99,7 +99,7 @@ final class UserSearchVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func searchBtnTapped() {
+    @objc private func searchBtnTapped() {
         guard let friendName = userSearchView.getSearchTextField().text else { return }
         getUserAPI(nickname: friendName)
     }
@@ -112,10 +112,6 @@ extension UserSearchVC {
     private func setCustomView() {
         userSearchView.getSearchTextField().attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
         userSearchView.getSearchButton().addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
-    }
-    
-    private func setDelegate() {
-        userSearchView.getSearchTextField().delegate = self
     }
     
     private func setUI() {
