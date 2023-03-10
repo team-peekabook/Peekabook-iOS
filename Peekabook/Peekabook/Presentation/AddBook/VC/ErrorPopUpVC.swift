@@ -50,7 +50,9 @@ final class ErrorPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension ErrorPopUpVC {
+    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
@@ -63,27 +65,27 @@ extension ErrorPopUpVC {
             popUpView.addSubview($0)
         }
         
-        popUpView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(295)
-            make.height.equalTo(134)
+        popUpView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(295)
+            $0.height.equalTo(134)
         }
         
-        cancelButton.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.trailing.equalToSuperview()
+        cancelButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview()
         }
         
-        emptyLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(33)
-            make.centerX.equalToSuperview()
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(33)
+            $0.centerX.equalToSuperview()
         }
         
-        textSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(emptyLabel.snp.bottom).offset(23)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(263)
-            make.height.equalTo(40)
+        textSearchButton.snp.makeConstraints {
+            $0.top.equalTo(emptyLabel.snp.bottom).offset(23)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(263)
+            $0.height.equalTo(40)
         }
     }
 }
@@ -91,11 +93,13 @@ extension ErrorPopUpVC {
 // MARK: - Methods
 
 extension ErrorPopUpVC {
+    
     @objc private func textSearchButtonDidTap() {
         let bookSearchVC = BookSearchVC()
         bookSearchVC.modalPresentationStyle = .fullScreen
         self.present(bookSearchVC, animated: true, completion: nil)
     }
+    
     @objc private func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }

@@ -15,9 +15,9 @@ final class PickCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let countBackgroundView = UIView()
+    private let rankingBackgroundView = UIView()
     
-    private let countLabel = UILabel().then {
+    private let rankingLabel = UILabel().then {
         $0.font = .engC
         $0.textColor = .peekaWhite
     }
@@ -66,7 +66,7 @@ extension PickCVC {
         layer.borderWidth = 2
         layer.borderColor = UIColor.peekaRed.cgColor
         backgroundColor = .peekaWhite
-        countBackgroundView.backgroundColor = .peekaRed
+        rankingBackgroundView.backgroundColor = .peekaRed
         horizontalLine.backgroundColor = .peekaRed
         titleContainerView.backgroundColor = .peekaWhite_60
         titleContainerView.layer.borderColor = UIColor.peekaRed.cgColor
@@ -75,53 +75,63 @@ extension PickCVC {
     }
     
     private func setLayout() {
-        contentView.addSubviews(countBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
+        contentView.addSubviews(rankingBackgroundView, bookNameLabel, horizontalLine, bookImageView, titleContainerView)
         titleContainerView.addSubview(titleLabel)
+        rankingBackgroundView.addSubview(rankingLabel)
         
-        countBackgroundView.addSubview(countLabel)
-        
-        countBackgroundView.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.width.height.equalTo(30)
+        rankingBackgroundView.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.width.height.equalTo(30)
         }
         
-        countLabel.snp.makeConstraints { make in
-            make.center.equalTo(countBackgroundView)
+        rankingLabel.snp.makeConstraints {
+            $0.center.equalTo(rankingBackgroundView)
         }
         
-        bookNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(countBackgroundView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(5)
-            make.centerY.equalTo(countLabel)
+        bookNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(rankingBackgroundView.snp.trailing).offset(8)
+            $0.trailing.equalToSuperview().inset(5)
+            $0.centerY.equalTo(rankingLabel)
         }
         
-        horizontalLine.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(countBackgroundView)
-            make.height.equalTo(1)
+        horizontalLine.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(rankingBackgroundView)
+            $0.height.equalTo(1)
         }
         
-        bookImageView.snp.makeConstraints { make in
-            make.top.equalTo(horizontalLine.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(116)
-            make.height.equalTo(190)
+        bookImageView.snp.makeConstraints {
+            $0.top.equalTo(horizontalLine.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(116)
+            $0.height.equalTo(190)
         }
         
-        titleContainerView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(64)
+        titleContainerView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(64)
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
+        titleLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(10)
+        }
+        
+        checkSmallLayout()
+    }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            bookImageView.snp.updateConstraints {
+                $0.width.equalTo(92)
+                $0.height.equalTo(152)
+            }
         }
     }
     
     func setData(model: Pick) {
-        titleContainerView.isHidden = (model.description?.count) == 0
+        titleContainerView.isHidden = (model.description?.count) == 0 || model.description == nil
         
-        countLabel.text = String(model.pickIndex)
+        rankingLabel.text = String(model.pickIndex)
         bookId = model.book.id
         bookNameLabel.text = model.book.bookTitle
         bookImageView.kf.indicatorType = .activity

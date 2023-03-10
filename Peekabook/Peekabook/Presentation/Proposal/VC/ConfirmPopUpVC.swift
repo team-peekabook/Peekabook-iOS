@@ -15,6 +15,7 @@ import Moya
 final class ConfirmPopUpVC: UIViewController {
     
     // MARK: - Properties
+    
     var recommendDesc: String? = ""
     var bookTitle: String = ""
     var author: String = ""
@@ -23,34 +24,11 @@ final class ConfirmPopUpVC: UIViewController {
     var personName: String = ""
 
     // MARK: - UI Components
-    private let popUpView = UIView()
     
+    private lazy var confirmPopUpview = CustomPopUpView(frame: .zero, style: .recommend, viewController: self)
     private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
-    }
-    
-    private let confirmLabel = UILabel().then {
-        $0.font = .h4
-        $0.textColor = .peekaRed
-        $0.numberOfLines = 2
-        $0.textAlignment = .center
-    }
-    
-    private lazy var cancelButton = UIButton().then {
-        $0.setTitle(I18N.Confirm.cancel, for: .normal)
-        $0.titleLabel!.font = .h1
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaGray2
-        $0.addTarget(self, action: #selector(touchCancelButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var confirmButton = UIButton().then {
-        $0.setTitle(I18N.Confirm.recommend, for: .normal)
-        $0.titleLabel!.font = .h1
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .peekaRed
-        $0.addTarget(self, action: #selector(touchConfirmButtonDipTap), for: .touchUpInside)
     }
 
     // MARK: - View Life Cycle
@@ -64,41 +42,20 @@ final class ConfirmPopUpVC: UIViewController {
 
 // MARK: - UI & Layout
 extension ConfirmPopUpVC {
+
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        popUpView.backgroundColor = .peekaBeige
-        confirmLabel.text = personName + I18N.BookProposal.confirm
+        confirmPopUpview.backgroundColor = .peekaBeige
+        confirmPopUpview.getConfirmLabel(style: .recommend, personName: personName)
     }
     
     private func setLayout() {
-        view.addSubview(popUpView)
+        view.addSubview(confirmPopUpview)
         
-        [confirmLabel, cancelButton, confirmButton].forEach {
-            popUpView.addSubview($0)
-        }
-        
-        popUpView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(295)
-            make.height.equalTo(136)
-        }
-        
-        confirmLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(18)
-            make.centerX.equalToSuperview()
-        }
-        
-        cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(124)
-            make.height.equalTo(40)
-        }
-        
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmLabel.snp.bottom).offset(14)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.height.equalTo(cancelButton)
+        confirmPopUpview.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(295)
+            $0.height.equalTo(136)
         }
     }
 }
@@ -106,11 +63,12 @@ extension ConfirmPopUpVC {
 // MARK: - Methods
 
 extension ConfirmPopUpVC {
-    @objc private func touchCancelButtonDidTap() {
+    
+    @objc func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
     
-    @objc private func touchConfirmButtonDipTap() {
+    @objc func confirmButtonDidTap() {
         postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
                                                                         bookTitle: bookTitle,
                                                                         author: author,
@@ -121,6 +79,7 @@ extension ConfirmPopUpVC {
 // MARK: - Network
 
 extension ConfirmPopUpVC {
+    
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
         FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
             if response?.success == true {
