@@ -202,8 +202,8 @@ extension BookSearchVC {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    func bookBind(image: String, title: String, author: String) {
-        bookInfoList.append(BookInfoModel(title: title, image: image, author: author))
+    func bookBind(image: String, title: String, author: String, publisher: String) {
+        bookInfoList.append(BookInfoModel(title: title, image: image, author: author, publisher: publisher))
     }
     
     @objc
@@ -307,7 +307,7 @@ extension BookSearchVC {
             guard let response = response else { return }
             
             for i in 0..<response.count {
-                self.bookInfoList.append(BookInfoModel(title: response[i].title, image: response[i].image, author: response[i].author))
+                self.bookInfoList.append(BookInfoModel(title: response[i].title, image: response[i].image, author: response[i].author, publisher: response[i].publisher))
             }
             
             DispatchQueue.main.async {

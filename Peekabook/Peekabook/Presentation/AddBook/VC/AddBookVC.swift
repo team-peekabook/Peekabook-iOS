@@ -24,6 +24,7 @@ final class AddBookVC: UIViewController {
     var searchType: SearchType = .text
     private var focus = 0
     var imgaeUrl: String = ""
+    var publisher: String = ""
     
     private var serverAddBookInfo: PostBookRequest?
     
@@ -210,6 +211,7 @@ extension AddBookVC {
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
+                                          publisher: self.publisher,
                                           description: description,
                                           memo: memo))
     }
@@ -266,6 +268,7 @@ extension AddBookVC {
         nameLabel.text = model.title
         authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imgaeUrl = model.image
+        publisher = model.publisher
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
     }
