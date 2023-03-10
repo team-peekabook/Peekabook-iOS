@@ -1,11 +1,19 @@
 //
-//  CommentView.swift
+//  CustomTextView.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/02/22.
 //
 
 import UIKit
+
+enum CustomTextViewType {
+    case addBookMemo
+    case addBookComment
+    case editBookMemo
+    case bookDetailComment
+    case bookDetailMemo
+}
 
 final class CustomTextView: UIView {
 
@@ -152,38 +160,33 @@ extension CustomTextView: UITextViewDelegate {
 }
 
 extension CustomTextView {
-    func updateAddBookMemoTextView() {
-        boxView.frame.size.height = 101
-        boxView.backgroundColor = .peekaWhite_60
-        label.text = I18N.BookDetail.memo
-        textView.text = I18N.BookDetail.memoPlaceholder
-        maxLabel.text = I18N.BookAdd.memoLength
+    func updateTextView(type: CustomTextViewType) {
+        switch type {
+        case .addBookMemo:
+            boxView.frame.size.height = 101
+            boxView.backgroundColor = .peekaWhite_60
+            label.text = I18N.BookDetail.memo
+            textView.text = I18N.BookDetail.memoPlaceholder
+            maxLabel.text = I18N.BookAdd.memoLength
+        case .addBookComment:
+            boxView.backgroundColor = .peekaWhite_60
+        case .editBookMemo:
+            boxView.frame.size.height = 101
+            label.text = I18N.BookDetail.memo
+            textView.text = I18N.BookDetail.memoPlaceholder
+        case .bookDetailComment:
+            maxLabel.isHidden = true
+            textView.isUserInteractionEnabled = false
+        case .bookDetailMemo:
+            label.text = I18N.BookDetail.memo
+            maxLabel.isHidden = true
+            boxView.frame.size.height = 101
+            textView.isUserInteractionEnabled = false
+        }
     }
-    
-    func updateAddBookCommentColor() {
-        boxView.backgroundColor = .peekaWhite_60
-    }
-    
-    func updateEditBookMemoTextView() {
-        boxView.frame.size.height = 101
-        label.text = I18N.BookDetail.memo
-        textView.text = I18N.BookDetail.memoPlaceholder
-    }
-    
-    func updateBookDetailCommentTextView() {
-        maxLabel.isHidden = true
-        textView.isUserInteractionEnabled = false
-    }
-    
-    func updateBookDetailMemoTextView() {
-        label.text = I18N.BookDetail.memo
-        maxLabel.isHidden = true
-        boxView.frame.size.height = 101
-        textView.isUserInteractionEnabled = false
-    }
-    
-    func getBoxView() -> UIView {
-        return self.boxView
+        
+        func getBoxView() -> UIView {
+            return self.boxView
     }
 
     func getTextView() -> UITextView {

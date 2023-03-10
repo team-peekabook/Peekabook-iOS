@@ -113,8 +113,8 @@ final class BookDetailVC: UIViewController {
 extension BookDetailVC {
     
     private func setCustomView() {
-        peekaCommentView.updateBookDetailCommentTextView()
-        peekaMemoView.updateBookDetailMemoTextView()
+        peekaCommentView.updateTextView(type: .bookDetailComment)
+        peekaMemoView.updateTextView(type: .bookDetailMemo)
     }
     
     private func setBackgroundColor() {

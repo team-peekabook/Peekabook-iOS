@@ -97,8 +97,8 @@ final class AddBookVC: UIViewController {
 
 extension AddBookVC {
     private func setCustomView() {
-        peekaMemoView.updateAddBookMemoTextView()
-        peekaCommentView.updateAddBookCommentColor()
+        peekaMemoView.updateTextView(type: .addBookMemo)
+        peekaCommentView.updateTextView(type: .addBookMemo)
     }
     
     private func setBackgroundColor() {
