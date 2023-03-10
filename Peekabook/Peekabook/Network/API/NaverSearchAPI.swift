@@ -18,13 +18,13 @@ final class NaverSearchAPI {
     
     // 네이버 책검색 API 불러오기
     
-    func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([NaverSearchResponse]?) -> Void) {
+    func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
         naverSearchProvider.request(.getBook(d_titl: d_titl, d_isbn: d_isbn, display: display)) { (result) in
             switch result {
             case .success(let response):
                 do {
                     let response = try response.map(NaverResponse.self)
-                    let getNaverData: [NaverSearchResponse] = response.items
+                    let getNaverData: [BookInfoModel] = response.items
                     completion(getNaverData)
                 } catch let error {
                     print(error.localizedDescription, 500)

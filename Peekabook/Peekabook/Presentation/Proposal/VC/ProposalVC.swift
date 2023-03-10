@@ -28,6 +28,7 @@ final class ProposalVC: UIViewController {
     
     private lazy var backButton = UIButton().then {
         $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private let headerTitle = UILabel().then {
@@ -123,6 +124,7 @@ final class ProposalVC: UIViewController {
 extension ProposalVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
+        
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
         recommendBoxView.backgroundColor = .white
@@ -130,7 +132,6 @@ extension ProposalVC {
         lineView.backgroundColor = .white
         recommendTextView.backgroundColor = .clear
         personNameLabel.text = personName
-        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private func setLayout() {
