@@ -58,9 +58,18 @@ final class BookShelfVC: UIViewController {
     // MARK: - UI Components
     
     private let bottomShelfVC = BottomBookShelfVC()
-
     private let containerScrollView = UIScrollView()
-    private let naviContainerView = UIView()
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
+        .changeLeftBackButtonToLogoImage()
+        .addRightButton(with: ImageLiterals.Icn.notification)
+        .addOtherRightButton(with: ImageLiterals.Icn.friend)
+        .addRightButtonAction {
+            self.presentNotiVC()
+        }
+        .addOtherRightButtonAction {
+            self.pushUserSearchVC()
+        }
+    
     private let friendsListContainerView = UIView()
     private let introProfileView = UIView()
     private let pickContainerView = UIView()
@@ -71,22 +80,6 @@ final class BookShelfVC: UIViewController {
     private let verticalLine = UIView()
     private let doubleheaderLine = DoubleHeaderLineView()
     private let doubleBottomLine = DoubleBottomLineView()
-    
-    private let logoImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = ImageLiterals.Image.logo
-        $0.clipsToBounds = true
-    }
-    
-    private lazy var addFriendButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.friend, for: .normal)
-        $0.addTarget(self, action: #selector(addFriendButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var notificationButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.notification, for: .normal)
-        $0.addTarget(self, action: #selector(notiButtonDidTap), for: .touchUpInside)
-    }
     
     private lazy var friendsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -183,20 +176,6 @@ final class BookShelfVC: UIViewController {
     // MARK: - @objc Function
     
     @objc
-    private func addFriendButtonDidTap() {
-        let userSearchVC = UserSearchVC()
-        userSearchVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(userSearchVC, animated: true)
-    }
-    
-    @objc
-    private func notiButtonDidTap() {
-        let notiVC = MyNotificationVC()
-        notiVC.modalPresentationStyle = .fullScreen
-        present(notiVC, animated: true)
-    }
-    
-    @objc
     private func editOrRecommendButtonDidTap() {
         switch bookShelfType {
         case .user:
@@ -215,13 +194,15 @@ final class BookShelfVC: UIViewController {
         }
     }
     
-    @objc private func myProfileViewDidTap() {
+    @objc
+    private func myProfileViewDidTap() {
         getMyBookShelfInfo()
         selectedUserIndex = nil
     }
 }
 
 // MARK: - UI & Layout
+
 extension BookShelfVC {
     
     private func setUI() {
@@ -229,11 +210,8 @@ extension BookShelfVC {
         horizontalLine1.backgroundColor = .peekaRed
         horizontalLine2.backgroundColor = .peekaRed
         verticalLine.backgroundColor = .peekaRed
-        
         myProfileView.backgroundColor = .peekaBeige
-        
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        
         editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
@@ -242,166 +220,155 @@ extension BookShelfVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView, containerScrollView)
-        naviContainerView.addSubviews(logoImage, notificationButton, addFriendButton, horizontalLine1)
+        
+        view.addSubviews(naviBar, containerScrollView)
         containerScrollView.addSubviews(friendsListContainerView, introProfileView, pickContainerView)
         
-        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine2)
+        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
-        
         introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
-        
         pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
         
         emptyView.addSubview(emptyPickViewDescription)
         
-        naviContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        containerScrollView.snp.makeConstraints { make in
-            make.top.equalTo(naviContainerView.snp.bottom)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalToSuperview().inset(200.adjustedH)
+        containerScrollView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview().inset(180.adjustedH)
         }
         
-        friendsListContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(86)
+        friendsListContainerView.snp.makeConstraints {
+            $0.top.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(84)
         }
         
-        introProfileView.snp.makeConstraints { make in
-            make.top.equalTo(friendsListContainerView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(70)
+        introProfileView.snp.makeConstraints {
+            $0.top.equalTo(friendsListContainerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(70)
         }
         
-        pickContainerView.snp.makeConstraints { make in
-            make.top.equalTo(introProfileView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+        pickContainerView.snp.makeConstraints {
+            $0.top.equalTo(introProfileView.snp.bottom).offset(24)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        logoImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
+        myProfileView.snp.makeConstraints {
+            $0.centerY.leading.equalToSuperview()
+            $0.width.equalTo(60)
+            $0.height.equalTo(84)
         }
         
-        notificationButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(4)
-            make.centerY.equalToSuperview()
+        myProfileImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(14)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(44)
         }
         
-        addFriendButton.snp.makeConstraints { make in
-            make.trailing.equalTo(notificationButton.snp.leading)
-            make.centerY.equalToSuperview()
+        myNameLabel.snp.makeConstraints {
+            $0.top.equalTo(myProfileImageView.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(50)
         }
         
-        horizontalLine1.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        verticalLine.snp.makeConstraints {
+            $0.leading.equalTo(myProfileView.snp.trailing)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(1)
+            $0.height.equalTo(62)
         }
         
-        myProfileView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.width.equalTo(60)
-            make.height.equalTo(84)
+        friendsCollectionView.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview()
+            $0.leading.equalTo(verticalLine.snp.trailing)
+            $0.height.equalTo(86)
         }
         
-        myProfileImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(14)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(44)
+        horizontalLine1.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        myNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(myProfileImageView.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(50)
+        horizontalLine2.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
-        verticalLine.snp.makeConstraints { make in
-            make.leading.equalTo(myProfileView.snp.trailing)
-            make.centerY.equalToSuperview()
-            make.width.equalTo(1)
-            make.height.equalTo(62)
+        doubleheaderLine.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
-        friendsCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(verticalLine.snp.trailing)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(84)
+        introNameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(10)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(50)
         }
         
-        horizontalLine2.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
+        introductionLabel.snp.makeConstraints {
+            $0.leading.equalTo(introNameLabel.snp.trailing).offset(15)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
         }
         
-        doubleheaderLine.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
+        doubleBottomLine.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
-        introNameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
-            make.width.equalTo(50)
+        pickLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(2)
+            $0.leading.equalToSuperview().offset(20)
         }
         
-        introductionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(introNameLabel.snp.trailing).offset(15)
-            make.trailing.equalToSuperview().inset(10)
-            make.centerY.equalToSuperview()
+        editOrRecommendButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(2)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(70)
+            $0.height.equalTo(25)
         }
         
-        doubleBottomLine.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
+        pickCollectionView.snp.makeConstraints {
+            $0.top.equalTo(pickLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(270)
         }
         
-        pickLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.leading.equalToSuperview().offset(20)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(70)
         }
         
-        editOrRecommendButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.trailing.equalToSuperview().inset(20)
-            make.width.equalTo(70)
-            make.height.equalTo(25)
+        emptyPickViewDescription.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
-        pickCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(pickLabel.snp.bottom).offset(15)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(250)
-        }
-        
-        emptyView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(300)
-            make.height.equalTo(70)
-        }
-        
-        emptyPickViewDescription.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        checkSmallLayout()
     }
 }
 
 // MARK: - Methods
 
 extension BookShelfVC {
+    
+    private func presentNotiVC() {
+        let vc = MyNotificationVC()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+    private func pushUserSearchVC() {
+        let vc = UserSearchVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func addBottomSheetView(scrollable: Bool? = true) {
         self.view.addSubview(bottomShelfVC.view)
@@ -452,6 +419,23 @@ extension BookShelfVC {
             pickCollectionView.isHidden = false
         }
     }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            containerScrollView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(140.adjustedH)
+            }
+            
+            pickContainerView.snp.makeConstraints {
+                $0.top.equalTo(introProfileView.snp.bottom).offset(20)
+            }
+            
+            pickCollectionView.snp.updateConstraints {
+                $0.top.equalTo(pickLabel.snp.bottom).offset(10)
+                $0.height.equalTo(230)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -471,7 +455,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == friendsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsCVC.className, for: indexPath)
                     as? FriendsCVC else { return UICollectionViewCell() }
-            cell.setData(model: friends[indexPath.row])
+            cell.setData(model: friends[safe: indexPath.row]!)
             
             if selectedUserIndex == indexPath.row {
                 cell.changeBorderLayout(isSelected: true)
@@ -484,7 +468,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == pickCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickCVC.className, for: indexPath)
                     as? PickCVC else { return UICollectionViewCell() }
-            cell.setData(model: picks[indexPath.row])
+            cell.setData(model: picks[safe: indexPath.row]!)
             return cell
         }
         return UICollectionViewCell()
@@ -506,7 +490,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 bookDetailVC.changeFriendViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
-            bookDetailVC.selectedBookIndex = picks[indexPath.row].id
+            bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
         }
     }
@@ -522,8 +506,11 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension BookShelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == friendsCollectionView {
-            return CGSize(width: 60, height: 84)
+            return CGSize(width: 60, height: 86)
         } else if collectionView == pickCollectionView {
+            if UIScreen.main.isSmallThan712pt {
+                return CGSize(width: 145, height: 210)
+            }
             return CGSize(width: 145, height: 250)
         }
         return CGSize(width: 0, height: 0)
@@ -536,10 +523,6 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
             return 16
         }
         return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
     }
 }
 

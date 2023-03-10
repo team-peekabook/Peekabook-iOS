@@ -105,30 +105,30 @@ extension EditMyPickVC {
         view.addSubviews(naviContainerView, bookShelfCollectionView)
         naviContainerView.addSubviews(backButton, completeButton, descriptionLabel)
         
-        naviContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(65)
+        naviContainerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(65)
         }
         
-        backButton.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(5)
+        backButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
         }
         
-        completeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.trailing.equalToSuperview().inset(5)
+        completeButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(5)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom)
-            make.leading.equalToSuperview().offset(20)
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(backButton.snp.bottom)
+            $0.leading.equalToSuperview().offset(20)
         }
         
-        bookShelfCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(naviContainerView.snp.bottom)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        bookShelfCollectionView.snp.makeConstraints {
+            $0.top.equalTo(naviContainerView.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -162,7 +162,7 @@ extension EditMyPickVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if let selectedBookIndex = pickedBooksList.firstIndex(of: indexPath.item) {
             pickIndex = selectedBookIndex
         }
-        cell.setData(model: books[indexPath.row], pickIndex: pickIndex)
+        cell.setData(model: books[safe: indexPath.row]!, pickIndex: pickIndex)
         return cell
     }
     

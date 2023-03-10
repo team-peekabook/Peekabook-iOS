@@ -50,7 +50,9 @@ final class ErrorPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension ErrorPopUpVC {
+    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
@@ -91,11 +93,13 @@ extension ErrorPopUpVC {
 // MARK: - Methods
 
 extension ErrorPopUpVC {
+    
     @objc private func textSearchButtonDidTap() {
         let bookSearchVC = BookSearchVC()
         bookSearchVC.modalPresentationStyle = .fullScreen
         self.present(bookSearchVC, animated: true, completion: nil)
     }
+    
     @objc private func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
