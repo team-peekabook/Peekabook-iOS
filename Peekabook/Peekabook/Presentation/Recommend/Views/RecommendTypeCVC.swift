@@ -1,5 +1,5 @@
 //
-//  RecommendCollectionViewCell.swift
+//  RecommendTypeCVC.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/01/03.
@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-final class RecommendCVC: UICollectionViewCell {
+final class RecommendTypeCVC: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
@@ -34,14 +34,15 @@ final class RecommendCVC: UICollectionViewCell {
     }
 }
 
-extension RecommendCVC {
+extension RecommendTypeCVC {
     
     // MARK: - UI & Layout
     
     private func setLayout() {
         contentView.addSubview(menuLabel)
-        menuLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        
+        menuLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
     

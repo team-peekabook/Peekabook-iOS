@@ -10,8 +10,7 @@
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
-		1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53F29634F3700CA72D0 /* RecommendModel.swift */; };
-		1431D542296354B200CA72D0 /* RecommendTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendTVC.swift */; };
+		1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendListTVC.swift */; };
 		143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
@@ -20,7 +19,7 @@
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
-		14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendCVC.swift */; };
+		14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */; };
 		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */; };
@@ -136,8 +135,7 @@
 		140E373129B48AD60004C8D2 /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
-		1431D53F29634F3700CA72D0 /* RecommendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModel.swift; sourceTree = "<group>"; };
-		1431D541296354B200CA72D0 /* RecommendTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTVC.swift; sourceTree = "<group>"; };
+		1431D541296354B200CA72D0 /* RecommendListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendListTVC.swift; sourceTree = "<group>"; };
 		143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
@@ -146,7 +144,7 @@
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
-		14B47F8229632EE600B5B60F /* RecommendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCVC.swift; sourceTree = "<group>"; };
+		14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTypeCVC.swift; sourceTree = "<group>"; };
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 		14B3544E296C0C9500998925 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1431D53F29634F3700CA72D0 /* RecommendModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -536,8 +533,8 @@
 		8E10BA3D295FF89E00BCF58B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				14B47F8229632EE600B5B60F /* RecommendCVC.swift */,
-				1431D541296354B200CA72D0 /* RecommendTVC.swift */,
+				14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */,
+				1431D541296354B200CA72D0 /* RecommendListTVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -996,7 +993,7 @@
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
-				1431D542296354B200CA72D0 /* RecommendTVC.swift in Sources */,
+				1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
@@ -1012,7 +1009,7 @@
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
 				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
-				14B47F8329632EE600B5B60F /* RecommendCVC.swift in Sources */,
+				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
@@ -1057,7 +1054,6 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
-				1431D54029634F3700CA72D0 /* RecommendModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
