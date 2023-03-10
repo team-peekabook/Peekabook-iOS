@@ -33,6 +33,7 @@ final class AddBookVC: UIViewController {
     
     private lazy var backButton = UIButton().then {
         $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private let headerTitleLabel = UILabel().then {
@@ -80,8 +81,8 @@ final class AddBookVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
         addTapGesture()
         addKeyboardObserver()
@@ -95,18 +96,16 @@ final class AddBookVC: UIViewController {
 // MARK: - UI & Layout
 
 extension AddBookVC {
-    private func setReusableView() {
-        peekaMemoView.boxView.frame.size.height = 101
-        peekaMemoView.label.text = I18N.BookDetail.memo
-        peekaMemoView.textView.text = I18N.BookDetail.memoHint
-        peekaMemoView.maxLabel.text = I18N.BookAdd.memoLength
+    private func setCustomView() {
+        peekaMemoView.updateAddBookMemoTextView()
+        peekaCommentView.updateAddBookCommentColor()
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
+        
         headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
-        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private func setLayout() {
@@ -169,14 +168,14 @@ extension AddBookVC {
         peekaCommentView.snp.makeConstraints {
             $0.top.equalTo(authorLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
+            $0.leading.trailing.equalToSuperview().offset(20)
             $0.height.equalTo(229)
         }
         
         peekaMemoView.snp.makeConstraints {
             $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
+            $0.leading.trailing.equalToSuperview().offset(20)
             $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(36)
         }
@@ -196,17 +195,25 @@ extension AddBookVC {
     }
     
     @objc private func checkButtonDidTap() {
-        guard let bookTitle = self.nameLabel.text,
-              let author = self.authorLabel.text,
-              let description = peekaCommentView.textView.text,
-              let memo = peekaMemoView.textView.text else { return }
+        checkButton.isEnabled = false
+        
+        let description = (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.getTextView().text
+        let memo = (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.getTextView().text
+        
+        guard let bookTitle = nameLabel.text,
+              let author = authorLabel.text
+        else {
+            checkButton.isEnabled = true
+            return
+        }
+        
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
                                           description: description,
                                           memo: memo))
     }
-    
+
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
             self,
@@ -234,16 +241,16 @@ extension AddBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if peekaCommentView.textView.isFirstResponder {
-            let textViewHeight = peekaCommentView.boxView.frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+        if peekaCommentView.getTextView().isFirstResponder {
+            let textViewHeight = peekaCommentView.getBoxView().frame.height
+            let position = CGPoint(x: 0, y: peekaCommentView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
             containerView.setContentOffset(position, animated: true)
             return
         }
-        
-        if peekaMemoView.textView.isFirstResponder {
-            let textViewHeight = peekaMemoView.boxView.frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
+
+        if peekaMemoView.getTextView().isFirstResponder {
+            let textViewHeight = peekaMemoView.getBoxView().frame.height
+            let position = CGPoint(x: 0, y: peekaMemoView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
             containerView.setContentOffset(position, animated: true)
             return
         }

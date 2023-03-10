@@ -14,7 +14,9 @@ import Then
 import Moya
 
 final class BookInfoTVC: UITableViewCell {
-        
+    
+    var bookShelfType: BookShelfType?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
@@ -154,11 +156,19 @@ extension BookInfoTVC {
         addButton.setImage(ImageLiterals.Icn.addBookMini, for: .normal)
     }
     
-    func dataBind(model: BookInfoModel) {
+    func dataBind(model: BookInfoModel, bookShelfType: BookShelfType) {
+        self.bookShelfType = bookShelfType
         bookTitleLabel.text = model.title
         authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         let url = URL(string: model.image)!
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: url)
+        
+        switch bookShelfType {
+        case .user:
+            addLabel.text = I18N.BookSearch.addMyBookshelf
+        case .friend:
+            addLabel.text = I18N.BookSearch.recommendFriendBookShelf
+        }
     }
 }
