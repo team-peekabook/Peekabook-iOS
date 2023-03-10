@@ -130,21 +130,21 @@ extension RecommendListTVC {
         }
         
         bookNameLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.leading.equalTo(15)
+            $0.centerY.equalToSuperview()
         }
         
         bookDividerView.snp.makeConstraints {
+            $0.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
+            $0.centerY.equalTo(bookNameLabel)
             $0.width.equalTo(1)
             $0.height.equalTo(12)
-            $0.centerY.equalTo(bookNameLabel)
-            $0.leading.equalTo(bookNameLabel.snp.trailing).offset(7)
         }
         
         bookWriterLabel.snp.makeConstraints {
-            $0.centerY.equalTo(bookDividerView)
             $0.leading.equalTo(bookDividerView.snp.trailing).offset(7)
             $0.trailing.lessThanOrEqualToSuperview().inset(15)
+            $0.centerY.equalTo(bookDividerView)
             $0.width.lessThanOrEqualToSuperview().multipliedBy(0.3).constraint.isActive = true
         }
         
@@ -169,8 +169,8 @@ extension RecommendListTVC {
         }
         
         bookRecommendedPersonLabel.snp.makeConstraints {
-            $0.centerY.equalTo(bookRecommendedPersonImage)
             $0.leading.equalTo(bookRecommendedPersonImage.snp.trailing).offset(5)
+            $0.centerY.equalTo(bookRecommendedPersonImage)
         }
         
         bookRecommendDateLabel.snp.makeConstraints {

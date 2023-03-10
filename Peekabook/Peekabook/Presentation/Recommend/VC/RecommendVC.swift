@@ -102,8 +102,8 @@ extension RecommendVC {
         }
         
         logoImage.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
             $0.width.equalTo(150)
             $0.height.equalTo(18)
         }
