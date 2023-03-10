@@ -19,7 +19,7 @@ final class BookDetailVC: UIViewController {
     private let placeholderBlank: String = "          "
     private var serverWatchBookDetail: WatchBookDetailResponse?
     var selectedBookIndex: Int = 0
-
+    
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
@@ -64,9 +64,9 @@ final class BookDetailVC: UIViewController {
         $0.textAlignment = .center
         $0.textColor = .peekaRed
     }
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomView()
@@ -93,8 +93,8 @@ final class BookDetailVC: UIViewController {
         editVC.setBookImgView(bookImageView)
         editVC.setNameLabel(bookNameLabel)
         editVC.setAuthorLabel(bookAuthorLabel)
-        editVC.descriptions = peekaCommentView.getTextView().text
-        editVC.memo = peekaMemoView.getTextView().text
+        editVC.descriptions = peekaCommentView.text ?? ""
+        editVC.memo = peekaMemoView.text ?? ""
         editVC.bookIndex = selectedBookIndex
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
@@ -203,22 +203,24 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
-            || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
-            || (peekaCommentView.getTextView().text.isEmpty == true) {
-            peekaCommentView.getTextView().textColor = .peekaGray2
-            peekaCommentView.getTextView().text = I18N.BookDetail.emptyComment
+        if let text = peekaCommentView.text,
+           (text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
+            || (text == I18N.BookDetail.emptyComment)
+            || (text.isEmpty) {
+            peekaCommentView.setTextColor(.peekaGray2)
+            peekaCommentView.text = I18N.BookDetail.emptyComment
         } else {
-            peekaCommentView.getTextView().textColor = .peekaRed
+            peekaCommentView.setTextColor(.peekaRed)
         }
-            
-        if (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder)
-            || (peekaMemoView.getTextView().text == I18N.BookDetail.emptyMemo)
-            || (peekaMemoView.getTextView().text.isEmpty == true) {
-            peekaMemoView.getTextView().textColor = .peekaGray2
-            peekaMemoView.getTextView().text = I18N.BookDetail.emptyMemo
+        
+        if let memoText = peekaMemoView.text,
+           (memoText == I18N.BookDetail.memoPlaceholder + placeholderBlank)
+            || (memoText == I18N.BookDetail.emptyMemo)
+            || (memoText.isEmpty) {
+            peekaMemoView.setTextColor(.peekaGray2)
+            peekaMemoView.text = I18N.BookDetail.emptyMemo
         } else {
-            peekaMemoView.getTextView().textColor = .peekaRed
+            peekaMemoView.setTextColor(.peekaRed)
         }
     }
 }
@@ -234,8 +236,8 @@ extension BookDetailVC {
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             let bookAuthorLabelStr = serverWatchBookDetail.book.author
             self.bookAuthorLabel.text = bookAuthorLabelStr.replacingOccurrences(of: "^", with: ", ")
-            self.peekaCommentView.getTextView().text = serverWatchBookDetail.description
-            self.peekaMemoView.getTextView().text = serverWatchBookDetail.memo
+            self.peekaCommentView.text = serverWatchBookDetail.description
+            self.peekaMemoView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
             self.setCommentColor()
         }

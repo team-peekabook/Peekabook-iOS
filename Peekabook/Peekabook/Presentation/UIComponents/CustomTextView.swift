@@ -16,7 +16,7 @@ enum CustomTextViewType {
 }
 
 final class CustomTextView: UIView {
-
+    
     // MARK: - UI Components
     
     private let placeholderBlank: String = "          "
@@ -121,6 +121,59 @@ extension CustomTextView {
     }
 }
 
+extension CustomTextView {
+    func updateTextView(type: CustomTextViewType) {
+        switch type {
+        case .addBookMemo:
+            boxView.frame.size.height = 101
+            boxView.backgroundColor = .peekaWhite_60
+            label.text = I18N.BookDetail.memo
+            textView.text = I18N.BookDetail.memoPlaceholder
+            maxLabel.text = I18N.BookAdd.memoLength
+        case .addBookComment:
+            boxView.backgroundColor = .peekaWhite_60
+        case .editBookMemo:
+            boxView.frame.size.height = 101
+            label.text = I18N.BookDetail.memo
+            textView.text = I18N.BookDetail.memoPlaceholder
+        case .bookDetailComment:
+            maxLabel.isHidden = true
+            textView.isUserInteractionEnabled = false
+        case .bookDetailMemo:
+            label.text = I18N.BookDetail.memo
+            maxLabel.isHidden = true
+            boxView.frame.size.height = 101
+            textView.isUserInteractionEnabled = false
+        }
+    }
+    
+    var text: String? {
+        get {
+            return textView.text
+        }
+        set {
+            textView.text = newValue
+        }
+    }
+    
+    func setTextColor(_ color: UIColor) {
+        textView.textColor = color
+    }
+    
+    func setTextCustomMaxLabel(_ text: String) {
+        maxLabel.text = text
+    }
+    
+    func isTextViewFirstResponder() -> Bool {
+        return textView.isFirstResponder
+    }
+    
+    func getPositionForKeyboard(keyboardFrame: CGRect) -> CGPoint {
+        let textViewHeight = boxView.frame.height
+        return CGPoint(x: 0, y: boxView.frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+    }
+}
+
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if (textView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ||
@@ -156,44 +209,5 @@ extension CustomTextView: UITextViewDelegate {
                 textView.deleteBackward()
             }
         }
-    }
-}
-
-extension CustomTextView {
-    func updateTextView(type: CustomTextViewType) {
-        switch type {
-        case .addBookMemo:
-            boxView.frame.size.height = 101
-            boxView.backgroundColor = .peekaWhite_60
-            label.text = I18N.BookDetail.memo
-            textView.text = I18N.BookDetail.memoPlaceholder
-            maxLabel.text = I18N.BookAdd.memoLength
-        case .addBookComment:
-            boxView.backgroundColor = .peekaWhite_60
-        case .editBookMemo:
-            boxView.frame.size.height = 101
-            label.text = I18N.BookDetail.memo
-            textView.text = I18N.BookDetail.memoPlaceholder
-        case .bookDetailComment:
-            maxLabel.isHidden = true
-            textView.isUserInteractionEnabled = false
-        case .bookDetailMemo:
-            label.text = I18N.BookDetail.memo
-            maxLabel.isHidden = true
-            boxView.frame.size.height = 101
-            textView.isUserInteractionEnabled = false
-        }
-    }
-        
-        func getBoxView() -> UIView {
-            return self.boxView
-    }
-
-    func getTextView() -> UITextView {
-        return self.textView
-    }
-    
-    func getMaxLabel() -> UILabel {
-        return self.maxLabel
     }
 }

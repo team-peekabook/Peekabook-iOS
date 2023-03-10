@@ -66,9 +66,9 @@ final class EditBookVC: UIViewController {
     
     private let peekaCommentView = CustomTextView()
     private let peekaMemoView = CustomTextView()
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomView()
@@ -84,8 +84,8 @@ final class EditBookVC: UIViewController {
         setCustomView()
         setBackgroundColor()
         setLayout()
-        peekaCommentView.getTextView().text = descriptions
-        peekaMemoView.getTextView().text = memo
+        peekaCommentView.text = descriptions
+        peekaMemoView.text = memo
     }
     
     deinit {
@@ -99,17 +99,17 @@ extension EditBookVC {
     private func setCustomView() {
         
         if descriptions != I18N.BookDetail.emptyComment {
-            peekaCommentView.getTextView().textColor = .peekaRed
-            peekaCommentView.getMaxLabel().text = "\(descriptions.count)/200"
+            peekaCommentView.setTextColor(.peekaRed)
+            peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
         } else {
-            peekaCommentView.getMaxLabel().text = I18N.BookAdd.commentLength
+            peekaCommentView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
         }
         
         if memo != I18N.BookDetail.emptyMemo {
-            peekaMemoView.getTextView().textColor = .peekaRed
-            peekaMemoView.getMaxLabel().text = "\(memo.count)/50"
+            peekaMemoView.setTextColor(.peekaRed)
+            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
         } else {
-            peekaMemoView.getMaxLabel().text = I18N.BookAdd.memoLength
+            peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.memoLength)
         }
     }
     
@@ -212,7 +212,7 @@ extension EditBookVC {
     
     @objc private func checkButtonDidTap() {
         print("checkButtonDidTap")
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.getTextView().text, memo: peekaMemoView.getTextView().text))
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.text, memo: peekaMemoView.text))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }
@@ -248,16 +248,15 @@ extension EditBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if peekaCommentView.getTextView().isFirstResponder {
-            let textViewHeight = peekaCommentView.getBoxView().frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+        if peekaCommentView.isTextViewFirstResponder() {
+            let position = peekaCommentView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
             containerView.setContentOffset(position, animated: true)
             return
         }
         
-        if peekaMemoView.getTextView().isFirstResponder {
-            let textViewHeight = peekaMemoView.getBoxView().frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
+        if peekaMemoView.isTextViewFirstResponder() {
+            var position = peekaMemoView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            position.y += 250
             containerView.setContentOffset(position, animated: true)
             return
         }
