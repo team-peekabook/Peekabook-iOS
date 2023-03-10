@@ -16,13 +16,17 @@ final class BookDetailVC: UIViewController {
     
     // MARK: - Properties
     
+    private let placeholderBlank: String = "          "
     private var serverWatchBookDetail: WatchBookDetailResponse?
     var selectedBookIndex: Int = 0
 
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
-    private let containerScrollView = UIScrollView()
+    private let containerScrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let peekaCommentView = CustomTextView()
     private let peekaMemoView = CustomTextView()
     
@@ -41,13 +45,13 @@ final class BookDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
     }
     
-    private lazy var bookImageView = UIImageView().then {
+    private let bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleToFill
         $0.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 4, spread: 0)
     }
     
-    private lazy var bookNameLabel = UILabel().then {
+    private let bookNameLabel = UILabel().then {
         $0.font = .h3
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
@@ -55,7 +59,7 @@ final class BookDetailVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    private lazy var bookAuthorLabel = UILabel().then {
+    private let bookAuthorLabel = UILabel().then {
         $0.font = .h2
         $0.textAlignment = .center
         $0.textColor = .peekaRed
@@ -65,14 +69,14 @@ final class BookDetailVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setReusableView()
-        setUI()
+        setCustomView()
+        setBackgroundColor()
         setLayout()
         getBookDetail(id: selectedBookIndex)
     }
@@ -86,11 +90,11 @@ final class BookDetailVC: UIViewController {
     @objc
     private func editButtonDidTap() {
         let editVC = EditBookVC()
-        editVC.bookImgView = bookImageView
-        editVC.nameLabel = bookNameLabel
-        editVC.authorLabel = bookAuthorLabel
-        editVC.descriptions = peekaCommentView.textView.text
-        editVC.memo = peekaMemoView.textView.text
+        editVC.setBookImgView(bookImageView)
+        editVC.setNameLabel(bookNameLabel)
+        editVC.setAuthorLabel(bookAuthorLabel)
+        editVC.descriptions = peekaCommentView.getTextView().text
+        editVC.memo = peekaMemoView.getTextView().text
         editVC.bookIndex = selectedBookIndex
         editVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editVC, animated: true)
@@ -108,19 +112,13 @@ final class BookDetailVC: UIViewController {
 // MARK: - UI & Layout
 extension BookDetailVC {
     
-    private func setReusableView() {
-        peekaCommentView.boxView.backgroundColor = .clear
-        peekaCommentView.maxLabel.isHidden = true
-        
-        peekaMemoView.label.text = I18N.BookDetail.memo
-        peekaMemoView.boxView.backgroundColor = .clear
-        peekaMemoView.maxLabel.isHidden = true
-        peekaMemoView.boxView.frame.size.height = 101
+    private func setCustomView() {
+        peekaCommentView.updateBookDetailCommentTextView()
+        peekaMemoView.updateBookDetailMemoTextView()
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
-        containerScrollView.showsVerticalScrollIndicator = false
     }
     
     private func setLayout() {
@@ -205,22 +203,22 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if (peekaCommentView.textView.text == I18N.BookDetail.commentHint)
-            || (peekaCommentView.textView.text == I18N.BookDetail.emptyComment)
-            || (peekaCommentView.textView.text.isEmpty == true) {
-            peekaCommentView.textView.textColor = .peekaGray2
-            peekaCommentView.textView.text = I18N.BookDetail.emptyComment
+        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
+            || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
+            || (peekaCommentView.getTextView().text.isEmpty == true) {
+            peekaCommentView.getTextView().textColor = .peekaGray2
+            peekaCommentView.getTextView().text = I18N.BookDetail.emptyComment
         } else {
-            peekaCommentView.textView.textColor = .peekaRed
+            peekaCommentView.getTextView().textColor = .peekaRed
         }
             
-        if (peekaMemoView.textView.text == I18N.BookDetail.memoHint)
-            || (peekaMemoView.textView.text == I18N.BookDetail.emptyMemo)
-            || (peekaMemoView.textView.text.isEmpty == true) {
-            peekaMemoView.textView.textColor = .peekaGray2
-            peekaMemoView.textView.text = I18N.BookDetail.emptyMemo
+        if (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder)
+            || (peekaMemoView.getTextView().text == I18N.BookDetail.emptyMemo)
+            || (peekaMemoView.getTextView().text.isEmpty == true) {
+            peekaMemoView.getTextView().textColor = .peekaGray2
+            peekaMemoView.getTextView().text = I18N.BookDetail.emptyMemo
         } else {
-            peekaMemoView.textView.textColor = .peekaRed
+            peekaMemoView.getTextView().textColor = .peekaRed
         }
     }
 }
@@ -236,8 +234,8 @@ extension BookDetailVC {
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             let bookAuthorLabelStr = serverWatchBookDetail.book.author
             self.bookAuthorLabel.text = bookAuthorLabelStr.replacingOccurrences(of: "^", with: ", ")
-            self.peekaCommentView.textView.text = serverWatchBookDetail.description
-            self.peekaMemoView.textView.text = serverWatchBookDetail.memo
+            self.peekaCommentView.getTextView().text = serverWatchBookDetail.description
+            self.peekaMemoView.getTextView().text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
             self.setCommentColor()
         }

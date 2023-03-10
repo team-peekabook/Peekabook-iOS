@@ -11,10 +11,12 @@ final class CustomSearchView: UIView {
 
     // MARK: - UI Components
     
-    let searchContainerView = UIView()
-    lazy var searchButton = UIButton()
+    private let searchContainerView = UIView()
+    private lazy var searchButton = UIButton().then {
+        $0.setImage(ImageLiterals.Icn.search, for: .normal)
+    }
     
-    let searchTextField = UITextField().then {
+    private let searchTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.font = .h2
@@ -29,7 +31,7 @@ final class CustomSearchView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
+        setBackgroundColor()
         setLayout()
         setDelegate()
     }
@@ -47,13 +49,12 @@ extension CustomSearchView: UITextFieldDelegate {
         searchTextField.delegate = self
     }
     
-    private func setUI() {
+    private func setBackgroundColor() {
         backgroundColor = .clear
         
         searchContainerView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         searchTextField.backgroundColor = .white.withAlphaComponent(0.4)
         searchButton.backgroundColor = .white.withAlphaComponent(0.4)
-        searchButton.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     
     private func setLayout() {
@@ -80,5 +81,16 @@ extension CustomSearchView: UITextFieldDelegate {
             $0.trailing.equalTo(searchButton.snp.leading)
             $0.height.equalTo(40)
         }
+    }
+}
+
+extension CustomSearchView {
+    
+    func getSearchTextField() -> UITextField {
+            return searchTextField
+        }
+    
+    func getSearchButton() -> UIButton {
+        return searchButton
     }
 }
