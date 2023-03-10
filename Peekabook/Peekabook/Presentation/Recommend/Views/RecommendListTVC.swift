@@ -1,5 +1,5 @@
 //
-//  RecommendTableViewCell.swift
+//  RecommendListTVC.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/01/03.
