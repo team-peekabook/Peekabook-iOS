@@ -67,9 +67,8 @@ final class RecommendVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
-        setSubviews()
+        addSubviews()
         setLayout()
         setDelegate()
         registerCells()
@@ -87,7 +86,7 @@ extension RecommendVC {
         recommendCollectionView.backgroundColor = .clear
     }
     
-    private func setSubviews() {
+    private func addSubviews() {
         view.addSubviews(
             headerView,
             recommendCollectionView,
