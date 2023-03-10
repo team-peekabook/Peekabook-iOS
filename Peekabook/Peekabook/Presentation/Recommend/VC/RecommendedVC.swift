@@ -29,8 +29,7 @@ final class RecommendedVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUI()
+        setBackgroundColor()
         setLayout()
         setDelegate()
         registerCells()
@@ -46,7 +45,7 @@ final class RecommendedVC: UIViewController {
 
 extension RecommendedVC {
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
         tableView.backgroundColor = .peekaBeige
     }

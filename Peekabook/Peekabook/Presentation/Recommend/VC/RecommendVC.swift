@@ -67,7 +67,7 @@ final class RecommendVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        setBackgroundColor()
         addSubviews()
         setLayout()
         setDelegate()
@@ -80,7 +80,7 @@ final class RecommendVC: UIViewController {
 
 extension RecommendVC {
     
-    private func setUI() {
+    private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
         headerUnderlineView.backgroundColor = .peekaRed
         recommendCollectionView.backgroundColor = .clear

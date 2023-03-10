@@ -68,9 +68,8 @@ final class RecommendListTVC: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         addSubviews()
-        setUI()
+        setBackgroundColor()
         setLayout()
         setPriority()
     }
@@ -116,7 +115,7 @@ extension RecommendListTVC {
         )
     }
 
-    private func setUI() {
+    private func setBackgroundColor() {
         self.backgroundColor = .peekaBeige
         bookHeaderView.backgroundColor = .peekaRed
         bookDividerView.backgroundColor = .peekaWhite

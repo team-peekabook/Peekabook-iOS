@@ -53,7 +53,7 @@ extension RecommendingVC {
     
     private func setLayout() {
         view.addSubview(tableView)
-        
+
         tableView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
