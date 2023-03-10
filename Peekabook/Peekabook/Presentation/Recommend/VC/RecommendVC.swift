@@ -197,21 +197,12 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            pageViewController.setViewControllers(
-                [recommendedVC],
-                direction: .reverse,
-                animated: true,
-                completion: nil
-            )
-        } else {
-            pageViewController.setViewControllers(
-                [recommendingVC],
-                direction: .forward,
-                animated: true,
-                completion: nil
-            )
-        }
+        pageViewController.setViewControllers(
+            [dataViewControllers[indexPath.item]],
+            direction: indexPath.row == 0 ? .reverse : .forward,
+            animated: true,
+            completion: nil
+        )
     }
 }
 
