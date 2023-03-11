@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum CustomTextViewType {
+enum CustomTextViewType: CaseIterable {
     case addBookMemo
     case addBookComment
     case editBookMemo

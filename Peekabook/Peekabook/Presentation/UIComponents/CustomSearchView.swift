@@ -7,8 +7,13 @@
 
 import UIKit
 
-final class CustomSearchView: UIView {
+enum CustomSearchType: CaseIterable {
+    case userSearch
+    case bookSearch
+}
 
+final class CustomSearchView: UIView {
+    
     // MARK: - UI Components
     
     private let searchContainerView = UIView()
@@ -17,8 +22,6 @@ final class CustomSearchView: UIView {
     }
     
     private let searchTextField = UITextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: I18N.BookSearch.bookSearch,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.font = .h2
         $0.textColor = .peekaRed
         $0.addLeftPadding()
@@ -29,11 +32,11 @@ final class CustomSearchView: UIView {
     
     // MARK: - Initialization
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, type: CustomSearchType, viewController: UIViewController) {
         super.init(frame: frame)
         setBackgroundColor()
         setLayout()
-        setDelegate()
+        setCustomSearchView(type: type, viewController: viewController)
     }
     
     required init?(coder: NSCoder) {
@@ -44,10 +47,6 @@ final class CustomSearchView: UIView {
 // MARK: - Methods
 
 extension CustomSearchView: UITextFieldDelegate {
-    
-    private func setDelegate() {
-        searchTextField.delegate = self
-    }
     
     private func setBackgroundColor() {
         backgroundColor = .clear
@@ -64,7 +63,7 @@ extension CustomSearchView: UITextFieldDelegate {
         [searchButton, searchTextField].forEach {
             searchContainerView.addSubview($0)
         }
-
+        
         searchContainerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(40)
@@ -86,11 +85,30 @@ extension CustomSearchView: UITextFieldDelegate {
 
 extension CustomSearchView {
     
-    func getSearchTextField() -> UITextField {
-            return searchTextField
+    func setCustomSearchView(type: CustomSearchType, viewController: UIViewController) {
+        switch type {
+        case .userSearch:
+            searchButton.addTarget(viewController, action: #selector(UserSearchVC.searchBtnTapped), for: .touchUpInside)
+            searchTextField.placeholder = I18N.PlaceHolder.userSearch
+        case .bookSearch:
+            searchButton.addTarget(viewController, action: #selector(BookSearchVC.searchButtonDidTap), for: .touchUpInside)
+            searchTextField.placeholder = I18N.PlaceHolder.bookSearch
         }
+    }
     
-    func getSearchButton() -> UIButton {
-        return searchButton
+    var text: String? {
+        return searchTextField.text
+    }
+    
+    func hasSearchText() -> Bool {
+        return searchTextField.hasText
+    }
+    
+    func setSearchTextFieldDelegate(_ delegate: UITextFieldDelegate) {
+        searchTextField.delegate = delegate
+    }
+    
+    func endEditing() {
+        searchTextField.endEditing(true)
     }
 }
