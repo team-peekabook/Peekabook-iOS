@@ -77,6 +77,7 @@ final class EditBookVC: UIViewController {
         addKeyboardObserver()
         
         peekaMemoView.updateTextView(type: .editBookMemo)
+        peekaCommentView.updateTextView(type: .editBookComment)
     }
     
     override func viewWillAppear(_ animated: Bool) {

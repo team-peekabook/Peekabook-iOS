@@ -11,13 +11,17 @@ enum CustomTextViewType: CaseIterable {
     case addBookMemo
     case addBookComment
     case editBookMemo
+    case editBookComment
     case bookDetailComment
     case bookDetailMemo
+    case bookProposal
 }
 
 final class CustomTextView: UIView {
     
     // MARK: - UI Components
+    
+    var personName: String = ""
     
     private let placeholderBlank: String = "          "
     
@@ -47,6 +51,15 @@ final class CustomTextView: UIView {
         $0.text = I18N.BookAdd.commentLength
         $0.font = .h2
         $0.textColor = .peekaGray2
+    }
+    
+    private let lineView = UIView().then {
+        $0.backgroundColor = .peekaWhite
+    }
+        
+    let personNameLabel = UILabel().then {
+        $0.font = .h1
+        $0.textColor = .peekaWhite
     }
     
     // MARK: - Initialization
@@ -91,7 +104,9 @@ extension CustomTextView {
             boxView.addSubview($0)
         }
         
-        headerView.addSubview(label)
+        [label, lineView, personNameLabel].forEach {
+            headerView.addSubview($0)
+        }
         
         boxView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -107,6 +122,18 @@ extension CustomTextView {
         label.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(14)
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.centerY.equalTo(label)
+            $0.leading.equalTo(label.snp.trailing).offset(8)
+            $0.width.equalTo(1)
+            $0.height.equalTo(12)
+        }
+
+        personNameLabel.snp.makeConstraints {
+            $0.centerY.equalTo(label)
+            $0.leading.equalTo(lineView.snp.trailing).offset(8)
         }
         
         textView.snp.makeConstraints {
@@ -130,21 +157,41 @@ extension CustomTextView {
             label.text = I18N.BookDetail.memo
             textView.text = I18N.BookDetail.memoPlaceholder
             maxLabel.text = I18N.BookAdd.memoLength
+            proposalItemhidden()
         case .addBookComment:
             boxView.backgroundColor = .peekaWhite_60
+            textView.text = I18N.BookDetail.commentPlaceholder
+            proposalItemhidden()
         case .editBookMemo:
             boxView.frame.size.height = 101
             label.text = I18N.BookDetail.memo
             textView.text = I18N.BookDetail.memoPlaceholder
+            proposalItemhidden()
+        case .editBookComment:
+            proposalItemhidden()
         case .bookDetailComment:
             maxLabel.isHidden = true
             textView.isUserInteractionEnabled = false
+            proposalItemhidden()
         case .bookDetailMemo:
             label.text = I18N.BookDetail.memo
             maxLabel.isHidden = true
             boxView.frame.size.height = 101
             textView.isUserInteractionEnabled = false
+            proposalItemhidden()
+        case .bookProposal:
+            let proposalVC = ProposalVC()
+            personName = proposalVC.personName
+            personNameLabel.text = personName
+            textView.text = I18N.PlaceHolder.recommend
+            label.text = I18N.BookProposal.personName
+            boxView.backgroundColor = .peekaWhite_60
         }
+    }
+    
+    func proposalItemhidden() {
+        lineView.isHidden = true
+        personNameLabel.isHidden = true
     }
     
     var text: String? {
@@ -154,6 +201,19 @@ extension CustomTextView {
         set {
             textView.text = newValue
         }
+    }
+    
+    var labeltext: String? {
+        get {
+            return personNameLabel.text
+        }
+        set {
+            personNameLabel.text = newValue
+        }
+    }
+    
+    func setName(_ name: String?) {
+        personNameLabel.text = name
     }
     
     func setTextColor(_ color: UIColor) {
@@ -176,10 +236,11 @@ extension CustomTextView {
 
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ||
+        if (textView.text == I18N.BookDetail.commentPlaceholder) ||
             (textView.text == I18N.BookDetail.memoPlaceholder) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
-            (textView.text == I18N.BookDetail.emptyMemo) {
+            (textView.text == I18N.BookDetail.emptyMemo) ||
+        (textView.text == I18N.PlaceHolder.recommend) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -190,6 +251,9 @@ extension CustomTextView: UITextViewDelegate {
             if label.text == I18N.BookDetail.comment {
                 textView.text = I18N.BookDetail.commentPlaceholder
                 textView.textColor = .peekaGray1
+            } else if label.text == I18N.BookProposal.personName {
+                textView.text = I18N.PlaceHolder.recommend
+                textView.textColor = .peekaGray1
             } else {
                 textView.text = I18N.BookDetail.memoPlaceholder
                 textView.textColor = .peekaGray1
@@ -198,7 +262,7 @@ extension CustomTextView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if label.text == I18N.BookDetail.comment {
+        if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
             maxLabel.text = "\(textView.text.count)/200"
             if textView.text.count > 200 {
                 textView.deleteBackward()

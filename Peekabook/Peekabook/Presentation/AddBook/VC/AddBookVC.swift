@@ -20,6 +20,7 @@ enum SearchType: CaseIterable {
 final class AddBookVC: UIViewController {
     // MARK: - Properties
     
+    private let placeholderBlank: String = "          "
     var bookInfo: [BookInfoModel] = []
     var searchType: SearchType = .text
     private var focus = 0
@@ -97,8 +98,8 @@ final class AddBookVC: UIViewController {
 
 extension AddBookVC {
     private func setCustomView() {
+        peekaCommentView.updateTextView(type: .addBookComment)
         peekaMemoView.updateTextView(type: .addBookMemo)
-        peekaCommentView.updateTextView(type: .addBookMemo)
     }
     
     private func setBackgroundColor() {
@@ -197,8 +198,8 @@ extension AddBookVC {
     @objc private func checkButtonDidTap() {
         checkButton.isEnabled = false
         
-        let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.text
-        let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.text
+        let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text
+        let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text
         
         guard let bookTitle = nameLabel.text,
               let author = authorLabel.text
