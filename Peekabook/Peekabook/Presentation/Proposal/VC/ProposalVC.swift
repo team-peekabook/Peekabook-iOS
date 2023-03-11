@@ -78,6 +78,7 @@ final class ProposalVC: UIViewController {
         setLayout()
         addTapGesture()
         addKeyboardObserver()
+        peekaProposalView.personNameLabel.text = personName
         peekaProposalView.updateTextView(type: .bookProposal)
     }
     

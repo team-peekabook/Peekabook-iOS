@@ -21,8 +21,6 @@ final class CustomTextView: UIView {
     
     // MARK: - UI Components
     
-    var personName: String = ""
-    
     private let placeholderBlank: String = "          "
     
     private let boxView = UIView().then {
@@ -58,7 +56,7 @@ final class CustomTextView: UIView {
     }
         
     let personNameLabel = UILabel().then {
-        $0.font = .h1
+        $0.font = .s3
         $0.textColor = .peekaWhite
     }
     
@@ -180,9 +178,6 @@ extension CustomTextView {
             textView.isUserInteractionEnabled = false
             proposalItemhidden()
         case .bookProposal:
-            let proposalVC = ProposalVC()
-            personName = proposalVC.personName
-            personNameLabel.text = personName
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
             boxView.backgroundColor = .peekaWhite_60
@@ -201,19 +196,6 @@ extension CustomTextView {
         set {
             textView.text = newValue
         }
-    }
-    
-    var labeltext: String? {
-        get {
-            return personNameLabel.text
-        }
-        set {
-            personNameLabel.text = newValue
-        }
-    }
-    
-    func setName(_ name: String?) {
-        personNameLabel.text = name
     }
     
     func setTextColor(_ color: UIColor) {
