@@ -23,25 +23,15 @@ final class EditBookVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let headerView = UIView()
-    
-    private lazy var backButton = UIButton().then {
-        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-    }
-    
-    private let headerTitleLabel = UILabel().then {
-        $0.text = I18N.BookEdit.title
-        $0.font = .h3
-        $0.textColor = .peekaRed
-    }
-    
-    private lazy var checkButton = UIButton().then {
-        $0.setTitle(I18N.BookEdit.done, for: .normal)
-        $0.titleLabel!.font = .h4
-        $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+        .addMiddleLabel(title: I18N.BookEdit.title)
+        .addRightButton(with: I18N.BookEdit.done)
+        .addRightButtonAction {
+            self.checkButtonDidTap()
+        }
+        .addLefttButtonAction {
+            self.backButtonDidTap()
+        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -116,17 +106,12 @@ extension EditBookVC {
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
         
-        headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
     }
     
     private func setLayout() {
-        [containerView, headerView].forEach {
+        [containerView, naviBar].forEach {
             view.addSubview($0)
-        }
-        
-        [backButton, headerTitleLabel, checkButton].forEach {
-            headerView.addSubview($0)
         }
         
         [bookImgView, nameLabel, authorLabel, peekaCommentView, peekaMemoView].forEach {
@@ -134,28 +119,12 @@ extension EditBookVC {
         }
         
         containerView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
-        }
-        
-        headerTitleLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        checkButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(11)
-            $0.width.height.equalTo(48)
         }
         
         bookImgView.snp.makeConstraints {
@@ -215,10 +184,6 @@ extension EditBookVC {
         editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.getTextView().text, memo: peekaMemoView.getTextView().text))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
-    }
-    
-    private func config() {
-        backButton.setImage(ImageLiterals.Icn.back, for: .normal)
     }
     
     private func addKeyboardObserver() {
