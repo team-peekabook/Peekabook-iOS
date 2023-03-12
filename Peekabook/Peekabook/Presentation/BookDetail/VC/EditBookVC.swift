@@ -29,9 +29,6 @@ final class EditBookVC: UIViewController {
         .addRightButtonAction {
             self.checkButtonDidTap()
         }
-        .addLefttButtonAction {
-            self.backButtonDidTap()
-        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -173,10 +170,6 @@ extension EditBookVC {
     
     public func setAuthorLabel(_ label: UILabel) {
         self.authorLabel = label
-    }
-    
-    @objc private func backButtonDidTap() {
-        navigationController?.popViewController(animated: true)
     }
     
     @objc private func checkButtonDidTap() {
