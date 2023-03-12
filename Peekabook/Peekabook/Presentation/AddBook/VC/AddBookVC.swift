@@ -29,25 +29,15 @@ final class AddBookVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let headerView = UIView()
-    
-    private lazy var backButton = UIButton().then {
-        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-    }
-    
-    private let headerTitleLabel = UILabel().then {
-        $0.text = I18N.BookAdd.title
-        $0.font = .h3
-        $0.textColor = .peekaRed
-    }
-    
-    private lazy var checkButton = SingleTouchButton(type: .system).then {
-        $0.setTitle(I18N.BookEdit.done, for: .normal)
-        $0.titleLabel!.font = .h4
-        $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+        .addMiddleLabel(title: I18N.BookAdd.title)
+        .addRightButton(with: I18N.BookAdd.done)
+        .addRightButtonAction {
+            self.checkButtonDidTap()
+        }
+        .addLefttButtonAction {
+            self.backButtonDidTap()
+        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -104,17 +94,12 @@ extension AddBookVC {
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
         
-        headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
     }
     
     private func setLayout() {
-        [containerView, headerView].forEach {
+        [containerView, naviBar].forEach {
             view.addSubview($0)
-        }
-        
-        [backButton, headerTitleLabel, checkButton].forEach {
-            headerView.addSubview($0)
         }
         
         [bookImgView, nameLabel, authorLabel, peekaCommentView, peekaMemoView].forEach {
@@ -122,28 +107,12 @@ extension AddBookVC {
         }
         
         containerView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
-        }
-        
-        headerTitleLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        checkButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(11)
-            $0.width.height.equalTo(48)
         }
         
         bookImgView.snp.makeConstraints {
@@ -195,17 +164,10 @@ extension AddBookVC {
     }
     
     @objc private func checkButtonDidTap() {
-        checkButton.isEnabled = false
-        
-        let description = (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.getTextView().text
-        let memo = (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.getTextView().text
-        
-        guard let bookTitle = nameLabel.text,
-              let author = authorLabel.text
-        else {
-            checkButton.isEnabled = true
-            return
-        }
+        guard let bookTitle = self.nameLabel.text,
+              let author = self.authorLabel.text,
+              let description = (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.getTextView().text,
+              let memo = (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.getTextView().text else { return }
         
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
@@ -213,7 +175,7 @@ extension AddBookVC {
                                           description: description,
                                           memo: memo))
     }
-
+    
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
             self,

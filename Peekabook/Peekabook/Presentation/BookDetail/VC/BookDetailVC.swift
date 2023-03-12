@@ -26,7 +26,7 @@ final class BookDetailVC: UIViewController {
         .addRightButton(with: ImageLiterals.Icn.delete!)
         .addOtherRightButton(with: ImageLiterals.Icn.edit!)
         .addRightButtonAction {
-            self.backButtonDidTap()
+            self.deleteButtonDidTap()
         } .addOtherRightButtonAction {
             self.editButtonDidTap()
         }
