@@ -107,6 +107,11 @@ extension CustomNavigationBar {
         self.otherRightButton.addTarget(self, action: #selector(touchupOtherRightButton), for: .touchUpInside)
         return self
     }
+    
+    func hideRightButtons() {
+        self.rightButton.isHidden = true
+        self.otherRightButton.isHidden = true
+    }
 }
 
 // MARK: - @objc Function
