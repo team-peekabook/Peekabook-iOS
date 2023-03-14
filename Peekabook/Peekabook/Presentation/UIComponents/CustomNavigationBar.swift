@@ -189,7 +189,8 @@ extension CustomNavigationBar {
         }
         
         rightButton.snp.makeConstraints {
-            $0.trailing.centerY.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(5)
             $0.width.equalTo(48)
         }
     }
