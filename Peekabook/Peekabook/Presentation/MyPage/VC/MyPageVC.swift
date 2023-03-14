@@ -61,13 +61,13 @@ extension MyPageVC {
     private func setLayout() {
         view.addSubviews(headerView, myPageTableView)
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        myPageTableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(headerView.snp.bottom)
+        myPageTableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(headerView.snp.bottom)
         }
     }
 }
