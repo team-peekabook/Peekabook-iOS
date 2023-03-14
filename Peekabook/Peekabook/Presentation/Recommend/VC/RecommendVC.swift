@@ -31,11 +31,10 @@ final class RecommendVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let headerView = UIView()
-    private let logoImage = UIImageView().then {
-        $0.image = ImageLiterals.Image.logo
-    }
-    private let headerUnderlineView = UIView()
+    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+        .changeLeftBackButtonToLogoImage()
+        .addUnderlineView()
+    
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumInteritemSpacing = 17
@@ -82,7 +81,6 @@ extension RecommendVC {
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
-        headerUnderlineView.backgroundColor = .peekaRed
         recommendCollectionView.backgroundColor = .clear
     }
     
@@ -92,26 +90,11 @@ extension RecommendVC {
             recommendCollectionView,
             pageViewController.view
         )
-        headerView.addSubviews(logoImage, headerUnderlineView)
     }
     
     private func setLayout() {
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        logoImage.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(150)
-            $0.height.equalTo(18)
-        }
-        
-        headerUnderlineView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(2)
         }
         
         recommendCollectionView.snp.makeConstraints {
