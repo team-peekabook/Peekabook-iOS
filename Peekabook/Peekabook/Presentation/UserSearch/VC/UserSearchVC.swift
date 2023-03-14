@@ -36,21 +36,10 @@ final class UserSearchVC: UIViewController {
         $0.text = I18N.ErrorPopUp.emptyUser
     }
     
-    private let headerView = UIView()
-    private lazy var backButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-        $0.addTarget(
-            self,
-            action: #selector(backBtnTapped),
-            for: .touchUpInside
-        )
-    }
-    private let searchTitleLabel = UILabel().then {
-        $0.text = I18N.Tabbar.userSearch
-        $0.textColor = .peekaRed
-        $0.font = .h3
-    }
-    private let headerUnderlineView = UIView()
+    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+        .addMiddleLabel(title: I18N.Tabbar.userSearch)
+        .addUnderlineView()
+
     private let userSearchView = CustomSearchView()
     
     private let friendProfileContainerView = UIView()
@@ -116,7 +105,6 @@ extension UserSearchVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
-        headerUnderlineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
         friendProfileContainerView.backgroundColor = .white
     }
@@ -145,16 +133,10 @@ extension UserSearchVC {
     }
     
     private func setLayout() {
-        view.addSubviews(
-            [userSearchView,
-            friendProfileContainerView,
-            headerView,
-            emptyView]
-        )
-        headerView.addSubviews(
-            [backButton,
-             searchTitleLabel,
-             headerUnderlineView]
+        view.addSubviews(userSearchView,
+                         friendProfileContainerView,
+                         headerView,
+                         emptyView
         )
         emptyView.addSubviews(emptyImgView, emptyLabel)
         friendProfileContainerView.addSubviews(
@@ -165,20 +147,6 @@ extension UserSearchVC {
         
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
-        }
-        backButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(8)
-            make.width.height.equalTo(48)
-        }
-        searchTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        headerUnderlineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(2)
         }
         
         userSearchView.snp.makeConstraints { make in
