@@ -21,7 +21,7 @@ final class BookSearchVC: UIViewController {
     var searchType: SearchType = .text
     var personName: String = ""
     var personId: Int = 0
-
+    
     var bookShelfType: BookShelfType = .user
     var bookInfoList: [BookInfoModel] = []
     var displayCount: Int = 30
@@ -69,8 +69,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
-        setCustomView()
-        setDelegate()
+        bookSearchView.setSearchTextFieldDelegate(self)
         setBackgroundColor()
         setLayout()
         register()
@@ -80,14 +79,6 @@ final class BookSearchVC: UIViewController {
 
 // MARK: - UI & Layout
 extension BookSearchVC {
-    
-    private func setCustomView() {
-        bookSearchView.getSearchButton().addTarget(self, action: #selector(searchButtonDidTap), for: .touchUpInside)
-    }
-    
-    private func setDelegate() {
-        bookSearchView.getSearchTextField().delegate = self
-    }
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
@@ -155,7 +146,7 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || bookSearchView.getSearchTextField().text!.isEmpty {
+        if self.bookInfoList.isEmpty == true || bookSearchView.text!.isEmpty {
             self.emptyView.isHidden = false
             self.bookTableView.isHidden = true
         } else {
@@ -176,12 +167,14 @@ extension BookSearchVC {
     }
     
     @objc
-    private func searchButtonDidTap() {
-        guard bookSearchView.getSearchTextField().hasText else {
+    func searchButtonDidTap() {
+        guard bookSearchView.hasSearchText() else {
             return setView()
         }
-        bookSearchView.getSearchTextField().endEditing(true)
-        getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
+        bookSearchView.endEditing()
+        if let searchText = bookSearchView.text {
+            getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+        }
     }
 }
 
@@ -240,30 +233,25 @@ extension BookSearchVC: UITableViewDataSource {
         
         return bookCell
     }
-
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollViewContentHeight = scrollView.contentSize.height
         let scrollViewHeight = scrollView.frame.size.height
         let scrollViewOffset = scrollView.contentOffset.y
         if scrollViewOffset + scrollViewHeight == scrollViewContentHeight {
             displayCount += 10
-            getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
+            if let searchText = bookSearchView.text {
+                getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+            }
         }
     }
 }
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = bookSearchView.getSearchTextField().text else { return true }
-        if text.isEmpty {
-            setView()
-            bookSearchView.getSearchTextField().endEditing(true)
-            return true
-        } else {
-            getNaverSearchData(d_titl: bookSearchView.getSearchTextField().text!, d_isbn: "", display: displayCount)
-            bookSearchView.getSearchTextField().endEditing(true)
-            return true
-        }
+        searchButtonDidTap()
+        bookSearchView.endEditing()
+        return true
     }
 }
 
@@ -281,7 +269,7 @@ extension BookSearchVC {
             
             DispatchQueue.main.async {
                 self.bookTableView.reloadData()
-                if let searchText = self.bookSearchView.getSearchTextField().text, !searchText.isEmpty, self.bookInfoList.isEmpty == false {
+                if let searchText = self.bookSearchView.text, !searchText.isEmpty, self.bookInfoList.isEmpty == false {
                     self.bookTableView.reloadData()
                 } else {
                     self.setView()

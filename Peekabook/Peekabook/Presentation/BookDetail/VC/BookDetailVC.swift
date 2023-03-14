@@ -19,7 +19,7 @@ final class BookDetailVC: UIViewController {
     private let placeholderBlank: String = "          "
     private var serverWatchBookDetail: WatchBookDetailResponse?
     var selectedBookIndex: Int = 0
-
+    
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
@@ -64,9 +64,9 @@ final class BookDetailVC: UIViewController {
         $0.textAlignment = .center
         $0.textColor = .peekaRed
     }
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomView()
@@ -78,44 +78,12 @@ final class BookDetailVC: UIViewController {
         setCustomView()
         setBackgroundColor()
         setLayout()
-        getBookDetail(id: selectedBookIndex)
-    }
-    
-    // MARK: - @objc Function
-    @objc
-    private func backButtonDidTap() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func editButtonDidTap() {
-        let editVC = EditBookVC()
-        editVC.setBookImgView(bookImageView)
-        editVC.setNameLabel(bookNameLabel)
-        editVC.setAuthorLabel(bookAuthorLabel)
-        editVC.descriptions = peekaCommentView.getTextView().text
-        editVC.memo = peekaMemoView.getTextView().text
-        editVC.bookIndex = selectedBookIndex
-        editVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editVC, animated: true)
-    }
-    
-    @objc
-    private func deleteButtonDidTap() {
-        let popupViewController = DeletePopUpVC()
-        popupViewController.bookShelfId = self.selectedBookIndex
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+        getBookData()
     }
 }
 
 // MARK: - UI & Layout
 extension BookDetailVC {
-    
-    private func setCustomView() {
-        peekaCommentView.updateBookDetailCommentTextView()
-        peekaMemoView.updateBookDetailMemoTextView()
-    }
     
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
@@ -192,6 +160,7 @@ extension BookDetailVC {
 // MARK: - Methods
 
 extension BookDetailVC {
+    
     func changeUserViewLayout() {
         self.editButton.isHidden = false
         self.deleteButton.isHidden = false
@@ -202,24 +171,62 @@ extension BookDetailVC {
         self.deleteButton.isHidden = true
     }
     
+    private func setCustomView() {
+        peekaCommentView.updateTextView(type: .bookDetailComment)
+        peekaMemoView.updateTextView(type: .bookDetailMemo)
+    }
+    
+    private func getBookData() {
+        getBookDetail(id: selectedBookIndex)
+    }
+    
     private func setCommentColor() {
-        if (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
-            || (peekaCommentView.getTextView().text == I18N.BookDetail.emptyComment)
-            || (peekaCommentView.getTextView().text.isEmpty == true) {
-            peekaCommentView.getTextView().textColor = .peekaGray2
-            peekaCommentView.getTextView().text = I18N.BookDetail.emptyComment
+        if let text = peekaCommentView.text,
+           (text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
+            || (text == I18N.BookDetail.emptyComment)
+            || (text.isEmpty) {
+            peekaCommentView.setTextColor(.peekaGray2)
+            peekaCommentView.text = I18N.BookDetail.emptyComment
         } else {
-            peekaCommentView.getTextView().textColor = .peekaRed
+            peekaCommentView.setTextColor(.peekaRed)
         }
-            
-        if (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder)
-            || (peekaMemoView.getTextView().text == I18N.BookDetail.emptyMemo)
-            || (peekaMemoView.getTextView().text.isEmpty == true) {
-            peekaMemoView.getTextView().textColor = .peekaGray2
-            peekaMemoView.getTextView().text = I18N.BookDetail.emptyMemo
+        
+        if let memoText = peekaMemoView.text,
+           (memoText == I18N.BookDetail.memoPlaceholder + placeholderBlank)
+            || (memoText == I18N.BookDetail.emptyMemo)
+            || (memoText.isEmpty) {
+            peekaMemoView.setTextColor(.peekaGray2)
+            peekaMemoView.text = I18N.BookDetail.emptyMemo
         } else {
-            peekaMemoView.getTextView().textColor = .peekaRed
+            peekaMemoView.setTextColor(.peekaRed)
         }
+    }
+    
+    // MARK: - @objc Function
+    @objc
+    private func backButtonDidTap() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func editButtonDidTap() {
+        let editVC = EditBookVC()
+        editVC.setBookImgView(bookImageView)
+        editVC.setNameLabel(bookNameLabel)
+        editVC.setAuthorLabel(bookAuthorLabel)
+        editVC.descriptions = peekaCommentView.text ?? ""
+        editVC.memo = peekaMemoView.text ?? ""
+        editVC.bookIndex = selectedBookIndex
+        editVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+    
+    @objc
+    private func deleteButtonDidTap() {
+        let popupViewController = DeletePopUpVC()
+        popupViewController.bookShelfId = self.selectedBookIndex
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
     }
 }
 
@@ -234,8 +241,8 @@ extension BookDetailVC {
             self.bookNameLabel.text = serverWatchBookDetail.book.bookTitle
             let bookAuthorLabelStr = serverWatchBookDetail.book.author
             self.bookAuthorLabel.text = bookAuthorLabelStr.replacingOccurrences(of: "^", with: ", ")
-            self.peekaCommentView.getTextView().text = serverWatchBookDetail.description
-            self.peekaMemoView.getTextView().text = serverWatchBookDetail.memo
+            self.peekaCommentView.text = serverWatchBookDetail.description
+            self.peekaMemoView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
             self.setCommentColor()
         }
