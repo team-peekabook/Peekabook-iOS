@@ -78,44 +78,12 @@ final class BookDetailVC: UIViewController {
         setCustomView()
         setBackgroundColor()
         setLayout()
-        getBookDetail(id: selectedBookIndex)
-    }
-    
-    // MARK: - @objc Function
-    @objc
-    private func backButtonDidTap() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func editButtonDidTap() {
-        let editVC = EditBookVC()
-        editVC.setBookImgView(bookImageView)
-        editVC.setNameLabel(bookNameLabel)
-        editVC.setAuthorLabel(bookAuthorLabel)
-        editVC.descriptions = peekaCommentView.text ?? ""
-        editVC.memo = peekaMemoView.text ?? ""
-        editVC.bookIndex = selectedBookIndex
-        editVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editVC, animated: true)
-    }
-    
-    @objc
-    private func deleteButtonDidTap() {
-        let popupViewController = DeletePopUpVC()
-        popupViewController.bookShelfId = self.selectedBookIndex
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+        getBookData()
     }
 }
 
 // MARK: - UI & Layout
 extension BookDetailVC {
-    
-    private func setCustomView() {
-        peekaCommentView.updateTextView(type: .bookDetailComment)
-        peekaMemoView.updateTextView(type: .bookDetailMemo)
-    }
     
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
@@ -192,6 +160,7 @@ extension BookDetailVC {
 // MARK: - Methods
 
 extension BookDetailVC {
+    
     func changeUserViewLayout() {
         self.editButton.isHidden = false
         self.deleteButton.isHidden = false
@@ -200,6 +169,15 @@ extension BookDetailVC {
     func changeFriendViewLayout() {
         self.editButton.isHidden = true
         self.deleteButton.isHidden = true
+    }
+    
+    private func setCustomView() {
+        peekaCommentView.updateTextView(type: .bookDetailComment)
+        peekaMemoView.updateTextView(type: .bookDetailMemo)
+    }
+    
+    private func getBookData() {
+        getBookDetail(id: selectedBookIndex)
     }
     
     private func setCommentColor() {
@@ -222,6 +200,33 @@ extension BookDetailVC {
         } else {
             peekaMemoView.setTextColor(.peekaRed)
         }
+    }
+    
+    // MARK: - @objc Function
+    @objc
+    private func backButtonDidTap() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func editButtonDidTap() {
+        let editVC = EditBookVC()
+        editVC.setBookImgView(bookImageView)
+        editVC.setNameLabel(bookNameLabel)
+        editVC.setAuthorLabel(bookAuthorLabel)
+        editVC.descriptions = peekaCommentView.text ?? ""
+        editVC.memo = peekaMemoView.text ?? ""
+        editVC.bookIndex = selectedBookIndex
+        editVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+    
+    @objc
+    private func deleteButtonDidTap() {
+        let popupViewController = DeletePopUpVC()
+        popupViewController.bookShelfId = self.selectedBookIndex
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
     }
 }
 

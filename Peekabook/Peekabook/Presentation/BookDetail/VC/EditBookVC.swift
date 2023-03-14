@@ -75,9 +75,7 @@ final class EditBookVC: UIViewController {
         setBackgroundColor()
         setLayout()
         addKeyboardObserver()
-        
-        peekaMemoView.updateTextView(type: .editBookMemo)
-        peekaCommentView.updateTextView(type: .editBookComment)
+        updateTextView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,8 +83,7 @@ final class EditBookVC: UIViewController {
         setCustomView()
         setBackgroundColor()
         setLayout()
-        peekaCommentView.text = descriptions
-        peekaMemoView.text = memo
+        loadTextData()
     }
     
     deinit {
@@ -96,23 +93,6 @@ final class EditBookVC: UIViewController {
 
 // MARK: - UI & Layout
 extension EditBookVC {
-    
-    private func setCustomView() {
-        
-        if descriptions != I18N.BookDetail.emptyComment {
-            peekaCommentView.setTextColor(.peekaRed)
-            peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
-        } else {
-            peekaCommentView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
-        }
-        
-        if memo != I18N.BookDetail.emptyMemo {
-            peekaMemoView.setTextColor(.peekaRed)
-            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
-        } else {
-            peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.memoLength)
-        }
-    }
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
@@ -194,6 +174,33 @@ extension EditBookVC {
 // MARK: - Methods
 
 extension EditBookVC {
+    
+    private func updateTextView() {
+        peekaMemoView.updateTextView(type: .editBookMemo)
+        peekaCommentView.updateTextView(type: .editBookComment)
+    }
+    
+    private func loadTextData() {
+        peekaCommentView.text = descriptions
+        peekaMemoView.text = memo
+    }
+    
+    private func setCustomView() {
+        
+        if descriptions != I18N.BookDetail.emptyComment {
+            peekaCommentView.setTextColor(.peekaRed)
+            peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
+        } else {
+            peekaCommentView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
+        }
+        
+        if memo != I18N.BookDetail.emptyMemo {
+            peekaMemoView.setTextColor(.peekaRed)
+            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
+        } else {
+            peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.memoLength)
+        }
+    }
     
     public func setBookImgView(_ imageView: UIImageView) {
         self.bookImgView = imageView

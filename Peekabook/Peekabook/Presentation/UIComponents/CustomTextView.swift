@@ -23,6 +23,15 @@ final class CustomTextView: UIView {
     
     private let placeholderBlank: String = "          "
     
+    var text: String? {
+        get {
+            return textView.text
+        }
+        set {
+            textView.text = newValue
+        }
+    }
+    
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
@@ -187,15 +196,6 @@ extension CustomTextView {
     func proposalItemhidden() {
         lineView.isHidden = true
         personNameLabel.isHidden = true
-    }
-    
-    var text: String? {
-        get {
-            return textView.text
-        }
-        set {
-            textView.text = newValue
-        }
     }
     
     func setTextColor(_ color: UIColor) {

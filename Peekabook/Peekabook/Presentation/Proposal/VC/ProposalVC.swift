@@ -78,8 +78,7 @@ final class ProposalVC: UIViewController {
         setLayout()
         addTapGesture()
         addKeyboardObserver()
-        peekaProposalView.personNameLabel.text = personName
-        peekaProposalView.updateTextView(type: .bookProposal)
+        updateProposalView()
     }
     
     deinit {
@@ -90,6 +89,7 @@ final class ProposalVC: UIViewController {
 // MARK: - UI & Layout
 
 extension ProposalVC {
+    
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         
@@ -166,6 +166,11 @@ extension ProposalVC {
 // MARK: - Methods
 
 extension ProposalVC {
+    
+    private func updateProposalView() {
+        peekaProposalView.personNameLabel.text = personName
+        peekaProposalView.updateTextView(type: .bookProposal)
+    }
     
     @objc private func backButtonDidTap() {
         self.dismiss(animated: true)
