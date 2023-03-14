@@ -35,7 +35,7 @@ final class BookSearchVC: UIViewController {
         }
         .addUnderlineView()
     private let containerView = UIView()
-    private let bookSearchView = CustomSearchView()
+    private lazy var bookSearchView = CustomSearchView(frame: .zero, type: .bookSearch, viewController: self)
     
     private lazy var bookTableView: UITableView = {
         let tableView = UITableView()
