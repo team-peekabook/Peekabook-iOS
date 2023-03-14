@@ -103,9 +103,7 @@ extension BookSearchVC {
         // emptyView Layout
         
         view.addSubview(emptyView)
-        [emptyImgView, emptyLabel].forEach {
-            emptyView.addSubview($0)
-        }
+        emptyView.addSubviews(emptyImgView, emptyLabel)
         
         emptyView.snp.makeConstraints {
             $0.center.equalToSuperview()
