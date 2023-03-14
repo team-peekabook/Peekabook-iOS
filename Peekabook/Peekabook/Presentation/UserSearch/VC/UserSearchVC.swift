@@ -51,8 +51,8 @@ final class UserSearchVC: UIViewController {
         $0.font = .h3
     }
     private let headerUnderlineView = UIView()
-    private let userSearchView = CustomSearchView()
-    
+    private lazy var userSearchView = CustomSearchView(frame: .zero, type: .userSearch, viewController: self)
+
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
         $0.layer.borderWidth = 3
@@ -88,8 +88,7 @@ final class UserSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userSearchView.getSearchTextField().delegate = self
-        setCustomView()
+        userSearchView.setSearchTextFieldDelegate(self)
         setUI()
         setLayout()
         setBlankView()
@@ -99,8 +98,8 @@ final class UserSearchVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func searchBtnTapped() {
-        guard let friendName = userSearchView.getSearchTextField().text else { return }
+    @objc func searchBtnTapped() {
+        guard let friendName = userSearchView.text else { return }
         getUserAPI(nickname: friendName)
     }
 }
@@ -108,11 +107,6 @@ final class UserSearchVC: UIViewController {
 // MARK: - UI & Layout
 
 extension UserSearchVC {
-    
-    private func setCustomView() {
-        userSearchView.getSearchTextField().attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.userSearch)
-        userSearchView.getSearchButton().addTarget(self, action: #selector(searchBtnTapped), for: .touchUpInside)
-    }
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
@@ -244,7 +238,7 @@ extension UserSearchVC {
 extension UserSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchBtnTapped()
-        userSearchView.getSearchTextField().endEditing(true)
+        userSearchView.endEditing()
         return true
     }
 }
