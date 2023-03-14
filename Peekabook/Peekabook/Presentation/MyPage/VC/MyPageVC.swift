@@ -66,8 +66,8 @@ extension MyPageVC {
         }
         
         myPageTableView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
