@@ -59,46 +59,46 @@ extension MyPageHeaderView {
         nameLabel.text = UserDefaults.standard.string(forKey: "userNickname")
         
         contentView.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
+        containerView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         containerView.addSubviews(headerLineview, bottomLineview, profileImageView, nameLabel, editButton, introLabel)
         
-        headerLineview.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
+        headerLineview.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
-        profileImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(15)
-            make.width.height.equalTo(60)
+        profileImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(15)
+            $0.width.height.equalTo(60)
         }
         
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView)
-            make.leading.equalTo(profileImageView.snp.trailing).offset(13)
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImageView)
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(13)
         }
         
-        editButton.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel.snp.trailing).offset(-12)
-            make.centerY.equalTo(nameLabel)
-            make.height.width.equalTo(48)
+        editButton.snp.makeConstraints {
+            $0.leading.equalTo(nameLabel.snp.trailing).offset(-12)
+            $0.centerY.equalTo(nameLabel)
+            $0.height.width.equalTo(48)
         }
         
-        introLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(3)
-            make.trailing.equalToSuperview().inset(10)
+        introLabel.snp.makeConstraints {
+            $0.leading.equalTo(nameLabel)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(3)
+            $0.trailing.equalToSuperview().inset(10)
         }
         
-        bottomLineview.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(4)
-            make.bottom.equalToSuperview()
+        bottomLineview.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
+            $0.bottom.equalToSuperview()
         }
     }
 }
