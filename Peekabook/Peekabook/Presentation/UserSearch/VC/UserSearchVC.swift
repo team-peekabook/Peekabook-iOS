@@ -24,6 +24,12 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - UI Components
     
+    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+        .addMiddleLabel(title: I18N.Tabbar.userSearch)
+        .addUnderlineView()
+    
+    private lazy var userSearchView = CustomSearchView(frame: .zero, type: .userSearch, viewController: self)
+    
     private let emptyView = UIView()
     private let emptyImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.empty
@@ -36,10 +42,6 @@ final class UserSearchVC: UIViewController {
         $0.text = I18N.ErrorPopUp.emptyUser
     }
     
-    private lazy var userSearchView = CustomSearchView(frame: .zero, type: .userSearch, viewController: self)
-    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
-        .addMiddleLabel(title: I18N.Tabbar.userSearch)
-        .addUnderlineView()
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
         $0.layer.borderWidth = 3
