@@ -139,50 +139,50 @@ extension UserSearchVC {
             followButton]
         )
         
-        headerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        userSearchView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(16)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(40)
+        userSearchView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(16)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(40)
         }
         
-        emptyView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(userSearchView).offset(204)
-            make.height.equalTo(96)
-            make.width.equalTo(247)
+        emptyView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(userSearchView).offset(204)
+            $0.height.equalTo(96)
+            $0.width.equalTo(247)
         }
-        emptyImgView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
+        emptyImgView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
-        emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyImgView.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyImgView.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
         }
         
-        friendProfileContainerView.snp.makeConstraints { make in
-            make.top.equalTo(userSearchView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(176)
+        friendProfileContainerView.snp.makeConstraints {
+            $0.top.equalTo(userSearchView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(176)
         }
-        profileImage.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(24)
-            make.height.width.equalTo(56)
+        profileImage.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(24)
+            $0.height.width.equalTo(56)
         }
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileImage.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImage.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
         }
-        followButton.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(82)
-            make.height.equalTo(32)
+        followButton.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(82)
+            $0.height.equalTo(32)
         }
     }
 }
