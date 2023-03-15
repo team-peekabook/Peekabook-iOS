@@ -133,11 +133,7 @@ extension UserSearchVC {
                          emptyView
         )
         emptyView.addSubviews(emptyImgView, emptyLabel)
-        friendProfileContainerView.addSubviews(
-            [profileImage,
-            nameLabel,
-            followButton]
-        )
+        friendProfileContainerView.addSubviews(profileImage, nameLabel, followButton)
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -155,10 +151,12 @@ extension UserSearchVC {
             $0.height.equalTo(96)
             $0.width.equalTo(247)
         }
+        
         emptyImgView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
+        
         emptyLabel.snp.makeConstraints {
             $0.top.equalTo(emptyImgView.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
@@ -169,15 +167,18 @@ extension UserSearchVC {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(176)
         }
+        
         profileImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(24)
             $0.height.width.equalTo(56)
         }
+        
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
         }
+        
         followButton.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
