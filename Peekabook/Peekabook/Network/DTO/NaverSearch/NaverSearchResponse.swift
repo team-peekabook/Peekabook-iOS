@@ -16,5 +16,5 @@ struct NaverResponse: Codable {
 }
 
 struct BookInfoModel: Codable {
-    let title, image, author: String
+    let title, image, author, publisher: String
 }

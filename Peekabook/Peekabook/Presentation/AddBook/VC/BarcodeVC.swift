@@ -87,8 +87,8 @@ extension BarcodeVC {
                     self.showErrorPopUp()
                 } else {
                     let info = response[0]
-                    addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author)]
-                    addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author))
+                    addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher)]
+                    addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher))
                     addBookVC.modalPresentationStyle = .fullScreen
                     self.present(addBookVC, animated: true, completion: nil)
                 }
