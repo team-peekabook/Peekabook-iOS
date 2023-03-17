@@ -26,7 +26,7 @@ final class ProposalVC: UIViewController {
     
     private let headerView = UIView()
     
-    private lazy var backButton = UIButton().then {
+    private lazy var backButton = UIButton(type: .system).then {
         $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         $0.setImage(ImageLiterals.Icn.back, for: .normal)
     }
@@ -37,7 +37,7 @@ final class ProposalVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private lazy var checkButton = UIButton().then {
+    private lazy var checkButton = UIButton(type: .system).then {
         $0.setTitle(I18N.BookEdit.done, for: .normal)
         $0.titleLabel!.font = .h4
         $0.setTitleColor(.peekaRed, for: .normal)

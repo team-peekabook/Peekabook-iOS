@@ -26,7 +26,7 @@ final class CustomNavigationBar: UIView {
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
-    private let leftButton = SingleTouchButton()
+    private let leftButton = SingleTouchButton(type: .system)
     private let rightButton = SingleTouchButton(type: .system)
     private let otherRightButton = SingleTouchButton(type: .system)
     private let underlineView = UIView()

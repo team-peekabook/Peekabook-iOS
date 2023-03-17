@@ -54,7 +54,7 @@ final class UserSearchVC: UIViewController {
         $0.textColor = .peekaRed
         $0.font = .h1
     }
-    private lazy var followButton = UIButton().then {
+    private lazy var followButton = UIButton(type: .system).then {
         $0.setTitle(I18N.FollowStatus.follow, for: .normal)
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .s3

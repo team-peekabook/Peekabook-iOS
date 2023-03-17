@@ -28,7 +28,7 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
         $0.font = .h1
         $0.textColor = .peekaRed
     }
-    private let editButton = UIButton().then {
+    private let editButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.profileEdit, for: .normal)
     }
     private let introLabel = UILabel().then {
