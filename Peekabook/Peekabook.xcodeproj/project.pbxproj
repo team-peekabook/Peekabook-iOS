@@ -14,7 +14,6 @@
 		143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
-		14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14526AD32965F9F70049C61D /* UserSearchModel.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
@@ -139,7 +138,6 @@
 		143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
-		14526AD32965F9F70049C61D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -290,7 +288,6 @@
 		14D416782968285D003D5031 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				14526AD32965F9F70049C61D /* UserSearchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -960,7 +957,6 @@
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
-				14526AD42965F9F70049C61D /* UserSearchModel.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
 				986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */,
