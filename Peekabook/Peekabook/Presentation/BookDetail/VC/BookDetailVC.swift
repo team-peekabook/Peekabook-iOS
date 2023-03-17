@@ -23,13 +23,13 @@ final class BookDetailVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
-        .addRightButton(with: ImageLiterals.Icn.delete!)
-        .addOtherRightButton(with: ImageLiterals.Icn.edit!)
-        .addRightButtonAction {
-            self.deleteButtonDidTap()
-        } .addOtherRightButtonAction {
-            self.editButtonDidTap()
-        }
+//        .addRightButton(with: ImageLiterals.Icn.delete!)
+//        .addOtherRightButton(with: ImageLiterals.Icn.edit!)
+//        .addRightButtonAction {
+//            self.deleteButtonDidTap()
+//        } .addOtherRightButtonAction {
+//            self.editButtonDidTap()
+//        }
     
     private let containerScrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -168,11 +168,13 @@ extension BookDetailVC {
 
 extension BookDetailVC {
     func changeUserViewLayout() {
-        self.naviBar.isHidden = false
-    }
-
-    func changeFriendViewLayout() {
-        self.naviBar.hideRightButtons()
+        naviBar.addRightButton(with: ImageLiterals.Icn.delete!)
+            .addOtherRightButton(with: ImageLiterals.Icn.edit!)
+            .addRightButtonAction {
+                self.deleteButtonDidTap()
+            } .addOtherRightButtonAction {
+                self.editButtonDidTap()
+            }
     }
     
     private func setCommentColor() {
