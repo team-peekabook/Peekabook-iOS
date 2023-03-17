@@ -24,7 +24,7 @@ final class UserSearchVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .addMiddleLabel(title: I18N.Tabbar.userSearch)
         .addUnderlineView()
     
@@ -129,18 +129,18 @@ extension UserSearchVC {
     private func setLayout() {
         view.addSubviews(userSearchView,
                          friendProfileContainerView,
-                         headerView,
+                         naviBar,
                          emptyView
         )
         emptyView.addSubviews(emptyImgView, emptyLabel)
         friendProfileContainerView.addSubviews(profileImage, nameLabel, followButton)
         
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         userSearchView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16)
+            $0.top.equalTo(naviBar.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(40)
         }

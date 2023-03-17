@@ -31,7 +31,7 @@ final class RecommendVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
         .addUnderlineView()
     
@@ -86,19 +86,19 @@ extension RecommendVC {
     
     private func addSubviews() {
         view.addSubviews(
-            headerView,
+            naviBar,
             recommendCollectionView,
             pageViewController.view
         )
     }
     
     private func setLayout() {
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         recommendCollectionView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(63)
         }

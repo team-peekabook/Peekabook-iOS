@@ -20,7 +20,7 @@ final class MyNotificationVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var headerView = CustomNavigationBar(self, type: .oneRightButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
         .addMiddleLabel(title: I18N.Tabbar.notification)
         .addRightButtonAction {
             self.backButtonTapped()
@@ -60,14 +60,14 @@ extension MyNotificationVC {
     }
     
     private func setLayout() {
-        view.addSubviews(headerView, notificationTableView)
+        view.addSubviews(naviBar, notificationTableView)
         
-        headerView.snp.makeConstraints { make in
+        naviBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         notificationTableView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(10)
+            make.top.equalTo(naviBar.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

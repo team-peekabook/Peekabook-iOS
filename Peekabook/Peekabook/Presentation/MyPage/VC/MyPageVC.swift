@@ -27,7 +27,7 @@ final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var headerView = CustomNavigationBar(self, type: .oneLeftButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
 
     private lazy var myPageTableView = UITableView().then {
@@ -59,14 +59,14 @@ extension MyPageVC {
     }
     
     private func setLayout() {
-        view.addSubviews(headerView, myPageTableView)
+        view.addSubviews(naviBar, myPageTableView)
         
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         myPageTableView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
