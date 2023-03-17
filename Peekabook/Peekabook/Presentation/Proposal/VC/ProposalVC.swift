@@ -21,6 +21,7 @@ final class ProposalVC: UIViewController {
     var personId: Int = 0
     var bookTitle: String = ""
     var author: String = ""
+    var publisher: String = ""
 
     // MARK: - UI Components
     
@@ -186,6 +187,7 @@ extension ProposalVC {
         popupViewController.personId = personId
         popupViewController.personName = personName
         popupViewController.bookImage = imageUrl
+        popupViewController.publisher = publisher
         self.present(popupViewController, animated: false)
     }
     
@@ -208,6 +210,7 @@ extension ProposalVC {
         imageUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imageUrl)!)
+        self.publisher = model.publisher
     }
     
     // MARK: - @objc Function
