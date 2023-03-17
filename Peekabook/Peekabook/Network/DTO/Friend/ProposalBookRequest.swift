@@ -9,5 +9,5 @@ import Foundation
 
 struct ProposalBookRequest: Codable {
     let recommendDesc: String?
-    let bookTitle, author, bookImage: String
+    let bookTitle, author, bookImage, publisher: String
 }
