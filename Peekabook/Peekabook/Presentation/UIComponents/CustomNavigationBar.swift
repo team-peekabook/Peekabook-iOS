@@ -22,6 +22,7 @@ final class CustomNavigationBar: UIView {
     private var vc: UIViewController?
     private var rightButtonClosure: (() -> Void)?
     private var otherRightButtonClosure: (() -> Void)?
+    private var leftButtonClosure: (() -> Void)?
     
     // MARK: - UI Components
     
@@ -107,6 +108,18 @@ extension CustomNavigationBar {
         self.otherRightButton.addTarget(self, action: #selector(touchupOtherRightButton), for: .touchUpInside)
         return self
     }
+    
+    @discardableResult
+    func addLefttButtonAction(_ closure: (() -> Void)? = nil) -> Self {
+        self.leftButtonClosure = closure
+        self.leftButton.addTarget(self, action: #selector(touchupLeftButton), for: .touchUpInside)
+        return self
+    }
+    
+    func hideRightButtons() {
+        self.rightButton.isHidden = true
+        self.otherRightButton.isHidden = true
+    }
 }
 
 // MARK: - @objc Function
@@ -126,6 +139,11 @@ extension CustomNavigationBar {
     @objc
     private func touchupOtherRightButton() {
         self.otherRightButtonClosure?()
+    }
+    
+    @objc
+    private func touchupLeftButton() {
+        self.leftButtonClosure?()
     }
 }
 
