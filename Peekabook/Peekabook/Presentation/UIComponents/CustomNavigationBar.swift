@@ -27,9 +27,10 @@ final class CustomNavigationBar: UIView {
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
-    private let leftButton = SingleTouchButton()
+    private let leftButton = SingleTouchButton(type: .system)
     private let rightButton = SingleTouchButton(type: .system)
     private let otherRightButton = SingleTouchButton(type: .system)
+    private let underlineView = UIView()
     
     // MARK: - initialization
     
@@ -106,6 +107,13 @@ extension CustomNavigationBar {
     func addOtherRightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.otherRightButtonClosure = closure
         self.otherRightButton.addTarget(self, action: #selector(touchupOtherRightButton), for: .touchUpInside)
+        return self
+    }
+    
+    @discardableResult
+    func addUnderlineView() -> Self {
+        self.underlineView.backgroundColor = .peekaRed
+        setUnderlineLayout()
         return self
     }
     
@@ -199,7 +207,8 @@ extension CustomNavigationBar {
         }
         
         rightButton.snp.makeConstraints {
-            $0.trailing.centerY.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(5)
             $0.width.equalTo(48)
         }
     }
@@ -240,6 +249,20 @@ extension CustomNavigationBar {
         otherRightButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalTo(rightButton.snp.leading)
+        }
+    }
+    
+    private func setUnderlineLayout() {
+        self.addSubviews(underlineView)
+        
+        self.snp.updateConstraints {
+            $0.height.equalTo(54)
+        }
+        
+        underlineView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(2)
         }
     }
 }

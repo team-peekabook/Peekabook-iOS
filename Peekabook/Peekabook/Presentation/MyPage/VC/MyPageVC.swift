@@ -27,13 +27,8 @@ final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let naviContainerView = UIView()
-    
-    private let logoImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = ImageLiterals.Image.logo
-        $0.clipsToBounds = true
-    }
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
+        .changeLeftBackButtonToLogoImage()
 
     private lazy var myPageTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
@@ -64,22 +59,15 @@ extension MyPageVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView, myPageTableView)
-        naviContainerView.addSubviews(logoImage)
+        view.addSubviews(naviBar, myPageTableView)
         
-        naviContainerView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        logoImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
-        }
-        
-        myPageTableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(naviContainerView.snp.bottom)
+        myPageTableView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

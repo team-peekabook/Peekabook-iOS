@@ -20,18 +20,11 @@ final class MyNotificationVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let headerContainerView = UIView()
-    
-    private lazy var backButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.close, for: .normal)
-        $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    }
-    
-    private let notificationLabel = UILabel().then {
-        $0.text = I18N.Tabbar.notification
-        $0.textColor = .peekaRed
-        $0.font = .h3
-    }
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
+        .addMiddleLabel(title: I18N.Tabbar.notification)
+        .addRightButtonAction {
+            self.backButtonTapped()
+        }
     
     private lazy var notificationTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
@@ -63,30 +56,18 @@ extension MyNotificationVC {
     
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
-        headerContainerView.backgroundColor = .peekaBeige
         notificationTableView.backgroundColor = .peekaBeige
     }
     
     private func setLayout() {
-        view.addSubviews(headerContainerView, notificationTableView)
-        headerContainerView.addSubviews(backButton, notificationLabel)
+        view.addSubviews(naviBar, notificationTableView)
         
-        headerContainerView.snp.makeConstraints { make in
+        naviBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(52)
-        }
-        
-        backButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(5)
-            make.centerY.equalToSuperview()
-        }
-        
-        notificationLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
         }
         
         notificationTableView.snp.makeConstraints { make in
-            make.top.equalTo(headerContainerView.snp.bottom).offset(10)
+            make.top.equalTo(naviBar.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

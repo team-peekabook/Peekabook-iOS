@@ -17,7 +17,7 @@ final class CustomSearchView: UIView {
     // MARK: - UI Components
     
     private let searchContainerView = UIView()
-    private lazy var searchButton = UIButton().then {
+    private lazy var searchButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.search, for: .normal)
     }
     

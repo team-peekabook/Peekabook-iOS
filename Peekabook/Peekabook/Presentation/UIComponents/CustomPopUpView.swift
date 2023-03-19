@@ -21,13 +21,13 @@ final class CustomPopUpView: UIView {
         $0.textAlignment = .center
     }
     
-    private lazy var cancelButton = UIButton().then {
+    private lazy var cancelButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
         $0.titleLabel!.font = .h2
         $0.setTitleColor(.white, for: .normal)
     }
     
-    private lazy var confirmButton = UIButton().then {
+    private lazy var confirmButton = UIButton(type: .system).then {
         $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
     }

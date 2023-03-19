@@ -28,20 +28,13 @@ final class BookSearchVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let headerView = UIView()
+    private lazy var headerView = CustomNavigationBar(self, type: .oneRightButton)
+        .addMiddleLabel(title: I18N.BookSearch.title)
+        .addRightButtonAction {
+            self.cancelButtonDidTap()
+        }
+        .addUnderlineView()
     private let containerView = UIView()
-    private lazy var cancelButton = UIButton().then {
-        $0.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
-        $0.setImage(ImageLiterals.Icn.close, for: .normal)
-    }
-    
-    private let headerTitleLabel = UILabel().then {
-        $0.text = I18N.BookSearch.title
-        $0.font = .h3
-        $0.textColor = .peekaRed
-    }
-    
-    private let headerLineView = UIView()
     private lazy var bookSearchView = CustomSearchView(frame: .zero, type: .bookSearch, viewController: self)
     
     private lazy var bookTableView: UITableView = {
@@ -91,38 +84,14 @@ extension BookSearchVC {
         self.view.backgroundColor = .peekaBeige
         
         headerView.backgroundColor = .clear
-        headerLineView.backgroundColor = .peekaRed
         emptyView.backgroundColor = .clear
     }
     
     private func setLayout() {
-        [headerView, bookSearchView].forEach {
-            view.addSubview($0)
-        }
-        
-        [cancelButton, headerTitleLabel, headerLineView].forEach {
-            headerView.addSubview($0)
-        }
+        view.addSubviews(headerView, bookSearchView)
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        cancelButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(8)
-            $0.width.height.equalTo(48)
-        }
-        
-        headerTitleLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        headerLineView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(2)
         }
         
         bookSearchView.snp.makeConstraints {
@@ -134,9 +103,7 @@ extension BookSearchVC {
         // emptyView Layout
         
         view.addSubview(emptyView)
-        [emptyImgView, emptyLabel].forEach {
-            emptyView.addSubview($0)
-        }
+        emptyView.addSubviews(emptyImgView, emptyLabel)
         
         emptyView.snp.makeConstraints {
             $0.center.equalToSuperview()

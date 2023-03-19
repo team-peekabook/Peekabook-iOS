@@ -17,6 +17,7 @@ final class BarcodeVC: BarcodeScannerViewController {
     var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
     var displayCount: Int = 100
+    var publisher: String = ""
     
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
@@ -84,8 +85,8 @@ extension BarcodeVC {
                 self.bookInfoList = []
                 
                 let info = response[0]
-                addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author)]
-                addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author))
+                addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher)]
+                addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher))
                 addBookVC.modalPresentationStyle = .fullScreen
                 self.present(addBookVC, animated: true, completion: nil)
             }

@@ -36,15 +36,15 @@ extension MyPageTableViewCell {
         backgroundColor = .peekaBeige
         contentView.addSubviews(label, underLineView)
         
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
+        label.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
         }
         
-        underLineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(0.5)
+        underLineView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(0.5)
         }
     }
 }
