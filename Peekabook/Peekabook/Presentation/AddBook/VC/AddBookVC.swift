@@ -170,7 +170,7 @@ extension AddBookVC {
               let author = self.authorLabel.text,
               let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.text,
               let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.text else { return }
-
+              
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
