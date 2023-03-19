@@ -20,10 +20,12 @@ enum SearchType: CaseIterable {
 final class AddBookVC: UIViewController {
     // MARK: - Properties
     
+    private let placeholderBlank: String = "          "
     var bookInfo: [BookInfoModel] = []
     var searchType: SearchType = .text
     private var focus = 0
     var imgaeUrl: String = ""
+    var publisher: String = ""
     
     private var serverAddBookInfo: PostBookRequest?
     
@@ -87,8 +89,8 @@ final class AddBookVC: UIViewController {
 
 extension AddBookVC {
     private func setCustomView() {
-        peekaMemoView.updateAddBookMemoTextView()
-        peekaCommentView.updateAddBookCommentColor()
+        peekaCommentView.updateTextView(type: .addBookComment)
+        peekaMemoView.updateTextView(type: .addBookMemo)
     }
     
     private func setBackgroundColor() {
@@ -168,10 +170,12 @@ extension AddBookVC {
               let author = self.authorLabel.text,
               let description = (peekaCommentView.getTextView().text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.getTextView().text,
               let memo = (peekaMemoView.getTextView().text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.getTextView().text else { return }
+
         
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
                                           author: author,
+                                          publisher: self.publisher,
                                           description: description,
                                           memo: memo))
     }
@@ -203,16 +207,15 @@ extension AddBookVC {
         containerView.contentInset = contentInset
         containerView.scrollIndicatorInsets = contentInset
         
-        if peekaCommentView.getTextView().isFirstResponder {
-            let textViewHeight = peekaCommentView.getBoxView().frame.height
-            let position = CGPoint(x: 0, y: peekaCommentView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 250)
+        if peekaCommentView.isTextViewFirstResponder() {
+            let position = peekaCommentView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
             containerView.setContentOffset(position, animated: true)
             return
         }
-
-        if peekaMemoView.getTextView().isFirstResponder {
-            let textViewHeight = peekaMemoView.getBoxView().frame.height
-            let position = CGPoint(x: 0, y: peekaMemoView.getBoxView().frame.origin.y - keyboardFrame.size.height + textViewHeight + 500)
+        
+        if peekaMemoView.isTextViewFirstResponder() {
+            var position = peekaMemoView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            position.y += 250
             containerView.setContentOffset(position, animated: true)
             return
         }
@@ -228,6 +231,7 @@ extension AddBookVC {
         nameLabel.text = model.title
         authorLabel.text = model.author.replacingOccurrences(of: "^", with: ", ")
         imgaeUrl = model.image
+        publisher = model.publisher
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imgaeUrl)!)
     }
