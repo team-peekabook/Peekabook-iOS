@@ -22,28 +22,14 @@ final class BookDetailVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let naviContainerView = UIView()
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
+    
     private let containerScrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
     }
     
     private let peekaCommentView = CustomTextView()
     private let peekaMemoView = CustomTextView()
-    
-    private lazy var backButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var editButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.edit, for: .normal)
-        $0.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
-    }
-    
-    private lazy var deleteButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.delete, for: .normal)
-        $0.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
-    }
     
     private let bookImageView = UIImageView().then {
         $0.layer.masksToBounds = false
@@ -90,34 +76,16 @@ extension BookDetailVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviContainerView, containerScrollView)
-        naviContainerView.addSubviews(backButton, deleteButton, editButton)
+        view.addSubviews(naviBar, containerScrollView)
         
         containerScrollView.addSubviews(bookImageView, bookNameLabel, bookAuthorLabel, peekaCommentView, peekaMemoView)
         
-        naviContainerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
-            $0.width.height.equalTo(48)
-        }
-        
-        deleteButton.snp.makeConstraints {
-            $0.trailing.centerY.equalToSuperview()
-            $0.width.height.equalTo(48)
-        }
-        
-        editButton.snp.makeConstraints {
-            $0.trailing.equalTo(deleteButton.snp.leading)
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(48)
         }
         
         containerScrollView.snp.makeConstraints {
-            $0.top.equalTo(naviContainerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -162,13 +130,13 @@ extension BookDetailVC {
 extension BookDetailVC {
     
     func changeUserViewLayout() {
-        self.editButton.isHidden = false
-        self.deleteButton.isHidden = false
-    }
-    
-    func changeFriendViewLayout() {
-        self.editButton.isHidden = true
-        self.deleteButton.isHidden = true
+        naviBar.addRightButton(with: ImageLiterals.Icn.delete!)
+            .addOtherRightButton(with: ImageLiterals.Icn.edit!)
+            .addRightButtonAction {
+                self.deleteButtonDidTap()
+            } .addOtherRightButtonAction {
+                self.editButtonDidTap()
+            }
     }
     
     private func setCustomView() {

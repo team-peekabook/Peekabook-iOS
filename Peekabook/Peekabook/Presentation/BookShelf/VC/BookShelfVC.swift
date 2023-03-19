@@ -483,11 +483,8 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == pickCollectionView {
             let bookDetailVC = BookDetailVC()
-            switch bookShelfType {
-            case .user:
+            if bookShelfType == .user {
                 bookDetailVC.changeUserViewLayout()
-            case .friend:
-                bookDetailVC.changeFriendViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
