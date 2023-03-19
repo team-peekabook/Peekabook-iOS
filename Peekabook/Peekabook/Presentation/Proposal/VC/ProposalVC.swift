@@ -21,28 +21,19 @@ final class ProposalVC: UIViewController {
     var personId: Int = 0
     var bookTitle: String = ""
     var author: String = ""
+    var publisher: String = ""
 
     // MARK: - UI Components
     
-    private let headerView = UIView()
-    
-    private lazy var backButton = UIButton(type: .system).then {
-        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-    }
-    
-    private let headerTitle = UILabel().then {
-        $0.text = I18N.BookProposal.title
-        $0.font = .h3
-        $0.textColor = .peekaRed
-    }
-    
-    private lazy var checkButton = UIButton(type: .system).then {
-        $0.setTitle(I18N.BookEdit.done, for: .normal)
-        $0.titleLabel!.font = .h4
-        $0.setTitleColor(.peekaRed, for: .normal)
-        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+        .addMiddleLabel(title: I18N.BookProposal.title)
+        .addRightButton(with: I18N.BookProposal.done)
+        .addRightButtonAction {
+            self.checkButtonDidTap()
+        }
+        .addLefttButtonAction {
+            self.backButtonDidTap()
+        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -93,17 +84,12 @@ extension ProposalVC {
     private func setUI() {
         self.view.backgroundColor = .peekaBeige
         
-        headerView.backgroundColor = .clear
         containerView.backgroundColor = .clear
     }
     
     private func setLayout() {
-        [containerView, headerView].forEach {
+        [containerView, naviBar].forEach {
             view.addSubview($0)
-        }
-        
-        [backButton, headerTitle, checkButton].forEach {
-            headerView.addSubview($0)
         }
         
         [bookImgView, nameLabel, authorLabel, peekaProposalView].forEach {
@@ -111,28 +97,12 @@ extension ProposalVC {
         }
         
         containerView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        headerView.snp.makeConstraints {
+        naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
-        }
-        
-        headerTitle.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        checkButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(11)
-            $0.width.height.equalTo(48)
         }
         
         bookImgView.snp.makeConstraints {
@@ -186,6 +156,7 @@ extension ProposalVC {
         popupViewController.personId = personId
         popupViewController.personName = personName
         popupViewController.bookImage = imageUrl
+        popupViewController.publisher = publisher
         self.present(popupViewController, animated: false)
     }
     
@@ -208,6 +179,7 @@ extension ProposalVC {
         imageUrl = model.image
         bookImgView.kf.indicatorType = .activity
         bookImgView.kf.setImage(with: URL(string: imageUrl)!)
+        self.publisher = model.publisher
     }
     
     // MARK: - @objc Function

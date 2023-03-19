@@ -22,6 +22,7 @@ final class ConfirmPopUpVC: UIViewController {
     var bookImage: String = ""
     var personId: Int = 0
     var personName: String = ""
+    var publisher: String = ""
 
     // MARK: - UI Components
     
@@ -72,7 +73,8 @@ extension ConfirmPopUpVC {
         postProposalBook(friendId: personId, param: ProposalBookRequest(recommendDesc: recommendDesc,
                                                                         bookTitle: bookTitle,
                                                                         author: author,
-                                                                        bookImage: bookImage))
+                                                                        bookImage: bookImage,
+                                                                        publisher: publisher))
     }
 }
 
