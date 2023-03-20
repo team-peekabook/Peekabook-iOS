@@ -45,8 +45,8 @@ final class CustomTextView: UIView {
         $0.textColor = .peekaWhite
     }
     
-    private let textView = UITextView().then {
-        $0.text = I18N.BookDetail.commentPlaceholder
+    private lazy var textView = UITextView().then {
+        $0.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.autocorrectionType = .no
@@ -162,17 +162,17 @@ extension CustomTextView {
             boxView.frame.size.height = 101
             boxView.backgroundColor = .peekaWhite_60
             label.text = I18N.BookDetail.memo
-            textView.text = I18N.BookDetail.memoPlaceholder
+            textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             maxLabel.text = I18N.BookAdd.memoLength
             proposalItemhidden()
         case .addBookComment:
             boxView.backgroundColor = .peekaWhite_60
-            textView.text = I18N.BookDetail.commentPlaceholder
+            textView.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
             proposalItemhidden()
         case .editBookMemo:
             boxView.frame.size.height = 101
             label.text = I18N.BookDetail.memo
-            textView.text = I18N.BookDetail.memoPlaceholder
+            textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             proposalItemhidden()
         case .editBookComment:
             proposalItemhidden()
@@ -218,8 +218,8 @@ extension CustomTextView {
 
 extension CustomTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.text == I18N.BookDetail.commentPlaceholder) ||
-            (textView.text == I18N.BookDetail.memoPlaceholder) ||
+        if (textView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ||
+            (textView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) ||
         (textView.text == I18N.PlaceHolder.recommend) {
@@ -231,13 +231,13 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             if label.text == I18N.BookDetail.comment {
-                textView.text = I18N.BookDetail.commentPlaceholder
+                textView.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
                 textView.textColor = .peekaGray1
             } else if label.text == I18N.BookProposal.personName {
                 textView.text = I18N.PlaceHolder.recommend
                 textView.textColor = .peekaGray1
             } else {
-                textView.text = I18N.BookDetail.memoPlaceholder
+                textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
                 textView.textColor = .peekaGray1
             }
         }
