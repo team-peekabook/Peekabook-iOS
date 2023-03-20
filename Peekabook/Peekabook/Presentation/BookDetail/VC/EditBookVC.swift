@@ -20,6 +20,7 @@ final class EditBookVC: UIViewController {
     var bookIndex: Int = 0
     var descriptions: String = ""
     var memo: String = ""
+    private let placeholderBlank: String = "          "
     
     // MARK: - UI Components
     
@@ -181,8 +182,10 @@ extension EditBookVC {
     }
     
     @objc private func checkButtonDidTap() {
-        print("checkButtonDidTap")
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: peekaCommentView.text, memo: peekaMemoView.text))
+        guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
+        
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description, memo: memo))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }

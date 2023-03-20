@@ -168,8 +168,8 @@ extension AddBookVC {
     @objc private func checkButtonDidTap() {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
-              let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder) ? "" : peekaCommentView.text,
-              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder) ? "" : peekaMemoView.text else { return }
+              let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
               
         postMyBook(param: PostBookRequest(bookImage: imgaeUrl,
                                           bookTitle: bookTitle,
