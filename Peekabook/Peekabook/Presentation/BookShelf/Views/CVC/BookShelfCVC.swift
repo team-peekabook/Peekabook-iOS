@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 final class BookShelfCVC: UICollectionViewCell {
     
     // MARK: - Properties
@@ -15,22 +17,28 @@ final class BookShelfCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
-        $0.layer.masksToBounds = true
-        $0.clipsToBounds = true
-    }
+    private let bookImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleToFill
+        iv.layer.masksToBounds = true
+        iv.clipsToBounds = true
+        return iv
+    }()
     
-    private let horizontalLine = UIView().then {
-        $0.clipsToBounds = false
-    }
+    private let horizontalLine: UIView = {
+        let view = UIView()
+        view.clipsToBounds = false
+        return view
+    }()
     
-    private let pickImageView = UIImageView().then {
-        $0.image = ImageLiterals.Icn.newPick
-        $0.contentMode = .scaleToFill
-        $0.layer.masksToBounds = true
-        $0.clipsToBounds = true
-    }
+    private let pickImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = ImageLiterals.Icn.newPick
+        iv.contentMode = .scaleToFill
+        iv.layer.masksToBounds = true
+        iv.clipsToBounds = true
+        return iv
+    }()
     
     // MARK: - Initialization
     
@@ -45,7 +53,7 @@ final class BookShelfCVC: UICollectionViewCell {
     }
 }
 
-// MARK: - Methods
+// MARK: - UI & Layout
 
 extension BookShelfCVC {
     
@@ -59,8 +67,7 @@ extension BookShelfCVC {
         addSubviews(bookImageView, horizontalLine, pickImageView)
         
         bookImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.centerX.bottom.equalToSuperview()
             $0.width.equalTo(100)
             $0.height.equalTo(150)
         }
@@ -77,6 +84,11 @@ extension BookShelfCVC {
             $0.trailing.equalTo(bookImageView).inset(8)
         }
     }
+}
+
+// MARK: - Methods
+
+extension BookShelfCVC {
     
     func setData(model: Book) {
         pickImageView.isHidden = model.pickIndex == 0 ? true : false

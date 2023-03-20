@@ -278,20 +278,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		14B3544E296C0C9500998925 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		14D416782968285D003D5031 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		8E10BA0D295FF42400BCF58B /* Global */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,7 +438,6 @@
 		8E10BA22295FF65700BCF58B /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
-				14B3544E296C0C9500998925 /* Model */,
 				8E10BA3D295FF89E00BCF58B /* Views */,
 				8E10BA3C295FF89A00BCF58B /* VC */,
 			);
@@ -685,7 +670,6 @@
 		8E81F3FB29608A9F001815B4 /* UserSearch */ = {
 			isa = PBXGroup;
 			children = (
-				14D416782968285D003D5031 /* Model */,
 				8E81F40429608B19001815B4 /* VC */,
 			);
 			path = UserSearch;
