@@ -86,7 +86,9 @@ final class EditMyPickVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension EditMyPickVC {
+    
     private func setUI() {
         view.backgroundColor = .peekaWhite
         bookShelfCollectionView.backgroundColor = .peekaWhite
