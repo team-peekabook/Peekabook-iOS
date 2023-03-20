@@ -164,6 +164,7 @@
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E234769297F6A550066D7B3 /* switchRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = switchRootViewController.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
+		8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peekabook.entitlements; sourceTree = "<group>"; };
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
 		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
 		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
@@ -589,6 +590,7 @@
 		8E5A30A0295DAE6D00285A15 /* Peekabook */ = {
 			isa = PBXGroup;
 			children = (
+				8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */,
 				8E10BA0D295FF42400BCF58B /* Global */,
 				8E10BA10295FF44800BCF58B /* Network */,
 				8E10BA0E295FF42D00BCF58B /* Application */,
@@ -1180,12 +1182,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z779U729AH;
+				DEVELOPMENT_TEAM = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1199,7 +1203,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Peekabook.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1213,12 +1217,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z779U729AH;
+				DEVELOPMENT_TEAM = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1232,7 +1238,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Peekabook.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
