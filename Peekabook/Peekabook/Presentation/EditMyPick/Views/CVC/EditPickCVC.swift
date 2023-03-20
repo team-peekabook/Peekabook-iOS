@@ -7,28 +7,36 @@
 
 import UIKit
 
+import SnapKit
+
 final class EditPickCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let bookImageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
-        $0.layer.masksToBounds = true
-        $0.clipsToBounds = true
-    }
+    private let bookImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleToFill
+        iv.layer.masksToBounds = true
+        iv.clipsToBounds = true
+        return iv
+    }()
     
-    private let rankingLabel = UILabel().then {
-        $0.font = .engC
-        $0.backgroundColor = .peekaRed
-        $0.textColor = .peekaWhite
-        $0.clipsToBounds = true
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-    }
+    private let rankingLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = .engC
+        lb.backgroundColor = .peekaRed
+        lb.textColor = .peekaWhite
+        lb.clipsToBounds = true
+        lb.textAlignment = .center
+        lb.layer.cornerRadius = 10
+        return lb
+    }()
     
-    private let horizontalLine = UIView().then {
-        $0.clipsToBounds = false
-    }
+    private let horizontalLine: UIView = {
+        let view = UIView()
+        view.clipsToBounds = false
+        return view
+    }()
     
     // MARK: - Initialization
     

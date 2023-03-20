@@ -57,7 +57,7 @@ final class PickCVC: UICollectionViewCell {
     }
 }
 
-// MARK: - Methods
+// MARK: - UI & Layout
 
 extension PickCVC {
     
@@ -118,6 +118,11 @@ extension PickCVC {
         
         checkSmallLayout()
     }
+}
+
+// MARK: - Methods
+
+extension PickCVC {
     
     private func checkSmallLayout() {
         if UIScreen.main.isSmallThan712pt {

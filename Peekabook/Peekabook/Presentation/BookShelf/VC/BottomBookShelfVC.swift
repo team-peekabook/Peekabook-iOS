@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
@@ -22,27 +24,31 @@ final class BottomBookShelfVC: UIViewController {
     private let headerContainerView = UIView()
     private let holdView = UIView()
     
-    private let booksCountLabel = UILabel().then {
-        $0.text = "Books"
-        $0.font = .engSb
-        $0.textColor = .peekaRed
-    }
+    private let booksCountLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "Books"
+        lb.font = .engSb
+        lb.textColor = .peekaRed
+        return lb
+    }()
     
-    private lazy var addBookButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.addBook, for: .normal)
-        $0.addTarget(self, action: #selector(addBookButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var addBookButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setImage(ImageLiterals.Icn.addBook, for: .normal)
+        bt.addTarget(self, action: #selector(addBookButtonDidTap), for: .touchUpInside)
+        return bt
+    }()
     
     private lazy var bookShelfCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 45, right: 20)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = false
-        collectionView.bounces = false
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.isUserInteractionEnabled = false
-        return collectionView
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.isScrollEnabled = false
+        cv.bounces = false
+        cv.showsVerticalScrollIndicator = false
+        cv.isUserInteractionEnabled = false
+        return cv
     }()
     
     // MARK: - View Life Cycle
@@ -71,6 +77,7 @@ final class BottomBookShelfVC: UIViewController {
     }
     
     // MARK: - @objc Function
+    
     @objc
     private func addBookButtonDidTap() {
         let barcodeVC = BarcodeVC()
@@ -112,6 +119,7 @@ final class BottomBookShelfVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension BottomBookShelfVC {
     
     private func setUI() {
@@ -272,6 +280,8 @@ extension BottomBookShelfVC: UICollectionViewDelegateFlowLayout {
         return 0
     }
 }
+
+// MARK: - UIGestureRecognizerDelegate
 
 extension BottomBookShelfVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

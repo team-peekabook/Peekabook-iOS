@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 final class FriendsCVC: UICollectionViewCell {
     
     // MARK: - Properties
@@ -15,18 +17,22 @@ final class FriendsCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let profileImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 22
-        $0.clipsToBounds = true
-    }
+    private let profileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.layer.masksToBounds = true
+        iv.layer.cornerRadius = 22
+        iv.clipsToBounds = true
+        return iv
+    }()
     
-    private let userNameLabel = UILabel().then {
-        $0.font = .s2
-        $0.textAlignment = .center
-        $0.textColor = .peekaRed
-    }
+    private let userNameLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = .s2
+        lb.textAlignment = .center
+        lb.textColor = .peekaRed
+        return lb
+    }()
     
     // MARK: - Initialization
     
@@ -41,7 +47,7 @@ final class FriendsCVC: UICollectionViewCell {
     }
 }
 
-// MARK: - Methods
+// MARK: - UI & Layout
 
 extension FriendsCVC {
     
@@ -66,6 +72,11 @@ extension FriendsCVC {
             $0.leading.trailing.equalToSuperview().inset(5)
         }
     }
+}
+
+// MARK: - Methods
+
+extension FriendsCVC {
     
     func setData(model: MyIntro) {
         profileImageView.kf.indicatorType = .activity

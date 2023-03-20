@@ -7,10 +7,8 @@
 
 import UIKit
 
-import SnapKit
-import Then
-
 import Moya
+import SnapKit
 
 final class EditMyPickVC: UIViewController {
     
@@ -28,34 +26,32 @@ final class EditMyPickVC: UIViewController {
     // MARK: - UI Components
     
     private let naviContainerView = UIView()
-
-    private lazy var backButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.back, for: .normal)
-        $0.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-    }
     
-    private lazy var completeButton = UIButton(type: .system).then {
-        $0.setImage(ImageLiterals.Icn.check, for: .normal)
-        $0.addTarget(self, action: #selector(completeButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var navibar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton, backgroundColor: .white)
+        .addRightButton(with: ImageLiterals.Icn.check)
+        .addRightButtonAction {
+            self.completeButtonDidTap()
+        }
     
-    private let descriptionLabel = UILabel().then {
-        $0.text = I18N.BookShelf.editPickDescription
-        $0.font = .s1
-        $0.textColor = .peekaRed
-        $0.textAlignment = .left
-    }
+    private let descriptionLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = I18N.BookShelf.editPickDescription
+        lb.font = .s1
+        lb.textColor = .peekaRed
+        lb.textAlignment = .left
+        return lb
+    }()
     
     private lazy var bookShelfCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = true
-        collectionView.bounces = false
-        collectionView.allowsMultipleSelection = true
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.isScrollEnabled = true
+        cv.bounces = false
+        cv.allowsMultipleSelection = true
+        cv.showsVerticalScrollIndicator = false
+        return cv
     }()
     
     // MARK: - View Life Cycle
@@ -76,11 +72,6 @@ final class EditMyPickVC: UIViewController {
     // MARK: - @objc Function
     
     @objc
-    private func backButtonDidTap() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
     private func completeButtonDidTap() {
         guard let serverBookList = serverBookList else { return }
         var selectedBookIdList = pickedBooksList.map { index in
@@ -95,7 +86,9 @@ final class EditMyPickVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension EditMyPickVC {
+    
     private func setUI() {
         view.backgroundColor = .peekaWhite
         bookShelfCollectionView.backgroundColor = .peekaWhite
@@ -103,32 +96,25 @@ extension EditMyPickVC {
     
     private func setLayout() {
         view.addSubviews(naviContainerView, bookShelfCollectionView)
-        naviContainerView.addSubviews(backButton, completeButton, descriptionLabel)
+        naviContainerView.addSubviews(navibar, descriptionLabel)
         
         naviContainerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(65)
+            $0.height.equalTo(72)
         }
         
-        backButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(5)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(5)
+        navibar.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom)
+            $0.top.equalTo(navibar.snp.bottom).inset(2)
             $0.leading.equalToSuperview().offset(20)
         }
         
         bookShelfCollectionView.snp.makeConstraints {
             $0.top.equalTo(naviContainerView.snp.bottom)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -201,6 +187,7 @@ extension EditMyPickVC: UICollectionViewDelegateFlowLayout {
 // MARK: - Network
 
 extension EditMyPickVC {
+    
     func getAllPicks() {
         PickAPI.shared.getAllPicks { response in
             guard let response = response, let data = response.data else { return }

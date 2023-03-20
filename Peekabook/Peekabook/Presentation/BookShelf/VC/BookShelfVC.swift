@@ -7,10 +7,8 @@
 
 import UIKit
 
-import SnapKit
-import Then
-
 import Moya
+import SnapKit
 
 enum BookShelfType: CaseIterable {
     case user
@@ -91,68 +89,82 @@ final class BookShelfVC: UIViewController {
         return collectionView
     }()
     
-    private let myProfileImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.layer.borderWidth = 3
-        $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 22
-        $0.clipsToBounds = true
-    }
+    private let myProfileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.layer.borderColor = UIColor.peekaRed.cgColor
+        iv.layer.borderWidth = 3
+        iv.layer.masksToBounds = true
+        iv.layer.cornerRadius = 22
+        iv.clipsToBounds = true
+        return iv
+    }()
     
-    private let myNameLabel = UILabel().then {
-        $0.font = .s1
-        $0.textColor = .peekaRed
-        $0.textAlignment = .center
-    }
+    private let myNameLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = .s1
+        lb.textColor = .peekaRed
+        lb.textAlignment = .center
+        return lb
+    }()
     
-    private let introNameLabel = UILabel().then {
-        $0.font = .nameBold
-        $0.textColor = .peekaRed
-        $0.textAlignment = .center
-        $0.numberOfLines = 2
-    }
+    private let introNameLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = .nameBold
+        lb.textColor = .peekaRed
+        lb.textAlignment = .center
+        lb.numberOfLines = 2
+        return lb
+    }()
     
-    private let introductionLabel = UILabel().then {
-        $0.font = .h2
-        $0.textColor = .peekaRed
-        $0.textAlignment = .left
-        $0.numberOfLines = 2
-    }
+    private let introductionLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = .h2
+        lb.textColor = .peekaRed
+        lb.textAlignment = .left
+        lb.numberOfLines = 2
+        return lb
+    }()
     
-    private let pickLabel = UILabel().then {
-        $0.text = I18N.BookShelf.pick
-        $0.font = .engSb
-        $0.textColor = .peekaRed
-    }
+    private let pickLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = I18N.BookShelf.pick
+        lb.font = .engSb
+        lb.textColor = .peekaRed
+        return lb
+    }()
     
-    private lazy var editOrRecommendButton = UIButton(type: .system).then {
-        $0.titleLabel!.font = .c1
-        $0.setTitle(I18N.BookShelf.editPick, for: .normal)
-        $0.setTitleColor(.peekaRed, for: .normal)
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.peekaRed.cgColor
-        $0.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
-    }
+    private lazy var editOrRecommendButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.titleLabel!.font = .c1
+        bt.setTitle(I18N.BookShelf.editPick, for: .normal)
+        bt.setTitleColor(.peekaRed, for: .normal)
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.peekaRed.cgColor
+        bt.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
+        return bt
+    }()
     
     private lazy var pickCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.isScrollEnabled = true
+        cv.showsHorizontalScrollIndicator = false
+        return cv
     }()
     
     private let emptyView = UIView()
     
-    private let emptyPickViewDescription = UILabel().then {
-        $0.font = .h2
-        $0.textColor = .peekaRed_60
-        $0.textAlignment = .center
-        $0.numberOfLines = 3
-    }
+    private let emptyPickViewDescription: UILabel = {
+        let lb = UILabel()
+        lb.font = .h2
+        lb.textColor = .peekaRed_60
+        lb.textAlignment = .center
+        lb.numberOfLines = 3
+        return lb
+    }()
     
     // MARK: - View Life Cycle
     
