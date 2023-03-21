@@ -204,9 +204,14 @@ final class BookShelfVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "언팔로우", style: .default, handler: {(ACTION: UIAlertAction) in
             print("언팔로우")
         }))
+        
         actionSheet.addAction(UIAlertAction(title: "신고하기", style: .destructive, handler: {(ACTION: UIAlertAction) in
-            print("신고")
+            
+            let declareVC = DeclareVC()
+            declareVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(declareVC, animated: true)
         }))
+        
         actionSheet.addAction(UIAlertAction(title: "차단하기", style: .destructive, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         

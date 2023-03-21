@@ -112,4 +112,8 @@ struct I18N {
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
     }
+    
+    struct Declare {
+        static let title = "사용자 신고하기"
+    }
 }

@@ -117,6 +117,7 @@
 		98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D89296BDF9500B78724 /* UIButton+.swift */; };
 		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
 		985C529829684C3000994ED6 /* BookInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTVC.swift */; };
+		98601A8229C99D06002F7753 /* DeclareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98601A8129C99D06002F7753 /* DeclareVC.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
 		986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */; };
 		98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */; };
@@ -243,6 +244,7 @@
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		985C529729684C3000994ED6 /* BookInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTVC.swift; sourceTree = "<group>"; };
+		98601A8129C99D06002F7753 /* DeclareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclareVC.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
 		986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpVC.swift; sourceTree = "<group>"; };
 		98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchResponse.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
 				98A042052966469800081B8E /* Proposal */,
+				98601A7F29C99CC2002F7753 /* UserDeclare */,
 				8E13F66D2966BDBA00E61B47 /* UIComponents */,
 			);
 			path = Presentation;
@@ -798,6 +801,22 @@
 			path = NaverSearch;
 			sourceTree = "<group>";
 		};
+		98601A7F29C99CC2002F7753 /* UserDeclare */ = {
+			isa = PBXGroup;
+			children = (
+				98601A8029C99CE1002F7753 /* VC */,
+			);
+			path = UserDeclare;
+			sourceTree = "<group>";
+		};
+		98601A8029C99CE1002F7753 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				98601A8129C99D06002F7753 /* DeclareVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
 		98A042052966469800081B8E /* Proposal */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,6 +983,7 @@
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
+				98601A8229C99D06002F7753 /* DeclareVC.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
 				8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */,
 				98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */,
