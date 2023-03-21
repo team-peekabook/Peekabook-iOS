@@ -25,9 +25,11 @@ final class BookShelfVC: UIViewController {
             case .user:
                 bottomShelfVC.changeLayout(wantsToHide: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+                moreButton.isHidden = true
             case .friend:
                 bottomShelfVC.changeLayout(wantsToHide: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+                moreButton.isHidden = false
             }
         }
     }
@@ -126,6 +128,14 @@ final class BookShelfVC: UIViewController {
         return lb
     }()
     
+    private lazy var moreButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setImage(ImageLiterals.Icn.more, for: .normal)
+        bt.addTarget(self, action: #selector(moreButtonDidTap), for: .touchUpInside)
+        bt.isHidden = true
+        return bt
+    }()
+    
     private let pickLabel: UILabel = {
         let lb = UILabel()
         lb.text = I18N.BookShelf.pick
@@ -188,6 +198,21 @@ final class BookShelfVC: UIViewController {
     // MARK: - @objc Function
     
     @objc
+    private func moreButtonDidTap(_ sender: UIButton) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "언팔로우", style: .default, handler: {(ACTION: UIAlertAction) in
+            print("언팔로우")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "신고하기", style: .destructive, handler: {(ACTION: UIAlertAction) in
+            print("신고")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "차단하기", style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @objc
     private func editOrRecommendButtonDidTap() {
         switch bookShelfType {
         case .user:
@@ -238,7 +263,7 @@ extension BookShelfVC {
         
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
-        introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
+        introProfileView.addSubviews(introNameLabel, introductionLabel, moreButton, doubleheaderLine, doubleBottomLine)
         pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
         
         emptyView.addSubview(emptyPickViewDescription)
@@ -326,6 +351,11 @@ extension BookShelfVC {
             $0.leading.equalTo(introNameLabel.snp.trailing).offset(15)
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
+        }
+        
+        moreButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(12)
         }
         
         doubleBottomLine.snp.makeConstraints {
