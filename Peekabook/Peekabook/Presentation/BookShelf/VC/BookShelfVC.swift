@@ -125,6 +125,7 @@ final class BookShelfVC: UIViewController {
         lb.textColor = .peekaRed
         lb.textAlignment = .left
         lb.numberOfLines = 2
+        lb.lineBreakMode = .byCharWrapping
         return lb
     }()
     
@@ -342,14 +343,14 @@ extension BookShelfVC {
         }
         
         introNameLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(16)
             $0.centerY.equalToSuperview()
             $0.width.equalTo(50)
         }
         
         introductionLabel.snp.makeConstraints {
-            $0.leading.equalTo(introNameLabel.snp.trailing).offset(15)
-            $0.trailing.equalToSuperview().inset(10)
+            $0.leading.equalTo(introNameLabel.snp.trailing).offset(28)
+            $0.trailing.equalToSuperview().inset(24)
             $0.centerY.equalToSuperview()
         }
         
