@@ -45,10 +45,25 @@ final class DeclareVC: UIViewController {
         I18N.Declare.reason5
     ]
     
+    private let boxView = UIView().then {
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+    
+    private lazy var textView = UITextView().then {
+        $0.text = I18N.Declare.placeholder
+        $0.font = .h2
+        $0.textColor = .peekaGray1
+        $0.autocorrectionType = .no
+        $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
+        $0.returnKeyType = .done
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDelegate()
         setBackgroundColor()
         setLayout()
         register()
@@ -64,10 +79,14 @@ extension DeclareVC {
         self.view.backgroundColor = .peekaBeige
         declareTableView.backgroundColor = .peekaBeige
         bottomUnderLineView.backgroundColor = .peekaGray1
+        boxView.backgroundColor = .peekaWhite_60
+        textView.backgroundColor = .clear
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, selectLabel, declareTableView, bottomUnderLineView)
+        view.addSubviews(naviBar, selectLabel, declareTableView, bottomUnderLineView, boxView)
+        
+        boxView.addSubview(textView)
         
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -88,6 +107,18 @@ extension DeclareVC {
             $0.top.equalTo(declareTableView.snp.bottom)
             $0.leading.trailing.equalToSuperview().offset(20)
             $0.height.equalTo(0.5)
+        }
+        
+        boxView.snp.makeConstraints {
+            $0.top.equalTo(declareTableView.snp.bottom).offset(40)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(148)
+        }
+        
+        textView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(14)
+            $0.leading.trailing.bottom.equalToSuperview().inset(14)
+            $0.height.equalTo(120)
         }
     }
 }
@@ -121,5 +152,26 @@ extension DeclareVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row+1)
+    }
+}
+
+extension DeclareVC: UITextViewDelegate {
+    
+    private func setDelegate() {
+        textView.delegate = self
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == I18N.Declare.placeholder {
+            textView.text = nil
+            textView.textColor = .peekaRed
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = I18N.Declare.placeholder
+            textView.textColor = .peekaGray1
+        }
     }
 }
