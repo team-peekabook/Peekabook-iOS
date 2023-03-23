@@ -124,5 +124,6 @@ struct I18N {
         static let placeholder = "구체적인 신고 사유를 작성해 주세요."
         static let info = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
         static let buttonTitle = "신고하기"
+        static let declareInfo = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
     }
 }

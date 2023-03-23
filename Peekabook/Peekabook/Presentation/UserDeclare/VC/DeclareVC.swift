@@ -59,6 +59,19 @@ final class DeclareVC: UIViewController {
         $0.returnKeyType = .done
     }
     
+    private let declareInfoLabel = UILabel().then {
+        $0.text = I18N.Declare.declareInfo
+        $0.font = .s2
+        $0.textColor = .peekaRed
+    }
+    
+    private lazy var declareButton = UIButton(type: .system).then {
+        $0.setTitle(I18N.Declare.buttonTitle, for: .normal)
+        $0.titleLabel!.font = .h3
+        $0.setTitleColor(.white, for: .normal)
+        $0.addTarget(self, action: #selector(declareButtonDidTap), for: .touchUpInside)
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -81,10 +94,11 @@ extension DeclareVC {
         bottomUnderLineView.backgroundColor = .peekaGray1
         boxView.backgroundColor = .peekaWhite_60
         textView.backgroundColor = .clear
+        declareButton.backgroundColor = .peekaRed
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, selectLabel, declareTableView, bottomUnderLineView, boxView)
+        view.addSubviews(naviBar, selectLabel, declareTableView, bottomUnderLineView, boxView, declareInfoLabel, declareButton)
         
         boxView.addSubview(textView)
         
@@ -120,6 +134,17 @@ extension DeclareVC {
             $0.leading.trailing.bottom.equalToSuperview().inset(14)
             $0.height.equalTo(120)
         }
+        
+        declareInfoLabel.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom).offset(43)
+            $0.leading.equalTo(boxView.snp.leading)
+        }
+        
+        declareButton.snp.makeConstraints {
+            $0.top.equalTo(declareInfoLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalTo(boxView)
+            $0.height.equalTo(56)
+        }
     }
 }
 
@@ -128,6 +153,10 @@ extension DeclareVC {
 extension DeclareVC {
     private func register() {
         declareTableView.register(DeclareTableViewCell.self, forCellReuseIdentifier: DeclareTableViewCell.className)
+    }
+    
+    @objc private func declareButtonDidTap() {
+        print("울랄라")
     }
 }
 
