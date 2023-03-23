@@ -40,6 +40,8 @@ struct ImageLiterals {
         static let newPick = UIImage(named: "icn_newPick")
         static let profileEdit = UIImage(named: "icn_profileEdit")?.withRenderingMode(.alwaysOriginal)
         static let more = UIImage(named: "icn_more")?.withRenderingMode(.alwaysOriginal)
+        static let checkedButton = UIImage(named: "icn_radio_button_checked")
+        static let uncheckedButton = UIImage(named: "icn_radio_button_unchecked")
     }
     
     struct Sample {

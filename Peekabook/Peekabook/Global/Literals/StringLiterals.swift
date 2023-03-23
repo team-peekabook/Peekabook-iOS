@@ -115,5 +115,14 @@ struct I18N {
     
     struct Declare {
         static let title = "사용자 신고하기"
+        static let selectTitle = "신고 사유 선택"
+        static let reason1 = "부적절한 게시물"
+        static let reason2 = "욕설 및 비하 발언"
+        static let reason3 = "홍보성 컨텐츠"
+        static let reason4 = "닉네임 신고"
+        static let reason5 = "기타"
+        static let placeholder = "구체적인 신고 사유를 작성해 주세요."
+        static let info = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
+        static let buttonTitle = "신고하기"
     }
 }
