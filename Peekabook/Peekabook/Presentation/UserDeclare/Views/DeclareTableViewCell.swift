@@ -54,7 +54,7 @@ extension DeclareTableViewCell {
         }
 
         underLineView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }

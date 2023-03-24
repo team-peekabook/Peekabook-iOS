@@ -39,7 +39,7 @@ final class DeclareVC: UIViewController {
         $0.dataSource = self
     }
     
-    private let bottomUnderLineView = UIView()
+    private let topLineView = UIView()
     
     private let declareArray: [String] = [
         I18N.Declare.reason1,
@@ -100,7 +100,7 @@ extension DeclareVC {
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
         declareTableView.backgroundColor = .peekaBeige
-        bottomUnderLineView.backgroundColor = .peekaGray1
+        topLineView.backgroundColor = .peekaGray1
         boxView.backgroundColor = .peekaWhite_60
         textView.backgroundColor = .clear
         declareButton.backgroundColor = .peekaRed
@@ -109,7 +109,7 @@ extension DeclareVC {
     private func setLayout() {
         view.addSubviews(naviBar, containerView)
 
-        containerView.addSubviews(selectLabel, declareTableView, bottomUnderLineView, boxView, declareInfoLabel, declareButton)
+        containerView.addSubviews(selectLabel, declareTableView, topLineView, boxView, declareInfoLabel, declareButton)
         
         boxView.addSubview(textView)
         
@@ -133,8 +133,8 @@ extension DeclareVC {
             $0.height.equalTo(260)
         }
         
-        bottomUnderLineView.snp.makeConstraints {
-            $0.top.equalTo(declareTableView.snp.bottom)
+        topLineView.snp.makeConstraints {
+            $0.top.equalTo(declareTableView.snp.top)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }
