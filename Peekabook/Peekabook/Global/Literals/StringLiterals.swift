@@ -21,6 +21,7 @@ struct I18N {
         static let mypage = "MY"
         static let notification = "알림"
         static let userSearch = "사용자 검색하기"
+        static let editmyPage = "프로필 수정"
     }
     
     struct Confirm {
