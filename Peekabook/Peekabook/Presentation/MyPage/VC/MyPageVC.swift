@@ -105,6 +105,11 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as? MyPageHeaderView else { return nil }
+        
+        view.editButtonTappedClosure = {[weak self] in
+            let editVC = EditMyPageVC()
+            self?.navigationController?.pushViewController(editVC, animated: true)
+        }
         return view
     }
     
