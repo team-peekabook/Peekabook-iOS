@@ -96,6 +96,8 @@ struct I18N {
     struct FollowStatus {
         static let follow = "팔로우"
         static let following = "팔로잉"
+        static let unfollowInfo = "님을\n언팔로우 하시겠어요?"
+        static let unfollow = "언팔로우"
     }
     
     struct BookRecommend {

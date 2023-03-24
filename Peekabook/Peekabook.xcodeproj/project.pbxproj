@@ -128,6 +128,7 @@
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CustomTextView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
+		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +254,7 @@
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98BA610B29A6403000A4C4E2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
+		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -491,6 +493,7 @@
 			children = (
 				8E10BA34295FF81700BCF58B /* BookShelfVC.swift */,
 				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
+				98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
+				98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
