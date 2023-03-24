@@ -20,6 +20,10 @@ final class DeclareVC: UIViewController {
         .addMiddleLabel(title: I18N.Declare.title)
         .addUnderlineView()
     
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let selectLabel = UILabel().then {
         $0.text = I18N.Declare.selectTitle
         $0.textColor = .peekaRed
@@ -81,6 +85,11 @@ final class DeclareVC: UIViewController {
         setLayout()
         register()
         addTapGesture()
+        addKeyboardObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -98,7 +107,9 @@ extension DeclareVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, selectLabel, declareTableView, bottomUnderLineView, boxView, declareInfoLabel, declareButton)
+        view.addSubviews(naviBar, containerView)
+
+        containerView.addSubviews(selectLabel, declareTableView, bottomUnderLineView, boxView, declareInfoLabel, declareButton)
         
         boxView.addSubview(textView)
         
@@ -106,26 +117,31 @@ extension DeclareVC {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
         selectLabel.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom).offset(49)
+            $0.top.equalToSuperview().offset(48)
             $0.leading.equalToSuperview().offset(20)
         }
         
         declareTableView.snp.makeConstraints {
             $0.top.equalTo(selectLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalTo(naviBar)
             $0.height.equalTo(260)
         }
         
         bottomUnderLineView.snp.makeConstraints {
             $0.top.equalTo(declareTableView.snp.bottom)
-            $0.leading.trailing.equalToSuperview().offset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }
-        
+
         boxView.snp.makeConstraints {
             $0.top.equalTo(declareTableView.snp.bottom).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalTo(declareTableView).inset(20)
             $0.height.equalTo(148)
         }
         
@@ -139,11 +155,12 @@ extension DeclareVC {
             $0.top.equalTo(textView.snp.bottom).offset(43)
             $0.leading.equalTo(boxView.snp.leading)
         }
-        
+
         declareButton.snp.makeConstraints {
             $0.top.equalTo(declareInfoLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalTo(boxView)
             $0.height.equalTo(56)
+            $0.bottom.equalToSuperview().inset(40)
         }
     }
 }
@@ -156,7 +173,43 @@ extension DeclareVC {
     }
     
     @objc private func declareButtonDidTap() {
-        print("울랄라")
+        print("신고완료")
+    }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        containerView.setContentOffset(CGPoint(x: 0, y: 350), animated: true)
+        return
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
     }
 }
 

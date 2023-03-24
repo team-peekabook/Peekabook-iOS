@@ -11,12 +11,12 @@ import Then
 
 final class DeclareTableViewCell: UITableViewCell {
     
-    var label = UILabel().then {
+    let label = UILabel().then {
         $0.font = .h2
         $0.textColor = .black
     }
     
-    lazy var radioButton = UIButton().then {
+    private lazy var radioButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.uncheckedButton, for: .normal)
         $0.setImage(ImageLiterals.Icn.checkedButton, for: .selected)
         $0.addTarget(self, action: #selector(radioButtonDidtap(_:)), for: .touchUpInside)
@@ -34,20 +34,6 @@ final class DeclareTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc private func radioButtonDidtap(_ sender: UIButton) {
-        guard let tableView = superview as? UITableView,
-              let indexPath = tableView.indexPath(for: self) else {
-            return
-        }
-        for cell in tableView.visibleCells {
-            if let cell = cell as? DeclareTableViewCell, cell !== self {
-                cell.radioButton.isSelected = false
-            }
-        }
-        sender.isSelected = true
-        tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
-    }
 }
 
 extension DeclareTableViewCell {
@@ -64,7 +50,7 @@ extension DeclareTableViewCell {
 
         radioButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.trailing.equalToSuperview().inset(20)
         }
 
         underLineView.snp.makeConstraints {
@@ -72,5 +58,19 @@ extension DeclareTableViewCell {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }
+    }
+    
+    @objc private func radioButtonDidtap(_ sender: UIButton) {
+        guard let tableView = superview as? UITableView,
+              let indexPath = tableView.indexPath(for: self) else {
+            return
+        }
+        for cell in tableView.visibleCells {
+            if let cell = cell as? DeclareTableViewCell, cell !== self {
+                cell.radioButton.isSelected = false
+            }
+        }
+        sender.isSelected = true
+        tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
 }
