@@ -39,6 +39,7 @@ struct ImageLiterals {
         static let pick = UIImage(named: "icn_pick")
         static let newPick = UIImage(named: "icn_newPick")
         static let profileEdit = UIImage(named: "icn_profileEdit")?.withRenderingMode(.alwaysOriginal)
+        static let leave = UIImage(named: "icn_leave")
     }
     
     struct Sample {
