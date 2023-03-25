@@ -26,6 +26,7 @@ final class CustomPopUpView: UIView {
     }
     
     private let blockDetailLabel = UILabel().then {
+        $0.text = I18N.BlockPopUp.blockDetailComment
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
@@ -102,7 +103,7 @@ extension CustomPopUpView {
     }
     
     private func setTwoButtonAndDetailLabelLayout() {
-        self.addSubview(blockDetailLabel)
+        self.addSubviews(blockDetailLabel, cancelButton)
         
         self.snp.updateConstraints {
             $0.height.equalTo(156)
