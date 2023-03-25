@@ -12,6 +12,7 @@ enum ButtonLabelStyle: CaseIterable {
     case delete
     case unfollow
     case block
+    case declare
 }
 
 final class CustomPopUpView: UIView {
@@ -23,8 +24,7 @@ final class CustomPopUpView: UIView {
         $0.textAlignment = .center
     }
     
-    private let detailLabel = UILabel().then {
-        $0.text = I18N.BlockPopUp.blockDetailComment
+    private let blockDetailLabel = UILabel().then {
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
@@ -60,7 +60,7 @@ final class CustomPopUpView: UIView {
 extension CustomPopUpView {
     
     private func setLayout(_ style: ButtonLabelStyle) {
-        addSubviews(confirmLabel, cancelButton, confirmButton)
+        addSubviews(confirmLabel, confirmButton)
         self.snp.makeConstraints {
             $0.width.equalTo(295)
             $0.height.equalTo(136)
@@ -71,10 +71,13 @@ extension CustomPopUpView {
             self.setTwoButtonLayout()
         case .block:
             self.setTwoButtonAndLabelLayout()
+        case .declare:
+            self.setOneButtonLayout()
         }
     }
     
     private func setTwoButtonLayout() {
+        self.addSubview(cancelButton)
         
         confirmLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
@@ -96,7 +99,7 @@ extension CustomPopUpView {
     }
     
     private func setTwoButtonAndLabelLayout() {
-        self.addSubview(detailLabel)
+        self.addSubview(blockDetailLabel)
         
         self.snp.updateConstraints {
             $0.height.equalTo(156)
@@ -107,13 +110,13 @@ extension CustomPopUpView {
             $0.centerX.equalToSuperview()
         }
         
-        detailLabel.snp.makeConstraints {
+        blockDetailLabel.snp.makeConstraints {
             $0.top.equalTo(confirmLabel.snp.bottom).offset(6)
             $0.centerX.equalToSuperview()
         }
 
         cancelButton.snp.makeConstraints {
-            $0.top.equalTo(detailLabel.snp.bottom).offset(18)
+            $0.top.equalTo(blockDetailLabel.snp.bottom).offset(18)
             $0.leading.equalToSuperview().offset(16)
             $0.width.equalTo(124)
             $0.height.equalTo(40)
@@ -123,6 +126,21 @@ extension CustomPopUpView {
             $0.top.equalTo(cancelButton)
             $0.trailing.equalToSuperview().offset(-16)
             $0.width.height.equalTo(cancelButton)
+        }
+    }
+    
+    private func setOneButtonLayout() {
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(31)
+            $0.centerX.equalToSuperview()
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(28)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(263)
+            $0.height.equalTo(40)
         }
     }
     
@@ -142,6 +160,9 @@ extension CustomPopUpView {
             if let personName = personName {
                 confirmLabel.text = personName + I18N.BlockPopUp.blockComment
             }
+        case .declare:
+            // StringLiterals 컨플릭트 방지용. 브런치 합친 후 수정
+            confirmLabel.text = "신고가 정상적으로 접수되었습니다."
         }
     }
     
@@ -162,6 +183,9 @@ extension CustomPopUpView {
         case .block:
             confirmButton.setTitle(I18N.BlockPopUp.block, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .declare:
+            confirmButton.setTitle("홈으로 돌아가기", for: .normal)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
