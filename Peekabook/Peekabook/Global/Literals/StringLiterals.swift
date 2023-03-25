@@ -96,7 +96,7 @@ struct I18N {
     struct FollowStatus {
         static let follow = "팔로우"
         static let following = "팔로잉"
-        static let unfollowInfo = "님을\n언팔로우 하시겠어요?"
+        static let unfollowComment = "님을\n언팔로우 하시겠어요?"
         static let unfollow = "언팔로우"
     }
     
@@ -113,5 +113,11 @@ struct I18N {
         static let followAlarm = "당신을 팔로우했어요!"
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
+    }
+    
+    struct BlockPopUp {
+        static let block = "차단하기"
+        static let blockComment = "님을 차단하시겠어요?"
+        static let blockDetailComment = "서로에게 추천한 책이 삭제되며,\n서로의 프로필을 볼 수 없게 돼요."
     }
 }
