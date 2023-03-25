@@ -20,6 +20,7 @@ final class MyPageTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MyPageTableViewCell.className)
+        setSelectionStyle()
         setLayout()
     }
     
@@ -46,5 +47,9 @@ extension MyPageTableViewCell {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(0.5)
         }
+    }
+    
+    private func setSelectionStyle() {
+        selectionStyle = .none
     }
 }

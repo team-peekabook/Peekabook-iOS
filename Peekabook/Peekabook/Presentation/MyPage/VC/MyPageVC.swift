@@ -32,7 +32,6 @@ final class MyPageVC: UIViewController {
 
     private lazy var myPageTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.isScrollEnabled = false
@@ -101,6 +100,28 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.label.text = myPageArray[safe: indexPath.row]!
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            print("알림설정")
+        case 1:
+            print("개인정보 보호 정책")
+        case 2:
+            print("문의하기")
+        case 3:
+            print("개발자 정보")
+        case 4:
+            print("로그아웃")
+            let popupViewController = LogoutPopUpVC()
+            popupViewController.modalPresentationStyle = .overFullScreen
+            self.present(popupViewController, animated: false)
+        case 5:
+            print("서비스 탈퇴하기")
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

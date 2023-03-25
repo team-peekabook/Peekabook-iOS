@@ -13,6 +13,7 @@ enum ButtonLabelStyle: CaseIterable {
     case unfollow
     case block
     case declare
+    case logout
 }
 
 final class CustomPopUpView: UIView {
@@ -68,15 +69,17 @@ extension CustomPopUpView {
         
         switch style {
         case .recommend, .delete, .unfollow:
-            self.setTwoButtonLayout()
+            self.setTwoButtonAndTwoLineLabelLayout()
         case .block:
-            self.setTwoButtonAndLabelLayout()
+            self.setTwoButtonAndDetailLabelLayout()
         case .declare:
             self.setOneButtonLayout()
+        case .logout:
+            self.setTwoButtonAndOneLineLabelLayout()
         }
     }
     
-    private func setTwoButtonLayout() {
+    private func setTwoButtonAndTwoLineLabelLayout() {
         self.addSubview(cancelButton)
         
         confirmLabel.snp.makeConstraints {
@@ -98,7 +101,7 @@ extension CustomPopUpView {
         }
     }
     
-    private func setTwoButtonAndLabelLayout() {
+    private func setTwoButtonAndDetailLabelLayout() {
         self.addSubview(blockDetailLabel)
         
         self.snp.updateConstraints {
@@ -130,7 +133,6 @@ extension CustomPopUpView {
     }
     
     private func setOneButtonLayout() {
-        
         confirmLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(31)
             $0.centerX.equalToSuperview()
@@ -141,6 +143,28 @@ extension CustomPopUpView {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.width.equalTo(263)
             $0.height.equalTo(40)
+        }
+    }
+    
+    private func setTwoButtonAndOneLineLabelLayout() {
+        self.addSubview(cancelButton)
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.centerX.equalToSuperview()
+        }
+        
+        cancelButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(26)
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(124)
+            $0.height.equalTo(40)
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(cancelButton)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.height.equalTo(cancelButton)
         }
     }
     
@@ -163,6 +187,8 @@ extension CustomPopUpView {
         case .declare:
             // StringLiterals 컨플릭트 방지용. 브런치 합친 후 수정
             confirmLabel.text = "신고가 정상적으로 접수되었습니다."
+        case .logout:
+            confirmLabel.text = I18N.Logout.logoutComment
         }
     }
     
@@ -186,6 +212,10 @@ extension CustomPopUpView {
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .declare:
             confirmButton.setTitle("홈으로 돌아가기", for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .logout:
+            confirmButton.setTitle(I18N.Logout.logout, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }

@@ -120,4 +120,9 @@ struct I18N {
         static let blockComment = "님을 차단하시겠어요?"
         static let blockDetailComment = "서로에게 추천한 책이 삭제되며,\n서로의 프로필을 볼 수 없게 돼요."
     }
+    
+    struct Logout {
+        static let logout = "로그아웃"
+        static let logoutComment = "로그아웃 하시겠어요?"
+    }
 }
