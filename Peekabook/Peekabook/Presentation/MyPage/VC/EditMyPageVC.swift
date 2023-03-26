@@ -37,7 +37,7 @@ class EditMyPageVC: UIViewController {
         $0.layer.cornerRadius = 12
     }
     
-    private let nicknameBoxView = UIView().then {
+    private let nicknameContainerView = UIView().then {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.peekaRed.cgColor
     }
@@ -56,6 +56,7 @@ class EditMyPageVC: UIViewController {
         $0.becomeFirstResponder()
         $0.returnKeyType = .done
         $0.font = .h2
+        $0.text = UserDefaults.standard.string(forKey: "userNickname")
     }
     private lazy var doubleCheckButton = UIButton().then {
         $0.setTitle(I18N.Profile.doubleCheck, for: .normal)
@@ -64,12 +65,15 @@ class EditMyPageVC: UIViewController {
         $0.titleLabel?.font = .c1
     }
     
+    private let introContainerView = CustomTextView()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundColor()
         setLayout()
+        introContainerView.updateTextView(type: .editProfileIntro)
     }
     
     @objc private func submitButtonDidTap() {
@@ -87,9 +91,9 @@ extension EditMyPageVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameBoxView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
-        nicknameBoxView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
+        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
         nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
     
@@ -113,7 +117,7 @@ extension EditMyPageVC {
             $0.height.width.equalTo(24)
         }
         
-        nicknameBoxView.snp.makeConstraints {
+        nicknameContainerView.snp.makeConstraints {
             $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(79)
@@ -144,6 +148,12 @@ extension EditMyPageVC {
             $0.trailing.equalToSuperview().inset(14)
             $0.height.equalTo(26)
             $0.width.equalTo(53)
+        }
+        
+        introContainerView.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
+            $0.trailing.leading.equalToSuperview().inset(20)
+            $0.height.equalTo(101)
         }
     }
 }

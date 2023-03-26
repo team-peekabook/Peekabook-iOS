@@ -15,6 +15,7 @@ enum CustomTextViewType: CaseIterable {
     case bookDetailComment
     case bookDetailMemo
     case bookProposal
+    case editProfileIntro
 }
 
 final class CustomTextView: UIView {
@@ -190,6 +191,11 @@ extension CustomTextView {
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
             boxView.backgroundColor = .peekaWhite_60
+        case .editProfileIntro:
+            label.text = I18N.Profile.oneLineIntro
+            textView.text = UserDefaults.standard.string(forKey: "userIntro")
+            textView.textColor = .peekaRed
+            proposalItemhidden()
         }
     }
     
@@ -222,7 +228,7 @@ extension CustomTextView: UITextViewDelegate {
             (textView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) ||
-        (textView.text == I18N.PlaceHolder.recommend) {
+            (textView.text == I18N.PlaceHolder.recommend) || (textView.text == I18N.PlaceHolder.profileIntro + placeholderBlank) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -236,15 +242,18 @@ extension CustomTextView: UITextViewDelegate {
             } else if label.text == I18N.BookProposal.personName {
                 textView.text = I18N.PlaceHolder.recommend
                 textView.textColor = .peekaGray1
-            } else {
+            } else if label.text == I18N.BookDetail.memo {
                 textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
+                textView.textColor = .peekaGray1
+            } else {
+                textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
                 textView.textColor = .peekaGray1
             }
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
+        if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName || label.text == I18N.Profile.oneLineIntro {
             maxLabel.text = "\(textView.text.count)/200"
             if textView.text.count > 200 {
                 textView.deleteBackward()
