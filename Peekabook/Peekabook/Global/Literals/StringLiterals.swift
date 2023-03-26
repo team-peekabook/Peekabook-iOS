@@ -113,4 +113,10 @@ struct I18N {
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
     }
+    
+    struct Profile {
+        static let nickname = "닉네임"
+        static let oneLineIntro = "한 줄 소개"
+        static let doubleCheck = "중복 확인"
+    }
 }
