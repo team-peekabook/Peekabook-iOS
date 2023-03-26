@@ -37,6 +37,33 @@ class EditMyPageVC: UIViewController {
         $0.layer.cornerRadius = 12
     }
     
+    private let nicknameBoxView = UIView().then {
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.peekaRed.cgColor
+    }
+    
+    private let nicknameHeaderView = UIView()
+    private let nicknameLabel = UILabel().then {
+        $0.text = I18N.Profile.nickname
+        $0.font = .h1
+        $0.textColor = .peekaWhite
+    }
+    private let nicknameTextContainerView = UIView()
+    private let nicknameTextField = UITextField().then {
+        $0.textColor = .peekaRed
+        $0.addLeftPadding()
+        $0.autocorrectionType = .no
+        $0.becomeFirstResponder()
+        $0.returnKeyType = .done
+        $0.font = .h2
+    }
+    private lazy var doubleCheckButton = UIButton().then {
+        $0.setTitle(I18N.Profile.doubleCheck, for: .normal)
+        $0.backgroundColor = .peekaRed
+        $0.setTitleColor(.peekaWhite, for: .normal)
+        $0.titleLabel?.font = .c1
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -56,12 +83,16 @@ extension EditMyPageVC {
     
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
+        nicknameHeaderView.backgroundColor = .peekaRed
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameBoxView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
-        
+        nicknameBoxView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
+        nicknameHeaderView.addSubviews(nicknameLabel)
+        nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
+    
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
@@ -80,6 +111,39 @@ extension EditMyPageVC {
         editImageButton.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview()
             $0.height.width.equalTo(24)
+        }
+        
+        nicknameBoxView.snp.makeConstraints {
+            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(79)
+        }
+        
+        nicknameHeaderView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(36)
+        }
+        
+        nicknameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(14)
+            $0.centerY.equalToSuperview()
+        }
+        
+        nicknameTextContainerView.snp.makeConstraints {
+            $0.top.equalTo(nicknameHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        nicknameTextField.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        doubleCheckButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(7)
+            $0.trailing.equalToSuperview().inset(14)
+            $0.height.equalTo(26)
+            $0.width.equalTo(53)
         }
     }
 }
