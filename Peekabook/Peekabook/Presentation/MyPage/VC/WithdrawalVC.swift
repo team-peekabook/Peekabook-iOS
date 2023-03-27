@@ -89,6 +89,8 @@ extension WithdrawalVC {
     // MARK: - @objc Function
     
     @objc private func withdrawalButtonDidTap() {
-        print("탈퇴하기")
+        let withdrawalViewController = WithdrawalPopUpVC()
+        withdrawalViewController.modalPresentationStyle = .overFullScreen
+        self.present(withdrawalViewController, animated: false)
     }
 }

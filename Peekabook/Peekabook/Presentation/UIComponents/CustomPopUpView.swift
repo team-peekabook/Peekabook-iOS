@@ -14,6 +14,7 @@ enum ButtonLabelStyle: CaseIterable {
     case block
     case declare
     case logout
+    case withdrawal
 }
 
 final class CustomPopUpView: UIView {
@@ -31,6 +32,12 @@ final class CustomPopUpView: UIView {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.font = .s3
+    }
+    
+    private let withdrawalDetailLabel = UILabel().then {
+        $0.text = I18N.Withdrawal.popUpDetailComment
+        $0.textColor = .peekaRed
+        $0.font = .h2
     }
     
     private lazy var cancelButton = UIButton(type: .system).then {
@@ -77,6 +84,8 @@ extension CustomPopUpView {
             self.setOneButtonLayout()
         case .logout:
             self.setTwoButtonAndOneLineLabelLayout()
+        case .withdrawal:
+            self.setOneButtonAndTwoLineLabelLayout()
         }
     }
     
@@ -169,6 +178,32 @@ extension CustomPopUpView {
         }
     }
     
+    private func setOneButtonAndTwoLineLabelLayout() {
+        self.addSubview(withdrawalDetailLabel)
+        changeFontToBold()
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18)
+            $0.centerX.equalToSuperview()
+        }
+        
+        withdrawalDetailLabel.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(withdrawalDetailLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(263)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func changeFontToBold() {
+        confirmLabel.font = .nameBold
+    }
+    
     func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
         switch style {
         case .recommend:
@@ -190,6 +225,8 @@ extension CustomPopUpView {
             confirmLabel.text = "신고가 정상적으로 접수되었습니다."
         case .logout:
             confirmLabel.text = I18N.Logout.logoutComment
+        case .withdrawal:
+            confirmLabel.text = I18N.Withdrawal.popUpComment
         }
     }
     
@@ -218,6 +255,9 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.Logout.logout, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .withdrawal:
+            confirmButton.setTitle(I18N.Withdrawal.confirm, for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(WithdrawalPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

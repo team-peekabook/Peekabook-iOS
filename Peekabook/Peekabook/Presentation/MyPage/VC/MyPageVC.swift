@@ -119,9 +119,9 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
             self.present(popupViewController, animated: false)
         case 5:
             print("서비스 탈퇴하기")
-            let leaveViewController = LogoutPopUpVC()
-            leaveViewController.modalPresentationStyle = .overFullScreen
-            self.present(leaveViewController, animated: false)
+            let withdrawalViewController = WithdrawalVC()
+            withdrawalViewController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(withdrawalViewController, animated: true)
         default:
             break
         }

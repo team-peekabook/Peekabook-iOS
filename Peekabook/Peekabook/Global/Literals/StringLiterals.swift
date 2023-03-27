@@ -132,6 +132,6 @@ struct I18N {
         static let button = "탈퇴하기"
         static let popUpComment = "서비스 탈퇴 완료"
         static let popUpDetailComment = "이용해주셔서 감사합니다."
-        static let confirm = "완료"
+        static let confirm = "확인"
     }
 }
