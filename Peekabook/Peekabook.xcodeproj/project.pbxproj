@@ -132,7 +132,7 @@
 		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
 		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
 		98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */; };
-		98F1804329CE84E100550E45 /* LeaveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* LeaveVC.swift */; };
+		98F1804329CE84E100550E45 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* WithdrawalVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -262,7 +262,7 @@
 		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
 		98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpVC.swift; sourceTree = "<group>"; };
-		98F1804229CE84E100550E45 /* LeaveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveVC.swift; sourceTree = "<group>"; };
+		98F1804229CE84E100550E45 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,7 +540,7 @@
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
 				98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */,
-				98F1804229CE84E100550E45 /* LeaveVC.swift */,
+				98F1804229CE84E100550E45 /* WithdrawalVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1043,7 +1043,7 @@
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
-				98F1804329CE84E100550E45 /* LeaveVC.swift in Sources */,
+				98F1804329CE84E100550E45 /* WithdrawalVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,

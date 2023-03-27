@@ -20,7 +20,7 @@ final class UnfollowPopUpVC: UIViewController {
 
     // MARK: - UI Components
     
-    private lazy var unfollowPopUpVC = CustomPopUpView(frame: .zero, style: .unfollow, viewController: self)
+    private lazy var unfollowCustomPopUpView = CustomPopUpView(frame: .zero, style: .unfollow, viewController: self)
     private let personNameLabel = UILabel().then {
         $0.font = .h4
         $0.textColor = .peekaRed
@@ -42,14 +42,14 @@ extension UnfollowPopUpVC {
 
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        unfollowPopUpVC.backgroundColor = .peekaBeige
-        unfollowPopUpVC.getConfirmLabel(style: .unfollow, personName: personName)
+        unfollowCustomPopUpView.backgroundColor = .peekaBeige
+        unfollowCustomPopUpView.getConfirmLabel(style: .unfollow, personName: personName)
     }
     
     private func setLayout() {
-        view.addSubview(unfollowPopUpVC)
+        view.addSubview(unfollowCustomPopUpView)
         
-        unfollowPopUpVC.snp.makeConstraints {
+        unfollowCustomPopUpView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(136)
