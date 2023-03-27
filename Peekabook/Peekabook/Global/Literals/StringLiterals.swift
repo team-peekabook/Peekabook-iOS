@@ -126,9 +126,9 @@ struct I18N {
         static let logoutComment = "로그아웃 하시겠어요?"
     }
     
-    struct Withdrawal {
+    struct DeleteAccount {
         static let title = "서비스 탈퇴"
-        static let withdrawalComment = "서비스 탈퇴 시,\n사용자의 데이터는 복구되지 않습니다.\n사용자의 개인 정보는 ‘개인정보 보호방침'에 따라\n일정 기간 보관 후 파기됩니다."
+        static let deleteAccountComment = "서비스 탈퇴 시,\n사용자의 데이터는 복구되지 않습니다.\n사용자의 개인 정보는 ‘개인정보 보호방침'에 따라\n일정 기간 보관 후 파기됩니다."
         static let button = "탈퇴하기"
         static let popUpComment = "서비스 탈퇴 완료"
         static let popUpDetailComment = "이용해주셔서 감사합니다."

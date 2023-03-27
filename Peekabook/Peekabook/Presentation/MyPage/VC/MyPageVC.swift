@@ -12,18 +12,16 @@ import Then
 
 import Moya
 
-final class MyPageVC: UIViewController {
-    
-    // MARK: - Properties
+enum MyPageOption: String, CaseIterable {
+    case notificationSetting = "알림 설정"
+    case privacyPolicy = "개인정보 보호 정책 & 서비스 이용 약관"
+    case contactUs = "문의하기"
+    case developerInfo = "개발자 정보"
+    case logout = "로그아웃"
+    case deleteAccount = "서비스 탈퇴하기"
+}
 
-    private let myPageArray: [String] = [
-        "알림 설정",
-        "개인정보 보호 정책 & 서비스 이용 약관",
-        "문의하기",
-        "개발자 정보",
-        "로그아웃",
-        "서비스 탈퇴하기"
-    ]
+final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
     
@@ -90,7 +88,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPageArray.count
+        return MyPageOption.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,32 +96,30 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.label.text = myPageArray[safe: indexPath.row]!
+        cell.label.text = MyPageOption.allCases[indexPath.row].rawValue
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+        switch MyPageOption.allCases[indexPath.row] {
+        case .notificationSetting:
             print("알림설정")
-        case 1:
+        case .privacyPolicy:
             print("개인정보 보호 정책")
-        case 2:
+        case .contactUs:
             print("문의하기")
-        case 3:
+        case .developerInfo:
             print("개발자 정보")
-        case 4:
+        case .logout:
             print("로그아웃")
             let popupViewController = LogoutPopUpVC()
             popupViewController.modalPresentationStyle = .overFullScreen
             self.present(popupViewController, animated: false)
-        case 5:
+        case .deleteAccount:
             print("서비스 탈퇴하기")
-            let withdrawalViewController = WithdrawalVC()
+            let withdrawalViewController = DeleteAccountVC()
             withdrawalViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(withdrawalViewController, animated: true)
-        default:
-            break
         }
     }
     

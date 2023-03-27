@@ -14,7 +14,7 @@ enum ButtonLabelStyle: CaseIterable {
     case block
     case declare
     case logout
-    case withdrawal
+    case deleteAccount
 }
 
 final class CustomPopUpView: UIView {
@@ -34,8 +34,8 @@ final class CustomPopUpView: UIView {
         $0.font = .s3
     }
     
-    private let withdrawalDetailLabel = UILabel().then {
-        $0.text = I18N.Withdrawal.popUpDetailComment
+    private let deleteAccountDetailLabel = UILabel().then {
+        $0.text = I18N.DeleteAccount.popUpDetailComment
         $0.textColor = .peekaRed
         $0.font = .h2
     }
@@ -84,7 +84,7 @@ extension CustomPopUpView {
             self.setOneButtonLayout()
         case .logout:
             self.setTwoButtonAndOneLineLabelLayout()
-        case .withdrawal:
+        case .deleteAccount:
             self.setOneButtonAndTwoLineLabelLayout()
         }
     }
@@ -179,7 +179,7 @@ extension CustomPopUpView {
     }
     
     private func setOneButtonAndTwoLineLabelLayout() {
-        self.addSubview(withdrawalDetailLabel)
+        self.addSubview(deleteAccountDetailLabel)
         changeFontToBold()
         
         confirmLabel.snp.makeConstraints {
@@ -187,13 +187,13 @@ extension CustomPopUpView {
             $0.centerX.equalToSuperview()
         }
         
-        withdrawalDetailLabel.snp.makeConstraints {
+        deleteAccountDetailLabel.snp.makeConstraints {
             $0.top.equalTo(confirmLabel.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
         
         confirmButton.snp.makeConstraints {
-            $0.top.equalTo(withdrawalDetailLabel.snp.bottom).offset(15)
+            $0.top.equalTo(deleteAccountDetailLabel.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.width.equalTo(263)
             $0.height.equalTo(40)
@@ -225,8 +225,8 @@ extension CustomPopUpView {
             confirmLabel.text = "신고가 정상적으로 접수되었습니다."
         case .logout:
             confirmLabel.text = I18N.Logout.logoutComment
-        case .withdrawal:
-            confirmLabel.text = I18N.Withdrawal.popUpComment
+        case .deleteAccount:
+            confirmLabel.text = I18N.DeleteAccount.popUpComment
         }
     }
     
@@ -255,9 +255,9 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.Logout.logout, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
-        case .withdrawal:
-            confirmButton.setTitle(I18N.Withdrawal.confirm, for: .normal)
-            confirmButton.addTarget(viewController, action: #selector(WithdrawalPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .deleteAccount:
+            confirmButton.setTitle(I18N.DeleteAccount.confirm, for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(DeleteAccountPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

@@ -132,8 +132,8 @@
 		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
 		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
 		98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */; };
-		98F1804329CE84E100550E45 /* WithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* WithdrawalVC.swift */; };
-		98F1804529D19EB800550E45 /* WithdrawalPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804429D19EB800550E45 /* WithdrawalPopUpVC.swift */; };
+		98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* DeleteAccountVC.swift */; };
+		98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -263,8 +263,8 @@
 		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
 		98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpVC.swift; sourceTree = "<group>"; };
-		98F1804229CE84E100550E45 /* WithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalVC.swift; sourceTree = "<group>"; };
-		98F1804429D19EB800550E45 /* WithdrawalPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalPopUpVC.swift; sourceTree = "<group>"; };
+		98F1804229CE84E100550E45 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
+		98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,8 +542,8 @@
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
 				98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */,
-				98F1804229CE84E100550E45 /* WithdrawalVC.swift */,
-				98F1804429D19EB800550E45 /* WithdrawalPopUpVC.swift */,
+				98F1804229CE84E100550E45 /* DeleteAccountVC.swift */,
+				98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1042,12 +1042,12 @@
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
-				98F1804529D19EB800550E45 /* WithdrawalPopUpVC.swift in Sources */,
+				98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
-				98F1804329CE84E100550E45 /* WithdrawalVC.swift in Sources */,
+				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,

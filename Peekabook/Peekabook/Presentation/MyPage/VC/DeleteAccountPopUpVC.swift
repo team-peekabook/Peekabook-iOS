@@ -1,5 +1,5 @@
 //
-//  WithdrawalPopUpVC.swift
+//  DeleteAccountPopUpVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/03/27.
@@ -12,11 +12,11 @@ import Then
 
 import Moya
 
-final class WithdrawalPopUpVC: UIViewController {
+final class DeleteAccountPopUpVC: UIViewController {
 
     // MARK: - UI Components
     
-    private lazy var withdrawalPopUpVC = CustomPopUpView(frame: .zero, style: .withdrawal, viewController: self)
+    private lazy var deleteAccountPopUpVC = CustomPopUpView(frame: .zero, style: .deleteAccount, viewController: self)
 
     // MARK: - View Life Cycle
 
@@ -28,18 +28,18 @@ final class WithdrawalPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension WithdrawalPopUpVC {
+extension DeleteAccountPopUpVC {
 
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        withdrawalPopUpVC.backgroundColor = .peekaBeige
-        withdrawalPopUpVC.getConfirmLabel(style: .withdrawal)
+        deleteAccountPopUpVC.backgroundColor = .peekaBeige
+        deleteAccountPopUpVC.getConfirmLabel(style: .deleteAccount)
     }
     
     private func setLayout() {
-        view.addSubview(withdrawalPopUpVC)
+        view.addSubview(deleteAccountPopUpVC)
         
-        withdrawalPopUpVC.snp.makeConstraints {
+        deleteAccountPopUpVC.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(136)
@@ -49,7 +49,7 @@ extension WithdrawalPopUpVC {
 
 // MARK: - Methods
 
-extension WithdrawalPopUpVC {
+extension DeleteAccountPopUpVC {
     
     @objc func confirmButtonDidTap() {
         print("탈퇴완료")
