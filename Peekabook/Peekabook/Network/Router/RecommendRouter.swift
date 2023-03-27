@@ -40,6 +40,6 @@ extension RecommendRouter: TargetType {
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.hasUserIdHeader
+        return NetworkConstant.hasTokenHeader
     }
 }
