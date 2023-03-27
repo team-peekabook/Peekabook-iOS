@@ -201,19 +201,18 @@ final class BookShelfVC: UIViewController {
     @objc
     private func moreButtonDidTap(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "언팔로우", style: .default, handler: {(ACTION: UIAlertAction) in
-            print("언팔로우")
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "신고하기", style: .destructive, handler: {(ACTION: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
-            let declareVC = DeclareVC()
-            declareVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(declareVC, animated: true)
+            let reportVC = ReportVC()
+            reportVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(reportVC, animated: true)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "차단하기", style: .destructive, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.cancel, style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }

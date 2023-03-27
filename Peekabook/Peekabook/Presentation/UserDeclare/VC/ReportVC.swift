@@ -1,5 +1,5 @@
 //
-//  DeclareVC.swift
+//  ReportVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/03/21.
@@ -12,20 +12,45 @@ import Then
 
 import Moya
 
-final class DeclareVC: UIViewController {
+enum ReportMenu {
+    case post
+    case insults
+    case promote
+    case nickname
+    case etc
+    
+    var rawValue: String {
+        switch self {
+        case .post:
+            return I18N.Report.post
+        case .insults:
+            return I18N.Report.insults
+        case .promote:
+            return I18N.Report.promote
+        case .nickname:
+            return I18N.Report.nickname
+        case .etc:
+            return I18N.Report.etc
+        }
+    }
+}
+
+final class ReportVC: UIViewController {
 
     // MARK: - UI Components
     
+    private let reportArray: [ReportMenu] = [.post, .insults, .promote, .nickname, .etc]
+    
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
-        .addMiddleLabel(title: I18N.Declare.title)
+        .addMiddleLabel(title: I18N.Report.title)
         .addUnderlineView()
     
-    private let containerView = UIScrollView().then {
+    private let containerScorllView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
     }
     
     private let selectLabel = UILabel().then {
-        $0.text = I18N.Declare.selectTitle
+        $0.text = I18N.Report.selectTitle
         $0.textColor = .peekaRed
         $0.font = .h3
     }
@@ -35,19 +60,9 @@ final class DeclareVC: UIViewController {
         $0.allowsSelection = false
         $0.separatorStyle = .none
         $0.isScrollEnabled = false
-        $0.delegate = self
-        $0.dataSource = self
     }
     
     private let topLineView = UIView()
-    
-    private let declareArray: [String] = [
-        I18N.Declare.reason1,
-        I18N.Declare.reason2,
-        I18N.Declare.reason3,
-        I18N.Declare.reason4,
-        I18N.Declare.reason5
-    ]
     
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
@@ -55,7 +70,7 @@ final class DeclareVC: UIViewController {
     }
     
     private lazy var textView = UITextView().then {
-        $0.text = I18N.Declare.placeholder
+        $0.text = I18N.Report.placeholder
         $0.font = .h2
         $0.textColor = .peekaGray1
         $0.autocorrectionType = .no
@@ -64,13 +79,13 @@ final class DeclareVC: UIViewController {
     }
     
     private let declareInfoLabel = UILabel().then {
-        $0.text = I18N.Declare.declareInfo
+        $0.text = I18N.Report.declareInfo
         $0.font = .s2
         $0.textColor = .peekaRed
     }
     
     private lazy var declareButton = UIButton(type: .system).then {
-        $0.setTitle(I18N.Declare.buttonTitle, for: .normal)
+        $0.setTitle(I18N.Report.buttonTitle, for: .normal)
         $0.titleLabel!.font = .h3
         $0.setTitleColor(.white, for: .normal)
         $0.addTarget(self, action: #selector(declareButtonDidTap), for: .touchUpInside)
@@ -83,7 +98,7 @@ final class DeclareVC: UIViewController {
         setDelegate()
         setBackgroundColor()
         setLayout()
-        register()
+        registerCell()
         addTapGesture()
         addKeyboardObserver()
     }
@@ -95,7 +110,7 @@ final class DeclareVC: UIViewController {
 
 // MARK: - UI & Layout
 
-extension DeclareVC {
+extension ReportVC {
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
@@ -107,9 +122,9 @@ extension DeclareVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, containerView)
+        view.addSubviews(naviBar, containerScorllView)
 
-        containerView.addSubviews(selectLabel, declareTableView, topLineView, boxView, declareInfoLabel, declareButton)
+        containerScorllView.addSubviews(selectLabel, declareTableView, topLineView, boxView, declareInfoLabel, declareButton)
         
         boxView.addSubview(textView)
         
@@ -117,7 +132,7 @@ extension DeclareVC {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        containerView.snp.makeConstraints {
+        containerScorllView.snp.makeConstraints {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
@@ -167,9 +182,15 @@ extension DeclareVC {
 
 // MARK: - Methods
 
-extension DeclareVC {
-    private func register() {
-        declareTableView.register(DeclareTableViewCell.self, forCellReuseIdentifier: DeclareTableViewCell.className)
+extension ReportVC {
+    private func setDelegate() {
+        textView.delegate = self
+        declareTableView.delegate = self
+        declareTableView.dataSource = self
+    }
+    
+    private func registerCell() {
+        declareTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
     }
     
     @objc private func declareButtonDidTap() {
@@ -200,35 +221,35 @@ extension DeclareVC {
             left: 0.0,
             bottom: keyboardFrame.size.height,
             right: 0.0)
-        containerView.contentInset = contentInset
-        containerView.scrollIndicatorInsets = contentInset
-        containerView.setContentOffset(CGPoint(x: 0, y: 350), animated: true)
+        containerScorllView.contentInset = contentInset
+        containerScorllView.scrollIndicatorInsets = contentInset
+        containerScorllView.setContentOffset(CGPoint(x: 0, y: 350), animated: true)
         return
     }
     
     @objc private func keyboardWillHide() {
         let contentInset = UIEdgeInsets.zero
-        containerView.contentInset = contentInset
-        containerView.scrollIndicatorInsets = contentInset
+        containerScorllView.contentInset = contentInset
+        containerScorllView.scrollIndicatorInsets = contentInset
     }
 }
 
-extension DeclareVC: UITableViewDelegate, UITableViewDataSource {
+extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 52
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return declareArray.count
+        return reportArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DeclareTableViewCell.className, for: indexPath) as? DeclareTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReportTVC.className, for: indexPath) as? ReportTVC
         else {
             return UITableViewCell()
         }
-        cell.label.text = declareArray[safe: indexPath.row]!
+        cell.setLabel(with: reportArray[safe: indexPath.row]!.rawValue)
         return cell
     }
     
@@ -237,14 +258,10 @@ extension DeclareVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension DeclareVC: UITextViewDelegate {
-    
-    private func setDelegate() {
-        textView.delegate = self
-    }
+extension ReportVC: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == I18N.Declare.placeholder {
+        if textView.text == I18N.Report.placeholder {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -252,7 +269,7 @@ extension DeclareVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = I18N.Declare.placeholder
+            textView.text = I18N.Report.placeholder
             textView.textColor = .peekaGray1
         }
     }

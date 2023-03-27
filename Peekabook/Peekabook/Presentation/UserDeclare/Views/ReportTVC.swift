@@ -1,5 +1,5 @@
 //
-//  DeclareTableViewCell.swift
+//  ReportTVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/03/21.
@@ -9,25 +9,27 @@ import UIKit
 import SnapKit
 import Then
 
-final class DeclareTableViewCell: UITableViewCell {
+final class ReportTVC: UITableViewCell {
     
-    let label = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.font = .h2
         $0.textColor = .black
     }
     
+    func setLabel(with text: String) {
+        titleLabel.text = text
+    }
+    
     private lazy var radioButton = UIButton().then {
-        $0.setImage(ImageLiterals.Icn.uncheckedButton, for: .normal)
-        $0.setImage(ImageLiterals.Icn.checkedButton, for: .selected)
-        $0.addTarget(self, action: #selector(radioButtonDidtap(_:)), for: .touchUpInside)
+        $0.setImage(ImageLiterals.Icn.radio_uncheck, for: .normal)
+        $0.setImage(ImageLiterals.Icn.radio_check, for: .selected)
+        $0.addTarget(self, action: #selector(radioButtonDidtap), for: .touchUpInside)
     }
 
     private let underLineView = UIView()
 
-    var radioButtonAction: (() -> Void)?
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: DeclareTableViewCell.className)
+        super.init(style: style, reuseIdentifier: ReportTVC.className)
         setLayout()
     }
 
@@ -36,14 +38,16 @@ final class DeclareTableViewCell: UITableViewCell {
     }
 }
 
-extension DeclareTableViewCell {
+extension ReportTVC {
+    private func setBackgroundColor() {
+        backgroundColor = .peekaBeige
+        underLineView.backgroundColor = .peekaGray1
+    }
 
     private func setLayout() {
-        underLineView.backgroundColor = .peekaGray1
-        backgroundColor = .peekaBeige
-        contentView.addSubviews(label, radioButton, underLineView)
+        contentView.addSubviews(titleLabel, radioButton, underLineView)
 
-        label.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
         }
@@ -66,7 +70,7 @@ extension DeclareTableViewCell {
             return
         }
         for cell in tableView.visibleCells {
-            if let cell = cell as? DeclareTableViewCell, cell !== self {
+            if let cell = cell as? ReportTVC, cell !== self {
                 cell.radioButton.isSelected = false
             }
         }
