@@ -16,6 +16,8 @@ class EditMyPageVC: UIViewController {
     
     // MARK: - Properties
     
+    private let dummyName: String = "북과빅"
+    
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
@@ -49,7 +51,7 @@ class EditMyPageVC: UIViewController {
         $0.textColor = .peekaWhite
     }
     private let nicknameTextContainerView = UIView()
-    private let nicknameTextField = UITextField().then {
+    private lazy var nicknameTextField = UITextField().then {
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -57,12 +59,20 @@ class EditMyPageVC: UIViewController {
         $0.returnKeyType = .done
         $0.font = .h2
         $0.text = UserDefaults.standard.string(forKey: "userNickname")
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
-    private lazy var doubleCheckButton = UIButton().then {
+    private lazy var doubleCheckButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Profile.doubleCheck, for: .normal)
-        $0.backgroundColor = .peekaRed
+        $0.backgroundColor = .peekaGray1
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .c1
+        $0.addTarget(self, action: #selector(doubleCheckButtonDidTap), for: .touchUpInside)
+    }
+    private let doubleCheckErrorLabel = UILabel().then {
+        $0.text = I18N.Profile.doubleCheckError
+        $0.font = .s3
+        $0.textColor = .peekaRed
+        $0.isHidden = true
     }
     
     private let introContainerView = CustomTextView()
@@ -79,6 +89,30 @@ class EditMyPageVC: UIViewController {
     @objc private func submitButtonDidTap() {
         print("완료")
     }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if textField.text != nicknameTextField.text {
+            doubleCheckButton.backgroundColor = .peekaGray1
+        } else {
+            doubleCheckButton.backgroundColor = .peekaRed
+        }
+        doubleCheckErrorLabel.isHidden = true
+    }
+    
+    @objc private func doubleCheckButtonDidTap() {
+        let isDuplicated = checkIfDuplicated(nicknameTextField.text)
+        doubleCheckButton.backgroundColor = isDuplicated ? .peekaRed : .peekaGray1
+    }
+    
+    private func checkIfDuplicated(_ text: String?) -> Bool {
+        if text != dummyName {
+            doubleCheckErrorLabel.isHidden = true
+            return false
+        } else {
+            doubleCheckErrorLabel.isHidden = false
+            return true
+        }
+    }
 }
 
 // MARK: - UI & Layout
@@ -91,7 +125,7 @@ extension EditMyPageVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, introContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -148,6 +182,11 @@ extension EditMyPageVC {
             $0.trailing.equalToSuperview().inset(14)
             $0.height.equalTo(26)
             $0.width.equalTo(53)
+        }
+        
+        doubleCheckErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
         }
         
         introContainerView.snp.makeConstraints {

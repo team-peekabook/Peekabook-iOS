@@ -119,5 +119,6 @@ struct I18N {
         static let nickname = "닉네임"
         static let oneLineIntro = "한 줄 소개"
         static let doubleCheck = "중복 확인"
+        static let doubleCheckError = "이미 사용 중인 닉네임 입니다"
     }
 }
