@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icn_delete.png",
+      "filename" : "icn_delete_account.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icn_delete@2x.png",
+      "filename" : "icn_delete_account@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icn_delete@3x.png",
+      "filename" : "icn_delete_account@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
