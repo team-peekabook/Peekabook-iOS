@@ -12,18 +12,37 @@ import Then
 
 import Moya
 
-enum MyPageOption: String, CaseIterable {
-    case notificationSetting = "알림 설정"
-    case privacyPolicy = "개인정보 보호 정책 & 서비스 이용 약관"
-    case contactUs = "문의하기"
-    case developerInfo = "개발자 정보"
-    case logout = "로그아웃"
-    case deleteAccount = "서비스 탈퇴하기"
+enum MyPageOption {
+    case notificationSetting
+    case privacyPolicy
+    case contactUs
+    case developerInfo
+    case logout
+    case deleteAccount
+    
+    var rawValue: String {
+        switch self {
+        case .notificationSetting:
+            return I18N.MyPageOption.notificationSetting
+        case .privacyPolicy:
+            return I18N.MyPageOption.privacyPolicy
+        case .contactUs:
+            return I18N.MyPageOption.contactUs
+        case .developerInfo:
+            return I18N.MyPageOption.developerInfo
+        case .logout:
+            return I18N.MyPageOption.logout
+        case .deleteAccount:
+            return I18N.MyPageOption.deleteAccount
+        }
+    }
 }
 
 final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
+    
+    private let optionArray: [MyPageOption] = [.notificationSetting, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
@@ -88,7 +107,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MyPageOption.allCases.count
+        return optionArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,12 +115,12 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.label.text = MyPageOption.allCases[indexPath.row].rawValue
+        cell.label.text = optionArray[safe: indexPath.row]!.rawValue
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch MyPageOption.allCases[indexPath.row] {
+        switch optionArray[safe: indexPath.row]! {
         case .notificationSetting:
             print("알림설정")
         case .privacyPolicy:

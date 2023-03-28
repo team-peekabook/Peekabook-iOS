@@ -134,4 +134,13 @@ struct I18N {
         static let popUpDetailComment = "이용해주셔서 감사합니다."
         static let confirm = "확인"
     }
+    
+    struct MyPageOption {
+        static let notificationSetting = "알림 설정"
+        static let privacyPolicy = "개인정보 보호 정책 & 서비스 이용 약관"
+        static let contactUs = "문의하기"
+        static let developerInfo = "개발자 정보"
+        static let logout = "로그아웃"
+        static let deleteAccount = "서비스 탈퇴하기"
+    }
 }
