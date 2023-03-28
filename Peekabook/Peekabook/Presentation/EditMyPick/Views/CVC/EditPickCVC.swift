@@ -23,7 +23,7 @@ final class EditPickCVC: UICollectionViewCell {
     
     private let rankingLabel: UILabel = {
         let lb = UILabel()
-        lb.font = .engC
+        lb.font = .engC14
         lb.backgroundColor = .peekaRed
         lb.textColor = .peekaWhite
         lb.clipsToBounds = true

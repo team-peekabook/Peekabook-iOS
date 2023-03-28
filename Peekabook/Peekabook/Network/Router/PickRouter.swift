@@ -47,6 +47,6 @@ extension PickRouter: TargetType {
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.hasUserIdHeader
+        return NetworkConstant.hasTokenHeader
     }
 }

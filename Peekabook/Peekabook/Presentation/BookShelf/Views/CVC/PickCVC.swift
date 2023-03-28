@@ -18,7 +18,7 @@ final class PickCVC: UICollectionViewCell {
     private let rankingBackgroundView = UIView()
     
     private let rankingLabel = UILabel().then {
-        $0.font = .engC
+        $0.font = .engC14
         $0.textColor = .peekaWhite
     }
     

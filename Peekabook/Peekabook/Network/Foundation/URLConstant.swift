@@ -19,4 +19,8 @@ struct URLConstant {
     static let recommend = "/recommend"
     static let friend = "/friend"
     static let alarm = "/alarm"
+    static let mypage = "/mypage"
+    static let user = "/user"
+    static let auth = "/auth"
+    static let block = "/block"
 }
