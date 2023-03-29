@@ -17,7 +17,7 @@ final class MyPageVC: UIViewController {
     // MARK: - Properties
 
     private let myPageArray: [String] = [
-        "알림 설정",
+        "차단사용자 관리하기",
         "개인정보 보호 정책 & 서비스 이용 약관",
         "문의하기",
         "개발자 정보",
@@ -32,7 +32,6 @@ final class MyPageVC: UIViewController {
 
     private lazy var myPageTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.isScrollEnabled = false
@@ -77,7 +76,7 @@ extension MyPageVC {
 extension MyPageVC {
     
     private func registerCells() {
-        myPageTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.className)
+        myPageTableView.register(MyPageTVC.self, forCellReuseIdentifier: MyPageTVC.className)
         myPageTableView.register(
             MyPageHeaderView.self,
             forHeaderFooterViewReuseIdentifier: MyPageHeaderView.className)
@@ -95,12 +94,27 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.className, for: indexPath) as? MyPageTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTVC.className, for: indexPath) as? MyPageTVC
         else {
             return UITableViewCell()
         }
         cell.label.text = myPageArray[safe: indexPath.row]!
+//        cell.selectionStyle = .none
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .peekaBlack.withAlphaComponent(0.02)
+        cell.selectedBackgroundView = bgColorView
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let manageBlockedUsersVC = ManageBlockedUsersVC()
+            manageBlockedUsersVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(manageBlockedUsersVC, animated: true)
+        } else {
+            
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -11,7 +11,7 @@
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
 		1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D541296354B200CA72D0 /* RecommendListTVC.swift */; };
-		143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */; };
+		143DBFD52971ECE20056C609 /* MyPageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTVC.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
@@ -53,6 +53,8 @@
 		8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037529D1F4F200A829A6 /* UserAPI.swift */; };
 		8E45037829D1F4FD00A829A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037729D1F4FD00A829A6 /* AuthAPI.swift */; };
 		8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037929D1F50300A829A6 /* BlockAPI.swift */; };
+		8E4503A129D46CA900A829A6 /* ManageBlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */; };
+		8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -143,7 +145,7 @@
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
 		1431D541296354B200CA72D0 /* RecommendListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendListTVC.swift; sourceTree = "<group>"; };
-		143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
+		143DBFD42971ECE20056C609 /* MyPageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTVC.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
@@ -185,6 +187,8 @@
 		8E45037529D1F4F200A829A6 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		8E45037729D1F4FD00A829A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		8E45037929D1F50300A829A6 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
+		8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockedUsersVC.swift; sourceTree = "<group>"; };
+		8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCVC.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -546,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
+				8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -553,8 +558,9 @@
 		8E10BA3F295FF8BE00BCF58B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				143DBFD42971ECE20056C609 /* MyPageTableViewCell.swift */,
+				143DBFD42971ECE20056C609 /* MyPageTVC.swift */,
 				143DBFD62971FA980056C609 /* MyPageHeaderView.swift */,
+				8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1022,6 +1028,7 @@
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
+				8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
@@ -1036,7 +1043,7 @@
 				8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
-				143DBFD52971ECE20056C609 /* MyPageTableViewCell.swift in Sources */,
+				143DBFD52971ECE20056C609 /* MyPageTVC.swift in Sources */,
 				8E13F6702966BDD100E61B47 /* DoubleHeaderLineView.swift in Sources */,
 				8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */,
 				143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */,
@@ -1044,6 +1051,7 @@
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
+				8E4503A129D46CA900A829A6 /* ManageBlockedUsersVC.swift in Sources */,
 				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
 				8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
