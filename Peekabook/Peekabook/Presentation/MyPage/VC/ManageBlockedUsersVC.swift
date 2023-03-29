@@ -11,10 +11,7 @@ import Moya
 import SnapKit
 
 final class ManageBlockedUsersVC: UIViewController {
-    
-    // MARK: - Properties
-    
-    
+            
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
@@ -90,11 +87,9 @@ extension ManageBlockedUsersVC: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlockedUserCVC.className, for: indexPath)
                 as? BlockedUserCVC else { return UICollectionViewCell() }
+        cell.delegate = self
+        cell.indexPath = indexPath.row
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row, "번째 셀클릭!!!!!")
     }
 }
 
@@ -108,5 +103,22 @@ extension ManageBlockedUsersVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
+    }
+}
+
+// MARK: - Unblockable
+
+extension ManageBlockedUsersVC: UnblockableButton, UnblockablePopUp {
+    
+    func didPressUnblockedButton(index: Int?) {
+        let unblockPopUpVC = UnblockPopUpVC()
+        unblockPopUpVC.modalPresentationStyle = .overFullScreen
+        unblockPopUpVC.selectedUserIndex = index
+        
+        self.present(unblockPopUpVC, animated: false)
+    }
+    
+    func didPressUnblockedPopUp(index: Int) {
+        print("\(index) 차단해제 서버 붙이기")
     }
 }

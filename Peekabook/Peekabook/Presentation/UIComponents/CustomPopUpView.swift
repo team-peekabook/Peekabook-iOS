@@ -10,6 +10,7 @@ import UIKit
 enum ButtonLabelStyle: CaseIterable {
     case recommend
     case delete
+    case unblock
 }
 
 final class CustomPopUpView: UIView {
@@ -57,6 +58,9 @@ extension CustomPopUpView {
             }
         case .delete:
             confirmLabel.text = I18N.BookDelete.popUpComment
+        case .unblock:
+            guard let personName else { return }
+            confirmLabel.text = personName + I18N.ManageBlockedUsers.unblockPopUpTitle
         }
 
     }
@@ -71,6 +75,10 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .unblock:
+            confirmButton.setTitle(I18N.ManageBlockedUsers.unblock, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

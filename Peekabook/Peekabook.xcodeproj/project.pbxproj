@@ -55,6 +55,7 @@
 		8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037929D1F50300A829A6 /* BlockAPI.swift */; };
 		8E4503A129D46CA900A829A6 /* ManageBlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */; };
 		8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */; };
+		8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
 		8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */; };
 		8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5A30A7295DAE6D00285A15 /* Main.storyboard */; };
@@ -189,6 +190,7 @@
 		8E45037929D1F50300A829A6 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
 		8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockedUsersVC.swift; sourceTree = "<group>"; };
 		8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCVC.swift; sourceTree = "<group>"; };
+		8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockPopUpVC.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5A30A3295DAE6D00285A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
 				8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */,
+				8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
+				8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8E45037229D1F41600A829A6 /* BlockRouter.swift in Sources */,
 				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,

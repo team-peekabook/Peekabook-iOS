@@ -9,7 +9,19 @@ import UIKit
 
 import SnapKit
 
+// MARK: - Protocols
+protocol Unblockable: AnyObject { }
+
+protocol UnblockableButton: Unblockable {
+    func didPressUnblockedButton(index: Int?)
+}
+
 final class BlockedUserCVC: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
+    weak var delegate: UnblockableButton?
+    var indexPath: Int?
     
     // MARK: - UI Components
     
@@ -30,12 +42,13 @@ final class BlockedUserCVC: UICollectionViewCell {
         return label
     }()
     
-    private let unblockButton: UIButton = {
+    private lazy var unblockButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.backgroundColor = .peekaRed
         bt.titleLabel!.font = .s3
         bt.setTitle(I18N.ManageBlockedUsers.unblock, for: .normal)
         bt.setTitleColor(.peekaWhite, for: .normal)
+        bt.addTarget(self, action: #selector(unblockedButtonDidTap), for: .touchUpInside)
         return bt
     }()
     
@@ -80,5 +93,10 @@ extension BlockedUserCVC {
             $0.width.equalTo(88)
             $0.height.equalTo(32)
         }
+    }
+    
+    @objc
+    private func unblockedButtonDidTap() {
+        delegate?.didPressUnblockedButton(index: indexPath)
     }
 }
