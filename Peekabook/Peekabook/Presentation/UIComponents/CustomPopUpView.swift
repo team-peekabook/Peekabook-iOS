@@ -60,7 +60,7 @@ extension CustomPopUpView {
             confirmLabel.text = I18N.BookDelete.popUpComment
         case .unblock:
             guard let personName else { return }
-            confirmLabel.text = personName + I18N.ManageBlockedUsers.unblockPopUpTitle
+            confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
         }
 
     }
@@ -76,7 +76,7 @@ extension CustomPopUpView {
             cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .unblock:
-            confirmButton.setTitle(I18N.ManageBlockedUsers.unblock, for: .normal)
+            confirmButton.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }

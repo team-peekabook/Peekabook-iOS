@@ -53,7 +53,7 @@
 		8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037529D1F4F200A829A6 /* UserAPI.swift */; };
 		8E45037829D1F4FD00A829A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037729D1F4FD00A829A6 /* AuthAPI.swift */; };
 		8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037929D1F50300A829A6 /* BlockAPI.swift */; };
-		8E4503A129D46CA900A829A6 /* ManageBlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */; };
+		8E4503A129D46CA900A829A6 /* ManageBlockUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */; };
 		8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */; };
 		8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */; };
 		8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5A30A1295DAE6D00285A15 /* AppDelegate.swift */; };
@@ -188,7 +188,7 @@
 		8E45037529D1F4F200A829A6 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		8E45037729D1F4FD00A829A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		8E45037929D1F50300A829A6 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
-		8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockedUsersVC.swift; sourceTree = "<group>"; };
+		8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockUsersVC.swift; sourceTree = "<group>"; };
 		8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCVC.swift; sourceTree = "<group>"; };
 		8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockPopUpVC.swift; sourceTree = "<group>"; };
 		8E5A309E295DAE6D00285A15 /* Peekabook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peekabook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -552,7 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
-				8E4503A029D46CA900A829A6 /* ManageBlockedUsersVC.swift */,
+				8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */,
 				8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */,
 			);
 			path = VC;
@@ -1055,7 +1055,7 @@
 				8E81F3D829607DDA001815B4 /* setStatusBarBackgroundColor.swift in Sources */,
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
-				8E4503A129D46CA900A829A6 /* ManageBlockedUsersVC.swift in Sources */,
+				8E4503A129D46CA900A829A6 /* ManageBlockUsersVC.swift in Sources */,
 				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
 				8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,

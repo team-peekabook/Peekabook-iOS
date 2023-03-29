@@ -108,7 +108,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let manageBlockedUsersVC = ManageBlockedUsersVC()
+            let manageBlockedUsersVC = ManageBlockUsersVC()
             manageBlockedUsersVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(manageBlockedUsersVC, animated: true)
         } else {

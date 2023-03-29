@@ -113,7 +113,7 @@ struct I18N {
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
     }
     
-    struct ManageBlockedUsers {
+    struct ManageBlockUsers {
         static let blockedUsers = "차단된 계정"
         static let unblock = "차단 해제"
         static let cancel = "취소하기"

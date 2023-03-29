@@ -1,5 +1,5 @@
 //
-//  ManageBlockedUsersVC.swift
+//  ManageBlockUsersVC.swift
 //  Peekabook
 //
 //  Created by devxsby on 2023/03/29.
@@ -10,12 +10,12 @@ import UIKit
 import Moya
 import SnapKit
 
-final class ManageBlockedUsersVC: UIViewController {
+final class ManageBlockUsersVC: UIViewController {
             
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
-        .addMiddleLabel(title: I18N.ManageBlockedUsers.blockedUsers)
+        .addMiddleLabel(title: I18N.ManageBlockUsers.blockedUsers)
         .addUnderlineView()
 
     private let blockedUsersCollectionView: UICollectionView = {
@@ -41,7 +41,7 @@ final class ManageBlockedUsersVC: UIViewController {
 
 // MARK: - UI & Layout
 
-extension ManageBlockedUsersVC {
+extension ManageBlockUsersVC {
     
     private func setUI() {
         view.backgroundColor = .peekaBeige
@@ -64,7 +64,7 @@ extension ManageBlockedUsersVC {
 
 // MARK: - Methods
 
-extension ManageBlockedUsersVC {
+extension ManageBlockUsersVC {
     
     private func registerCells() {
         blockedUsersCollectionView.register(BlockedUserCVC.self, forCellWithReuseIdentifier: BlockedUserCVC.className)
@@ -78,7 +78,7 @@ extension ManageBlockedUsersVC {
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension ManageBlockedUsersVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ManageBlockUsersVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         50
@@ -95,7 +95,7 @@ extension ManageBlockedUsersVC: UICollectionViewDelegate, UICollectionViewDataSo
 
 // MARK: - UICollectionViewFlowLayout
 
-extension ManageBlockedUsersVC: UICollectionViewDelegateFlowLayout {
+extension ManageBlockUsersVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         return CGSize(width: width, height: 80)
@@ -108,7 +108,7 @@ extension ManageBlockedUsersVC: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Unblockable
 
-extension ManageBlockedUsersVC: UnblockableButton, UnblockablePopUp {
+extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     
     func didPressUnblockedButton(index: Int?) {
         let unblockPopUpVC = UnblockPopUpVC()

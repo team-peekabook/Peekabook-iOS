@@ -46,7 +46,7 @@ final class BlockedUserCVC: UICollectionViewCell {
         let bt = UIButton(type: .system)
         bt.backgroundColor = .peekaRed
         bt.titleLabel!.font = .s3
-        bt.setTitle(I18N.ManageBlockedUsers.unblock, for: .normal)
+        bt.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
         bt.setTitleColor(.peekaWhite, for: .normal)
         bt.addTarget(self, action: #selector(unblockedButtonDidTap), for: .touchUpInside)
         return bt
