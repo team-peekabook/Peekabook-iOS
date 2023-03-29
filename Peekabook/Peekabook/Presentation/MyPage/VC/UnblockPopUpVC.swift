@@ -69,8 +69,4 @@ extension UnblockPopUpVC {
         guard let selectedUserIndex else { return }
         delegate?.didPressUnblockedPopUp(index: selectedUserIndex)
     }
-    
-    func changeTitle(with userName: String) {
-        
-    }
 }
