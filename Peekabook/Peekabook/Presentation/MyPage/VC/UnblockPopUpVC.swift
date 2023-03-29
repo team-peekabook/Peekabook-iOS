@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-// MARK: - Properties
+// MARK: - Protocols
 
 protocol UnblockablePopUp: Unblockable {
     func didPressUnblockedPopUp(index: Int)
