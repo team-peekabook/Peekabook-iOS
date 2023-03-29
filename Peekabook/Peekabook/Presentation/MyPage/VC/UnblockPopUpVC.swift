@@ -55,7 +55,7 @@ extension UnblockPopUpVC {
     }
 }
 
-// MARK: - Methods
+// MARK: - @objc Function
 
 extension UnblockPopUpVC {
     

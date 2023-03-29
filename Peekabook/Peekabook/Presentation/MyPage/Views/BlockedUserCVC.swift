@@ -64,7 +64,7 @@ final class BlockedUserCVC: UICollectionViewCell {
     }
 }
 
-// MARK: - Methods
+// MARK: - UI & Layout
 
 extension BlockedUserCVC {
     
@@ -93,6 +93,11 @@ extension BlockedUserCVC {
             $0.height.equalTo(32)
         }
     }
+}
+
+// MARK: - @objc Function
+
+extension BlockedUserCVC {
     
     @objc
     private func unblockedButtonDidTap() {
