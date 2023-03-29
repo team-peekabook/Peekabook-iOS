@@ -11,8 +11,6 @@ import SnapKit
 
 // MARK: - Protocols
 
-protocol Unblockable: AnyObject { }
-
 protocol UnblockableButton: Unblockable {
     func didPressUnblockedButton(index: Int?)
 }
@@ -22,7 +20,7 @@ final class BlockedUserCVC: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: UnblockableButton?
-    var indexPath: Int?
+    var selectedUserIndex: Int?
     
     // MARK: - UI Components
     
@@ -98,6 +96,6 @@ extension BlockedUserCVC {
     
     @objc
     private func unblockedButtonDidTap() {
-        delegate?.didPressUnblockedButton(index: indexPath)
+        delegate?.didPressUnblockedButton(index: selectedUserIndex)
     }
 }

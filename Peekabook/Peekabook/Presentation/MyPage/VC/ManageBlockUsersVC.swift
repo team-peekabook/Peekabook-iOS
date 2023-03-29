@@ -10,6 +10,10 @@ import UIKit
 import Moya
 import SnapKit
 
+// MARK: - Protocols
+
+protocol Unblockable: AnyObject { }
+
 final class ManageBlockUsersVC: UIViewController {
             
     // MARK: - UI Components
@@ -88,7 +92,7 @@ extension ManageBlockUsersVC: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlockedUserCVC.className, for: indexPath)
                 as? BlockedUserCVC else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.indexPath = indexPath.row
+        cell.selectedUserIndex = indexPath.row
         return cell
     }
 }
@@ -106,7 +110,7 @@ extension ManageBlockUsersVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Unblockable
+// MARK: - Unblockable Implementations
 
 extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     
