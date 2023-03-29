@@ -41,7 +41,7 @@ extension UnblockPopUpVC {
     
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        unblockPopUpview.getConfirmLabel(style: .unblock, personName: String(selectedUserIndex!))
+        unblockPopUpview.getConfirmLabel(style: .unblock, personName: String(selectedUserIndex ?? -1)) // personName은 임시로 넣었습니다.
     }
     
     private func setLayout() {
