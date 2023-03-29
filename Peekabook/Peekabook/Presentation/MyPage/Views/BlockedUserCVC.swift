@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 // MARK: - Protocols
+
 protocol Unblockable: AnyObject { }
 
 protocol UnblockableButton: Unblockable {
