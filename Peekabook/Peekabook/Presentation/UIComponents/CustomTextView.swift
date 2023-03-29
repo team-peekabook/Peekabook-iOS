@@ -194,6 +194,7 @@ extension CustomTextView {
         case .editProfileIntro:
             label.text = I18N.Profile.oneLineIntro
             textView.text = UserDefaults.standard.string(forKey: "userIntro")
+            maxLabel.text = "\(textView.text.count)/40"
             textView.textColor = .peekaRed
             proposalItemhidden()
         }
@@ -253,13 +254,18 @@ extension CustomTextView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName || label.text == I18N.Profile.oneLineIntro {
+        if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
             maxLabel.text = "\(textView.text.count)/200"
             if textView.text.count > 200 {
                 textView.deleteBackward()
             }
+        } else if label.text == I18N.Profile.oneLineIntro {
+            if textView.text.count > 40 {
+                textView.deleteBackward()
+            } else {
+                maxLabel.text = "\(textView.text.count)/40"
+            }
         } else {
-            maxLabel.text = "\(textView.text.count)/50"
             if textView.text.count > 50 {
                 textView.deleteBackward()
             }

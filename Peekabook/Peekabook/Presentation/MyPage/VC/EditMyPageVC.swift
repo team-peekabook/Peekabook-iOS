@@ -74,6 +74,13 @@ class EditMyPageVC: UIViewController {
         $0.textColor = .peekaRed
         $0.isHidden = true
     }
+    private let countMaxTextLabel = UILabel().then {
+        if let name = UserDefaults.standard.string(forKey: "userNickname") {
+            $0.text = "\(name.count)" + I18N.Profile.nicknameLength
+            $0.font = .h2
+            $0.textColor = .peekaGray2
+        }
+    }
     
     private let introContainerView = CustomTextView()
     
@@ -91,12 +98,20 @@ class EditMyPageVC: UIViewController {
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        if textField.text != nicknameTextField.text {
-            doubleCheckButton.backgroundColor = .peekaGray1
-        } else {
-            doubleCheckButton.backgroundColor = .peekaRed
+        if let text = textField.text {
+            if text != nicknameTextField.text || text.isEmpty {
+                doubleCheckButton.backgroundColor = .peekaGray1
+            } else {
+                doubleCheckButton.backgroundColor = .peekaRed
+            }
+            
+            if text.count > 6 {
+                textField.deleteBackward()
+            } else {
+                countMaxTextLabel.text = "\(text.count)\(I18N.Profile.nicknameLength)"
+            }
+            doubleCheckErrorLabel.isHidden = true
         }
-        doubleCheckErrorLabel.isHidden = true
     }
     
     @objc private func doubleCheckButtonDidTap() {
@@ -125,7 +140,7 @@ extension EditMyPageVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, introContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, countMaxTextLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -187,6 +202,11 @@ extension EditMyPageVC {
         doubleCheckErrorLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
             $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        countMaxTextLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
+            $0.trailing.equalTo(nicknameContainerView)
         }
         
         introContainerView.snp.makeConstraints {
