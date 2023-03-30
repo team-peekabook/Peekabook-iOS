@@ -23,7 +23,7 @@ enum MyPageOption {
     var rawValue: String {
         switch self {
         case .manageBlockUsers:
-            return I18N.ManageBlockUsers.blockedUsers
+            return I18N.ManageBlockUsers.manageBlockedUsers
         case .privacyPolicy:
             return I18N.MyPageOption.privacyPolicy
         case .contactUs:

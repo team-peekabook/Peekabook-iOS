@@ -120,6 +120,7 @@ struct I18N {
     }
     
     struct ManageBlockUsers {
+        static let manageBlockedUsers = "차단사용자 관리하기"
         static let blockedUsers = "차단된 계정"
         static let unblock = "차단 해제"
         static let cancel = "취소하기"
