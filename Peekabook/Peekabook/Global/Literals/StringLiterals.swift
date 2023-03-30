@@ -119,6 +119,16 @@ struct I18N {
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
     }
     
+    struct ManageBlockUsers {
+        static let manageBlockedUsers = "차단사용자 관리하기"
+        static let blockedUsers = "차단된 계정"
+        static let unblock = "차단 해제"
+        static let cancel = "취소하기"
+        static let noblockedUsers = "차단된 사용자가 없어요."
+        static let unblockPopUpTitle = "님을 차단 해제하시겠어요?"
+        static let unblockPopSubtitle = "이제 서로에게 책을 추천할 수 있으며,\n서로의 프로필을 볼 수 있게 됩니다."
+    }
+    
     struct BlockPopUp {
         static let block = "차단하기"
         static let blockComment = "님을 차단하시겠어요?"

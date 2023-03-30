@@ -12,6 +12,7 @@ enum ButtonLabelStyle: CaseIterable {
     case delete
     case unfollow
     case block
+    case unblock
     case declare
     case logout
     case deleteAccount
@@ -27,7 +28,6 @@ final class CustomPopUpView: UIView {
     }
     
     private let blockDetailLabel = UILabel().then {
-        $0.text = I18N.BlockPopUp.blockDetailComment
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
@@ -78,7 +78,7 @@ extension CustomPopUpView {
         switch style {
         case .recommend, .delete, .unfollow:
             self.setTwoButtonAndTwoLineLabelLayout()
-        case .block:
+        case .block, .unblock:
             self.setTwoButtonAndDetailLabelLayout()
         case .declare:
             self.setOneButtonLayout()
@@ -219,6 +219,12 @@ extension CustomPopUpView {
         case .block:
             if let personName = personName {
                 confirmLabel.text = personName + I18N.BlockPopUp.blockComment
+                blockDetailLabel.text = I18N.BlockPopUp.blockDetailComment
+            }
+        case .unblock:
+            if let personName = personName {
+                confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
+                blockDetailLabel.text = I18N.ManageBlockUsers.unblockPopSubtitle
             }
         case .declare:
             // StringLiterals 컨플릭트 방지용. 브런치 합친 후 수정
@@ -248,6 +254,10 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.BlockPopUp.block, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .unblock:
+            confirmButton.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .declare:
             confirmButton.setTitle("홈으로 돌아가기", for: .normal)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
@@ -258,6 +268,7 @@ extension CustomPopUpView {
         case .deleteAccount:
             confirmButton.setTitle(I18N.DeleteAccount.confirm, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(DeleteAccountPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+            
         }
     }
     

@@ -13,7 +13,7 @@ import Then
 import Moya
 
 enum MyPageOption {
-    case notificationSetting
+    case manageBlockUsers
     case privacyPolicy
     case contactUs
     case developerInfo
@@ -22,8 +22,8 @@ enum MyPageOption {
     
     var rawValue: String {
         switch self {
-        case .notificationSetting:
-            return I18N.MyPageOption.notificationSetting
+        case .manageBlockUsers:
+            return I18N.ManageBlockUsers.manageBlockedUsers
         case .privacyPolicy:
             return I18N.MyPageOption.privacyPolicy
         case .contactUs:
@@ -42,7 +42,7 @@ final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let optionArray: [MyPageOption] = [.notificationSetting, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
+    private let optionArray: [MyPageOption] = [.manageBlockUsers, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
@@ -93,7 +93,7 @@ extension MyPageVC {
 extension MyPageVC {
     
     private func registerCells() {
-        myPageTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.className)
+        myPageTableView.register(MyPageTVC.self, forCellReuseIdentifier: MyPageTVC.className)
         myPageTableView.register(
             MyPageHeaderView.self,
             forHeaderFooterViewReuseIdentifier: MyPageHeaderView.className)
@@ -111,18 +111,24 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.className, for: indexPath) as? MyPageTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTVC.className, for: indexPath) as? MyPageTVC
         else {
             return UITableViewCell()
         }
         cell.label.text = optionArray[safe: indexPath.row]!.rawValue
+//        cell.selectionStyle = .none
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .peekaBlack.withAlphaComponent(0.02)
+        cell.selectedBackgroundView = bgColorView
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch optionArray[safe: indexPath.row]! {
-        case .notificationSetting:
-            print("알림설정")
+        case .manageBlockUsers:
+            let manageBlockUsersVC = ManageBlockUsersVC()
+            manageBlockUsersVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(manageBlockUsersVC, animated: true)
         case .privacyPolicy:
             print("개인정보 보호 정책")
         case .contactUs:

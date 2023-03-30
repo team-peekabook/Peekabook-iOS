@@ -1,5 +1,5 @@
 //
-//  MyPageTableViewCell.swift
+//  MyPageTVC.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/01/14.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyPageTableViewCell: UITableViewCell {
+final class MyPageTVC: UITableViewCell {
 
     var label = UILabel().then {
         $0.font = .h2
@@ -19,8 +19,7 @@ final class MyPageTableViewCell: UITableViewCell {
     private let underLineView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: MyPageTableViewCell.className)
-        setSelectionStyle()
+        super.init(style: style, reuseIdentifier: MyPageTVC.className)
         setLayout()
     }
     
@@ -30,7 +29,7 @@ final class MyPageTableViewCell: UITableViewCell {
     
 }
 
-extension MyPageTableViewCell {
+extension MyPageTVC {
     
     private func setLayout() {
         underLineView.backgroundColor = .peekaGray1
