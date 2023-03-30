@@ -1,40 +1,40 @@
 //
-//  RecommendRouter.swift
+//  BlockRouter.swift
 //  Peekabook
 //
-//  Created by devxsby on 2023/01/09.
+//  Created by devxsby on 2023/03/28.
 //
 
 import Foundation
 
 import Moya
 
-enum RecommendRouter {
-    case getRecommend
+enum BlockRouter {
+    case sample
 }
 
-extension RecommendRouter: TargetType {
+extension BlockRouter: TargetType {
     var baseURL: URL {
         return URL(string: Config.baseURL)!
     }
     
     var path: String {
         switch self {
-        case .getRecommend:
-            return URLConstant.recommend
+        case .sample:
+            return URLConstant.block
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getRecommend:
+        case .sample:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getRecommend:
+        case .sample:
             return .requestPlain
         }
     }

@@ -22,6 +22,7 @@ struct ImageLiterals {
     
     struct Image {
         static let logo = UIImage(named: "peekabook_logo")
+        static let appLogo = UIImage(named: "app_logo")
     }
     
     struct Icn {
@@ -42,6 +43,8 @@ struct ImageLiterals {
         static let more = UIImage(named: "icn_more")
         static let radio_check = UIImage(named: "icn_radio_button_checked")
         static let radio_uncheck = UIImage(named: "icn_radio_button_unchecked")
+        static let progressIndicator = UIImage(named: "icn_progress_indicator")
+        static let dissatisfiedFace = UIImage(named: "icn_dissatisfied")
     }
     
     struct Sample {

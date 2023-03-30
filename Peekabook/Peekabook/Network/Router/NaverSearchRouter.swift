@@ -40,6 +40,6 @@ extension NaverSearchRouter: TargetType {
     }
     
     var headers: [String: String]? {
-        return ["Content-type": "application/json", "X-Naver-Client-Id": "eKY2qrJCDXKrrBYCQbik", "X-Naver-Client-Secret": "gBiWl3YgAS"]
+        return ["Content-type": "application/json", "X-Naver-Client-Id": Config.naverClientId, "X-Naver-Client-Secret": Config.naverClientSecret]
     }
 }
