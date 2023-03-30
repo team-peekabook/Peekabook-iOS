@@ -47,4 +47,8 @@ extension MyPageTVC {
             $0.height.equalTo(0.5)
         }
     }
+    
+    private func setSelectionStyle() {
+        selectionStyle = .none
+    }
 }

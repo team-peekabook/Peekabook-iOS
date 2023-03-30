@@ -128,6 +128,8 @@
 		98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D89296BDF9500B78724 /* UIButton+.swift */; };
 		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
 		985C529829684C3000994ED6 /* BookInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985C529729684C3000994ED6 /* BookInfoTVC.swift */; };
+		98601A8229C99D06002F7753 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98601A8129C99D06002F7753 /* ReportVC.swift */; };
+		98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98601A8429C9C09B002F7753 /* ReportTVC.swift */; };
 		986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5421296934EB002EDD46 /* EditBookVC.swift */; };
 		986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */; };
 		98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */; };
@@ -139,6 +141,12 @@
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CustomTextView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
+		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
+		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
+		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
+		98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */; };
+		98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* DeleteAccountVC.swift */; };
+		98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -265,6 +273,8 @@
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		985C529729684C3000994ED6 /* BookInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoTVC.swift; sourceTree = "<group>"; };
+		98601A8129C99D06002F7753 /* ReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
+		98601A8429C9C09B002F7753 /* ReportTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTVC.swift; sourceTree = "<group>"; };
 		986F5421296934EB002EDD46 /* EditBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookVC.swift; sourceTree = "<group>"; };
 		986F5423296BBD92002EDD46 /* ErrorPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpVC.swift; sourceTree = "<group>"; };
 		98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchResponse.swift; sourceTree = "<group>"; };
@@ -275,6 +285,12 @@
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98BA610B29A6403000A4C4E2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
+		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
+		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
+		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
+		98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpVC.swift; sourceTree = "<group>"; };
+		98F1804229CE84E100550E45 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
+		98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +353,7 @@
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
 				98A042052966469800081B8E /* Proposal */,
+				98601A7F29C99CC2002F7753 /* UserDeclare */,
 				8E13F66D2966BDBA00E61B47 /* UIComponents */,
 			);
 			path = Presentation;
@@ -517,6 +534,9 @@
 			children = (
 				8E10BA34295FF81700BCF58B /* BookShelfVC.swift */,
 				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
+				98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */,
+				98F1803B29CD804300550E45 /* BlockPopUpVC.swift */,
+				98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -554,6 +574,9 @@
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
 				8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */,
 				8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */,
+				98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */,
+				98F1804229CE84E100550E45 /* DeleteAccountVC.swift */,
+				98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -831,6 +854,31 @@
 			path = NaverSearch;
 			sourceTree = "<group>";
 		};
+		98601A7F29C99CC2002F7753 /* UserDeclare */ = {
+			isa = PBXGroup;
+			children = (
+				98601A8329C9BFF1002F7753 /* Views */,
+				98601A8029C99CE1002F7753 /* VC */,
+			);
+			path = UserDeclare;
+			sourceTree = "<group>";
+		};
+		98601A8029C99CE1002F7753 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				98601A8129C99D06002F7753 /* ReportVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		98601A8329C9BFF1002F7753 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				98601A8429C9C09B002F7753 /* ReportTVC.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		98A042052966469800081B8E /* Proposal */ = {
 			isa = PBXGroup;
 			children = (
@@ -977,6 +1025,7 @@
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
+				98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
@@ -987,10 +1036,12 @@
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
+				98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
 				8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */,
+				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
 				140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
 				985C529829684C3000994ED6 /* BookInfoTVC.swift in Sources */,
@@ -999,11 +1050,13 @@
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
+				98601A8229C99D06002F7753 /* ReportVC.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
 				8EEF8E28296B128300F37AFD /* PickAPI.swift in Sources */,
 				98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */,
 				98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */,
 				986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */,
+				98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */,
 				8E6656702971A3DA00B79328 /* ProposalBookRequest.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */,
@@ -1033,6 +1086,7 @@
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
+				98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
@@ -1063,10 +1117,12 @@
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
+				98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
+				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,
@@ -1228,9 +1284,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R6RDNJW78B;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
@@ -1250,6 +1308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "peekabook release";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1263,9 +1322,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R6RDNJW78B;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
@@ -1285,6 +1346,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "peekabook release";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

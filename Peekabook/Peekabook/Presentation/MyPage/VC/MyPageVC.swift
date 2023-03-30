@@ -12,20 +12,37 @@ import Then
 
 import Moya
 
+enum MyPageOption {
+    case manageBlockUsers
+    case privacyPolicy
+    case contactUs
+    case developerInfo
+    case logout
+    case deleteAccount
+    
+    var rawValue: String {
+        switch self {
+        case .manageBlockUsers:
+            return I18N.ManageBlockUsers.blockedUsers
+        case .privacyPolicy:
+            return I18N.MyPageOption.privacyPolicy
+        case .contactUs:
+            return I18N.MyPageOption.contactUs
+        case .developerInfo:
+            return I18N.MyPageOption.developerInfo
+        case .logout:
+            return I18N.MyPageOption.logout
+        case .deleteAccount:
+            return I18N.MyPageOption.deleteAccount
+        }
+    }
+}
+
 final class MyPageVC: UIViewController {
     
-    // MARK: - Properties
-
-    private let myPageArray: [String] = [
-        "차단사용자 관리하기",
-        "개인정보 보호 정책 & 서비스 이용 약관",
-        "문의하기",
-        "개발자 정보",
-        "로그아웃",
-        "서비스 탈퇴하기"
-    ]
-    
     // MARK: - UI Components
+    
+    private let optionArray: [MyPageOption] = [.manageBlockUsers, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
@@ -90,7 +107,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPageArray.count
+        return optionArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,7 +115,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.label.text = myPageArray[safe: indexPath.row]!
+        cell.label.text = optionArray[safe: indexPath.row]!.rawValue
 //        cell.selectionStyle = .none
         let bgColorView = UIView()
         bgColorView.backgroundColor = .peekaBlack.withAlphaComponent(0.02)
@@ -107,14 +124,28 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            let manageBlockedUsersVC = ManageBlockUsersVC()
-            manageBlockedUsersVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(manageBlockedUsersVC, animated: true)
-        } else {
-            
+        switch optionArray[safe: indexPath.row]! {
+        case .manageBlockUsers:
+            let manageBlockUsersVC = ManageBlockUsersVC()
+            manageBlockUsersVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(manageBlockUsersVC, animated: true)
+        case .privacyPolicy:
+            print("개인정보 보호 정책")
+        case .contactUs:
+            print("문의하기")
+        case .developerInfo:
+            print("개발자 정보")
+        case .logout:
+            print("로그아웃")
+            let popupViewController = LogoutPopUpVC()
+            popupViewController.modalPresentationStyle = .overFullScreen
+            self.present(popupViewController, animated: false)
+        case .deleteAccount:
+            print("서비스 탈퇴하기")
+            let withdrawalViewController = DeleteAccountVC()
+            withdrawalViewController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(withdrawalViewController, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

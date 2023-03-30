@@ -10,7 +10,12 @@ import UIKit
 enum ButtonLabelStyle: CaseIterable {
     case recommend
     case delete
+    case unfollow
+    case block
     case unblock
+    case declare
+    case logout
+    case deleteAccount
 }
 
 final class CustomPopUpView: UIView {
@@ -20,6 +25,19 @@ final class CustomPopUpView: UIView {
         $0.textColor = .peekaRed
         $0.numberOfLines = 2
         $0.textAlignment = .center
+    }
+    
+    private let blockDetailLabel = UILabel().then {
+        $0.textColor = .peekaRed
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+        $0.font = .s3
+    }
+    
+    private let deleteAccountDetailLabel = UILabel().then {
+        $0.text = I18N.DeleteAccount.popUpDetailComment
+        $0.textColor = .peekaRed
+        $0.font = .h2
     }
     
     private lazy var cancelButton = UIButton(type: .system).then {
@@ -39,7 +57,7 @@ final class CustomPopUpView: UIView {
         super.init(frame: frame)
         
         setBackgroundColor()
-        setLayout()
+        setLayout(style)
         setButtonStyle(style: style, viewController: viewController)
     }
     
@@ -50,46 +68,29 @@ final class CustomPopUpView: UIView {
 
 extension CustomPopUpView {
     
-    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
-        switch style {
-        case .recommend:
-            if let personName = personName {
-                confirmLabel.text = personName + I18N.BookProposal.confirm
-            }
-        case .delete:
-            confirmLabel.text = I18N.BookDelete.popUpComment
-        case .unblock:
-            guard let personName else { return }
-            confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
+    private func setLayout(_ style: ButtonLabelStyle) {
+        addSubviews(confirmLabel, confirmButton)
+        self.snp.makeConstraints {
+            $0.width.equalTo(295)
+            $0.height.equalTo(136)
         }
-
-    }
-    
-    func setButtonStyle(style: ButtonLabelStyle, viewController: UIViewController) {
+        
         switch style {
-        case .recommend:
-            confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.confirmButtonDidTap), for: .touchUpInside)
-        case .delete:
-            confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
-        case .unblock:
-            confirmButton.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .recommend, .delete, .unfollow:
+            self.setTwoButtonAndTwoLineLabelLayout()
+        case .block, .unblock:
+            self.setTwoButtonAndDetailLabelLayout()
+        case .declare:
+            self.setOneButtonLayout()
+        case .logout:
+            self.setTwoButtonAndOneLineLabelLayout()
+        case .deleteAccount:
+            self.setOneButtonAndTwoLineLabelLayout()
         }
     }
     
-    private func setBackgroundColor() {
-        cancelButton.backgroundColor = .peekaGray2
-        confirmButton.backgroundColor = .peekaRed
-        backgroundColor = .peekaBeige
-    }
-    
-    private func setLayout() {
-        addSubviews(confirmLabel, cancelButton, confirmButton)
+    private func setTwoButtonAndTwoLineLabelLayout() {
+        self.addSubview(cancelButton)
         
         confirmLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
@@ -108,5 +109,172 @@ extension CustomPopUpView {
             $0.trailing.equalToSuperview().offset(-16)
             $0.width.height.equalTo(cancelButton)
         }
+    }
+    
+    private func setTwoButtonAndDetailLabelLayout() {
+        self.addSubviews(blockDetailLabel, cancelButton)
+        
+        self.snp.updateConstraints {
+            $0.height.equalTo(156)
+        }
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18)
+            $0.centerX.equalToSuperview()
+        }
+        
+        blockDetailLabel.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(6)
+            $0.centerX.equalToSuperview()
+        }
+
+        cancelButton.snp.makeConstraints {
+            $0.top.equalTo(blockDetailLabel.snp.bottom).offset(18)
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(124)
+            $0.height.equalTo(40)
+        }
+
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(cancelButton)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.height.equalTo(cancelButton)
+        }
+    }
+    
+    private func setOneButtonLayout() {
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(31)
+            $0.centerX.equalToSuperview()
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(28)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(263)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func setTwoButtonAndOneLineLabelLayout() {
+        self.addSubview(cancelButton)
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.centerX.equalToSuperview()
+        }
+        
+        cancelButton.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(26)
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(124)
+            $0.height.equalTo(40)
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(cancelButton)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.height.equalTo(cancelButton)
+        }
+    }
+    
+    private func setOneButtonAndTwoLineLabelLayout() {
+        self.addSubview(deleteAccountDetailLabel)
+        changeFontToBold()
+        
+        confirmLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(18)
+            $0.centerX.equalToSuperview()
+        }
+        
+        deleteAccountDetailLabel.snp.makeConstraints {
+            $0.top.equalTo(confirmLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.top.equalTo(deleteAccountDetailLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(263)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func changeFontToBold() {
+        confirmLabel.font = .nameBold
+    }
+    
+    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
+        switch style {
+        case .recommend:
+            if let personName = personName {
+                confirmLabel.text = personName + I18N.BookProposal.confirm
+            }
+        case .delete:
+            confirmLabel.text = I18N.BookDelete.popUpComment
+        case .unfollow:
+            if let personName = personName {
+                confirmLabel.text = personName + I18N.FollowStatus.unfollowComment
+            }
+        case .block:
+            if let personName = personName {
+                confirmLabel.text = personName + I18N.BlockPopUp.blockComment
+                blockDetailLabel.text = I18N.BlockPopUp.blockDetailComment
+            }
+        case .unblock:
+            if let personName = personName {
+                confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
+                blockDetailLabel.text = I18N.ManageBlockUsers.unblockPopSubtitle
+            }
+        case .declare:
+            // StringLiterals 컨플릭트 방지용. 브런치 합친 후 수정
+            confirmLabel.text = "신고가 정상적으로 접수되었습니다."
+        case .logout:
+            confirmLabel.text = I18N.Logout.logoutComment
+        case .deleteAccount:
+            confirmLabel.text = I18N.DeleteAccount.popUpComment
+        }
+    }
+    
+    func setButtonStyle(style: ButtonLabelStyle, viewController: UIViewController) {
+        switch style {
+        case .recommend:
+            confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .delete:
+            confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(DeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .unfollow:
+            confirmButton.setTitle(I18N.FollowStatus.unfollow, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(UnfollowPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(UnfollowPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .block:
+            confirmButton.setTitle(I18N.BlockPopUp.block, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .unblock:
+            confirmButton.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .declare:
+            confirmButton.setTitle("홈으로 돌아가기", for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .logout:
+            confirmButton.setTitle(I18N.Logout.logout, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .deleteAccount:
+            confirmButton.setTitle(I18N.DeleteAccount.confirm, for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(DeleteAccountPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+            
+        }
+    }
+    
+    private func setBackgroundColor() {
+        cancelButton.backgroundColor = .peekaGray2
+        confirmButton.backgroundColor = .peekaRed
+        backgroundColor = .peekaBeige
     }
 }
