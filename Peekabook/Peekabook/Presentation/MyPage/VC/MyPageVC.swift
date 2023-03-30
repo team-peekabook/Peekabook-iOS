@@ -12,27 +12,43 @@ import Then
 
 import Moya
 
+enum MyPageOption {
+    case notificationSetting
+    case privacyPolicy
+    case contactUs
+    case developerInfo
+    case logout
+    case deleteAccount
+    
+    var rawValue: String {
+        switch self {
+        case .notificationSetting:
+            return I18N.MyPageOption.notificationSetting
+        case .privacyPolicy:
+            return I18N.MyPageOption.privacyPolicy
+        case .contactUs:
+            return I18N.MyPageOption.contactUs
+        case .developerInfo:
+            return I18N.MyPageOption.developerInfo
+        case .logout:
+            return I18N.MyPageOption.logout
+        case .deleteAccount:
+            return I18N.MyPageOption.deleteAccount
+        }
+    }
+}
+
 final class MyPageVC: UIViewController {
     
-    // MARK: - Properties
-
-    private let myPageArray: [String] = [
-        "알림 설정",
-        "개인정보 보호 정책 & 서비스 이용 약관",
-        "문의하기",
-        "개발자 정보",
-        "로그아웃",
-        "서비스 탈퇴하기"
-    ]
-    
     // MARK: - UI Components
+    
+    private let optionArray: [MyPageOption] = [.notificationSetting, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
 
     private lazy var myPageTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.isScrollEnabled = false
@@ -91,7 +107,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPageArray.count
+        return optionArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,8 +115,31 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.label.text = myPageArray[safe: indexPath.row]!
+        cell.label.text = optionArray[safe: indexPath.row]!.rawValue
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch optionArray[safe: indexPath.row]! {
+        case .notificationSetting:
+            print("알림설정")
+        case .privacyPolicy:
+            print("개인정보 보호 정책")
+        case .contactUs:
+            print("문의하기")
+        case .developerInfo:
+            print("개발자 정보")
+        case .logout:
+            print("로그아웃")
+            let popupViewController = LogoutPopUpVC()
+            popupViewController.modalPresentationStyle = .overFullScreen
+            self.present(popupViewController, animated: false)
+        case .deleteAccount:
+            print("서비스 탈퇴하기")
+            let withdrawalViewController = DeleteAccountVC()
+            withdrawalViewController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(withdrawalViewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

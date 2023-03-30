@@ -138,6 +138,12 @@
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CustomTextView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
+		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
+		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
+		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
+		98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */; };
+		98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* DeleteAccountVC.swift */; };
+		98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +279,12 @@
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98BA610B29A6403000A4C4E2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
+		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
+		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
+		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
+		98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpVC.swift; sourceTree = "<group>"; };
+		98F1804229CE84E100550E45 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
+		98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,6 +528,9 @@
 			children = (
 				8E10BA34295FF81700BCF58B /* BookShelfVC.swift */,
 				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
+				98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */,
+				98F1803B29CD804300550E45 /* BlockPopUpVC.swift */,
+				98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -551,6 +566,9 @@
 			isa = PBXGroup;
 			children = (
 				8E10BA43295FF95D00BCF58B /* MyPageVC.swift */,
+				98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */,
+				98F1804229CE84E100550E45 /* DeleteAccountVC.swift */,
+				98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -998,6 +1016,7 @@
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
+				98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
@@ -1008,6 +1027,7 @@
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
+				98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
@@ -1027,6 +1047,7 @@
 				98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */,
 				98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */,
 				986F5422296934EB002EDD46 /* EditBookVC.swift in Sources */,
+				98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */,
 				8E6656702971A3DA00B79328 /* ProposalBookRequest.swift in Sources */,
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */,
@@ -1055,6 +1076,7 @@
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
+				98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */,
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
@@ -1083,10 +1105,12 @@
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
+				98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
+				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,
