@@ -43,6 +43,10 @@ struct I18N {
         static let editPickDescription = "최대 3개까지 선택 가능해요."
         static let emptyPickViewDescription = "잠깐! PICK한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
         static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천 해보세요!"
+        static let unfollow = "언팔로우"
+        static let report = "신고하기"
+        static let block = "차단하기"
+        static let cancel = "취소"
     }
     
     struct BookDetail {
@@ -142,5 +146,18 @@ struct I18N {
         static let developerInfo = "개발자 정보"
         static let logout = "로그아웃"
         static let deleteAccount = "서비스 탈퇴하기"
+
+    struct Report {
+        static let title = "사용자 신고하기"
+        static let selectTitle = "신고 사유 선택"
+        static let post = "부적절한 게시물"
+        static let insults = "욕설 및 비하 발언"
+        static let promote = "홍보성 컨텐츠"
+        static let nickname = "닉네임 신고"
+        static let etc = "기타"
+        static let placeholder = "구체적인 신고 사유를 작성해 주세요."
+        static let info = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
+        static let buttonTitle = "신고하기"
+        static let declareInfo = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
     }
 }

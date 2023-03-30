@@ -37,11 +37,19 @@ extension UIColor {
         return UIColor(red: 0.558, green: 0.558, blue: 0.558, alpha: 0.6)
     }
     
+    @nonobjc class var peekaGray3: UIColor {
+        return UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+    }
+    
     @nonobjc class var peekaBeige: UIColor {
         return UIColor(red: 0.929, green: 0.922, blue: 0.875, alpha: 1)
     }
     
     @nonobjc class var peekaLightBeige: UIColor {
         return UIColor(red: 0.996, green: 0.993, blue: 0.979, alpha: 1)
+    }
+    
+    @nonobjc class var peekaBlack: UIColor {
+        return UIColor(red: 0, green: 0, blue: 0, alpha: 1)
     }
 }
