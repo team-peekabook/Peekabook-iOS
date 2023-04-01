@@ -18,6 +18,10 @@ enum CustomTextViewType: CaseIterable {
     case editProfileIntro
 }
 
+protocol IntroText: AnyObject {
+    func getTextView(text: String)
+}
+
 final class CustomTextView: UIView {
     
     // MARK: - UI Components
@@ -32,6 +36,8 @@ final class CustomTextView: UIView {
             textView.text = newValue
         }
     }
+    
+    weak var delegate: IntroText?
     
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
@@ -254,6 +260,9 @@ extension CustomTextView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        delegate?.getTextView(text: textView.text)
+        
         if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
             maxLabel.text = "\(textView.text.count)/200"
             if textView.text.count > 200 {

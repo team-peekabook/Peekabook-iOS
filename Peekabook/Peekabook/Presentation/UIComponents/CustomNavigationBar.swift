@@ -15,7 +15,7 @@ enum NaviType {
     case oneLeftButtonWithTwoRightButtons
 }
 
-final class CustomNavigationBar: UIView {
+final class CustomNavigationBar: UIView, UITextViewDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
     
@@ -24,6 +24,11 @@ final class CustomNavigationBar: UIView {
     private var otherRightButtonClosure: (() -> Void)?
     private var leftButtonClosure: (() -> Void)?
     
+    var isProfileEditComplete: Bool = true {
+        didSet {
+            isRightButtonEnabled(isProfileEditComplete)
+        }
+    }
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
@@ -127,6 +132,15 @@ extension CustomNavigationBar {
     func hideRightButtons() {
         self.rightButton.isHidden = true
         self.otherRightButton.isHidden = true
+    }
+    
+    func isRightButtonEnabled(_ isEnabled: Bool) {
+        if !isProfileEditComplete {
+            self.rightButton.titleLabel?.textColor = .peekaGray1
+        } else {
+            self.rightButton.titleLabel?.textColor = .peekaRed
+        }
+        rightButton.isEnabled = isProfileEditComplete
     }
 }
 

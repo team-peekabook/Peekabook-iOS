@@ -18,13 +18,16 @@ class EditMyPageVC: UIViewController {
     
     private let dummyName: String = "북과빅"
     
+    var nicknameText: String = ""
+    var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
+    
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
         .addMiddleLabel(title: I18N.Tabbar.editmyPage)
         .addRightButton(with: I18N.BookProposal.done)
         .addRightButtonAction {
-            self.submitButtonDidTap()
+            self.checkButtonDidTap()
         }
     
     private let profileImageContainerView = UIView()
@@ -91,35 +94,54 @@ class EditMyPageVC: UIViewController {
         setBackgroundColor()
         setLayout()
         introContainerView.updateTextView(type: .editProfileIntro)
-    }
-    
-    @objc private func submitButtonDidTap() {
-        print("완료")
+        introContainerView.delegate = self
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text {
-            if text != nicknameTextField.text || text.isEmpty {
-                doubleCheckButton.backgroundColor = .peekaGray1
-            } else {
-                doubleCheckButton.backgroundColor = .peekaRed
-            }
-            
-            if text.count > 6 {
-                textField.deleteBackward()
-            } else {
-                countMaxTextLabel.text = "\(text.count)\(I18N.Profile.nicknameLength)"
-            }
-            doubleCheckErrorLabel.isHidden = true
+        guard let nicknameText = textField.text else { return }
+        
+        // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
+        if UserDefaults.standard.string(forKey: "userNickname") != nicknameText && !nicknameText.isEmpty {
+            doubleCheckButton.backgroundColor = .peekaRed
+            doubleCheckButton.isEnabled = true
+        } else {
+            doubleCheckButton.backgroundColor = .peekaGray1
+            doubleCheckButton.isEnabled = false
         }
-    }
+
+        if nicknameText.count > 6 {
+            textField.deleteBackward()
+        } else {
+            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
+        }
+        doubleCheckErrorLabel.isHidden = true
+        
+        // 항상 값을 최신화
+        self.nicknameText = nicknameText
+}
     
     @objc private func doubleCheckButtonDidTap() {
         let isDuplicated = checkIfDuplicated(nicknameTextField.text)
         doubleCheckButton.backgroundColor = isDuplicated ? .peekaRed : .peekaGray1
     }
     
-    private func checkIfDuplicated(_ text: String?) -> Bool {
+    @objc private func checkButtonDidTap() {
+        
+    }
+    
+    private func checkEndEditing() {
+        print(nicknameText)
+        print(introText)
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty && doubleCheckButton.backgroundColor == .peekaGray1 {
+            print("참")
+            naviBar.isProfileEditComplete = true
+        } else {
+            naviBar.isProfileEditComplete = false
+            print("거짓")
+        }
+    }
+    
+    func checkIfDuplicated(_ text: String?) -> Bool {
         if text != dummyName {
             doubleCheckErrorLabel.isHidden = true
             return false
@@ -214,5 +236,11 @@ extension EditMyPageVC {
             $0.trailing.leading.equalToSuperview().inset(20)
             $0.height.equalTo(101)
         }
+    }
+}
+
+extension EditMyPageVC: IntroText {
+    func getTextView(text: String) {
+        self.introText = text
     }
 }
