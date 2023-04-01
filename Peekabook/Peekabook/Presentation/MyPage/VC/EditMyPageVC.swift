@@ -18,8 +18,18 @@ class EditMyPageVC: UIViewController {
     
     private let dummyName: String = "북과빅"
     
-    var nicknameText: String = ""
+    var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
+    
+    var isDoubleChecked: Bool = true {
+        didSet {
+            if isDoubleChecked {
+                doubleCheckButton.backgroundColor = .peekaGray1
+            } else {
+                doubleCheckButton.backgroundColor = .peekaRed
+            }
+        }
+    }
     
     // MARK: - UI Components
     
@@ -103,10 +113,10 @@ class EditMyPageVC: UIViewController {
         // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
         if UserDefaults.standard.string(forKey: "userNickname") != nicknameText && !nicknameText.isEmpty {
             doubleCheckButton.backgroundColor = .peekaRed
-            doubleCheckButton.isEnabled = true
+            isDoubleChecked = false
         } else {
             doubleCheckButton.backgroundColor = .peekaGray1
-            doubleCheckButton.isEnabled = false
+            isDoubleChecked = true
         }
 
         if nicknameText.count > 6 {
@@ -114,25 +124,27 @@ class EditMyPageVC: UIViewController {
         } else {
             countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
         }
+        
         doubleCheckErrorLabel.isHidden = true
         
         // 항상 값을 최신화
         self.nicknameText = nicknameText
+        checkComplete()
 }
     
     @objc private func doubleCheckButtonDidTap() {
         let isDuplicated = checkIfDuplicated(nicknameTextField.text)
         doubleCheckButton.backgroundColor = isDuplicated ? .peekaRed : .peekaGray1
+        isDoubleChecked = true
+        checkComplete()
     }
     
     @objc private func checkButtonDidTap() {
         
     }
     
-    private func checkEndEditing() {
-        print(nicknameText)
-        print(introText)
-        if !self.nicknameText.isEmpty && !self.introText.isEmpty && doubleCheckButton.backgroundColor == .peekaGray1 {
+    private func checkComplete() {
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
             print("참")
             naviBar.isProfileEditComplete = true
         } else {
@@ -242,5 +254,6 @@ extension EditMyPageVC {
 extension EditMyPageVC: IntroText {
     func getTextView(text: String) {
         self.introText = text
+        checkComplete()
     }
 }
