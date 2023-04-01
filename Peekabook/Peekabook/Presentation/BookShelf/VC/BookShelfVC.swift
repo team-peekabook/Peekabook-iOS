@@ -25,9 +25,11 @@ final class BookShelfVC: UIViewController {
             case .user:
                 bottomShelfVC.changeLayout(wantsToHide: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+                moreButton.isHidden = true
             case .friend:
                 bottomShelfVC.changeLayout(wantsToHide: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+                moreButton.isHidden = false
             }
         }
     }
@@ -123,7 +125,16 @@ final class BookShelfVC: UIViewController {
         lb.textColor = .peekaRed
         lb.textAlignment = .left
         lb.numberOfLines = 2
+        lb.lineBreakMode = .byCharWrapping
         return lb
+    }()
+    
+    private lazy var moreButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setImage(ImageLiterals.Icn.more, for: .normal)
+        bt.addTarget(self, action: #selector(moreButtonDidTap), for: .touchUpInside)
+        bt.isHidden = true
+        return bt
     }()
     
     private let pickLabel: UILabel = {
@@ -188,6 +199,25 @@ final class BookShelfVC: UIViewController {
     // MARK: - @objc Function
     
     @objc
+    private func moreButtonDidTap(_ sender: UIButton) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
+            
+            let reportVC = ReportVC()
+            reportVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(reportVC, animated: true)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.cancel, style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @objc
     private func editOrRecommendButtonDidTap() {
         switch bookShelfType {
         case .user:
@@ -238,7 +268,7 @@ extension BookShelfVC {
         
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
-        introProfileView.addSubviews(introNameLabel, introductionLabel, doubleheaderLine, doubleBottomLine)
+        introProfileView.addSubviews(introNameLabel, introductionLabel, moreButton, doubleheaderLine, doubleBottomLine)
         pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
         
         emptyView.addSubview(emptyPickViewDescription)
@@ -317,15 +347,20 @@ extension BookShelfVC {
         }
         
         introNameLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(16)
             $0.centerY.equalToSuperview()
             $0.width.equalTo(50)
         }
         
         introductionLabel.snp.makeConstraints {
-            $0.leading.equalTo(introNameLabel.snp.trailing).offset(15)
-            $0.trailing.equalToSuperview().inset(10)
+            $0.leading.equalTo(introNameLabel.snp.trailing).offset(28)
+            $0.trailing.equalToSuperview().inset(24)
             $0.centerY.equalToSuperview()
+        }
+        
+        moreButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(12)
         }
         
         doubleBottomLine.snp.makeConstraints {

@@ -44,6 +44,10 @@ struct I18N {
         static let editPickDescription = "최대 3개까지 선택 가능해요."
         static let emptyPickViewDescription = "잠깐! PICK한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
         static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천 해보세요!"
+        static let unfollow = "언팔로우"
+        static let report = "신고하기"
+        static let block = "차단하기"
+        static let cancel = "취소"
     }
     
     struct BookDetail {
@@ -97,6 +101,8 @@ struct I18N {
     struct FollowStatus {
         static let follow = "팔로우"
         static let following = "팔로잉"
+        static let unfollowComment = "님을\n언팔로우 하시겠어요?"
+        static let unfollow = "언팔로우"
     }
     
     struct BookRecommend {
@@ -112,5 +118,58 @@ struct I18N {
         static let followAlarm = "당신을 팔로우했어요!"
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
+    }
+    
+    struct ManageBlockUsers {
+        static let manageBlockedUsers = "차단사용자 관리하기"
+        static let blockedUsers = "차단된 계정"
+        static let unblock = "차단 해제"
+        static let cancel = "취소하기"
+        static let noblockedUsers = "차단된 사용자가 없어요."
+        static let unblockPopUpTitle = "님을 차단 해제하시겠어요?"
+        static let unblockPopSubtitle = "이제 서로에게 책을 추천할 수 있으며,\n서로의 프로필을 볼 수 있게 됩니다."
+    }
+    
+    struct BlockPopUp {
+        static let block = "차단하기"
+        static let blockComment = "님을 차단하시겠어요?"
+        static let blockDetailComment = "서로에게 추천한 책이 삭제되며,\n서로의 프로필을 볼 수 없게 돼요."
+    }
+    
+    struct Logout {
+        static let logout = "로그아웃"
+        static let logoutComment = "로그아웃 하시겠어요?"
+    }
+    
+    struct DeleteAccount {
+        static let title = "서비스 탈퇴"
+        static let deleteAccountComment = "서비스 탈퇴 시,\n사용자의 데이터는 복구되지 않습니다.\n사용자의 개인 정보는 ‘개인정보 보호방침'에 따라\n일정 기간 보관 후 파기됩니다."
+        static let button = "탈퇴하기"
+        static let popUpComment = "서비스 탈퇴 완료"
+        static let popUpDetailComment = "이용해주셔서 감사합니다."
+        static let confirm = "확인"
+    }
+    
+    struct MyPageOption {
+        static let notificationSetting = "알림 설정"
+        static let privacyPolicy = "개인정보 보호 정책 & 서비스 이용 약관"
+        static let contactUs = "문의하기"
+        static let developerInfo = "개발자 정보"
+        static let logout = "로그아웃"
+        static let deleteAccount = "서비스 탈퇴하기"
+    }
+    
+    struct Report {
+        static let title = "사용자 신고하기"
+        static let selectTitle = "신고 사유 선택"
+        static let post = "부적절한 게시물"
+        static let insults = "욕설 및 비하 발언"
+        static let promote = "홍보성 컨텐츠"
+        static let nickname = "닉네임 신고"
+        static let etc = "기타"
+        static let placeholder = "구체적인 신고 사유를 작성해 주세요."
+        static let info = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
+        static let buttonTitle = "신고하기"
+        static let declareInfo = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
     }
 }
