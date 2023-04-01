@@ -46,6 +46,7 @@ struct ImageLiterals {
         static let radio_uncheck = UIImage(named: "icn_radio_button_unchecked")
         static let progressIndicator = UIImage(named: "icn_progress_indicator")
         static let dissatisfiedFace = UIImage(named: "icn_dissatisfied")
+        static let kakaoButton = UIImage(named: "icn_kakao_login")
     }
     
     struct Sample {
