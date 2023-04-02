@@ -19,10 +19,6 @@ struct I18N {
         static let bookshelf = "책장"
         static let recommend = "추천 "
         static let mypage = "MY"
-        static let notification = "알림"
-        static let userSearch = "사용자 검색하기"
-        static let editmyPage = "프로필 수정"
-        static let addMyInfo = "회원 가입"
     }
     
     struct Confirm {
@@ -101,6 +97,7 @@ struct I18N {
     }
     
     struct FollowStatus {
+        static let userSearch = "사용자 검색하기"
         static let follow = "팔로우"
         static let following = "팔로잉"
         static let unfollowComment = "님을\n언팔로우 하시겠어요?"
@@ -117,6 +114,7 @@ struct I18N {
     }
     
     struct Alarm {
+        static let notification = "알림"
         static let followAlarm = "당신을 팔로우했어요!"
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
@@ -176,6 +174,8 @@ struct I18N {
     }
 
     struct Profile {
+        static let editmyPage = "프로필 수정"
+        static let addMyInfo = "회원 정보 수정"
         static let nickname = "닉네임"
         static let oneLineIntro = "한 줄 소개"
         static let doubleCheck = "중복 확인"
