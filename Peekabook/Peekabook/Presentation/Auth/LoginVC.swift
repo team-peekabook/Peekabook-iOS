@@ -140,6 +140,14 @@ extension LoginVC {
     
     @objc private func appleLoginButtonDidTap() {
         print("애플 로그인")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
     
     @objc private func serviceTermsButtonDidtap() {
@@ -148,5 +156,53 @@ extension LoginVC {
     
     @objc private func privacyPolicyButtonDidtap() {
         print("개인정보 정책")
+    }
+}
+
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+
+extension LoginVC: ASAuthorizationControllerDelegate {
+    // 로그인 성공시
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            
+            if  let authorizationCode = appleIDCredential.authorizationCode,
+                let identityToken = appleIDCredential.identityToken,
+                let authString = String(data: authorizationCode, encoding: .utf8),
+                let tokenString = String(data: identityToken, encoding: .utf8) {
+                print("authorizationCode: \(authorizationCode)")
+                print("identityToken: \(identityToken)")
+                print("authString: \(authString)")
+                print("tokenString: \(tokenString)")
+            }
+            
+            print("useridentifier: \(userIdentifier)")
+            print("fullName: \(String(describing: fullName))")
+            print("email: \(String(describing: email))")
+            
+        case let passwordCredential as ASPasswordCredential:
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            print("username: \(username)")
+            print("password: \(password)")
+            
+        default:
+            break
+        }
+    }
+    
+    // 로그인 실패시
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("login err")
     }
 }
