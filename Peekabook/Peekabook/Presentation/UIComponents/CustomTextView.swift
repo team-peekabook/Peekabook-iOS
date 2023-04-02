@@ -15,6 +15,11 @@ enum CustomTextViewType: CaseIterable {
     case bookDetailComment
     case bookDetailMemo
     case bookProposal
+    case editProfileIntro
+}
+
+protocol IntroText: AnyObject {
+    func getTextView(text: String)
 }
 
 final class CustomTextView: UIView {
@@ -31,6 +36,8 @@ final class CustomTextView: UIView {
             textView.text = newValue
         }
     }
+    
+    weak var delegate: IntroText?
     
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
@@ -190,6 +197,12 @@ extension CustomTextView {
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
             boxView.backgroundColor = .peekaWhite_60
+        case .editProfileIntro:
+            label.text = I18N.Profile.oneLineIntro
+            textView.text = UserDefaults.standard.string(forKey: "userIntro")
+            maxLabel.text = "\(textView.text.count)/40"
+            textView.textColor = .peekaRed
+            proposalItemhidden()
         }
     }
     
@@ -222,7 +235,7 @@ extension CustomTextView: UITextViewDelegate {
             (textView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) ||
-        (textView.text == I18N.PlaceHolder.recommend) {
+            (textView.text == I18N.PlaceHolder.recommend) || (textView.text == I18N.PlaceHolder.profileIntro + placeholderBlank) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -236,21 +249,32 @@ extension CustomTextView: UITextViewDelegate {
             } else if label.text == I18N.BookProposal.personName {
                 textView.text = I18N.PlaceHolder.recommend
                 textView.textColor = .peekaGray1
-            } else {
+            } else if label.text == I18N.BookDetail.memo {
                 textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
+                textView.textColor = .peekaGray1
+            } else {
+                textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
                 textView.textColor = .peekaGray1
             }
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        delegate?.getTextView(text: textView.text)
+        
         if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
             maxLabel.text = "\(textView.text.count)/200"
             if textView.text.count > 200 {
                 textView.deleteBackward()
             }
+        } else if label.text == I18N.Profile.oneLineIntro {
+            if textView.text.count > 40 {
+                textView.deleteBackward()
+            } else {
+                maxLabel.text = "\(textView.text.count)/40"
+            }
         } else {
-            maxLabel.text = "\(textView.text.count)/50"
             if textView.text.count > 50 {
                 textView.deleteBackward()
             }

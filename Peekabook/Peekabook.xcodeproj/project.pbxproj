@@ -20,6 +20,7 @@
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */; };
 		14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E3629D439450086F8DF /* SignUpVC.swift */; };
+		14C84E2F29CC2A6D0086F8DF /* EditMyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E2E29CC2A6D0086F8DF /* EditMyPageVC.swift */; };
 		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */; };
@@ -165,6 +166,7 @@
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTypeCVC.swift; sourceTree = "<group>"; };
 		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		14C84E2E29CC2A6D0086F8DF /* EditMyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPageVC.swift; sourceTree = "<group>"; };
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -591,6 +593,7 @@
 				98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */,
 				98F1804229CE84E100550E45 /* DeleteAccountVC.swift */,
 				98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */,
+				14C84E2E29CC2A6D0086F8DF /* EditMyPageVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
+				14C84E2F29CC2A6D0086F8DF /* EditMyPageVC.swift in Sources */,
 				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */,
 				8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */,

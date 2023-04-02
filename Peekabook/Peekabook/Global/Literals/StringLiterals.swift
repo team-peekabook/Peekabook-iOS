@@ -21,6 +21,7 @@ struct I18N {
         static let mypage = "MY"
         static let notification = "알림"
         static let userSearch = "사용자 검색하기"
+        static let editmyPage = "프로필 수정"
         static let addMyInfo = "회원 가입"
     }
     
@@ -34,6 +35,7 @@ struct I18N {
         static let recommend = "추천사를 적어주세요"
         static let bookSearch = "책 제목을 입력해주세요."
         static let userSearch = "사용자의 닉네임을 입력해주세요."
+        static let profileIntro = "한 줄 소개를 입력해주세요."
     }
     
     struct BookShelf {
@@ -172,7 +174,15 @@ struct I18N {
         static let buttonTitle = "신고하기"
         static let declareInfo = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
     }
-    
+
+    struct Profile {
+        static let nickname = "닉네임"
+        static let oneLineIntro = "한 줄 소개"
+        static let doubleCheck = "중복 확인"
+        static let doubleCheckError = "이미 사용 중인 닉네임 입니다"
+        static let nicknameLength = "/6"
+    }
+
     struct Login {
         static let info = "가입 시, PEEKABOOK의 다음 사항에 동의하는 것으로 간주합니다."
         static let serviceTerms = "서비스 이용약관"
