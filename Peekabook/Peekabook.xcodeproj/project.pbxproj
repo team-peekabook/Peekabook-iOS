@@ -142,6 +142,7 @@
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
 		98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CustomTextView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
+		98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EAD31729D5AC40000181AF /* LoginVC.swift */; };
 		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
 		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
 		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
@@ -287,6 +288,7 @@
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
 		98BA610B29A6403000A4C4E2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
+		98EAD31729D5AC40000181AF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				98A042052966469800081B8E /* Proposal */,
 				98601A7F29C99CC2002F7753 /* UserDeclare */,
 				8E13F66D2966BDBA00E61B47 /* UIComponents */,
+				98EAD31729D5AC40000181AF /* LoginVC.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1079,6 +1082,7 @@
 				8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */,
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
+				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,
 				14B354482968897C00998925 /* NotificationModel.swift in Sources */,
 				8E097202296C83C0007731E3 /* Config.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
