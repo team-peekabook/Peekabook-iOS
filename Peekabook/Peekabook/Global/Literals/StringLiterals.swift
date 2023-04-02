@@ -31,6 +31,7 @@ struct I18N {
         static let recommend = "추천사를 적어주세요"
         static let bookSearch = "책 제목을 입력해주세요."
         static let userSearch = "사용자의 닉네임을 입력해주세요."
+        static let nickname = "닉네임은 6자까지 쓸 수 있어요!"
         static let profileIntro = "한 줄 소개를 입력해주세요."
     }
     
@@ -175,11 +176,13 @@ struct I18N {
 
     struct Profile {
         static let editmyPage = "프로필 수정"
-        static let addMyInfo = "회원 정보 수정"
+        static let addMyInfo = "회원정보 입력"
         static let nickname = "닉네임"
         static let oneLineIntro = "한 줄 소개"
         static let doubleCheck = "중복 확인"
         static let doubleCheckError = "이미 사용 중인 닉네임 입니다"
+        static let doubleCheckSuccess = "사용 가능한 닉네임 입니다"
+        static let doubleUncheckedError = "닉네임 중복확인을 해주세요"
         static let nicknameLength = "/6"
     }
 
