@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpVC: UIViewController {
+final class SignUpVC: UIViewController {
     
     // MARK: - Properties
     
@@ -22,6 +22,17 @@ class SignUpVC: UIViewController {
                 doubleCheckButton.backgroundColor = .peekaGray1
             } else {
                 doubleCheckButton.backgroundColor = .peekaRed
+            }
+        }
+    }
+    
+    var isCheckComplete: Bool = false {
+        didSet {
+            if isCheckComplete {
+                updateConfirmSuccess()
+
+            } else {
+                updateConfirmFailed()
             }
         }
     }
@@ -93,12 +104,30 @@ class SignUpVC: UIViewController {
     
     private let introContainerView = CustomTextView()
     
+    private lazy var signUpButton = UIButton(type: .system).then {
+        $0.setTitle(I18N.DeleteAccount.confirm, for: .normal)
+        $0.titleLabel!.font = .nameBold
+        $0.setTitleColor(.peekaGray2, for: .normal)
+        $0.backgroundColor = .peekaGray3
+        $0.layer.borderColor = UIColor.peekaGray2_60.cgColor
+        $0.layer.borderWidth = 2
+        $0.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
+    }
+    
+    private let doubleCheckNotTappedLabel = UILabel().then {
+        $0.text = I18N.Profile.doubleUncheckedError
+        $0.font = .s3
+        $0.textColor = .peekaRed
+        $0.isHidden = true
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundColor()
         setLayout()
+        setIntroView()
     }
     
     @objc
@@ -107,9 +136,10 @@ class SignUpVC: UIViewController {
         
         if !nicknameText.isEmpty {
             isDoubleChecked = false
+            doubleCheckButton.backgroundColor = .peekaRed
         } else {
-            doubleCheckButton.backgroundColor = .peekaGray1
             isDoubleChecked = true
+            doubleCheckButton.backgroundColor = .peekaGray2
         }
         
         if nicknameText.count > 6 {
@@ -120,6 +150,8 @@ class SignUpVC: UIViewController {
         
         doubleCheckErrorLabel.isHidden = true
         doubleCheckSuccessLabel.isHidden = true
+        doubleCheckNotTappedLabel.isHidden = true
+        isDoubleChecked = false
         
         // 항상 값을 최신화
         self.nicknameText = nicknameText
@@ -133,27 +165,33 @@ class SignUpVC: UIViewController {
             doubleCheckButton.backgroundColor = .peekaRed
             doubleCheckErrorLabel.isHidden = false
             doubleCheckSuccessLabel.isHidden = true
+            isDoubleChecked = false
         } else {
             doubleCheckButton.backgroundColor = .peekaGray1
             doubleCheckErrorLabel.isHidden = true
             doubleCheckSuccessLabel.isHidden = false
             isDoubleChecked = true
+            doubleCheckNotTappedLabel.isHidden = true
         }
         checkComplete()
     }
     
     @objc
     private func checkButtonDidTap() {
-        UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
-        UserDefaults.standard.setValue(introText, forKey: "userIntro")
-        navigationController?.popViewController(animated: true)
+        if !isDoubleChecked {
+            doubleCheckNotTappedLabel.isHidden = false
+        } else {
+            doubleCheckNotTappedLabel.isHidden = true
+            UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
+            UserDefaults.standard.setValue(introText, forKey: "userIntro")
+        }
     }
     
     private func checkComplete() {
-        if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
-            naviBar.isProfileEditComplete = true
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty {
+            isCheckComplete = true
         } else {
-            naviBar.isProfileEditComplete = false
+            isCheckComplete = false
         }
     }
     
@@ -220,8 +258,23 @@ extension SignUpVC {
         nicknameHeaderView.backgroundColor = .peekaRed
     }
     
+    private func updateConfirmSuccess() {
+        signUpButton.backgroundColor = .peekaRed
+        signUpButton.setTitleColor(.peekaWhite, for: .normal)
+        signUpButton.layer.borderColor = UIColor.peekaRed.cgColor
+        signUpButton.isEnabled = true
+    }
+    
+    private func updateConfirmFailed() {
+        signUpButton.setTitleColor(.peekaGray2, for: .normal)
+        signUpButton.backgroundColor = .peekaGray3
+        signUpButton.layer.borderColor = UIColor.peekaGray2_60.cgColor
+        signUpButton.layer.borderWidth = 2
+        signUpButton.isEnabled = false
+    }
+    
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView, signUpButton, doubleCheckNotTappedLabel)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -299,6 +352,17 @@ extension SignUpVC {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
             $0.trailing.leading.equalToSuperview().inset(20)
             $0.height.equalTo(101)
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(23)
+            $0.height.equalTo(56)
+        }
+        
+        doubleCheckNotTappedLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(signUpButton.snp.top).offset(-16)
         }
     }
 }

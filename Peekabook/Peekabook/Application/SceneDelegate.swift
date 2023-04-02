@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let tabbar = LoginVC()
+        let tabbar = SignUpVC()
         window.rootViewController = tabbar
         window.backgroundColor = .white
         window.makeKeyAndVisible()
