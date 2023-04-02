@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class ConfirmPopUpVC: UIViewController {
+final class ProposalConfirmPopUpVC: UIViewController {
     
     // MARK: - Properties
     
@@ -42,7 +42,7 @@ final class ConfirmPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension ConfirmPopUpVC {
+extension ProposalConfirmPopUpVC {
 
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
@@ -63,7 +63,7 @@ extension ConfirmPopUpVC {
 
 // MARK: - Methods
 
-extension ConfirmPopUpVC {
+extension ProposalConfirmPopUpVC {
     
     @objc func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
@@ -80,7 +80,7 @@ extension ConfirmPopUpVC {
 
 // MARK: - Network
 
-extension ConfirmPopUpVC {
+extension ProposalConfirmPopUpVC {
     
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
         FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
