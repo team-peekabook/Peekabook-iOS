@@ -44,6 +44,7 @@ struct ImageLiterals {
         static let more = UIImage(named: "icn_more")
         static let radio_check = UIImage(named: "icn_radio_button_checked")
         static let radio_uncheck = UIImage(named: "icn_radio_button_unchecked")
+        static let profileImageEdit = UIImage(named: "icn_edit_profileImage")?.withRenderingMode(.alwaysOriginal)
         static let progressIndicator = UIImage(named: "icn_progress_indicator")
         static let dissatisfiedFace = UIImage(named: "icn_dissatisfied")
         static let kakaoButton = UIImage(named: "icn_kakao_login")

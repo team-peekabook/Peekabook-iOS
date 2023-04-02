@@ -24,6 +24,15 @@ final class CustomNavigationBar: UIView {
     private var otherRightButtonClosure: (() -> Void)?
     private var leftButtonClosure: (() -> Void)?
     
+    var isProfileEditComplete: Bool = true {
+        didSet {
+            if isProfileEditComplete {
+                self.rightButton.titleLabel?.textColor = .peekaRed
+            } else {
+                self.rightButton.titleLabel?.textColor = .peekaGray1
+            }
+        }
+    }
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
@@ -152,6 +161,10 @@ extension CustomNavigationBar {
     @objc
     private func touchupLeftButton() {
         self.leftButtonClosure?()
+    }
+    
+    @objc func checkRightButton() {
+        self.rightButtonClosure?()
     }
 }
 

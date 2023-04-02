@@ -11,6 +11,10 @@ import Then
 
 final class MyPageHeaderView: UITableViewHeaderFooterView {
     
+    // MARK: - Properties
+    
+    var editButtonTappedClosure: (() -> Void)?
+    
     // MARK: - UI Components
     
     private let containerView = UIView()
@@ -28,8 +32,9 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
         $0.font = .h1
         $0.textColor = .peekaRed
     }
-    private let editButton = UIButton(type: .system).then {
+    private lazy var editButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.profileEdit, for: .normal)
+        $0.addTarget(self, action: #selector(editMyProfileButtonDidTap), for: .touchUpInside)
     }
     private let introLabel = UILabel().then {
         $0.font = .s3
@@ -46,6 +51,10 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func editMyProfileButtonDidTap() {
+        editButtonTappedClosure?()
     }
 }
 
