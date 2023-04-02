@@ -82,32 +82,32 @@ extension LoginVC {
         labelContainerView.addSubviews(serviceTermsButton, andLabel, privacyPolicyButton)
         
         logoImgView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(222)
+            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-191)
             $0.centerX.equalToSuperview()
         }
         
         kakaoLoginButton.snp.makeConstraints {
-            $0.top.equalTo(logoImgView.snp.bottom).offset(191)
+            $0.bottom.equalTo(appleLoginButton.snp.top).offset(-15)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(45)
         }
         
         appleLoginButton.snp.makeConstraints {
-            $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(15)
+            $0.bottom.equalTo(infoLabel.snp.top).offset(-31)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(45)
         }
         
         infoLabel.snp.makeConstraints {
-            $0.top.equalTo(appleLoginButton.snp.bottom).offset(31)
+            $0.bottom.equalTo(labelContainerView.snp.top)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(16)
         }
 
         labelContainerView.snp.makeConstraints {
-            $0.top.equalTo(infoLabel.snp.bottom)
+            $0.bottom.equalToSuperview().inset(59)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(157)
             $0.height.equalTo(16)
