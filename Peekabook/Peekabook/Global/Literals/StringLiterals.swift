@@ -172,4 +172,11 @@ struct I18N {
         static let buttonTitle = "신고하기"
         static let declareInfo = "신고하신 내용은 검토 후 빠른 시일 내 조치하겠습니다."
     }
+    
+    struct Login {
+        static let info = "가입 시, PEEKABOOK의 다음 사항에 동의하는 것으로 간주합니다."
+        static let serviceTerms = "서비스 이용약관"
+        static let privacyPolicy = "개인정보 정책"
+        static let and = "및"
+    }
 }
