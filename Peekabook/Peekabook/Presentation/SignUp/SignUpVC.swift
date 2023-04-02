@@ -42,6 +42,10 @@ final class SignUpVC: UIViewController {
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
         
+    private let containerView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
         $0.image = ImageLiterals.Icn.emptyProfileImage
@@ -274,7 +278,8 @@ extension SignUpVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView, signUpButton, doubleCheckNotTappedLabel)
+        view.addSubviews(containerView, signUpButton, doubleCheckNotTappedLabel)
+        containerView.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -282,6 +287,11 @@ extension SignUpVC {
     
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         profileImageContainerView.snp.makeConstraints {
@@ -302,7 +312,7 @@ extension SignUpVC {
         
         nicknameContainerView.snp.makeConstraints {
             $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(79)
         }
         
@@ -350,8 +360,9 @@ extension SignUpVC {
         
         introContainerView.snp.makeConstraints {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
-            $0.trailing.leading.equalToSuperview().inset(20)
+            $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(101)
+            $0.bottom.equalToSuperview().inset(11)
         }
         
         signUpButton.snp.makeConstraints {

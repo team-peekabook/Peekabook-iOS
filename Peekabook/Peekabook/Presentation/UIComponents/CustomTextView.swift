@@ -207,7 +207,7 @@ extension CustomTextView {
         case .addProfileIntro:
             label.text = I18N.Profile.oneLineIntro
             textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
-            maxLabel.text = "\(textView.text.count)/40"
+            maxLabel.text = "0/40"
             textView.textColor = .peekaRed
             proposalItemhidden()
         }
