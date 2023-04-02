@@ -152,7 +152,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as? MyPageHeaderView else { return nil }
         
         view.editButtonTappedClosure = {[weak self] in
-            let editVC = EditMyPageVC()
+            let editVC = EditMyProfileVC()
             self?.navigationController?.pushViewController(editVC, animated: true)
         }
         return view

@@ -1,5 +1,5 @@
 //
-//  EditMyPageVC.swift
+//  EditMyProfileVC.swift
 //  Peekabook
 //
 //  Created by 김인영 on 2023/03/23.
@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class EditMyPageVC: UIViewController {
+final class EditMyProfileVC: UIViewController {
     
     // MARK: - Properties
     
@@ -193,7 +193,7 @@ final class EditMyPageVC: UIViewController {
     
 }
 
-extension EditMyPageVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
@@ -206,7 +206,7 @@ extension EditMyPageVC: UIImagePickerControllerDelegate, UINavigationControllerD
 
 // MARK: - UI & Layout
 
-extension EditMyPageVC {
+extension EditMyProfileVC {
     
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
@@ -291,7 +291,7 @@ extension EditMyPageVC {
     }
 }
 
-extension EditMyPageVC: IntroText {
+extension EditMyProfileVC: IntroText {
     func getTextView(text: String) {
         self.introText = text
         checkComplete()
