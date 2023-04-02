@@ -46,10 +46,11 @@ class EditMyPageVC: UIViewController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 40
     }
-    private let editImageButton = UIButton(type: .system).then {
+    private lazy var editImageButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
+        $0.addTarget(self, action: #selector(ImagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -118,7 +119,7 @@ class EditMyPageVC: UIViewController {
             doubleCheckButton.backgroundColor = .peekaGray1
             isDoubleChecked = true
         }
-
+        
         if nicknameText.count > 6 {
             textField.deleteBackward()
         } else {
@@ -130,7 +131,7 @@ class EditMyPageVC: UIViewController {
         // 항상 값을 최신화
         self.nicknameText = nicknameText
         checkComplete()
-}
+    }
     
     @objc private func doubleCheckButtonDidTap() {
         let isDuplicated = checkIfDuplicated(nicknameTextField.text)
@@ -140,16 +141,16 @@ class EditMyPageVC: UIViewController {
     }
     
     @objc private func checkButtonDidTap() {
-        
+        UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
+        UserDefaults.standard.setValue(introText, forKey: "userIntro")
+        navigationController?.popViewController(animated: true)
     }
     
     private func checkComplete() {
         if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
-            print("참")
             naviBar.isProfileEditComplete = true
         } else {
             naviBar.isProfileEditComplete = false
-            print("거짓")
         }
     }
     
@@ -162,6 +163,45 @@ class EditMyPageVC: UIViewController {
             return true
         }
     }
+    
+    @objc private func ImagePickDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
+            self.openCamera()
+        }))
+        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
+            self.openPhotoLibrary()
+        }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func openCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+}
+
+extension EditMyPageVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            self.profileImageView.image = image
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - UI & Layout
