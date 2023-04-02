@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-class EditMyPageVC: UIViewController {
+final class EditMyPageVC: UIViewController {
     
     // MARK: - Properties
     
