@@ -34,7 +34,7 @@ final class EditMyProfileVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
-        .addMiddleLabel(title: I18N.Tabbar.editmyPage)
+        .addMiddleLabel(title: I18N.Profile.editmyPage)
         .addRightButton(with: I18N.BookProposal.done)
         .addRightButtonAction {
             self.checkButtonDidTap()
@@ -88,6 +88,12 @@ final class EditMyProfileVC: UIViewController {
         $0.textColor = .peekaRed
         $0.isHidden = true
     }
+    private let doubleCheckSuccessLabel = UILabel().then {
+        $0.text = I18N.Profile.doubleCheckSuccess
+        $0.font = .s3
+        $0.textColor = .peekaRed
+        $0.isHidden = true
+    }
     private let countMaxTextLabel = UILabel().then {
         if let name = UserDefaults.standard.string(forKey: "userNickname") {
             $0.text = "\(name.count)" + I18N.Profile.nicknameLength
@@ -127,6 +133,7 @@ final class EditMyProfileVC: UIViewController {
         }
         
         doubleCheckErrorLabel.isHidden = true
+        doubleCheckSuccessLabel.isHidden = true
         
         // 항상 값을 최신화
         self.nicknameText = nicknameText
@@ -135,8 +142,16 @@ final class EditMyProfileVC: UIViewController {
     
     @objc private func doubleCheckButtonDidTap() {
         let isDuplicated = checkIfDuplicated(nicknameTextField.text)
-        doubleCheckButton.backgroundColor = isDuplicated ? .peekaRed : .peekaGray1
-        isDoubleChecked = true
+        if isDuplicated {
+            doubleCheckButton.backgroundColor = .peekaRed
+            doubleCheckErrorLabel.isHidden = false
+            doubleCheckSuccessLabel.isHidden = true
+        } else {
+            doubleCheckButton.backgroundColor = .peekaGray1
+            doubleCheckErrorLabel.isHidden = true
+            doubleCheckSuccessLabel.isHidden = false
+            isDoubleChecked = true
+        }
         checkComplete()
     }
     
@@ -156,10 +171,8 @@ final class EditMyProfileVC: UIViewController {
     
     func checkIfDuplicated(_ text: String?) -> Bool {
         if text != dummyName {
-            doubleCheckErrorLabel.isHidden = true
             return false
         } else {
-            doubleCheckErrorLabel.isHidden = false
             return true
         }
     }
@@ -214,7 +227,7 @@ extension EditMyProfileVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, countMaxTextLabel, introContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -274,6 +287,11 @@ extension EditMyProfileVC {
         }
         
         doubleCheckErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        doubleCheckSuccessLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
             $0.leading.equalTo(nicknameContainerView)
         }

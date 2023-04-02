@@ -11,23 +11,37 @@ class SignUpVC: UIViewController {
     
     // MARK: - Properties
     
-    let dummyName: String = "하하호호"
+    private let dummyName: String = "북과빅"
+    
+    var nicknameText: String = ""
+    var introText: String = ""
+    
+    var isDoubleChecked: Bool = true {
+        didSet {
+            if isDoubleChecked {
+                doubleCheckButton.backgroundColor = .peekaGray1
+            } else {
+                doubleCheckButton.backgroundColor = .peekaRed
+            }
+        }
+    }
     
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
-        .addMiddleLabel(title: I18N.Tabbar.addMyInfo)
-    
+        .addMiddleLabel(title: I18N.Profile.addMyInfo)
+        
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile1
+        $0.image = ImageLiterals.Icn.emptyProfileImage
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 40
     }
-    private let editImageButton = UIButton(type: .system).then {
-        // $0.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
+    private lazy var editImageButton = UIButton(type: .system).then {
+        $0.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
+        $0.addTarget(self, action: #selector(ImagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -37,40 +51,44 @@ class SignUpVC: UIViewController {
     
     private let nicknameHeaderView = UIView()
     private let nicknameLabel = UILabel().then {
-        $0.text = "닉네임" //I18N.Profile.nickname
+        $0.text = I18N.Profile.nickname
         $0.font = .h1
         $0.textColor = .peekaWhite
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
+        $0.placeholder = "닉네임은 6자까지 쓸 수 있어요!"
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
         $0.becomeFirstResponder()
         $0.returnKeyType = .done
         $0.font = .h2
-        $0.text = UserDefaults.standard.string(forKey: "userNickname")
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     private lazy var doubleCheckButton = UIButton(type: .system).then {
-        $0.setTitle("중복확인", for: .normal) // 나중에 바꾸기
+        $0.setTitle(I18N.Profile.doubleCheck, for: .normal)
         $0.backgroundColor = .peekaGray1
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .c1
         $0.addTarget(self, action: #selector(doubleCheckButtonDidTap), for: .touchUpInside)
     }
     private let doubleCheckErrorLabel = UILabel().then {
-        $0.text = "이미 사용 중인 닉네임 입니다."  // I18N.Profile.doubleCheckError
+        $0.text = I18N.Profile.doubleCheckError
+        $0.font = .s3
+        $0.textColor = .peekaRed
+        $0.isHidden = true
+    }
+    private let doubleCheckSuccessLabel = UILabel().then {
+        $0.text = I18N.Profile.doubleCheckSuccess
         $0.font = .s3
         $0.textColor = .peekaRed
         $0.isHidden = true
     }
     private let countMaxTextLabel = UILabel().then {
-        if let name = UserDefaults.standard.string(forKey: "userNickname") {
-            $0.text = "\(name.count)" + "/6" // I18N.Profile.nicknameLength
-            $0.font = .h2
-            $0.textColor = .peekaGray2
-        }
+        $0.text = "0" + I18N.Profile.nicknameLength
+        $0.font = .h2
+        $0.textColor = .peekaGray2
     }
     
     private let introContainerView = CustomTextView()
@@ -81,50 +99,121 @@ class SignUpVC: UIViewController {
         super.viewDidLoad()
         setBackgroundColor()
         setLayout()
-        // introContainerView.updateTextView(type: .editProfileIntro)
     }
     
-    @objc private func submitButtonDidTap() {
-        print("완료")
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        guard let nicknameText = textField.text else { return }
+        
+        if !nicknameText.isEmpty {
+            isDoubleChecked = false
+        } else {
+            doubleCheckButton.backgroundColor = .peekaGray1
+            isDoubleChecked = true
+        }
+        
+        if nicknameText.count > 6 {
+            textField.deleteBackward()
+        } else {
+            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
+        }
+        
+        doubleCheckErrorLabel.isHidden = true
+        doubleCheckSuccessLabel.isHidden = true
+        
+        // 항상 값을 최신화
+        self.nicknameText = nicknameText
+        checkComplete()
     }
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text {
-            if text != nicknameTextField.text || text.isEmpty {
-                doubleCheckButton.backgroundColor = .peekaGray1
-            } else {
-                doubleCheckButton.backgroundColor = .peekaRed
-            }
-            
-            if text.count > 6 {
-                textField.deleteBackward()
-            } else {
-                countMaxTextLabel.text = "\(text.count)/6"
-                // "\(text.count)\(I18N.Profile.nicknameLength)"
-            }
+    @objc
+    private func doubleCheckButtonDidTap() {
+        let isDuplicated = checkIfDuplicated(nicknameTextField.text)
+        if isDuplicated {
+            doubleCheckButton.backgroundColor = .peekaRed
+            doubleCheckErrorLabel.isHidden = false
+            doubleCheckSuccessLabel.isHidden = true
+        } else {
+            doubleCheckButton.backgroundColor = .peekaGray1
             doubleCheckErrorLabel.isHidden = true
+            doubleCheckSuccessLabel.isHidden = false
+            isDoubleChecked = true
+        }
+        checkComplete()
+    }
+    
+    @objc
+    private func checkButtonDidTap() {
+        UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
+        UserDefaults.standard.setValue(introText, forKey: "userIntro")
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func checkComplete() {
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
+            naviBar.isProfileEditComplete = true
+        } else {
+            naviBar.isProfileEditComplete = false
         }
     }
     
-    @objc private func doubleCheckButtonDidTap() {
-        let isDuplicated = checkIfDuplicated(nicknameTextField.text)
-        doubleCheckButton.backgroundColor = isDuplicated ? .peekaRed : .peekaGray1
-    }
-    
-    private func checkIfDuplicated(_ text: String?) -> Bool {
+    func checkIfDuplicated(_ text: String?) -> Bool {
         if text != dummyName {
-            doubleCheckErrorLabel.isHidden = true
             return false
         } else {
-            doubleCheckErrorLabel.isHidden = false
             return true
         }
     }
+    
+    @objc
+    private func ImagePickDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
+            self.openCamera()
+        }))
+        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
+            self.openPhotoLibrary()
+        }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func openCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            self.profileImageView.image = image
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - UI & Layout
 
 extension SignUpVC {
+    
+    private func setIntroView() {
+        introContainerView.delegate = self
+        introContainerView.updateTextView(type: .addProfileIntro)
+        introContainerView.setTextColor(.peekaGray1)
+    }
     
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
@@ -132,7 +221,7 @@ extension SignUpVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, countMaxTextLabel, introContainerView)
+        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
@@ -196,6 +285,11 @@ extension SignUpVC {
             $0.leading.equalTo(nicknameContainerView)
         }
         
+        doubleCheckSuccessLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
         countMaxTextLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
             $0.trailing.equalTo(nicknameContainerView)
@@ -209,4 +303,9 @@ extension SignUpVC {
     }
 }
 
-// MARK: - Methods
+extension SignUpVC: IntroText {
+    func getTextView(text: String) {
+        self.introText = text
+        checkComplete()
+    }
+}
