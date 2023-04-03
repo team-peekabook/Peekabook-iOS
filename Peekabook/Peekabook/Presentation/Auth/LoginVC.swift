@@ -40,11 +40,10 @@ final class LoginVC: UIViewController {
     
     private let labelContainerView = UIView()
     
-    private lazy var serviceTermsButton = UIButton().then {
-        $0.setTitle(I18N.Login.serviceTerms, for: .normal)
-        $0.titleLabel!.font = .s1
-        $0.setTitleColor(.peekaGray2, for: .normal)
-        $0.addTarget(self, action: #selector(serviceTermsButtonDidtap), for: .touchUpInside)
+    private let serviceTermsLabel = UILabel().then {
+        $0.text = I18N.Login.serviceTerms
+        $0.font = .s1
+        $0.textColor = .peekaGray2
     }
     
     private let andLabel = UILabel().then {
@@ -53,17 +52,17 @@ final class LoginVC: UIViewController {
         $0.textColor = .peekaGray1
     }
     
-    private lazy var privacyPolicyButton = UIButton().then {
-        $0.setTitle(I18N.Login.privacyPolicy, for: .normal)
-        $0.titleLabel!.font = .s1
-        $0.setTitleColor(.peekaGray2, for: .normal)
-        $0.addTarget(self, action: #selector(privacyPolicyButtonDidtap), for: .touchUpInside)
+    private let privacyPolicyLabel = UILabel().then {
+        $0.text = I18N.Login.privacyPolicy
+        $0.font = .s1
+        $0.textColor = .peekaGray2
     }
     
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addButtonTapGesture()
         setBackgroundColor()
         setLayout()
     }
@@ -79,7 +78,7 @@ extension LoginVC {
     
     private func setLayout() {
         view.addSubviews(logoImgView, kakaoLoginButton, appleLoginButton, infoLabel, labelContainerView)
-        labelContainerView.addSubviews(serviceTermsButton, andLabel, privacyPolicyButton)
+        labelContainerView.addSubviews(serviceTermsLabel, andLabel, privacyPolicyLabel)
         
         logoImgView.snp.makeConstraints {
             $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-191)
@@ -113,16 +112,17 @@ extension LoginVC {
             $0.height.equalTo(16)
         }
 
-        andLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-
-        serviceTermsButton.snp.makeConstraints {
+        serviceTermsLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(andLabel.snp.leading).offset(-4)
+            $0.leading.equalToSuperview()
+        }
+        
+        andLabel.snp.makeConstraints {
+            $0.leading.equalTo(serviceTermsLabel.snp.trailing).offset(4)
+            $0.centerY.equalToSuperview()
         }
 
-        privacyPolicyButton.snp.makeConstraints {
+        privacyPolicyLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(andLabel.snp.trailing).offset(4)
         }
@@ -151,12 +151,13 @@ extension LoginVC {
         authorizationController.performRequests()
     }
     
-    @objc private func serviceTermsButtonDidtap() {
-        print("서비스 이용약관")
+    private func addButtonTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveTotermsAndpolicy))
+        labelContainerView.addGestureRecognizer(tapGesture)
     }
     
-    @objc private func privacyPolicyButtonDidtap() {
-        print("개인정보 정책")
+    @objc private func moveTotermsAndpolicy() {
+        print("서비스 이용약관 및 정책")
     }
 }
 
