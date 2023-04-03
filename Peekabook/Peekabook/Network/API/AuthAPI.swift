@@ -16,17 +16,17 @@ final class AuthAPI {
     
     private init() { }
     
-    private(set) var sampleData: GeneralResponse<BlankData>?
+    private(set) var appleLoginData: GeneralResponse<AppleLoginRequest>?
     
-    // 1. 샘플 API
+    // 1. 애플 로그인 API
     
-    func getSampleAPI(completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        authProvider.request(.sample) { [self] (result) in
+    func getAppleLoginAPI(param: AppleLoginRequest, completion: @escaping (GeneralResponse<AppleLoginRequest>?) -> Void) {
+        authProvider.request(.appleLogin(param: param)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
-                    self.sampleData = try response.map(GeneralResponse<BlankData>.self)
-                    completion(sampleData)
+                    self.appleLoginData = try response.map(GeneralResponse<AppleLoginRequest>.self)
+                    completion(appleLoginData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

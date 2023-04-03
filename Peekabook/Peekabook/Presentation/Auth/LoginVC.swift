@@ -140,6 +140,7 @@ extension LoginVC {
     
     @objc private func appleLoginButtonDidTap() {
         print("애플 로그인")
+        
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -166,15 +167,11 @@ extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
 }
 
 extension LoginVC: ASAuthorizationControllerDelegate {
-    // 로그인 성공시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         
+        // 페이스 아이디로 로그인
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-            
             if  let authorizationCode = appleIDCredential.authorizationCode,
                 let identityToken = appleIDCredential.identityToken,
                 let authString = String(data: authorizationCode, encoding: .utf8),
@@ -185,16 +182,19 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("tokenString: \(tokenString)")
             }
             
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(String(describing: fullName))")
-            print("email: \(String(describing: email))")
+            let appleLoginRequest = AppleLoginRequest(socialPlatform: "apple")
+            appleLogin(param: appleLoginRequest)
             
+        // 비밀번호로 로그인
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
             
             print("username: \(username)")
             print("password: \(password)")
+            
+            let appleLoginRequest = AppleLoginRequest(socialPlatform: "apple")
+            appleLogin(param: appleLoginRequest)
             
         default:
             break
@@ -204,5 +204,15 @@ extension LoginVC: ASAuthorizationControllerDelegate {
     // 로그인 실패시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("login err")
+    }
+}
+
+extension LoginVC {
+    private func appleLogin(param: AppleLoginRequest) {
+        AuthAPI.shared.getAppleLoginAPI(param: param) { response in
+            if response?.success == true {
+                // 회원가입뷰로 이동
+            }
+        }
     }
 }

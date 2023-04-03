@@ -143,6 +143,7 @@
 		98BA610C29A6403000A4C4E2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BA610B29A6403000A4C4E2 /* CustomTextView.swift */; };
 		98D775E32970979200FF9FBA /* PostBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D775E22970979200FF9FBA /* PostBookRequest.swift */; };
 		98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EAD31729D5AC40000181AF /* LoginVC.swift */; };
+		98EAD31D29D9CEB8000181AF /* AppleLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EAD31C29D9CEB8000181AF /* AppleLoginRequest.swift */; };
 		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
 		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
 		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
@@ -289,6 +290,7 @@
 		98BA610B29A6403000A4C4E2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		98D775E22970979200FF9FBA /* PostBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookRequest.swift; sourceTree = "<group>"; };
 		98EAD31729D5AC40000181AF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		98EAD31C29D9CEB8000181AF /* AppleLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginRequest.swift; sourceTree = "<group>"; };
 		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 				8EEF8E34296B12D200F37AFD /* Recommend */,
 				8E4083E12970125600B53339 /* Alarm */,
 				8EEF8E3D296B132900F37AFD /* NaverSearch */,
+				98EAD31929D9CD9A000181AF /* Auth */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -910,6 +913,14 @@
 			path = VC;
 			sourceTree = "<group>";
 		};
+		98EAD31929D9CD9A000181AF /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				98EAD31C29D9CEB8000181AF /* AppleLoginRequest.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1063,6 +1074,7 @@
 				8EEF8E26296B125C00F37AFD /* AlarmRouter.swift in Sources */,
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
+				98EAD31D29D9CEB8000181AF /* AppleLoginRequest.swift in Sources */,
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
 				98601A8229C99D06002F7753 /* ReportVC.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
