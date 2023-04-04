@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SignUpVC: UIViewController {
+final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
@@ -30,7 +30,7 @@ final class SignUpVC: UIViewController {
         didSet {
             if isCheckComplete {
                 updateConfirmSuccess()
-
+                
             } else {
                 updateConfirmFailed()
             }
@@ -41,9 +41,10 @@ final class SignUpVC: UIViewController {
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
-        
+    
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
+        
     }
     
     private let profileImageContainerView = UIView()
@@ -108,6 +109,8 @@ final class SignUpVC: UIViewController {
     
     private let introContainerView = CustomTextView()
     
+    private let checkContainerView = UIView()
+    
     private lazy var signUpButton = UIButton(type: .system).then {
         $0.setTitle(I18N.DeleteAccount.confirm, for: .normal)
         $0.titleLabel!.font = .nameBold
@@ -132,18 +135,26 @@ final class SignUpVC: UIViewController {
         setBackgroundColor()
         setLayout()
         setIntroView()
+        addTapGesture()
+        addKeyboardObserver()
+        nicknameTextField.delegate = self
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         guard let nicknameText = textField.text else { return }
+        // 항상 값을 최신화
+        self.nicknameText = nicknameText
         
-        if !nicknameText.isEmpty {
-            isDoubleChecked = false
-            doubleCheckButton.backgroundColor = .peekaRed
-        } else {
+        if nicknameText.isEmpty {
             isDoubleChecked = true
-            doubleCheckButton.backgroundColor = .peekaGray2
+            doubleCheckButton.backgroundColor = .peekaGray1
+        } else {
+            isDoubleChecked = false
         }
         
         if nicknameText.count > 6 {
@@ -155,10 +166,7 @@ final class SignUpVC: UIViewController {
         doubleCheckErrorLabel.isHidden = true
         doubleCheckSuccessLabel.isHidden = true
         doubleCheckNotTappedLabel.isHidden = true
-        isDoubleChecked = false
         
-        // 항상 값을 최신화
-        self.nicknameText = nicknameText
         checkComplete()
     }
     
@@ -188,6 +196,7 @@ final class SignUpVC: UIViewController {
             doubleCheckNotTappedLabel.isHidden = true
             UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
+            view.endEditing(true)
         }
     }
     
@@ -234,6 +243,57 @@ final class SignUpVC: UIViewController {
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height + checkContainerView.frame.height,
+            right: 0.0)
+        
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
+            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            position.y += checkContainerView.frame.height + 28 // maxLength 레이아웃 28
+            containerView.setContentOffset(position, animated: true)
+            self.checkContainerView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.size.height)
+            
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        UIView.animate(withDuration: 0.2, animations: {
+            self.checkContainerView.transform = .identity
+        })
+        checkButtonDidTap()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
 }
 
 extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -260,6 +320,7 @@ extension SignUpVC {
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
         nicknameHeaderView.backgroundColor = .peekaRed
+        checkContainerView.backgroundColor = .peekaBeige
     }
     
     private func updateConfirmSuccess() {
@@ -278,12 +339,13 @@ extension SignUpVC {
     }
     
     private func setLayout() {
-        view.addSubviews(containerView, signUpButton, doubleCheckNotTappedLabel)
-        containerView.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
+        view.addSubviews(containerView, checkContainerView, naviBar)
+        containerView.addSubviews(profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
         nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
         nicknameHeaderView.addSubviews(nicknameLabel)
         nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
+        checkContainerView.addSubviews(signUpButton, doubleCheckNotTappedLabel)
     
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -295,7 +357,7 @@ extension SignUpVC {
         }
         
         profileImageContainerView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom).offset(23)
+            $0.top.equalToSuperview().offset(23)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(82)
         }
@@ -359,21 +421,27 @@ extension SignUpVC {
         }
         
         introContainerView.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
+            $0.top.equalTo(countMaxTextLabel.snp.bottom).offset(21)
             $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(11)
         }
         
-        signUpButton.snp.makeConstraints {
+        checkContainerView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(23)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(115)
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(23)
             $0.height.equalTo(56)
         }
         
         doubleCheckNotTappedLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(signUpButton.snp.top).offset(-16)
         }
     }
 }
