@@ -181,6 +181,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("identityToken: \(identityToken)")
                 print("authString: \(authString)")
                 print("tokenString: \(tokenString)")
+                Config.accessToken = tokenString
             }
             
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
