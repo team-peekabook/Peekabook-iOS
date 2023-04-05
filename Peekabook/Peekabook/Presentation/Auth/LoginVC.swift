@@ -13,6 +13,10 @@ import Then
 
 import Moya
 
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
+
 final class LoginVC: UIViewController {
 
     // MARK: - UI Components
@@ -136,6 +140,8 @@ extension LoginVC {
     
     @objc private func kakaoLoginButtonDidTap() {
         print("카카오 로그인")
+        
+        checkIfKakaoInstalled()
     }
     
     @objc private func appleLoginButtonDidTap() {
@@ -207,6 +213,41 @@ extension LoginVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("login err")
     }
+}
+
+extension LoginVC {
+    
+    func checkIfKakaoInstalled() {
+        // 카카오톡 설치 여부 확인
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("loginWithKakaoTalk() success.")
+                    _ = oauthToken
+                    let accessToken = oauthToken?.accessToken
+                    
+                    self.setUserInfo()
+                }
+            }
+        }
+    }
+    
+    func setUserInfo() {
+            UserApi.shared.me() {(user, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("me() success.")
+                    // do something
+                    _ = user
+                    if let id = user?.id {
+                        print(id)
+                    }
+                }
+            }
+        }
 }
 
 extension LoginVC {
