@@ -166,8 +166,8 @@
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTypeCVC.swift; sourceTree = "<group>"; };
-		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		14C84E2E29CC2A6D0086F8DF /* EditMyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyProfileVC.swift; sourceTree = "<group>"; };
+		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -321,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				98EAD31729D5AC40000181AF /* LoginVC.swift */,
+				14C84E3629D439450086F8DF /* SignUpVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -331,14 +332,6 @@
 				14B354472968897C00998925 /* NotificationModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		14C84E3529D438EB0086F8DF /* SignUp */ = {
-			isa = PBXGroup;
-			children = (
-				14C84E3629D439450086F8DF /* SignUpVC.swift */,
-			);
-			path = SignUp;
 			sourceTree = "<group>";
 		};
 		8E10BA0D295FF42400BCF58B /* Global */ = {
@@ -368,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				143A19CD29D9675F00931655 /* Auth */,
-				14C84E3529D438EB0086F8DF /* SignUp */,
 				8E10BA1F295FF61E00BCF58B /* TabBar */,
 				8E10BA20295FF62500BCF58B /* BookShelf */,
 				8E81F3ED296089CB001815B4 /* EditMyPick */,
