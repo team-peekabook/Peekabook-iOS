@@ -240,8 +240,8 @@ extension CustomPopUpView {
         switch style {
         case .recommend:
             confirmButton.setTitle(I18N.Confirm.recommend, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            confirmButton.addTarget(viewController, action: #selector(ConfirmPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+            cancelButton.addTarget(viewController, action: #selector(ProposalConfirmPopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(ProposalConfirmPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .delete:
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(DeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
