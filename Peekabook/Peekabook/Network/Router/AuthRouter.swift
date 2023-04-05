@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum AuthRouter {
-    case appleLogin(param: AppleLoginRequest)
+    case socialLogin(param: SocialLoginRequest)
 }
 
 extension AuthRouter: TargetType {
@@ -20,21 +20,21 @@ extension AuthRouter: TargetType {
     
     var path: String {
         switch self {
-        case .appleLogin:
+        case .socialLogin:
             return URLConstant.auth + "/signin"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .appleLogin:
+        case .socialLogin:
             return .post
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .appleLogin(let param):
+        case .socialLogin(let param):
             return .requestJSONEncodable(param)
         }
     }

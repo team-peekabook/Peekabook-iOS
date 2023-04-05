@@ -183,7 +183,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("tokenString: \(tokenString)")
             }
             
-            let appleLoginRequest = AppleLoginRequest(socialPlatform: "apple")
+            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
             
         // 비밀번호로 로그인
@@ -194,7 +194,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             print("username: \(username)")
             print("password: \(password)")
             
-            let appleLoginRequest = AppleLoginRequest(socialPlatform: "apple")
+            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
             
         default:
@@ -209,8 +209,8 @@ extension LoginVC: ASAuthorizationControllerDelegate {
 }
 
 extension LoginVC {
-    private func appleLogin(param: AppleLoginRequest) {
-        AuthAPI.shared.getAppleLoginAPI(param: param) { response in
+    private func appleLogin(param: SocialLoginRequest) {
+        AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
                 // 회원가입뷰로 이동
             }

@@ -6,6 +6,6 @@
 //
 
 // MARK: - AppleLoginRequest
-struct AppleLoginRequest: Codable {
+struct SocialLoginRequest: Codable {
     let socialPlatform: String
 }
