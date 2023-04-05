@@ -16,7 +16,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     var nicknameText: String = ""
     var introText: String = ""
     
-    var isDoubleChecked: Bool = true {
+    var isDoubleChecked: Bool = false {
         didSet {
             if isDoubleChecked {
                 doubleCheckButton.backgroundColor = .peekaGray1
@@ -44,7 +44,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
-        
     }
     
     private let profileImageContainerView = UIView()
@@ -87,6 +86,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         $0.backgroundColor = .peekaGray1
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .c1
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(doubleCheckButtonDidTap), for: .touchUpInside)
     }
     private let doubleCheckErrorLabel = UILabel().then {
@@ -149,12 +149,12 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         guard let nicknameText = textField.text else { return }
         // 항상 값을 최신화
         self.nicknameText = nicknameText
-        
         if nicknameText.isEmpty {
             isDoubleChecked = true
             doubleCheckButton.backgroundColor = .peekaGray1
         } else {
             isDoubleChecked = false
+            doubleCheckButton.isEnabled = true
         }
         
         if nicknameText.count > 6 {
@@ -162,7 +162,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         } else {
             countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
         }
-        
+    
         doubleCheckErrorLabel.isHidden = true
         doubleCheckSuccessLabel.isHidden = true
         doubleCheckNotTappedLabel.isHidden = true
@@ -173,24 +173,27 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     @objc
     private func doubleCheckButtonDidTap() {
         let isDuplicated = checkIfDuplicated(nicknameTextField.text)
+        let nickname = nicknameTextField.text ?? ""
         if isDuplicated {
-            doubleCheckButton.backgroundColor = .peekaRed
+            doubleCheckButton.backgroundColor = .peekaGray1
             doubleCheckErrorLabel.isHidden = false
             doubleCheckSuccessLabel.isHidden = true
             isDoubleChecked = false
-        } else {
+        } else if nickname.isEmpty {
+            doubleCheckButton.isEnabled = false
             doubleCheckButton.backgroundColor = .peekaGray1
+        } else {
+            doubleCheckButton.backgroundColor = .peekaRed
             doubleCheckErrorLabel.isHidden = true
             doubleCheckSuccessLabel.isHidden = false
             isDoubleChecked = true
-            doubleCheckNotTappedLabel.isHidden = true
         }
         checkComplete()
     }
     
     @objc
     private func checkButtonDidTap() {
-        if !isDoubleChecked {
+        if !isDoubleChecked && signUpButton.isEnabled == true {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
