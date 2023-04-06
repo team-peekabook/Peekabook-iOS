@@ -88,7 +88,7 @@ final class ReportVC: UIViewController {
         $0.setTitle(I18N.Report.buttonTitle, for: .normal)
         $0.titleLabel!.font = .h3
         $0.setTitleColor(.white, for: .normal)
-        $0.addTarget(self, action: #selector(declareButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(reportButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - View Life Cycle
@@ -193,8 +193,11 @@ extension ReportVC {
         reportTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
     }
     
-    @objc private func declareButtonDidTap() {
+    @objc private func reportButtonDidTap() {
         print("신고완료")
+        let reportPopUpVC = ReportPopUpVC()
+        reportPopUpVC.modalPresentationStyle = .overFullScreen
+        self.present(reportPopUpVC, animated: false)
     }
     
     private func addKeyboardObserver() {
