@@ -36,6 +36,8 @@ enum ReportMenu {
 }
 
 final class ReportVC: UIViewController {
+    
+    var selectedRowIndex: Int?
 
     // MARK: - UI Components
     
@@ -194,7 +196,10 @@ extension ReportVC {
     }
     
     @objc private func reportButtonDidTap() {
-        print("신고완료")
+        if let rowIndex = selectedRowIndex {
+            print("선택된 신고번호 = \(rowIndex + 1)")
+            print("신고 내용 = \(textView.text ?? "")")
+        }
         let reportPopUpVC = ReportPopUpVC()
         reportPopUpVC.modalPresentationStyle = .overFullScreen
         self.present(reportPopUpVC, animated: false)
@@ -257,7 +262,7 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row+1)
+        selectedRowIndex = indexPath.row
     }
 }
 
