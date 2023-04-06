@@ -1,5 +1,5 @@
 //
-//  DeclarePopUpVC.swift
+//  ReportPopUpVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/03/25.
@@ -12,11 +12,11 @@ import Then
 
 import Moya
 
-final class DeclarePopUpVC: UIViewController {
+final class ReportPopUpVC: UIViewController {
 
     // MARK: - UI Components
     
-    private lazy var declarePopUpVC = CustomPopUpView(frame: .zero, style: .declare, viewController: self)
+    private lazy var reportPopUpVC = CustomPopUpView(frame: .zero, style: .report, viewController: self)
 
     // MARK: - View Life Cycle
 
@@ -28,18 +28,18 @@ final class DeclarePopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension DeclarePopUpVC {
+extension ReportPopUpVC {
 
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        declarePopUpVC.backgroundColor = .peekaBeige
-        declarePopUpVC.getConfirmLabel(style: .declare)
+        reportPopUpVC.backgroundColor = .peekaBeige
+        reportPopUpVC.getConfirmLabel(style: .report)
     }
     
     private func setLayout() {
-        view.addSubview(declarePopUpVC)
+        view.addSubview(reportPopUpVC)
         
-        declarePopUpVC.snp.makeConstraints {
+        reportPopUpVC.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(136)
@@ -49,7 +49,7 @@ extension DeclarePopUpVC {
 
 // MARK: - Methods
 
-extension DeclarePopUpVC {
+extension ReportPopUpVC {
     
     @objc func confirmButtonDidTap() {
         print("a")
