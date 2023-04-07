@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBD29DD993400F290F5 /* KakaoSDK */; };
+		14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBF29DD993400F290F5 /* KakaoSDKAuth */; };
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
@@ -308,11 +310,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */,
 				8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */,
 				8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */,
 				8E10BA0C295FF3B700BCF58B /* Moya in Frameworks */,
 				8E10BA06295FF35F00BCF58B /* Then in Frameworks */,
 				98A04211296668F900081B8E /* BarcodeScanner in Frameworks */,
+				14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,6 +954,8 @@
 				8E10BA08295FF37B00BCF58B /* Kingfisher */,
 				8E10BA0B295FF3B700BCF58B /* Moya */,
 				98A04210296668F900081B8E /* BarcodeScanner */,
+				14061CBD29DD993400F290F5 /* KakaoSDK */,
+				14061CBF29DD993400F290F5 /* KakaoSDKAuth */,
 			);
 			productName = Peekabook;
 			productReference = 8E5A309E295DAE6D00285A15 /* Peekabook.app */;
@@ -985,6 +991,7 @@
 				8E10BA07295FF37B00BCF58B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */,
 				98A0420F296668F900081B8E /* XCRemoteSwiftPackageReference "BarcodeScanner" */,
+				14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 8E5A309F295DAE6D00285A15 /* Products */;
 			projectDirPath = "";
@@ -1328,12 +1335,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "\"\" UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1366,12 +1374,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "\"\" UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1413,6 +1422,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1456,6 +1473,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		14061CBD29DD993400F290F5 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		14061CBF29DD993400F290F5 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
 		8E10BA02295FF33200BCF58B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */;

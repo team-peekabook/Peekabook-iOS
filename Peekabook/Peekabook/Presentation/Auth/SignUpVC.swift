@@ -39,8 +39,11 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI Components
     
-    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
+        .addRightButtonAction {
+            self.dismiss(animated: true)
+        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false

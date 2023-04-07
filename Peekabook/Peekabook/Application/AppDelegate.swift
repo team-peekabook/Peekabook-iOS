@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import KakaoSDKCommon
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -24,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
-
+        KakaoSDK.initSDK(appKey: "be7076a55a9cc042dec5c83265a03e91")
 //        if #available(iOS 15, *) {
 //            let appearance = UITabBarAppearance()
 //            appearance.configureWithOpaqueBackground()
