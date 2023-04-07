@@ -17,6 +17,8 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
+    private var isFollowingStatus: Bool = false
+    
     // MARK: - Properties
     
     private var bookShelfType: BookShelfType = .user {
@@ -202,6 +204,9 @@ final class BookShelfVC: UIViewController {
     private func moreButtonDidTap(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
+            
+            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+            self.deleteFollowAPI(friendId: friend.id)
         }))
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
@@ -617,6 +622,15 @@ extension BookShelfVC {
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             self.pickCollectionView.reloadData()
+        }
+    }
+    
+    private func deleteFollowAPI(friendId: Int) {
+        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+            if response?.success == true {
+                self.isFollowingStatus = false
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
         }
     }
 }
