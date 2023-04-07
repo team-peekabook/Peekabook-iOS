@@ -17,6 +17,7 @@ final class UnfollowPopUpVC: UIViewController {
     // MARK: - Properties
     
     var personName: String = ""
+    var personId: Int = 0
 
     // MARK: - UI Components
     
@@ -66,6 +67,16 @@ extension UnfollowPopUpVC {
     }
     
     @objc func confirmButtonDidTap() {
-        print("a")
+        self.deleteFollowAPI(friendId: personId)
+    }
+    
+    private func deleteFollowAPI(friendId: Int) {
+        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+            if response?.success == true {
+                let bookShelfVC = BookShelfVC()
+                bookShelfVC.isFollowingStatus = false
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
     }
 }

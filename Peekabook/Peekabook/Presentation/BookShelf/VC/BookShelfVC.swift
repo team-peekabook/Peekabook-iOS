@@ -17,7 +17,7 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
-    private var isFollowingStatus: Bool = false
+    var isFollowingStatus: Bool = false
     
     // MARK: - Properties
     
@@ -202,11 +202,16 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func moreButtonDidTap(_ sender: UIButton) {
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
             
+            let unfollowPopUpVC = UnfollowPopUpVC()
+            unfollowPopUpVC.modalPresentationStyle = .overFullScreen
             guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            self.deleteFollowAPI(friendId: friend.id)
+            unfollowPopUpVC.personName = friend.nickname
+            unfollowPopUpVC.personId = friend.id
+            self.present(unfollowPopUpVC, animated: false)
         }))
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
@@ -223,6 +228,7 @@ final class BookShelfVC: UIViewController {
             let blockPopUpVC = BlockPopUpVC()
             guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
             blockPopUpVC.personId = friend.id
+            blockPopUpVC.personName = friend.nickname
             blockPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(blockPopUpVC, animated: false)
         }))

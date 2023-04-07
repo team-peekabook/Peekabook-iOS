@@ -196,17 +196,6 @@ extension ReportVC {
         reportTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
     }
     
-//    @objc private func reportButtonDidTap() {
-//        let reportPopUpVC = ReportPopUpVC()
-//        reportPopUpVC.modalPresentationStyle = .overFullScreen
-//        if let rowIndex = selectedRowIndex {
-//            reportPopUpVC.friendId = personId
-//            reportPopUpVC.reasonIndex = rowIndex + 1
-//            reportPopUpVC.specificReason = textView.text ?? ""
-//        }
-//        self.present(reportPopUpVC, animated: false)
-//    }
-    
     @objc private func reportButtonDidTap() {
         let reportPopUpVC = ReportPopUpVC()
         reportPopUpVC.modalPresentationStyle = .overFullScreen
