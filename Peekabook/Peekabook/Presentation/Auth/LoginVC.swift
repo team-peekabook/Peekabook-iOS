@@ -199,8 +199,8 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             print("username: \(username)")
             print("password: \(password)")
             
-//            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
-//            appleLogin(param: appleLoginRequest)
+            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
+            appleLogin(param: appleLoginRequest)
             
         default:
             break
@@ -225,8 +225,4 @@ extension LoginVC {
             }
         }
     }
-    
-//    private func appleLoginToken(accessToken: String, refreshToken: String) {
-//        AuthAPI.shared.
-//    }
 }

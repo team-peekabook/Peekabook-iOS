@@ -460,7 +460,6 @@ extension SignUpVC: IntroText {
 extension SignUpVC {
     func signUp(param: SignUpRequest) {
         UserAPI.shared.signUp(param: param) { response in
-            print(response?.status)
             if response?.success == true {
                 print("성공")
             }
