@@ -13,7 +13,7 @@ enum ButtonLabelStyle: CaseIterable {
     case unfollow
     case block
     case unblock
-    case declare
+    case report
     case logout
     case deleteAccount
 }
@@ -80,7 +80,7 @@ extension CustomPopUpView {
             self.setTwoButtonAndTwoLineLabelLayout()
         case .block, .unblock:
             self.setTwoButtonAndDetailLabelLayout()
-        case .declare:
+        case .report:
             self.setOneButtonLayout()
         case .logout:
             self.setTwoButtonAndOneLineLabelLayout()
@@ -226,9 +226,8 @@ extension CustomPopUpView {
                 confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
                 blockDetailLabel.text = I18N.ManageBlockUsers.unblockPopSubtitle
             }
-        case .declare:
-            // StringLiterals 컨플릭트 방지용. 브런치 합친 후 수정
-            confirmLabel.text = "신고가 정상적으로 접수되었습니다."
+        case .report:
+            confirmLabel.text = I18N.Report.reportLabel
         case .logout:
             confirmLabel.text = I18N.Logout.logoutComment
         case .deleteAccount:
@@ -258,8 +257,8 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.ManageBlockUsers.unblock, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(UnblockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
-        case .declare:
-            confirmButton.setTitle("홈으로 돌아가기", for: .normal)
+        case .report:
+            confirmButton.setTitle(I18N.Report.backTohome, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .logout:
             confirmButton.setTitle(I18N.Logout.logout, for: .normal)
