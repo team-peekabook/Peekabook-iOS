@@ -16,6 +16,7 @@ enum CustomTextViewType: CaseIterable {
     case bookDetailMemo
     case bookProposal
     case editProfileIntro
+    case addProfileIntro
 }
 
 protocol IntroText: AnyObject {
@@ -203,6 +204,12 @@ extension CustomTextView {
             maxLabel.text = "\(textView.text.count)/40"
             textView.textColor = .peekaRed
             proposalItemhidden()
+        case .addProfileIntro:
+            label.text = I18N.Profile.oneLineIntro
+            textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
+            maxLabel.text = "0/40"
+            textView.textColor = .peekaRed
+            proposalItemhidden()
         }
     }
     
@@ -235,7 +242,9 @@ extension CustomTextView: UITextViewDelegate {
             (textView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ||
             (textView.text == I18N.BookDetail.emptyComment) ||
             (textView.text == I18N.BookDetail.emptyMemo) ||
-            (textView.text == I18N.PlaceHolder.recommend) || (textView.text == I18N.PlaceHolder.profileIntro + placeholderBlank) {
+            (textView.text == I18N.PlaceHolder.recommend) ||
+            (textView.text == I18N.PlaceHolder.profileIntro + placeholderBlank) ||
+            (textView.text == I18N.PlaceHolder.nickname + placeholderBlank) {
             textView.text = nil
             textView.textColor = .peekaRed
         }
@@ -252,7 +261,7 @@ extension CustomTextView: UITextViewDelegate {
             } else if label.text == I18N.BookDetail.memo {
                 textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
                 textView.textColor = .peekaGray1
-            } else {
+            } else if label.text == I18N.Profile.oneLineIntro {
                 textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
                 textView.textColor = .peekaGray1
             }

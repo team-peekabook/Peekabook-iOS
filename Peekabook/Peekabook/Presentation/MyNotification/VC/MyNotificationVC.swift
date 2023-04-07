@@ -21,7 +21,7 @@ final class MyNotificationVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
-        .addMiddleLabel(title: I18N.Tabbar.notification)
+        .addMiddleLabel(title: I18N.Alarm.notification)
         .addRightButtonAction {
             self.backButtonTapped()
         }

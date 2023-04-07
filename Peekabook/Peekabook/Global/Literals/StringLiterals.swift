@@ -19,9 +19,6 @@ struct I18N {
         static let bookshelf = "책장"
         static let recommend = "추천 "
         static let mypage = "MY"
-        static let notification = "알림"
-        static let userSearch = "사용자 검색하기"
-        static let editmyPage = "프로필 수정"
     }
     
     struct Confirm {
@@ -34,6 +31,7 @@ struct I18N {
         static let recommend = "추천사를 적어주세요"
         static let bookSearch = "책 제목을 입력해주세요."
         static let userSearch = "사용자의 닉네임을 입력해주세요."
+        static let nickname = "닉네임은 6자까지 쓸 수 있어요!"
         static let profileIntro = "한 줄 소개를 입력해주세요."
     }
     
@@ -100,6 +98,7 @@ struct I18N {
     }
     
     struct FollowStatus {
+        static let userSearch = "사용자 검색하기"
         static let follow = "팔로우"
         static let following = "팔로잉"
         static let unfollowComment = "님을\n언팔로우 하시겠어요?"
@@ -116,6 +115,7 @@ struct I18N {
     }
     
     struct Alarm {
+        static let notification = "알림"
         static let followAlarm = "당신을 팔로우했어요!"
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
@@ -175,10 +175,14 @@ struct I18N {
     }
 
     struct Profile {
+        static let editmyPage = "프로필 수정"
+        static let addMyInfo = "회원정보 입력"
         static let nickname = "닉네임"
         static let oneLineIntro = "한 줄 소개"
         static let doubleCheck = "중복 확인"
         static let doubleCheckError = "이미 사용 중인 닉네임 입니다"
+        static let doubleCheckSuccess = "사용 가능한 닉네임 입니다"
+        static let doubleUncheckedError = "닉네임 중복확인을 해주세요"
         static let nicknameLength = "/6"
     }
 
