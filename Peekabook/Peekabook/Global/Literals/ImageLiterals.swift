@@ -48,6 +48,8 @@ struct ImageLiterals {
         static let progressIndicator = UIImage(named: "icn_progress_indicator")
         static let dissatisfiedFace = UIImage(named: "icn_dissatisfied")
         static let kakaoButton = UIImage(named: "icn_kakao_login")
+        static let emptyProfileImage = UIImage(named: "btn_emptyProfile")
+        static let addProfileImage = UIImage(named: "btn_add_profileImage")
     }
     
     struct Sample {

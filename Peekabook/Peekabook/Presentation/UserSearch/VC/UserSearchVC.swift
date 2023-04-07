@@ -25,7 +25,7 @@ final class UserSearchVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
-        .addMiddleLabel(title: I18N.Tabbar.userSearch)
+        .addMiddleLabel(title: I18N.FollowStatus.userSearch)
         .addUnderlineView()
     
     private lazy var userSearchView = CustomSearchView(frame: .zero, type: .userSearch, viewController: self)
