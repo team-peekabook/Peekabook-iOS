@@ -213,7 +213,15 @@ final class BookShelfVC: UIViewController {
             self.navigationController?.pushViewController(reportVC, animated: true)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: {(ACTION: UIAlertAction) in
+            
+            let blockPopUpVC = BlockPopUpVC()
+            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+            blockPopUpVC.personId = friend.id
+            blockPopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(blockPopUpVC, animated: false)
+        }))
+        
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.cancel, style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)

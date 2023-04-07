@@ -16,6 +16,7 @@ final class BlockPopUpVC: UIViewController {
     
     // MARK: - Properties
     
+    var personId: Int = 0
     var personName: String = ""
 
     // MARK: - UI Components
@@ -60,12 +61,21 @@ extension BlockPopUpVC {
 // MARK: - Methods
 
 extension BlockPopUpVC {
-    
     @objc func cancelButtonDidTap() {
         self.dismiss(animated: false, completion: nil)
     }
     
     @objc func confirmButtonDidTap() {
-        print("a")
+        postUserReport(friendId: personId)
+    }
+}
+
+extension BlockPopUpVC {
+    private func postUserReport(friendId: Int) {
+        FriendAPI.shared.postUserBlock(friendId: friendId) { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
     }
 }
