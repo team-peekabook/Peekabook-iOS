@@ -196,16 +196,28 @@ extension ReportVC {
         reportTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
     }
     
+//    @objc private func reportButtonDidTap() {
+//        let reportPopUpVC = ReportPopUpVC()
+//        reportPopUpVC.modalPresentationStyle = .overFullScreen
+//        if let rowIndex = selectedRowIndex {
+//            reportPopUpVC.friendId = personId
+//            reportPopUpVC.reasonIndex = rowIndex + 1
+//            reportPopUpVC.specificReason = textView.text ?? ""
+//        }
+//        self.present(reportPopUpVC, animated: false)
+//    }
+    
     @objc private func reportButtonDidTap() {
         let reportPopUpVC = ReportPopUpVC()
         reportPopUpVC.modalPresentationStyle = .overFullScreen
         if let rowIndex = selectedRowIndex {
-//            print("선택된 신고번호 = \(rowIndex + 1)")
-//            print("신고 내용 = \(textView.text ?? "")")
-            
             reportPopUpVC.friendId = personId
             reportPopUpVC.reasonIndex = rowIndex + 1
-            reportPopUpVC.specificReason = textView.text ?? ""
+            if textView.text == I18N.Report.placeholder {
+                reportPopUpVC.specificReason = nil
+            } else {
+                reportPopUpVC.specificReason = textView.text
+            }
         }
         self.present(reportPopUpVC, animated: false)
     }
