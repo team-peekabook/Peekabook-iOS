@@ -187,11 +187,15 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("identityToken: \(identityToken)")
                 print("authString: \(authString)")
                 print("tokenString: \(tokenString)")
-                Config.accessToken = tokenString
+                Config.socialToken = tokenString
             }
             
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
+            
+            let signUpVC = SignUpVC()
+            signUpVC.modalPresentationStyle = .fullScreen
+            present(signUpVC, animated: true, completion: nil)
             
         // 비밀번호로 로그인
         case let passwordCredential as ASPasswordCredential:
@@ -261,7 +265,11 @@ extension LoginVC {
     private func appleLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                // 회원가입뷰로 이동
+                if let accessToken = response?.data?.accessToken {
+                    Config.accessToken = accessToken
+                    print("💖 \(accessToken)")
+
+                }
             }
         }
     }

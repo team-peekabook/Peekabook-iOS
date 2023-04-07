@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum UserRouter {
-    case sample
+    case patchSignUp(param: SignUpRequest)
 }
 
 extension UserRouter: TargetType {
@@ -20,22 +20,22 @@ extension UserRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.user
+        case .patchSignUp:
+            return URLConstant.auth + "/signup"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
+        case .patchSignUp:
+            return .patch
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .sample:
-            return .requestPlain
+        case .patchSignUp(let param):
+            return .requestJSONEncodable(param)
         }
     }
     
