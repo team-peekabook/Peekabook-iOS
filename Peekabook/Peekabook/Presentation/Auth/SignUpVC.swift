@@ -72,7 +72,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-        $0.placeholder = "닉네임은 6자까지 쓸 수 있어요!"
+        $0.placeholder = I18N.PlaceHolder.nickname
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -137,11 +137,15 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         setIntroView()
         addTapGesture()
         addKeyboardObserver()
-        nicknameTextField.delegate = self
+        setDelegate()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setDelegate() {
+        nicknameTextField.delegate = self
     }
     
     @objc
@@ -291,11 +295,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             self.checkContainerView.transform = .identity
         })
         checkButtonDidTap()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-        super.touchesBegan(touches, with: event)
     }
 }
 
