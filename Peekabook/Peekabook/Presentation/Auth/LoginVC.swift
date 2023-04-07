@@ -220,34 +220,41 @@ extension LoginVC {
     func checkIfKakaoInstalled() {
         // 카카오톡 설치 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
+            // 앱으로 로그인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
                     print(error)
                 } else {
-                    print("loginWithKakaoTalk() success.")
-                    _ = oauthToken
-                    let accessToken = oauthToken?.accessToken
-                    
-                    self.setUserInfo()
+                    if let tokenString = oauthToken?.accessToken {
+                        Config.accessToken = tokenString
+                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                        self.kakaoLogin(param: kakaoLoginRequest)
+                    }
+                }
+            }
+        } else {
+            loginKakaoAccount()
+        }
+    }
+    
+    func loginKakaoAccount() {
+        print("loginKakaoAccount() called.")
+        
+        // 웹 브라우저를 사용하여 로그인 진행
+        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("loginWithKakaoAccount() success.")
+                // 회원가입 성공 시 oauthToken 저장
+                if let tokenString = oauthToken?.accessToken {
+                    Config.accessToken = tokenString
+                    let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                    self.kakaoLogin(param: kakaoLoginRequest)
                 }
             }
         }
     }
-    
-    func setUserInfo() {
-            UserApi.shared.me() {(user, error) in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("me() success.")
-                    // do something
-                    _ = user
-                    if let id = user?.id {
-                        print(id)
-                    }
-                }
-            }
-        }
 }
 
 extension LoginVC {
@@ -255,6 +262,16 @@ extension LoginVC {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
                 // 회원가입뷰로 이동
+            }
+        }
+    }
+    
+    private func kakaoLogin(param: SocialLoginRequest) {
+        AuthAPI.shared.getSocialLoginAPI(param: param) { response in
+            if response?.success == true {
+                let signUpVC = SignUpVC()
+                signUpVC.modalPresentationStyle = .fullScreen
+                self.present(signUpVC, animated: true)
             }
         }
     }
