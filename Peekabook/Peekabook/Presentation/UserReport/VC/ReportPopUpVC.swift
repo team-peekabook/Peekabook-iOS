@@ -13,6 +13,12 @@ import Then
 import Moya
 
 final class ReportPopUpVC: UIViewController {
+    
+    // MARK: - Properties
+    
+    var friendId: Int = 0
+    var reasonIndex: Int = 0
+    var specificReason: String? = ""
 
     // MARK: - UI Components
     
@@ -50,8 +56,17 @@ extension ReportPopUpVC {
 // MARK: - Methods
 
 extension ReportPopUpVC {
-    
     @objc func confirmButtonDidTap() {
-        print("a")
+        postUserReport(friendId: friendId, param: UserReportRequest(reasonIndex: reasonIndex, specificReason: specificReason))
+    }
+}
+
+extension ReportPopUpVC {
+    private func postUserReport(friendId: Int, param: UserReportRequest) {
+        FriendAPI.shared.postUserReport(friendId: friendId, param: param) { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
     }
 }

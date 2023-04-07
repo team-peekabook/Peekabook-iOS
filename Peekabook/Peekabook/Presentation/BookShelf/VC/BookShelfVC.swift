@@ -207,6 +207,12 @@ final class BookShelfVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let reportVC = ReportVC()
+//            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
+            
+            
+            
+            // 이거 잘 가는지 확인
+            reportVC.personId = self.selectedUserIndex!
             reportVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(reportVC, animated: true)
         }))

@@ -14,6 +14,7 @@ enum FriendRouter {
     case postFollowing(id: Int)
     case deleteFollowing(id: Int)
     case postProposalBook(friendId: Int, param: ProposalBookRequest)
+    case postUserReport(friendId: Int, param: UserReportRequest)
 }
 
 extension FriendRouter: TargetType {
@@ -31,6 +32,8 @@ extension FriendRouter: TargetType {
             return "\(URLConstant.friend)/\(id)"
         case .postProposalBook(let friendId, _):
             return URLConstant.friend + "/\(friendId)" + "/recommend"
+        case .postUserReport(let friendId, _):
+            return URLConstant.friend + "/\(friendId)" + "/report"
         }
     }
     
@@ -38,7 +41,7 @@ extension FriendRouter: TargetType {
         switch self {
         case .getUser:
             return .get
-        case .postFollowing, .postProposalBook:
+        case .postFollowing, .postProposalBook, .postUserReport:
             return .post
         case .deleteFollowing:
             return .delete
@@ -52,6 +55,8 @@ extension FriendRouter: TargetType {
         case .postFollowing, .deleteFollowing:
             return .requestPlain
         case .postProposalBook(_, let param):
+            return .requestJSONEncodable(param)
+        case .postUserReport(_, let param):
             return .requestJSONEncodable(param)
         }
     }

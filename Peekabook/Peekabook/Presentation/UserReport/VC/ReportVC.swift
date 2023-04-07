@@ -38,6 +38,7 @@ enum ReportMenu {
 final class ReportVC: UIViewController {
     
     var selectedRowIndex: Int?
+    var personId: Int = 0
 
     // MARK: - UI Components
     
@@ -196,12 +197,16 @@ extension ReportVC {
     }
     
     @objc private func reportButtonDidTap() {
-        if let rowIndex = selectedRowIndex {
-            print("선택된 신고번호 = \(rowIndex + 1)")
-            print("신고 내용 = \(textView.text ?? "")")
-        }
         let reportPopUpVC = ReportPopUpVC()
         reportPopUpVC.modalPresentationStyle = .overFullScreen
+        if let rowIndex = selectedRowIndex {
+//            print("선택된 신고번호 = \(rowIndex + 1)")
+//            print("신고 내용 = \(textView.text ?? "")")
+            
+            reportPopUpVC.friendId = personId
+            reportPopUpVC.reasonIndex = rowIndex + 1
+            reportPopUpVC.specificReason = textView.text ?? ""
+        }
         self.present(reportPopUpVC, animated: false)
     }
     
