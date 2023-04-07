@@ -40,6 +40,6 @@ extension AuthRouter: TargetType {
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.hasTokenHeader
+        return NetworkConstant.socialTokenHeader
     }
 }

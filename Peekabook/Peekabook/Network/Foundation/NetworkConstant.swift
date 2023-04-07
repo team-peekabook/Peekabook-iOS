@@ -15,6 +15,11 @@ struct NetworkConstant {
     static let hasUserIdHeader = ["Content-Type": "application/json",
                                   "auth": "1"] as [String: String]
     
+    static let socialTokenHeader = ["Content-Type": "application/json",
+                                    "accessToken": Config.socialToken] as [String: String]
+    
     static let hasTokenHeader = ["Content-Type": "application/json",
                                  "accessToken": Config.accessToken] as [String: String]
+    
+    
 }

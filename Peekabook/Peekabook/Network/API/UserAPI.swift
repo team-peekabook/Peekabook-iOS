@@ -16,17 +16,17 @@ final class UserAPI {
     
     private init() { }
     
-    private(set) var sampleData: GeneralResponse<BlankData>?
+    private(set) var signUpData: GeneralResponse<BlankData>?
     
-    // 1. 샘플 API
+    // 1. 회원 가입하기
     
-    func getSampleAPI(completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        userProvider.request(.sample) { [self] (result) in
+    func signUp(param: SignUpRequest, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        userProvider.request(.patchSignUp(param: param)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
-                    self.sampleData = try response.map(GeneralResponse<BlankData>.self)
-                    completion(sampleData)
+                    self.signUpData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(signUpData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }
