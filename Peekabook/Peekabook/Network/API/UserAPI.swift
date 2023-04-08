@@ -5,7 +5,7 @@
 //  Created by devxsby on 2023/03/28.
 //
 
-import Foundation
+import UIKit
 
 import Moya
 
@@ -20,8 +20,8 @@ final class UserAPI {
     
     // 1. 회원 가입하기
     
-    func signUp(param: SignUpRequest, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        userProvider.request(.patchSignUp(param: param)) { [self] (result) in
+    func signUp(param: SignUpRequest, image: UIImage, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        userProvider.request(.patchSignUp(param: param, image: image)) { [self] (result) in
             switch result {
             case .success(let response):
                 do {

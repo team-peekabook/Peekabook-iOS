@@ -209,8 +209,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
         }
-        
-        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText))
+        guard let profileImage = profileImageView.image else { return }
+        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
     }
     
     private func checkComplete() {
@@ -463,10 +463,10 @@ extension SignUpVC: IntroText {
 }
 
 extension SignUpVC {
-    func signUp(param: SignUpRequest) {
-        UserAPI.shared.signUp(param: param) { response in
+    func signUp(param: SignUpRequest, image: UIImage) {
+        UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
-                print("성공")
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
         }
     }
