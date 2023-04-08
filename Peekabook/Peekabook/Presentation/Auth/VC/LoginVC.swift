@@ -21,7 +21,7 @@ final class LoginVC: UIViewController {
         $0.image = ImageLiterals.Image.appLogo
     }
     
-    private lazy var kakaoLoginButton = UIButton().then {
+    private lazy var kakaoLoginButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.kakaoButton, for: .normal)
         $0.addTarget(self, action: #selector(kakaoLoginButtonDidTap), for: .touchUpInside)
     }

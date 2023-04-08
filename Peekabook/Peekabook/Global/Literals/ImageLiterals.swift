@@ -20,6 +20,14 @@ struct ImageLiterals {
         static let myPageSelected = UIImage(named: "icn_my_fill")
     }
     
+    struct Onboarding {
+        static let background = UIImage(named: "img_onboarding_background")
+        static let first = UIImage(named: "img_onboarding1")
+        static let second = UIImage(named: "img_onboarding2")
+        static let third = UIImage(named: "img_onboarding3")
+        static let fourth = UIImage(named: "img_onboarding4")
+    }
+    
     struct Image {
         static let logo = UIImage(named: "peekabook_logo")
         static let appLogo = UIImage(named: "app_logo")

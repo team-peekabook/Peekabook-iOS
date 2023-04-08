@@ -43,6 +43,8 @@
 		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
 		8E21E53229E03FB600E68DAB /* UserDefaultKeyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53129E03FB600E68DAB /* UserDefaultKeyList.swift */; };
+		8E21E53429E040B900E68DAB /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53329E040B900E68DAB /* OnboardingVC.swift */; };
+		8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */; };
 		8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E234769297F6A550066D7B3 /* switchRootViewController.swift */; };
 		8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */; };
 		8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4083DB296F334500B53339 /* PickAllResponse.swift */; };
@@ -189,6 +191,10 @@
 		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E21E53129E03FB600E68DAB /* UserDefaultKeyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeyList.swift; sourceTree = "<group>"; };
+		8E21E53329E040B900E68DAB /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
+		8E21E53929E1450200E68DAB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		8E21E53A29E1450200E68DAB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		8E234769297F6A550066D7B3 /* switchRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = switchRootViewController.swift; sourceTree = "<group>"; };
 		8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBookShelfResponse.swift; sourceTree = "<group>"; };
 		8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peekabook.entitlements; sourceTree = "<group>"; };
@@ -322,8 +328,8 @@
 		143A19CD29D9675F00931655 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				98EAD31729D5AC40000181AF /* LoginVC.swift */,
-				14C84E3629D439450086F8DF /* SignUpVC.swift */,
+				8E21E53529E04BAD00E68DAB /* Views */,
+				8E21E53629E04BB800E68DAB /* VC */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -634,6 +640,24 @@
 				8E18505C296828D00062E92A /* EditPickCVC.swift */,
 			);
 			path = CVC;
+			sourceTree = "<group>";
+		};
+		8E21E53529E04BAD00E68DAB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E21E53629E04BB800E68DAB /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E21E53329E040B900E68DAB /* OnboardingVC.swift */,
+				98EAD31729D5AC40000181AF /* LoginVC.swift */,
+				14C84E3629D439450086F8DF /* SignUpVC.swift */,
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 		8E4083E12970125600B53339 /* Alarm */ = {
@@ -972,11 +996,12 @@
 			};
 			buildConfigurationList = 8E5A3099295DAE6D00285A15 /* Build configuration list for PBXProject "Peekabook" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 8E5A3095295DAE6D00285A15;
 			packageReferences = (
@@ -1060,6 +1085,7 @@
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
+				8E21E53429E040B900E68DAB /* OnboardingVC.swift in Sources */,
 				986F5424296BBD92002EDD46 /* ErrorPopUpVC.swift in Sources */,
 				8E81F3CA29607B74001815B4 /* addSubviews.swift in Sources */,
 				98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */,
@@ -1172,6 +1198,7 @@
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
+				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,6 +1209,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8E5A30A8295DAE6D00285A15 /* Base */,
+				8E21E53A29E1450200E68DAB /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1190,6 +1218,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8E5A30AD295DAE6F00285A15 /* Base */,
+				8E21E53929E1450200E68DAB /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1201,6 +1230,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1262,6 +1292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1328,7 +1359,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1366,7 +1397,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
