@@ -39,8 +39,11 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI Components
     
-    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
+    private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
+        .addRightButtonAction {
+            self.dismiss(animated: true)
+        }
     
     private let containerView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -205,6 +208,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
         }
+        
+        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText))
     }
     
     private func checkComplete() {
@@ -452,5 +457,15 @@ extension SignUpVC: IntroText {
     func getTextView(text: String) {
         self.introText = text
         checkComplete()
+    }
+}
+
+extension SignUpVC {
+    func signUp(param: SignUpRequest) {
+        UserAPI.shared.signUp(param: param) { response in
+            if response?.success == true {
+                print("성공")
+            }
+        }
     }
 }

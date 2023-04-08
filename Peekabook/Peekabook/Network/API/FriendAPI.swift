@@ -20,6 +20,8 @@ final class FriendAPI {
     private(set) var postFollowing: GeneralResponse<BlankData>?
     private(set) var deleteFollowing: GeneralResponse<BlankData>?
     private(set) var proposalResponse: GeneralResponse<BlankData>?
+    private(set) var reportUserData: GeneralResponse<BlankData>?
+    private(set) var blockUserData: GeneralResponse<BlankData>?
     
     // 1. 사용자 검색하기
     
@@ -83,6 +85,40 @@ final class FriendAPI {
                 do {
                     self.proposalResponse = try response.map(GeneralResponse<BlankData>.self)
                     completion(proposalResponse)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 5. 친구 신고하기
+    func postUserReport(friendId: Int, param: UserReportRequest, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        friendProvider.request(.postUserReport(friendId: friendId, param: param)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.reportUserData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(reportUserData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 5. 친구 차단하기
+    func postUserBlock(friendId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        friendProvider.request(.postUserBlock(friendId: friendId)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.blockUserData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(blockUserData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

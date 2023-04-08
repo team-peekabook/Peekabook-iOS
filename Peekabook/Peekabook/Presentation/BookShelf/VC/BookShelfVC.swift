@@ -17,6 +17,8 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
+    var isFollowingStatus: Bool = false
+    
     // MARK: - Properties
     
     private var bookShelfType: BookShelfType = .user {
@@ -200,18 +202,37 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func moreButtonDidTap(_ sender: UIButton) {
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
+            
+            let unfollowPopUpVC = UnfollowPopUpVC()
+            unfollowPopUpVC.modalPresentationStyle = .overFullScreen
+            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+            unfollowPopUpVC.personName = friend.nickname
+            unfollowPopUpVC.personId = friend.id
+            self.present(unfollowPopUpVC, animated: false)
         }))
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let reportVC = ReportVC()
+            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+            reportVC.personId = friend.id
             reportVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(reportVC, animated: true)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: {(ACTION: UIAlertAction) in
+            
+            let blockPopUpVC = BlockPopUpVC()
+            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+            blockPopUpVC.personId = friend.id
+            blockPopUpVC.personName = friend.nickname
+            blockPopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(blockPopUpVC, animated: false)
+        }))
+        
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.cancel, style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
@@ -607,6 +628,15 @@ extension BookShelfVC {
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             self.pickCollectionView.reloadData()
+        }
+    }
+    
+    private func deleteFollowAPI(friendId: Int) {
+        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+            if response?.success == true {
+                self.isFollowingStatus = false
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
         }
     }
 }

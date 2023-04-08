@@ -36,6 +36,9 @@ enum ReportMenu {
 }
 
 final class ReportVC: UIViewController {
+    
+    var selectedRowIndex: Int?
+    var personId: Int = 0
 
     // MARK: - UI Components
     
@@ -55,7 +58,7 @@ final class ReportVC: UIViewController {
         $0.font = .h3
     }
     
-    private lazy var declareTableView = UITableView().then {
+    private lazy var reportTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
         $0.allowsSelection = false
         $0.separatorStyle = .none
@@ -78,17 +81,17 @@ final class ReportVC: UIViewController {
         $0.returnKeyType = .done
     }
     
-    private let declareInfoLabel = UILabel().then {
-        $0.text = I18N.Report.declareInfo
+    private let reportInfoLabel = UILabel().then {
+        $0.text = I18N.Report.reportInfo
         $0.font = .s2
         $0.textColor = .peekaRed
     }
     
-    private lazy var declareButton = UIButton(type: .system).then {
+    private lazy var reportButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Report.buttonTitle, for: .normal)
         $0.titleLabel!.font = .h3
         $0.setTitleColor(.white, for: .normal)
-        $0.addTarget(self, action: #selector(declareButtonDidTap), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(reportButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - View Life Cycle
@@ -114,17 +117,17 @@ extension ReportVC {
     
     private func setBackgroundColor() {
         self.view.backgroundColor = .peekaBeige
-        declareTableView.backgroundColor = .peekaBeige
+        reportTableView.backgroundColor = .peekaBeige
         topLineView.backgroundColor = .peekaGray1
         boxView.backgroundColor = .peekaWhite_60
         textView.backgroundColor = .clear
-        declareButton.backgroundColor = .peekaRed
+        reportButton.backgroundColor = .peekaRed
     }
     
     private func setLayout() {
         view.addSubviews(naviBar, containerScorllView)
 
-        containerScorllView.addSubviews(selectLabel, declareTableView, topLineView, boxView, declareInfoLabel, declareButton)
+        containerScorllView.addSubviews(selectLabel, reportTableView, topLineView, boxView, reportInfoLabel, reportButton)
         
         boxView.addSubview(textView)
         
@@ -142,21 +145,21 @@ extension ReportVC {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        declareTableView.snp.makeConstraints {
+        reportTableView.snp.makeConstraints {
             $0.top.equalTo(selectLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(naviBar)
             $0.height.equalTo(260)
         }
         
         topLineView.snp.makeConstraints {
-            $0.top.equalTo(declareTableView.snp.top)
+            $0.top.equalTo(reportTableView.snp.top)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }
 
         boxView.snp.makeConstraints {
-            $0.top.equalTo(declareTableView.snp.bottom).offset(40)
-            $0.leading.trailing.equalTo(declareTableView).inset(20)
+            $0.top.equalTo(reportTableView.snp.bottom).offset(40)
+            $0.leading.trailing.equalTo(reportTableView).inset(20)
             $0.height.equalTo(148)
         }
         
@@ -166,13 +169,13 @@ extension ReportVC {
             $0.height.equalTo(120)
         }
         
-        declareInfoLabel.snp.makeConstraints {
+        reportInfoLabel.snp.makeConstraints {
             $0.top.equalTo(textView.snp.bottom).offset(43)
             $0.leading.equalTo(boxView.snp.leading)
         }
 
-        declareButton.snp.makeConstraints {
-            $0.top.equalTo(declareInfoLabel.snp.bottom).offset(24)
+        reportButton.snp.makeConstraints {
+            $0.top.equalTo(reportInfoLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalTo(boxView)
             $0.height.equalTo(56)
             $0.bottom.equalToSuperview().inset(40)
@@ -185,16 +188,27 @@ extension ReportVC {
 extension ReportVC {
     private func setDelegate() {
         textView.delegate = self
-        declareTableView.delegate = self
-        declareTableView.dataSource = self
+        reportTableView.delegate = self
+        reportTableView.dataSource = self
     }
     
     private func registerCell() {
-        declareTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
+        reportTableView.register(ReportTVC.self, forCellReuseIdentifier: ReportTVC.className)
     }
     
-    @objc private func declareButtonDidTap() {
-        print("신고완료")
+    @objc private func reportButtonDidTap() {
+        let reportPopUpVC = ReportPopUpVC()
+        reportPopUpVC.modalPresentationStyle = .overFullScreen
+        if let rowIndex = selectedRowIndex {
+            reportPopUpVC.friendId = personId
+            reportPopUpVC.reasonIndex = rowIndex + 1
+            if textView.text == I18N.Report.placeholder {
+                reportPopUpVC.specificReason = nil
+            } else {
+                reportPopUpVC.specificReason = textView.text
+            }
+        }
+        self.present(reportPopUpVC, animated: false)
     }
     
     private func addKeyboardObserver() {
@@ -254,7 +268,7 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row+1)
+        selectedRowIndex = indexPath.row
     }
 }
 

@@ -13,6 +13,10 @@ import Then
 
 import Moya
 
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
+
 final class LoginVC: UIViewController {
 
     // MARK: - UI Components
@@ -136,6 +140,8 @@ extension LoginVC {
     
     @objc private func kakaoLoginButtonDidTap() {
         print("카카오 로그인")
+        
+        checkIfKakaoInstalled()
     }
     
     @objc private func appleLoginButtonDidTap() {
@@ -181,11 +187,15 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("identityToken: \(identityToken)")
                 print("authString: \(authString)")
                 print("tokenString: \(tokenString)")
-                Config.accessToken = tokenString
+                Config.socialToken = tokenString
             }
             
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
+            
+            let signUpVC = SignUpVC()
+            signUpVC.modalPresentationStyle = .fullScreen
+            present(signUpVC, animated: true, completion: nil)
             
         // 비밀번호로 로그인
         case let passwordCredential as ASPasswordCredential:
@@ -210,10 +220,66 @@ extension LoginVC: ASAuthorizationControllerDelegate {
 }
 
 extension LoginVC {
+    
+    func checkIfKakaoInstalled() {
+        // 카카오톡 설치 여부 확인
+        if UserApi.isKakaoTalkLoginAvailable() {
+            // 앱으로 로그인
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let tokenString = oauthToken?.accessToken {
+                        Config.accessToken = tokenString
+                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                        self.kakaoLogin(param: kakaoLoginRequest)
+                    }
+                }
+            }
+        } else {
+            loginKakaoAccount()
+        }
+    }
+    
+    func loginKakaoAccount() {
+        print("loginKakaoAccount() called.")
+        
+        // 웹 브라우저를 사용하여 로그인 진행
+        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("loginWithKakaoAccount() success.")
+                // 회원가입 성공 시 oauthToken 저장
+                if let tokenString = oauthToken?.accessToken {
+                    Config.accessToken = tokenString
+                    let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                    self.kakaoLogin(param: kakaoLoginRequest)
+                }
+            }
+        }
+    }
+}
+
+extension LoginVC {
     private func appleLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                // 회원가입뷰로 이동
+                if let accessToken = response?.data?.accessToken {
+                    Config.accessToken = accessToken
+                    print("💖 \(accessToken)")
+
+                }
+            }
+        }
+    }
+    
+    private func kakaoLogin(param: SocialLoginRequest) {
+        AuthAPI.shared.getSocialLoginAPI(param: param) { response in
+            if response?.success == true {
+                let signUpVC = SignUpVC()
+                signUpVC.modalPresentationStyle = .fullScreen
+                self.present(signUpVC, animated: true)
             }
         }
     }

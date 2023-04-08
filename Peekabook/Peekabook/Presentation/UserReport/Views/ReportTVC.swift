@@ -31,6 +31,7 @@ final class ReportTVC: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: ReportTVC.className)
         setLayout()
+        setBackgroundColor()
     }
 
     required init?(coder: NSCoder) {

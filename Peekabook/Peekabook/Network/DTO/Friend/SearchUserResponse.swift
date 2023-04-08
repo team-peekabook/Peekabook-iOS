@@ -12,10 +12,10 @@ import Foundation
 struct SearchUserResponse: Codable {
     let friendID: Int
     let nickname, profileImage: String
-    let isFollowed: Bool
+    let isFollowed, isBlocked: Bool
 
     enum CodingKeys: String, CodingKey {
         case friendID = "friendId"
-        case nickname, profileImage, isFollowed
+        case nickname, profileImage, isFollowed, isBlocked
     }
 }

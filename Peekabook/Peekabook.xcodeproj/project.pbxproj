@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBD29DD993400F290F5 /* KakaoSDK */; };
+		14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBF29DD993400F290F5 /* KakaoSDKAuth */; };
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
@@ -129,6 +131,9 @@
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
 		9823E7212971BD8600F3713D /* EditBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823E7202971BD8600F3713D /* EditBookRequest.swift */; };
+		9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */; };
+		9833296029E03ECF00D9DE5A /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */; };
+		9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */; };
 		983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D556D29A881BF00EB6E53 /* CustomSearchView.swift */; };
 		98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D89296BDF9500B78724 /* UIButton+.swift */; };
 		98470D8C296C167C00B78724 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98470D8B296C167C00B78724 /* UITextField+.swift */; };
@@ -150,7 +155,7 @@
 		98EAD31D29D9CEB8000181AF /* SocialLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EAD31C29D9CEB8000181AF /* SocialLoginRequest.swift */; };
 		98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */; };
 		98F1803C29CD804300550E45 /* BlockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803B29CD804300550E45 /* BlockPopUpVC.swift */; };
-		98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */; };
+		98F1803E29CE79BF00550E45 /* ReportPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803D29CE79BF00550E45 /* ReportPopUpVC.swift */; };
 		98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */; };
 		98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804229CE84E100550E45 /* DeleteAccountVC.swift */; };
 		98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */; };
@@ -283,6 +288,9 @@
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
 		9823E7202971BD8600F3713D /* EditBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookRequest.swift; sourceTree = "<group>"; };
+		9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportRequest.swift; sourceTree = "<group>"; };
+		9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
+		9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResponse.swift; sourceTree = "<group>"; };
 		983D556D29A881BF00EB6E53 /* CustomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchView.swift; sourceTree = "<group>"; };
 		98470D89296BDF9500B78724 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		98470D8B296C167C00B78724 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
@@ -303,7 +311,7 @@
 		98EAD31C29D9CEB8000181AF /* SocialLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRequest.swift; sourceTree = "<group>"; };
 		98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfollowPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803B29CD804300550E45 /* BlockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPopUpVC.swift; sourceTree = "<group>"; };
-		98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarePopUpVC.swift; sourceTree = "<group>"; };
+		98F1803D29CE79BF00550E45 /* ReportPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPopUpVC.swift; sourceTree = "<group>"; };
 		98F1803F29CE7FB800550E45 /* LogoutPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpVC.swift; sourceTree = "<group>"; };
 		98F1804229CE84E100550E45 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
 		98F1804429D19EB800550E45 /* DeleteAccountPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpVC.swift; sourceTree = "<group>"; };
@@ -314,11 +322,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */,
 				8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */,
 				8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */,
 				8E10BA0C295FF3B700BCF58B /* Moya in Frameworks */,
 				8E10BA06295FF35F00BCF58B /* Then in Frameworks */,
 				98A04211296668F900081B8E /* BarcodeScanner in Frameworks */,
+				14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +389,7 @@
 				8E10BA21295FF64700BCF58B /* MyPage */,
 				8E81F3FD29608ACD001815B4 /* MyNotification */,
 				98A042052966469800081B8E /* Proposal */,
-				98601A7F29C99CC2002F7753 /* UserDeclare */,
+				98601A7F29C99CC2002F7753 /* UserReport */,
 				8E13F66D2966BDBA00E61B47 /* UIComponents */,
 			);
 			path = Presentation;
@@ -564,7 +574,6 @@
 				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
 				98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */,
 				98F1803B29CD804300550E45 /* BlockPopUpVC.swift */,
-				98F1803D29CE79BF00550E45 /* DeclarePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -889,6 +898,7 @@
 			children = (
 				1481CDD8296D227500F2B207 /* SearchUserResponse.swift */,
 				8E66566F2971A3DA00B79328 /* ProposalBookRequest.swift */,
+				9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -901,19 +911,20 @@
 			path = NaverSearch;
 			sourceTree = "<group>";
 		};
-		98601A7F29C99CC2002F7753 /* UserDeclare */ = {
+		98601A7F29C99CC2002F7753 /* UserReport */ = {
 			isa = PBXGroup;
 			children = (
 				98601A8329C9BFF1002F7753 /* Views */,
 				98601A8029C99CE1002F7753 /* VC */,
 			);
-			path = UserDeclare;
+			path = UserReport;
 			sourceTree = "<group>";
 		};
 		98601A8029C99CE1002F7753 /* VC */ = {
 			isa = PBXGroup;
 			children = (
 				98601A8129C99D06002F7753 /* ReportVC.swift */,
+				98F1803D29CE79BF00550E45 /* ReportPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -947,6 +958,8 @@
 			isa = PBXGroup;
 			children = (
 				98EAD31C29D9CEB8000181AF /* SocialLoginRequest.swift */,
+				9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */,
+				9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -974,6 +987,8 @@
 				8E10BA08295FF37B00BCF58B /* Kingfisher */,
 				8E10BA0B295FF3B700BCF58B /* Moya */,
 				98A04210296668F900081B8E /* BarcodeScanner */,
+				14061CBD29DD993400F290F5 /* KakaoSDK */,
+				14061CBF29DD993400F290F5 /* KakaoSDKAuth */,
 			);
 			productName = Peekabook;
 			productReference = 8E5A309E295DAE6D00285A15 /* Peekabook.app */;
@@ -1010,6 +1025,7 @@
 				8E10BA07295FF37B00BCF58B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */,
 				98A0420F296668F900081B8E /* XCRemoteSwiftPackageReference "BarcodeScanner" */,
+				14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 8E5A309F295DAE6D00285A15 /* Products */;
 			projectDirPath = "";
@@ -1081,7 +1097,7 @@
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
-				98F1803E29CE79BF00550E45 /* DeclarePopUpVC.swift in Sources */,
+				98F1803E29CE79BF00550E45 /* ReportPopUpVC.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
 				8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */,
 				8E5E089029630F87000A8A3F /* UILabel+.swift in Sources */,
@@ -1128,6 +1144,7 @@
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
 				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
+				9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */,
 				14C84E2F29CC2A6D0086F8DF /* EditMyProfileVC.swift in Sources */,
 				98A042092966496500081B8E /* ProposalVC.swift in Sources */,
 				98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */,
@@ -1183,6 +1200,7 @@
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
+				9833296029E03ECF00D9DE5A /* SignUpRequest.swift in Sources */,
 				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
@@ -1196,6 +1214,7 @@
 				8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */,
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
+				9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */,
 				8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
@@ -1359,12 +1378,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "\"\" UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1397,12 +1417,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "\"\" UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1444,6 +1465,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1487,6 +1516,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		14061CBD29DD993400F290F5 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		14061CBF29DD993400F290F5 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
 		8E10BA02295FF33200BCF58B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */;
