@@ -25,7 +25,7 @@ final class LoginVC: UIViewController {
         $0.image = ImageLiterals.Image.appLogo
     }
     
-    private lazy var kakaoLoginButton = UIButton().then {
+    private lazy var kakaoLoginButton = UIButton(type: .system).then {
         $0.setImage(ImageLiterals.Icn.kakaoButton, for: .normal)
         $0.addTarget(self, action: #selector(kakaoLoginButtonDidTap), for: .touchUpInside)
     }
@@ -85,7 +85,7 @@ extension LoginVC {
         labelContainerView.addSubviews(serviceTermsLabel, andLabel, privacyPolicyLabel)
         
         logoImgView.snp.makeConstraints {
-            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-191)
+            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-190.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
@@ -230,9 +230,12 @@ extension LoginVC {
                     print(error)
                 } else {
                     if let tokenString = oauthToken?.accessToken {
-                        Config.accessToken = tokenString
+                        Config.socialToken = tokenString
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.kakaoLogin(param: kakaoLoginRequest)
+                        let signUpVC = SignUpVC()
+                        signUpVC.modalPresentationStyle = .fullScreen
+                        self.present(signUpVC, animated: true, completion: nil)
                     }
                 }
             }
@@ -252,9 +255,12 @@ extension LoginVC {
                 print("loginWithKakaoAccount() success.")
                 // 회원가입 성공 시 oauthToken 저장
                 if let tokenString = oauthToken?.accessToken {
-                    Config.accessToken = tokenString
+                    Config.socialToken = tokenString
                     let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                     self.kakaoLogin(param: kakaoLoginRequest)
+                    let signUpVC = SignUpVC()
+                    signUpVC.modalPresentationStyle = .fullScreen
+                    self.present(signUpVC, animated: true, completion: nil)
                 }
             }
         }
@@ -277,9 +283,10 @@ extension LoginVC {
     private func kakaoLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                let signUpVC = SignUpVC()
-                signUpVC.modalPresentationStyle = .fullScreen
-                self.present(signUpVC, animated: true)
+                if let accessToken = response?.data?.accessToken {
+                    Config.accessToken = accessToken
+                    print("💖 \(accessToken)")
+                }
             }
         }
     }

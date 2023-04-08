@@ -53,6 +53,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     private let profileImageView = UIImageView().then {
         $0.image = ImageLiterals.Icn.emptyProfileImage
         $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 40
     }
     private lazy var editImageButton = UIButton(type: .system).then {
@@ -79,7 +80,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
-        $0.becomeFirstResponder()
+//        $0.becomeFirstResponder()
         $0.returnKeyType = .done
         $0.font = .h2
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -208,8 +209,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
         }
-        
-        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText))
+        guard let profileImage = profileImageView.image else { return }
+        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
     }
     
     private func checkComplete() {
@@ -285,7 +286,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         
         if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
             var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
-            position.y += checkContainerView.frame.height + 28 // maxLength 레이아웃 28
+            position.y += checkContainerView.frame.height // maxLength 레이아웃 28
+            
             containerView.setContentOffset(position, animated: true)
             self.checkContainerView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.size.height)
             
@@ -447,7 +449,7 @@ extension SignUpVC {
         }
         
         doubleCheckNotTappedLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(5)
             $0.centerX.equalToSuperview()
         }
     }
@@ -461,10 +463,10 @@ extension SignUpVC: IntroText {
 }
 
 extension SignUpVC {
-    func signUp(param: SignUpRequest) {
-        UserAPI.shared.signUp(param: param) { response in
+    func signUp(param: SignUpRequest, image: UIImage) {
+        UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
-                print("성공")
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
         }
     }
