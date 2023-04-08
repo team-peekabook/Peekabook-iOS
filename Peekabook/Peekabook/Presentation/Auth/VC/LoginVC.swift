@@ -230,7 +230,7 @@ extension LoginVC {
                     print(error)
                 } else {
                     if let tokenString = oauthToken?.accessToken {
-                        Config.accessToken = tokenString
+                        Config.socialToken = tokenString
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.kakaoLogin(param: kakaoLoginRequest)
                         let signUpVC = SignUpVC()
@@ -255,7 +255,7 @@ extension LoginVC {
                 print("loginWithKakaoAccount() success.")
                 // 회원가입 성공 시 oauthToken 저장
                 if let tokenString = oauthToken?.accessToken {
-                    Config.accessToken = tokenString
+                    Config.socialToken = tokenString
                     let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                     self.kakaoLogin(param: kakaoLoginRequest)
                     let signUpVC = SignUpVC()
