@@ -17,7 +17,7 @@ struct I18N {
     
     struct Tabbar {
         static let bookshelf = "책장"
-        static let recommend = "추천 "
+        static let recommend = "추천"
         static let mypage = "MY"
     }
     

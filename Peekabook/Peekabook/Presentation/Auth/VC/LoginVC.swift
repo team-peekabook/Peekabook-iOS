@@ -85,7 +85,7 @@ extension LoginVC {
         labelContainerView.addSubviews(serviceTermsLabel, andLabel, privacyPolicyLabel)
         
         logoImgView.snp.makeConstraints {
-            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-191)
+            $0.bottom.equalTo(kakaoLoginButton.snp.top).offset(-190.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
@@ -233,6 +233,9 @@ extension LoginVC {
                         Config.accessToken = tokenString
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.kakaoLogin(param: kakaoLoginRequest)
+                        let signUpVC = SignUpVC()
+                        signUpVC.modalPresentationStyle = .fullScreen
+                        self.present(signUpVC, animated: true, completion: nil)
                     }
                 }
             }
@@ -255,6 +258,9 @@ extension LoginVC {
                     Config.accessToken = tokenString
                     let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                     self.kakaoLogin(param: kakaoLoginRequest)
+                    let signUpVC = SignUpVC()
+                    signUpVC.modalPresentationStyle = .fullScreen
+                    self.present(signUpVC, animated: true, completion: nil)
                 }
             }
         }
@@ -277,9 +283,10 @@ extension LoginVC {
     private func kakaoLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                let signUpVC = SignUpVC()
-                signUpVC.modalPresentationStyle = .fullScreen
-                self.present(signUpVC, animated: true)
+                if let accessToken = response?.data?.accessToken {
+                    Config.accessToken = accessToken
+                    print("💖 \(accessToken)")
+                }
             }
         }
     }
