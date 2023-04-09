@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum MyPageRouter {
-    case sample
+    case deleteAccount
 }
 
 extension MyPageRouter: TargetType {
@@ -20,21 +20,21 @@ extension MyPageRouter: TargetType {
     
     var path: String {
         switch self {
-        case .sample:
-            return URLConstant.mypage
+        case .deleteAccount:
+            return URLConstant.mypage + "/withdraw"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .sample:
-            return .get
+        case .deleteAccount:
+            return .delete
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .sample:
+        case .deleteAccount:
             return .requestPlain
         }
     }

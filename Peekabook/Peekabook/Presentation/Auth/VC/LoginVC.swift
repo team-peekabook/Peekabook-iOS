@@ -285,7 +285,6 @@ extension LoginVC {
             if response?.success == true {
                 if let accessToken = response?.data?.accessToken {
                     Config.accessToken = accessToken
-                    print("💖 \(accessToken)")
                 }
             }
         }

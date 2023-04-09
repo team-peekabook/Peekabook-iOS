@@ -55,11 +55,9 @@
 		8E45036C29D1F3F100A829A6 /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45036B29D1F3F100A829A6 /* MyPageRouter.swift */; };
 		8E45036E29D1F3F800A829A6 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45036D29D1F3F800A829A6 /* AuthRouter.swift */; };
 		8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45036F29D1F40300A829A6 /* UserRouter.swift */; };
-		8E45037229D1F41600A829A6 /* BlockRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037129D1F41600A829A6 /* BlockRouter.swift */; };
 		8E45037429D1F4EB00A829A6 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */; };
 		8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037529D1F4F200A829A6 /* UserAPI.swift */; };
 		8E45037829D1F4FD00A829A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037729D1F4FD00A829A6 /* AuthAPI.swift */; };
-		8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037929D1F50300A829A6 /* BlockAPI.swift */; };
 		8E4503A129D46CA900A829A6 /* ManageBlockUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */; };
 		8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */; };
 		8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */; };
@@ -210,11 +208,9 @@
 		8E45036B29D1F3F100A829A6 /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
 		8E45036D29D1F3F800A829A6 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		8E45036F29D1F40300A829A6 /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
-		8E45037129D1F41600A829A6 /* BlockRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRouter.swift; sourceTree = "<group>"; };
 		8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		8E45037529D1F4F200A829A6 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		8E45037729D1F4FD00A829A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
-		8E45037929D1F50300A829A6 /* BlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAPI.swift; sourceTree = "<group>"; };
 		8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockUsersVC.swift; sourceTree = "<group>"; };
 		8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCVC.swift; sourceTree = "<group>"; };
 		8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockPopUpVC.swift; sourceTree = "<group>"; };
@@ -548,7 +544,6 @@
 				8E45036B29D1F3F100A829A6 /* MyPageRouter.swift */,
 				8E45036F29D1F40300A829A6 /* UserRouter.swift */,
 				8E45036D29D1F3F800A829A6 /* AuthRouter.swift */,
-				8E45037129D1F41600A829A6 /* BlockRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -871,7 +866,6 @@
 				8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */,
 				8E45037529D1F4F200A829A6 /* UserAPI.swift */,
 				8E45037729D1F4FD00A829A6 /* AuthAPI.swift */,
-				8E45037929D1F50300A829A6 /* BlockAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1170,7 +1164,6 @@
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
 				8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
-				8E45037229D1F41600A829A6 /* BlockRouter.swift in Sources */,
 				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,
 				8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */,
 				8E45036C29D1F3F100A829A6 /* MyPageRouter.swift in Sources */,
@@ -1215,7 +1208,6 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */,
-				8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
 			);
