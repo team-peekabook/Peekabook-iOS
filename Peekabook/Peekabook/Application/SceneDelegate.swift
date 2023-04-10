@@ -13,13 +13,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let rootVC = OnboardingVC()
-        window.rootViewController = rootVC
-        window.backgroundColor = .white
+        
+        // 유저 정보에 따라 루트 뷰 컨트롤러 설정
+        let defaults = UserDefaults.standard
+        let isLoggedIn = defaults.bool(forKey: "loginComplete")
+        var rootViewController: UIViewController!
+        print(isLoggedIn)
+        if isLoggedIn {
+            rootViewController = TabBarController()
+        } else {
+            rootViewController = LoginVC()
+        }
+
+//         윈도우에 루트 뷰 컨트롤러 설정 및 보여주기
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
+        
         self.window = window
     }
     
