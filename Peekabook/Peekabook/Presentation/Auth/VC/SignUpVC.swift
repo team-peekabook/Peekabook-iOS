@@ -15,6 +15,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     var nicknameText: String = ""
     var introText: String = ""
+    private var accessToken: String = ""
     
     var isDoubleChecked: Bool = false {
         didSet {
@@ -189,6 +190,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             isDoubleChecked = false
         } else if nickname.isEmpty {
             doubleCheckButton.isEnabled = false
+            isDoubleChecked = false
             doubleCheckButton.backgroundColor = .peekaGray1
         } else {
             doubleCheckButton.backgroundColor = .peekaRed
@@ -201,16 +203,19 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     @objc
     private func checkButtonDidTap() {
-        if !isDoubleChecked && signUpButton.isEnabled == true {
+        guard let profileImage = profileImageView.image else { return }
+        
+        if !isDoubleChecked {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
             UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
+            UserDefaults.standard.setValue(true, forKey: "loginComplete")
+            print(UserDefaults.standard.bool(forKey: "loginComplete"))
+            signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
         }
-        guard let profileImage = profileImageView.image else { return }
-        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
     }
     
     private func checkComplete() {
@@ -301,7 +306,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 0.2, animations: {
             self.checkContainerView.transform = .identity
         })
-        checkButtonDidTap()
     }
 }
 
