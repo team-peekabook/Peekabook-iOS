@@ -5,17 +5,20 @@
 //  Created by devxsby on 2023/04/07.
 //
 
-import Foundation
-
-struct UserDefaultKeyList {
-    struct Onboarding {
-        static let onboardingComplete = "onboardingComplete"
-    }
-    
-    struct Auth {
+//import Foundation
+//
+//struct UserDefaultKeyList {
+//    struct Onboarding {
+//        static let onboardingComplete = "onboardingComplete"
+//    }
+//    
+//    struct Auth {
 //        static let accessToken = "accessToken"
-        static let userNickName = "nickName"
-        static let userIntro = "intro"
-        static let userProfileImage = "profileImage"
-    }
-}
+//        static let refreshToken = "refreshToken"
+//
+//        static let loginComplete = "loginComplete"
+//        static let userNickName = "nickName"
+//        static let userIntro = "intro"
+//        static let userProfileImage = "profileImage"
+//    }
+//}
