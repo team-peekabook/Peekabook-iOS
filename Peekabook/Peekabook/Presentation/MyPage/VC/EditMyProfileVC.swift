@@ -17,9 +17,11 @@ final class EditMyProfileVC: UIViewController {
     // MARK: - Properties
     
     private let dummyName: String = "북과빅"
+    private var serverGetAccountDetail: GetAccountResponse?
     
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
+    var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
     
     var isDoubleChecked: Bool = true {
         didSet {
@@ -42,7 +44,6 @@ final class EditMyProfileVC: UIViewController {
     
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
-        $0.image = ImageLiterals.Sample.profile1
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 40
     }
@@ -69,7 +70,6 @@ final class EditMyProfileVC: UIViewController {
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
-        $0.becomeFirstResponder()
         $0.returnKeyType = .done
         $0.font = .h2
         $0.text = UserDefaults.standard.string(forKey: "userNickname")
@@ -112,6 +112,10 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         introContainerView.updateTextView(type: .editProfileIntro)
         introContainerView.delegate = self
+        getAccountAPI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         getAccountAPI()
     }
     
@@ -159,6 +163,7 @@ final class EditMyProfileVC: UIViewController {
     @objc private func checkButtonDidTap() {
         UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
         UserDefaults.standard.setValue(introText, forKey: "userIntro")
+        UserDefaults.standard.setValue(userImage, forKey: "userImage")
         navigationController?.popViewController(animated: true)
     }
     
@@ -319,11 +324,11 @@ extension EditMyProfileVC: IntroText {
 
 extension EditMyProfileVC {
     private func getAccountAPI() {
-        MyPageAPI.shared.getMyAccount { response in
+        MyPageAPI.shared.getMyAccountInfo { response in
             if response?.success == true {
-                print("완료")
-            } else {
-                
+                guard let serverGetAccountDetail = response?.data else { return }
+                self.profileImageView.kf.indicatorType = .activity
+                self.profileImageView.kf.setImage(with: URL(string: serverGetAccountDetail.profileImage))
             }
         }
     }

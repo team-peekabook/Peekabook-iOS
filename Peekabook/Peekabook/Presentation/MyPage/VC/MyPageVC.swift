@@ -153,6 +153,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
         
         view.editButtonTappedClosure = {[weak self] in
             let editVC = EditMyProfileVC()
+            editVC.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(editVC, animated: true)
         }
         return view
