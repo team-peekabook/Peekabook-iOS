@@ -112,6 +112,7 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         introContainerView.updateTextView(type: .editProfileIntro)
         introContainerView.delegate = self
+        getAccountAPI()
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
@@ -313,5 +314,17 @@ extension EditMyProfileVC: IntroText {
     func getTextView(text: String) {
         self.introText = text
         checkComplete()
+    }
+}
+
+extension EditMyProfileVC {
+    private func getAccountAPI() {
+        MyPageAPI.shared.getMyAccount { response in
+            if response?.success == true {
+                print("완료")
+            } else {
+                
+            }
+        }
     }
 }
