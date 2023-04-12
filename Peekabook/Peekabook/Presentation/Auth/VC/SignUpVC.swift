@@ -82,7 +82,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
-//        $0.becomeFirstResponder()
         $0.returnKeyType = .done
         $0.font = .h2
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -198,12 +197,14 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
+            
+            guard let profileImage = profileImageView.image else { return }
+            signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
+            
             UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
             UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
         }
-        guard let profileImage = profileImageView.image else { return }
-        signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
     }
     
     private func checkComplete() {
@@ -286,7 +287,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 0.2, animations: {
             self.checkContainerView.transform = .identity
         })
-        checkButtonDidTap()
     }
 }
 
@@ -460,11 +460,7 @@ extension SignUpVC {
         UserAPI.shared.checkDuplicate(param: param) { response in
             if response?.success == true {
                 if let isDuplicated = response?.data?.check {
-                    if isDuplicated == 0 {
-                        self.isDoubleChecked = true
-                    } else {
-                        self.isDoubleChecked = false
-                    }
+                    self.isDoubleChecked = true ? isDuplicated == 0 : false
                 }
             }
         }

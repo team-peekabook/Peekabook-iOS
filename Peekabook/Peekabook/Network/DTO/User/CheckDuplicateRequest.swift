@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct CheckDuplicateRequest : Codable {
+struct CheckDuplicateRequest: Codable {
     let nickname: String
 }
