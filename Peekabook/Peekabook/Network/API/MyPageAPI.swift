@@ -16,17 +16,17 @@ final class MyPageAPI {
     
     private init() { }
     
-    private(set) var sampleData: GeneralResponse<BlankData>?
+    private(set) var deleteAccountData: GeneralResponse<BlankData>?
     
-    // 1. 샘플 API
+    // 1. 회원 탈퇴하기
     
-    func getSampleAPI(completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        mypageProvider.request(.sample) { [self] (result) in
+    func deleteAccount(completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        mypageProvider.request(.deleteAccount) { [self] (result) in
             switch result {
             case .success(let response):
                 do {
-                    self.sampleData = try response.map(GeneralResponse<BlankData>.self)
-                    completion(sampleData)
+                    self.deleteAccountData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(deleteAccountData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }
