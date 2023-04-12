@@ -216,7 +216,6 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
             
-            
         default:
             break
         }
@@ -299,10 +298,11 @@ extension LoginVC {
     func appleLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                if let accessToken = response?.data?.accessToken {
-                    Config.accessToken = accessToken
-                    print("💖 \(accessToken)")
-                    UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
+                if let data = response?.data {
+                    Config.accessToken = data.accessToken
+
+                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
                 }
             }
         }
@@ -311,10 +311,11 @@ extension LoginVC {
     func kakaoLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                if let accessToken = response?.data?.accessToken {
-                    Config.accessToken = accessToken
-                    print("💖 \(accessToken)")
-                    UserDefaults.standard.setValue(accessToken, forKey: "accessToken")
+                if let data = response?.data {
+                    Config.accessToken = data.accessToken
+
+                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
                 }
             }
         }

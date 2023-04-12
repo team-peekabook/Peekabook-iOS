@@ -11,7 +11,7 @@ struct UserDefaultsKey {
     
     // MARK: - Token
     
-    static let loginComplete = "loginComplete"
+    static let loginComplete: Bool = false
     static let accessToken = "accessToken"
     static let refreshToken = "refreshToken"
     

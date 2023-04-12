@@ -15,7 +15,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     var nicknameText: String = ""
     var introText: String = ""
-    private var accessToken: String = ""
     
     var isDoubleChecked: Bool = false {
         didSet {
@@ -209,12 +208,9 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
-            UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
-            UserDefaults.standard.setValue(introText, forKey: "userIntro")
-            view.endEditing(true)
-            UserDefaults.standard.setValue(true, forKey: "loginComplete")
-            print(UserDefaults.standard.bool(forKey: "loginComplete"))
             signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
+            
+            view.endEditing(true)
         }
     }
     
@@ -471,6 +467,11 @@ extension SignUpVC {
         UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+                
+                UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
+                UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
+                UserDefaults.standard.setValue(true, forKey: "loginComplete")
+                print(UserDefaults.standard.bool(forKey: "loginComplete"))
             }
         }
     }
