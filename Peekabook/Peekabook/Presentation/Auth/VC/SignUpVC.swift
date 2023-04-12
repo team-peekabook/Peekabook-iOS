@@ -471,7 +471,6 @@ extension SignUpVC {
                 UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
                 UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
                 UserDefaults.standard.setValue(true, forKey: "loginComplete")
-                print(UserDefaults.standard.bool(forKey: "loginComplete"))
             }
         }
     }
