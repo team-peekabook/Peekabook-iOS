@@ -17,17 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let defaults = UserDefaults.standard
-        let accessToken = defaults.string(forKey: "accessToken")
-        let isLoggedIn = accessToken != nil && defaults.bool(forKey: "loginComplete")
-        
+        var isLoggedIn: Bool = UserManager.shared.isLoggedIn
         if isLoggedIn {
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController
-            Config.accessToken = accessToken!
             window?.makeKeyAndVisible()
         } else {
-            let loginViewController = LoginVC()
+            let loginViewController = OnboardingVC()
             window?.rootViewController = loginViewController
             window?.makeKeyAndVisible()
         }

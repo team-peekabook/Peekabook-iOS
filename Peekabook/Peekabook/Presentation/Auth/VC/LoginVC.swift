@@ -216,6 +216,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             appleLogin(param: appleLoginRequest)
             
+            
         default:
             break
         }
@@ -257,6 +258,7 @@ extension LoginVC {
                 } else {
                     if let tokenString = oauthToken?.accessToken {
                         Config.socialToken = tokenString
+                        print("😇😇😇😇😇", tokenString)
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.kakaoLogin(param: kakaoLoginRequest)
                         let signUpVC = SignUpVC()

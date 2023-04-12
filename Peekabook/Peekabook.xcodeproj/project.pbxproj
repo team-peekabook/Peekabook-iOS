@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBD29DD993400F290F5 /* KakaoSDK */; };
 		14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBF29DD993400F290F5 /* KakaoSDKAuth */; };
+		14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14061CE629E5B0CD00F290F5 /* UserManager.swift */; };
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
@@ -160,6 +161,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14061CE629E5B0CD00F290F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		140E373129B48AD60004C8D2 /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			children = (
 				8E21E53529E04BAD00E68DAB /* Views */,
 				8E21E53629E04BB800E68DAB /* VC */,
+				14061CE629E5B0CD00F290F5 /* UserManager.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1208,6 +1211,8 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */,
+				14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */,
+				8E45037A29D1F50300A829A6 /* BlockAPI.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
 			);

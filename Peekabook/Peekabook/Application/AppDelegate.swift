@@ -32,6 +32,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         KakaoSDK.initSDK(appKey: "be7076a55a9cc042dec5c83265a03e91")
         
+        let defaults = UserDefaults.standard
+        let accessToken = Config.accessToken
+        let userManager = UserManager.shared
+        let isLoggedIn = accessToken != "" && !userManager.isLoggedIn
+        
+        if isLoggedIn {
+            let rootViewController = TabBarController()
+            window?.rootViewController = rootViewController
+            Config.accessToken = accessToken
+            UserManager.shared.isLoggedIn = true
+            window?.makeKeyAndVisible()
+        } else {
+            let loginViewController = OnboardingVC()
+            window?.rootViewController = loginViewController
+            UserManager.shared.isLoggedIn = false
+            window?.makeKeyAndVisible()
+        }
+        
         //        if #available(iOS 15, *) {
         //            let appearance = UITabBarAppearance()
         //            appearance.configureWithOpaqueBackground()
