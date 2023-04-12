@@ -52,7 +52,16 @@ extension DeleteAccountPopUpVC {
 extension DeleteAccountPopUpVC {
     
     @objc func confirmButtonDidTap() {
-        print("탈퇴완료")
-        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+        deleteAccount()
+    }
+}
+
+extension DeleteAccountPopUpVC {
+    private func deleteAccount() {
+        MyPageAPI.shared.deleteAccount { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: LoginVC(), animated: true, completion: nil)
+            }
+        }
     }
 }

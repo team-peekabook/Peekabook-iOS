@@ -35,7 +35,11 @@ final class LoginVC: UIViewController {
         button.addTarget(self, action: #selector(appleLoginButtonDidTap), for: .touchUpInside)
         return button
     }()
-
+    
+    private let appleButtonImageView = UIImageView().then {
+        $0.image = ImageLiterals.Icn.appleButton
+    }
+    
     private let infoLabel = UILabel().then {
         $0.text = I18N.Login.info
         $0.font = .s2
@@ -81,7 +85,7 @@ extension LoginVC {
     }
     
     private func setLayout() {
-        view.addSubviews(logoImgView, kakaoLoginButton, appleLoginButton, infoLabel, labelContainerView)
+        view.addSubviews(logoImgView, kakaoLoginButton, appleLoginButton, appleButtonImageView, infoLabel, labelContainerView)
         labelContainerView.addSubviews(serviceTermsLabel, andLabel, privacyPolicyLabel)
         
         logoImgView.snp.makeConstraints {
@@ -93,14 +97,18 @@ extension LoginVC {
             $0.bottom.equalTo(appleLoginButton.snp.top).offset(-15)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
-            $0.height.equalTo(45)
+            $0.height.equalTo(44)
         }
         
         appleLoginButton.snp.makeConstraints {
             $0.bottom.equalTo(infoLabel.snp.top).offset(-31)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
-            $0.height.equalTo(45)
+            $0.height.equalTo(44)
+        }
+        
+        appleButtonImageView.snp.makeConstraints {
+            $0.bottom.centerX.width.height.equalTo(appleLoginButton)
         }
         
         infoLabel.snp.makeConstraints {
@@ -285,7 +293,6 @@ extension LoginVC {
             if response?.success == true {
                 if let accessToken = response?.data?.accessToken {
                     Config.accessToken = accessToken
-                    print("💖 \(accessToken)")
                 }
             }
         }

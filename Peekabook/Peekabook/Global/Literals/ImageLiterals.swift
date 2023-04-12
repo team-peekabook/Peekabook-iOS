@@ -55,7 +55,8 @@ struct ImageLiterals {
         static let profileImageEdit = UIImage(named: "icn_edit_profileImage")?.withRenderingMode(.alwaysOriginal)
         static let progressIndicator = UIImage(named: "icn_progress_indicator")
         static let dissatisfiedFace = UIImage(named: "icn_dissatisfied")
-        static let kakaoButton = UIImage(named: "icn_kakao_login")
+        static let kakaoButton = UIImage(named: "icn_login_kakao")
+        static let appleButton = UIImage(named: "icn_login_apple")
         static let emptyProfileImage = UIImage(named: "btn_emptyProfile")
         static let addProfileImage = UIImage(named: "btn_add_profileImage")
     }
