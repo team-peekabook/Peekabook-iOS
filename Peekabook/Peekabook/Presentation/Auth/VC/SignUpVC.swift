@@ -11,8 +11,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
-    private let dummyName: String = "북과빅"
-    
     var nicknameText: String = ""
     var introText: String = ""
     
@@ -20,8 +18,12 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         didSet {
             if isDoubleChecked {
                 doubleCheckButton.backgroundColor = .peekaGray1
+                doubleCheckErrorLabel.isHidden = true
+                doubleCheckSuccessLabel.isHidden = false
             } else {
                 doubleCheckButton.backgroundColor = .peekaRed
+                doubleCheckErrorLabel.isHidden = false
+                doubleCheckSuccessLabel.isHidden = true
             }
         }
     }
@@ -180,21 +182,12 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     @objc
     private func doubleCheckButtonDidTap() {
-        let isDuplicated = checkIfDuplicated(nicknameTextField.text)
-        let nickname = nicknameTextField.text ?? ""
-        if isDuplicated {
-            doubleCheckButton.backgroundColor = .peekaGray1
-            doubleCheckErrorLabel.isHidden = false
-            doubleCheckSuccessLabel.isHidden = true
-            isDoubleChecked = false
-        } else if nickname.isEmpty {
+        let checkDuplicated = CheckDuplicateRequest(nickname: nicknameText)
+        checkDuplicateComplete(param: checkDuplicated)
+        
+        if nicknameText.isEmpty {
             doubleCheckButton.isEnabled = false
             doubleCheckButton.backgroundColor = .peekaGray1
-        } else {
-            doubleCheckButton.backgroundColor = .peekaRed
-            doubleCheckErrorLabel.isHidden = true
-            doubleCheckSuccessLabel.isHidden = false
-            isDoubleChecked = true
         }
         checkComplete()
     }
@@ -218,14 +211,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
             isCheckComplete = true
         } else {
             isCheckComplete = false
-        }
-    }
-    
-    func checkIfDuplicated(_ text: String?) -> Bool {
-        if text != dummyName {
-            return false
-        } else {
-            return true
         }
     }
     
@@ -467,6 +452,20 @@ extension SignUpVC {
         UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func checkDuplicateComplete(param: CheckDuplicateRequest) {
+        UserAPI.shared.checkDuplicate(param: param) { response in
+            if response?.success == true {
+                if let isDuplicated = response?.data?.check {
+                    if isDuplicated == 0 {
+                        self.isDoubleChecked = true
+                    } else {
+                        self.isDoubleChecked = false
+                    }
+                }
             }
         }
     }
