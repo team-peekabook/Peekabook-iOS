@@ -131,6 +131,7 @@
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
 		9823E7212971BD8600F3713D /* EditBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823E7202971BD8600F3713D /* EditBookRequest.swift */; };
+		9832290B29E6C30200C99BBE /* getAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9832290A29E6C30200C99BBE /* getAccountResponse.swift */; };
 		9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */; };
 		9833296029E03ECF00D9DE5A /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */; };
 		9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */; };
@@ -288,6 +289,7 @@
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
 		9823E7202971BD8600F3713D /* EditBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookRequest.swift; sourceTree = "<group>"; };
+		9832290A29E6C30200C99BBE /* getAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getAccountResponse.swift; sourceTree = "<group>"; };
 		9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportRequest.swift; sourceTree = "<group>"; };
 		9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResponse.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 				8E4083E12970125600B53339 /* Alarm */,
 				8EEF8E3D296B132900F37AFD /* NaverSearch */,
 				98EAD31929D9CD9A000181AF /* Auth */,
+				9832290929E6C2EC00C99BBE /* MyPage */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -919,6 +922,14 @@
 			path = NaverSearch;
 			sourceTree = "<group>";
 		};
+		9832290929E6C2EC00C99BBE /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				9832290A29E6C30200C99BBE /* getAccountResponse.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		98601A7F29C99CC2002F7753 /* UserReport */ = {
 			isa = PBXGroup;
 			children = (
@@ -1133,6 +1144,7 @@
 				8E81F3BA29607714001815B4 /* downloadImage.swift in Sources */,
 				1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */,
 				98EAD31D29D9CEB8000181AF /* SocialLoginRequest.swift in Sources */,
+				9832290B29E6C30200C99BBE /* getAccountResponse.swift in Sources */,
 				8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */,
 				98601A8229C99D06002F7753 /* ReportVC.swift in Sources */,
 				8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */,
