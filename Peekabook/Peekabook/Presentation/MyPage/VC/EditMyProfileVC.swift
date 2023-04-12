@@ -17,7 +17,6 @@ final class EditMyProfileVC: UIViewController {
     // MARK: - Properties
     
     private let dummyName: String = "북과빅"
-    private var serverGetAccountDetail: GetAccountResponse?
     
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
@@ -112,7 +111,6 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         introContainerView.updateTextView(type: .editProfileIntro)
         introContainerView.delegate = self
-        getAccountAPI()
     }
     
     override func viewWillAppear(_ animated: Bool) {

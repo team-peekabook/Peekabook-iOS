@@ -1,5 +1,5 @@
 //
-//  getAccountResponse.swift
+//  GetAccountResponse.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/04/12.
