@@ -186,6 +186,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         
         if nicknameText.isEmpty {
             doubleCheckButton.isEnabled = false
+            isDoubleChecked = false
             doubleCheckButton.backgroundColor = .peekaGray1
         }
         checkComplete()
@@ -193,16 +194,15 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     
     @objc
     private func checkButtonDidTap() {
-        if !isDoubleChecked && signUpButton.isEnabled == true {
+        guard let profileImage = profileImageView.image else { return }
+        
+        if !isDoubleChecked {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
             
             guard let profileImage = profileImageView.image else { return }
             signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
-            
-            UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
-            UserDefaults.standard.setValue(introText, forKey: "userIntro")
             view.endEditing(true)
         }
     }
@@ -452,6 +452,10 @@ extension SignUpVC {
         UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+                
+                UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
+                UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
+                UserDefaults.standard.setValue(true, forKey: "loginComplete")
             }
         }
     }

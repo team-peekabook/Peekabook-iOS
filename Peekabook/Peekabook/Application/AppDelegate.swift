@@ -11,6 +11,8 @@ import KakaoSDKCommon
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         // 세로방향 고정
         return UIInterfaceOrientationMask.portrait
@@ -18,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // White non-translucent bar, supports dark appearance
-
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
@@ -27,13 +31,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
         KakaoSDK.initSDK(appKey: "be7076a55a9cc042dec5c83265a03e91")
-//        if #available(iOS 15, *) {
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .white
-//            UITabBar.appearance().standardAppearance = appearance
-//            UITabBar.appearance().scrollEdgeAppearance = appearance
-//        }
+        
+        let defaults = UserDefaults.standard
+        let accessToken = Config.accessToken
+        let userManager = UserManager.shared
+        let isLoggedIn = accessToken != "" && !userManager.isLoggedIn
+        
+        if isLoggedIn {
+            let rootViewController = TabBarController()
+            window?.rootViewController = rootViewController
+            Config.accessToken = accessToken
+            UserManager.shared.isLoggedIn = true
+            window?.makeKeyAndVisible()
+        } else {
+            let loginViewController = OnboardingVC()
+            window?.rootViewController = loginViewController
+            UserManager.shared.isLoggedIn = false
+            window?.makeKeyAndVisible()
+        }
+        
+        //        if #available(iOS 15, *) {
+        //            let appearance = UITabBarAppearance()
+        //            appearance.configureWithOpaqueBackground()
+        //            appearance.backgroundColor = .white
+        //            UITabBar.appearance().standardAppearance = appearance
+        //            UITabBar.appearance().scrollEdgeAppearance = appearance
+        //        }
         Thread.sleep(forTimeInterval: 1.0)
         return true
     }

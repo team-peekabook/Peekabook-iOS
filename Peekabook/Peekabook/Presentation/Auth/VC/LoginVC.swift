@@ -229,6 +229,24 @@ extension LoginVC: ASAuthorizationControllerDelegate {
 
 extension LoginVC {
     
+    func checkIfUserHasToken() {
+        if (AuthApi.hasToken()) {
+            UserApi.shared.accessTokenInfo { (_, error) in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
+                        self.checkIfKakaoInstalled()
+                    } else {
+                        //기타 에러
+                    }
+                } else {
+                    self.present(SignUpVC(), animated: true)
+                }
+            }
+        } else {
+            self.checkIfKakaoInstalled()
+        }
+    }
+    
     func checkIfKakaoInstalled() {
         // 카카오톡 설치 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -239,8 +257,11 @@ extension LoginVC {
                 } else {
                     if let tokenString = oauthToken?.accessToken {
                         Config.socialToken = tokenString
+                        print("😇😇😇😇😇", tokenString)
+                        
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.kakaoLogin(param: kakaoLoginRequest)
+                        
                         let signUpVC = SignUpVC()
                         signUpVC.modalPresentationStyle = .fullScreen
                         self.present(signUpVC, animated: true, completion: nil)
@@ -264,8 +285,10 @@ extension LoginVC {
                 // 회원가입 성공 시 oauthToken 저장
                 if let tokenString = oauthToken?.accessToken {
                     Config.socialToken = tokenString
+                    
                     let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                     self.kakaoLogin(param: kakaoLoginRequest)
+                    
                     let signUpVC = SignUpVC()
                     signUpVC.modalPresentationStyle = .fullScreen
                     self.present(signUpVC, animated: true, completion: nil)
@@ -276,23 +299,27 @@ extension LoginVC {
 }
 
 extension LoginVC {
-    private func appleLogin(param: SocialLoginRequest) {
+    func appleLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                if let accessToken = response?.data?.accessToken {
-                    Config.accessToken = accessToken
-                    print("💖 \(accessToken)")
+                if let data = response?.data {
+                    Config.accessToken = data.accessToken
 
+                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
                 }
             }
         }
     }
     
-    private func kakaoLogin(param: SocialLoginRequest) {
+    func kakaoLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
-                if let accessToken = response?.data?.accessToken {
-                    Config.accessToken = accessToken
+                if let data = response?.data {
+                    Config.accessToken = data.accessToken
+
+                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
                 }
             }
         }

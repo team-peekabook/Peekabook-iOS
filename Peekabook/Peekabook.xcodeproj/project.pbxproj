@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBD29DD993400F290F5 /* KakaoSDK */; };
 		14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBF29DD993400F290F5 /* KakaoSDKAuth */; };
+		14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14061CE629E5B0CD00F290F5 /* UserManager.swift */; };
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
@@ -46,7 +47,6 @@
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
 		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
-		8E21E53229E03FB600E68DAB /* UserDefaultKeyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53129E03FB600E68DAB /* UserDefaultKeyList.swift */; };
 		8E21E53429E040B900E68DAB /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53329E040B900E68DAB /* OnboardingVC.swift */; };
 		8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */; };
 		8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E234769297F6A550066D7B3 /* switchRootViewController.swift */; };
@@ -163,6 +163,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14061CE629E5B0CD00F290F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		140E373129B48AD60004C8D2 /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
@@ -198,7 +199,6 @@
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
-		8E21E53129E03FB600E68DAB /* UserDefaultKeyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeyList.swift; sourceTree = "<group>"; };
 		8E21E53329E040B900E68DAB /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
 		8E21E53929E1450200E68DAB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -467,7 +467,6 @@
 				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
 				8E81F3B5296073C6001815B4 /* ImageLiterals.swift */,
 				8E81F3B3296073AF001815B4 /* StringLiterals.swift */,
-				8E21E53129E03FB600E68DAB /* UserDefaultKeyList.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -536,6 +535,7 @@
 			isa = PBXGroup;
 			children = (
 				8E1850612969B1690062E92A /* URLConstant.swift */,
+				14061CE629E5B0CD00F290F5 /* UserManager.swift */,
 				8E1850652969B5060062E92A /* NetworkConstant.swift */,
 				8E1850632969B44F0062E92A /* UserDefaultsKey.swift */,
 				8E1850672969BA4A0062E92A /* NetworkResult.swift */,
@@ -1134,7 +1134,6 @@
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
 				14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */,
 				8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */,
-				8E21E53229E03FB600E68DAB /* UserDefaultKeyList.swift in Sources */,
 				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
 				140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
@@ -1236,6 +1235,7 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */,
+				14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
 			);
