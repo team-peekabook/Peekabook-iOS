@@ -24,6 +24,8 @@
 		14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */; };
 		14C84E2F29CC2A6D0086F8DF /* EditMyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E2E29CC2A6D0086F8DF /* EditMyProfileVC.swift */; };
 		14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E3629D439450086F8DF /* SignUpVC.swift */; };
+		14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */; };
+		14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */; };
 		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */; };
@@ -176,6 +178,8 @@
 		14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTypeCVC.swift; sourceTree = "<group>"; };
 		14C84E2E29CC2A6D0086F8DF /* EditMyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyProfileVC.swift; sourceTree = "<group>"; };
 		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateRequest.swift; sourceTree = "<group>"; };
+		14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateResponse.swift; sourceTree = "<group>"; };
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -348,6 +352,15 @@
 				14B354472968897C00998925 /* NotificationModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		14D07E0429E6BD3200C7B99E /* User */ = {
+			isa = PBXGroup;
+			children = (
+				14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */,
+				14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		8E10BA0D295FF42400BCF58B /* Global */ = {
@@ -553,6 +566,7 @@
 		8E10BA25295FF70600BCF58B /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				14D07E0429E6BD3200C7B99E /* User */,
 				8EEF8E152969C7B800F37AFD /* BookShelf */,
 				8EEF8E31296B12B300F37AFD /* Pick */,
 				8EEF8E37296B12EB00F37AFD /* Friend */,
@@ -1118,6 +1132,7 @@
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
+				14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */,
 				8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */,
 				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
 				140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */,
@@ -1155,6 +1170,7 @@
 				98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */,
 				8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */,
 				8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */,
+				14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */,
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,
