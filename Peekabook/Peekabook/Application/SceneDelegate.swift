@@ -13,14 +13,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        let rootVC = OnboardingVC()
-        window.rootViewController = rootVC
-        window.backgroundColor = .white
-        window.makeKeyAndVisible()
-        self.window = window
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        var isLoggedIn: Bool = UserManager.shared.isLoggedIn
+        if isLoggedIn {
+            let rootViewController = TabBarController()
+            window?.rootViewController = rootViewController
+            window?.makeKeyAndVisible()
+        } else {
+            let loginViewController = OnboardingVC()
+            window?.rootViewController = loginViewController
+            window?.makeKeyAndVisible()
+        }
     }
     
     func changeRootVC(_ vc:UIViewController, animated: Bool) {

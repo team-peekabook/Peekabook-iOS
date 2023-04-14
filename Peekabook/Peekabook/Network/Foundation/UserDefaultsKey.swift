@@ -7,20 +7,19 @@
 
 import Foundation
 
-extension NetworkConstant {
+struct UserDefaultsKey {
     
-    struct UserDefaultsKey {
-        
-        // MARK: - Token
-        
-        static let accessToken = "accessToken"
-        static let refreshToken = "refreshToken"
-        
-        // MARK: - User Information
-        
-        static let userId: String = "userId"
-        static let userName: String = "userName"
-        static let userImageUrl: String = "userImage"
-        static let userIntro: String = "userIntro"
-    }
+    // MARK: - Token
+    
+    static let loginComplete: Bool = false
+    static let accessToken = "accessToken"
+    static let refreshToken = "refreshToken"
+    
+    // MARK: - User Information
+    
+    static let userId: String = "userId"
+    static let userNickname: String = "userName"
+    static let userImageUrl: String = "userImage"
+    static let userIntro: String = "userIntro"
+    
 }
