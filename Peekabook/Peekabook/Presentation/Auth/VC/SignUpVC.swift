@@ -453,9 +453,14 @@ extension SignUpVC {
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
                 
+                // UserDefaults
                 UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
                 UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
-                UserDefaults.standard.setValue(true, forKey: "loginComplete")
+                UserDefaults.standard.setValue(true, forKey: "signedUpComplete")
+
+                UserManager.shared.userName = self.nicknameText
+                UserManager.shared.userIntro = self.introText
+                Config.isSignedUp = true
             }
         }
     }

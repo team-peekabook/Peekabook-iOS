@@ -10,8 +10,7 @@ import Foundation
 struct UserDefaultsKey {
     
     // MARK: - Token
-    
-    static let loginComplete: Bool = false
+
     static let accessToken = "accessToken"
     static let refreshToken = "refreshToken"
     

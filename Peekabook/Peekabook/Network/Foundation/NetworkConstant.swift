@@ -19,9 +19,9 @@ struct NetworkConstant {
                                     "accessToken": Config.socialToken] as [String: String]
     
     static let hasTokenHeader = ["Content-Type": "application/json",
-                                 "accessToken": Config.accessToken] as [String: String]
+                                 "accessToken": UserDefaults.standard.string(forKey: "accessToken")!] as [String: String]
     
     static let multipartWithTokenHeader = ["Content-Type": "multipart/form-data",
-                                           "accessToken": Config.accessToken] as [String: String]
+                                           "accessToken": UserDefaults.standard.string(forKey: "accessToken")!] as [String: String]
     
 }

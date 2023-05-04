@@ -317,9 +317,13 @@ extension LoginVC {
             if response?.success == true {
                 if let data = response?.data {
                     Config.accessToken = data.accessToken
+                    Config.isSignedUp = data.isSignedUp
+                    print("Config의 isSignedUp", Config.isSignedUp)
 
-                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
-                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
+                    // UserDefaults
+//                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+//                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
+                    print("UserDefaults의 isSignedUp", UserDefaults.standard.bool(forKey: "signedUpComplete"))
                 }
             }
         }

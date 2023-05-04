@@ -9,4 +9,5 @@ import Foundation
 
 struct SocialLoginResponse: Codable {
     let accessToken, refreshToken: String
+    let isSignedUp: Bool
 }
