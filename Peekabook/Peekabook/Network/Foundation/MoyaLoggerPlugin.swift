@@ -8,8 +8,11 @@
 import Foundation
 
 import Moya
+import UIKit
 
 final class MoyaLoggerPlugin: PluginType {
+    
+    var isRefreshed: Bool = false
     
     // Request를 보낼 때 호출
     func willSend(_ request: RequestType, target: TargetType) {
@@ -53,6 +56,21 @@ final class MoyaLoggerPlugin: PluginType {
         }
         log.append("------------------- END HTTP -------------------")
         print(log)
+        
+        // 🔥 401 인 경우 리프레쉬 토큰 + 액세스 토큰 을 가지고 갱신 시도.
+        switch statusCode {
+        case 401:
+            // 🔥 토큰 갱신 서버통신 메서드.
+            print("-----------🤷🏻‍♀️401 401🤷🏻‍♀️-----------")
+            if isRefreshed == false {
+                isRefreshed = true
+                userTokenReissueWithAPI()
+            } else {
+                print("~~~~울랄라~~~~")
+            }
+        default:
+            print(statusCode)
+        }
     }
     
     func onFail(_ error: MoyaError) {
@@ -65,5 +83,57 @@ final class MoyaLoggerPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+    }
+}
+
+extension MoyaLoggerPlugin {
+    func userTokenReissueWithAPI() {
+        AuthAPI.shared.getUpdatedTokenAPI { response in
+            print("🤷🏻‍♀️🤷🏻‍♀️🤷🏻‍♀️ ?? response ?? 🤷🏻‍♀️🤷🏻‍♀️🤷🏻‍♀️", response)
+            print("✅✅✅if let 전의 메세지 확인✅✅✅", response?.message)
+            print("---------TOKEN-----------")
+            print(response?.data?.refreshToken)
+            print(response?.data?.newAccessToken)
+            print("data: ", response?.data)
+            print("message: ", response?.message)
+            print("-------------------------------------")
+            if let response = response, let message = response.message {
+                print("✅✅✅메세지 확인✅✅✅", message)
+                print("---------TOKEN-----------")
+                print(response.data?.refreshToken)
+                print(response.data?.newAccessToken)
+                print("data: ", response.data)
+                print("message: ", message)
+                print("--------------------------------")
+                if response.success == true {
+                    if let data = response.data {
+                        // 🔥 성공적으로 액세스 토큰, 리프레쉬 토큰 갱신.
+                        UserDefaults.standard.setValue(data.newAccessToken, forKey: "accessToken")
+                        UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
+                
+                        print("✅✅✅토큰 재발급 성공✅✅✅")
+                    }
+                } else if message == "모든 토큰이 만료되었습니다. 재로그인 해주세요." {
+                    
+                    UserDefaults.standard.removeObject(forKey: "accessToken")
+                    UserDefaults.standard.removeObject(forKey: "refreshToken")
+                    
+                    // self.isRefreshed = true
+                    
+                    let loginVC = LoginVC()
+                    let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+                    window?.rootViewController = loginVC
+                    self.isRefreshed = false
+                    print("✅✅✅모든 토큰이 만료된 경우✅✅✅")
+                    
+                } else if message == "토큰이 유효합니다" {
+                    print("✅✅✅ 토큰이 유효함 !!!! ✅✅✅")
+                } else if message == "토큰 값이 없습니다." {
+                    print("✅✅✅ 노노토큰.. ✅✅✅")
+                } else if message == "유효하지 않은 리프레시 토큰입니다." {
+                    print("✅✅✅ 유효하지 않은 리프레시 토큰 ✅✅✅")
+                }
+            }
+        }
     }
 }

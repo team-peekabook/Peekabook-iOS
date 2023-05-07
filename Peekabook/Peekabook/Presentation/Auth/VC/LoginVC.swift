@@ -321,9 +321,17 @@ extension LoginVC {
                     print("Config의 isSignedUp", Config.isSignedUp)
 
                     // UserDefaults
-//                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
-//                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
-                    print("UserDefaults의 isSignedUp", UserDefaults.standard.bool(forKey: "signedUpComplete"))
+                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
+                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
+                    UserDefaults.standard.set(data.isSignedUp, forKey: "isSignedUpComplete")
+                    if let token = UserDefaults.standard.string(forKey: "accessToken") {
+                        print("🕺🕺 Login VC --------> Access Token : ", token)
+                    }
+                    print("UserDefaults의 isSignedUp", UserDefaults.standard.bool(forKey: "isSignedUpComplete"))
+                    
+                    if data.isSignedUp {
+                        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+                    }
                 }
             }
         }

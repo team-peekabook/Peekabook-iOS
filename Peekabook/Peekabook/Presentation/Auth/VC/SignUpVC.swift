@@ -456,11 +456,10 @@ extension SignUpVC {
                 // UserDefaults
                 UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
                 UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
-                UserDefaults.standard.setValue(true, forKey: "signedUpComplete")
+                UserDefaults.standard.set(true, forKey: "isSignedUpComplete")
 
                 UserManager.shared.userName = self.nicknameText
                 UserManager.shared.userIntro = self.introText
-                Config.isSignedUp = true
             }
         }
     }

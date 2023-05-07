@@ -11,6 +11,7 @@ import Moya
 
 enum AuthRouter {
     case socialLogin(param: SocialLoginRequest)
+    case getUpdatedToken
 }
 
 extension AuthRouter: TargetType {
@@ -22,6 +23,8 @@ extension AuthRouter: TargetType {
         switch self {
         case .socialLogin:
             return URLConstant.auth + "/signin"
+        case .getUpdatedToken:
+            return URLConstant.auth + "/token"
         }
     }
     
@@ -29,6 +32,8 @@ extension AuthRouter: TargetType {
         switch self {
         case .socialLogin:
             return .post
+        case .getUpdatedToken:
+            return .get
         }
     }
     
@@ -36,10 +41,17 @@ extension AuthRouter: TargetType {
         switch self {
         case .socialLogin(let param):
             return .requestJSONEncodable(param)
+        case .getUpdatedToken:
+            return .requestPlain
         }
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.socialTokenHeader
+        switch self {
+        case .socialLogin:
+            return NetworkConstant.socialTokenHeader
+        case .getUpdatedToken:
+            return NetworkConstant.updateTokenHeader
+        }
     }
 }

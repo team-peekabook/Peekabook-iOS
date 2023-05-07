@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userManager = UserManager.shared
         
         print("✅✅✅!! 유저디폴트로 바꾼 경우 !!!✅✅✅")
-        print(defaults.bool(forKey: "signedUpComplete"))
+        print(defaults.bool(forKey: "isSignedUpComplete"))
         if let accessToken = defaults.string(forKey: "accessToken") {
             print(accessToken)
         }
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("--------------------    AppDelegate    ------------------------")
         
-        if defaults.bool(forKey: "signedUpComplete") {
+        if defaults.bool(forKey: "isSignedUpComplete") {
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController
             Config.accessToken = accessToken
