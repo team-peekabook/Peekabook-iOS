@@ -35,18 +35,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         let accessToken = Config.accessToken
         let userManager = UserManager.shared
-        let isLoggedIn = accessToken != "" && !userManager.isLoggedIn
         
-        if isLoggedIn {
+        print("✅✅✅!! 유저디폴트로 바꾼 경우 !!!✅✅✅")
+        print(defaults.bool(forKey: "isSignedUpComplete"))
+        if let accessToken = defaults.string(forKey: "accessToken") {
+            print(accessToken)
+        }
+        if let refreshToken = defaults.string(forKey: "refreshToken") {
+            print(refreshToken)
+        }
+//        print(defaults.string(forKey: "accessToken"))
+//        print(defaults.string(forKey: "refreshToken"))
+        print("--------------------    AppDelegate    ------------------------")
+        
+        print("✅✅✅!! Config로 바꾼 경우 !!!✅✅✅")
+        
+        print(Config.accessToken)
+        print(Config.isSignedUp)
+        
+        print("--------------------    AppDelegate    ------------------------")
+        
+        if defaults.bool(forKey: "isSignedUpComplete") {
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController
             Config.accessToken = accessToken
-            UserManager.shared.isLoggedIn = true
             window?.makeKeyAndVisible()
         } else {
             let loginViewController = OnboardingVC()
             window?.rootViewController = loginViewController
-            UserManager.shared.isLoggedIn = false
             window?.makeKeyAndVisible()
         }
         

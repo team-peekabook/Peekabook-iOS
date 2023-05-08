@@ -616,7 +616,7 @@ extension BookShelfVC {
             self.pickCollectionView.reloadData()
         }
     }
-    
+
     private func getFriendBookShelfInfo(userId: Int) {
         BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
             self.serverFriendBookShelfInfo = response?.data

@@ -17,7 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        var isLoggedIn: Bool = UserManager.shared.isLoggedIn
+        let userDefaults = UserDefaults.standard
+        
+        let isLoggedIn: Bool = userDefaults.bool(forKey: "isSignedUpComplete")
+        print("✅✅✅!! 유저디폴트로 바꾼 경우 !!!✅✅✅")
+        print(isLoggedIn)
+        print("--------------------    SceneDelegate    ------------------------")
         if isLoggedIn {
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController

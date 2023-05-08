@@ -17,6 +17,7 @@ final class AuthAPI {
     private init() { }
     
     private(set) var socialLoginData: GeneralResponse<SocialLoginResponse>?
+    private(set) var getUpdatedTokenData: GeneralResponse<GetUpdatedTokenResponse>?
     
     // 1. 소셜 로그인 API
     
@@ -35,4 +36,23 @@ final class AuthAPI {
             }
         }
     }
+    
+    // 2. 토큰 재발급 API
+    
+    func getUpdatedTokenAPI(completion: @escaping (GeneralResponse<GetUpdatedTokenResponse>?) -> Void) {
+        authProvider.request(.getUpdatedToken) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.getUpdatedTokenData = try response.map(GeneralResponse<GetUpdatedTokenResponse>.self)
+                    completion(getUpdatedTokenData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
 }

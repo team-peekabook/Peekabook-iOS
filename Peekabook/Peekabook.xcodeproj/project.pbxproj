@@ -17,6 +17,7 @@
 		143DBFD52971ECE20056C609 /* MyPageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTVC.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
+		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
 		14B354482968897C00998925 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B354472968897C00998925 /* NotificationModel.swift */; };
@@ -171,6 +172,7 @@
 		143DBFD42971ECE20056C609 /* MyPageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTVC.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
+		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
 		14B354472968897C00998925 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -979,6 +981,7 @@
 				98EAD31C29D9CEB8000181AF /* SocialLoginRequest.swift */,
 				9833296129E04E8C00D9DE5A /* SocialLoginResponse.swift */,
 				9833295F29E03ECF00D9DE5A /* SignUpRequest.swift */,
+				145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1228,6 +1231,7 @@
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
 				8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */,
+				145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */,
 				14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
 				8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */,
