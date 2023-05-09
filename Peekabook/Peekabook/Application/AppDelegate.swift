@@ -30,35 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
-        KakaoSDK.initSDK(appKey: "be7076a55a9cc042dec5c83265a03e91")
+        KakaoSDK.initSDK(appKey: Config.kakaoNativeAppKey)
         
-        let defaults = UserDefaults.standard
-        let accessToken = Config.accessToken
-        let userManager = UserManager.shared
-        
-        print("✅✅✅!! 유저디폴트로 바꾼 경우 !!!✅✅✅")
-        print(defaults.bool(forKey: "isSignedUpComplete"))
-        if let accessToken = defaults.string(forKey: "accessToken") {
-            print(accessToken)
-        }
-        if let refreshToken = defaults.string(forKey: "refreshToken") {
-            print(refreshToken)
-        }
-//        print(defaults.string(forKey: "accessToken"))
-//        print(defaults.string(forKey: "refreshToken"))
-        print("--------------------    AppDelegate    ------------------------")
-        
-        print("✅✅✅!! Config로 바꾼 경우 !!!✅✅✅")
-        
-        print(Config.accessToken)
-        print(Config.isSignedUp)
-        
-        print("--------------------    AppDelegate    ------------------------")
-        
-        if defaults.bool(forKey: "isSignedUpComplete") {
+        if (UserDefaults.standard.string(forKey: "accessToken") != nil) {
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController
-            Config.accessToken = accessToken
             window?.makeKeyAndVisible()
         } else {
             let loginViewController = OnboardingVC()

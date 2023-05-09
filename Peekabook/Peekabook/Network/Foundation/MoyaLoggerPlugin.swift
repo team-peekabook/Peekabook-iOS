@@ -12,7 +12,13 @@ import UIKit
 
 final class MoyaLoggerPlugin: PluginType {
     
-    var isRefreshed: Bool = false
+    private var isRefreshed: Bool = false {
+        didSet {
+            if isRefreshed {
+                userTokenReissueWithAPI()
+            }
+        }
+    }
     
     // Request를 보낼 때 호출
     func willSend(_ request: RequestType, target: TargetType) {
@@ -62,14 +68,9 @@ final class MoyaLoggerPlugin: PluginType {
         case 401:
             // 🔥 토큰 갱신 서버통신 메서드.
             print("-----------🤷🏻‍♀️401 401🤷🏻‍♀️-----------")
-            if isRefreshed == false {
-                isRefreshed = true
-                userTokenReissueWithAPI()
-            } else {
-                print("~~~~울랄라~~~~")
-            }
+            isRefreshed = !isRefreshed
         default:
-            print(statusCode)
+            return
         }
     }
     
@@ -87,44 +88,34 @@ final class MoyaLoggerPlugin: PluginType {
 }
 
 extension MoyaLoggerPlugin {
+    
     func userTokenReissueWithAPI() {
         AuthAPI.shared.getUpdatedTokenAPI { response in
-            print("🤷🏻‍♀️🤷🏻‍♀️🤷🏻‍♀️ ?? response ?? 🤷🏻‍♀️🤷🏻‍♀️🤷🏻‍♀️", response)
-            print("✅✅✅if let 전의 메세지 확인✅✅✅", response?.message)
-            print("---------TOKEN-----------")
-            print(response?.data?.refreshToken)
-            print(response?.data?.newAccessToken)
-            print("data: ", response?.data)
-            print("message: ", response?.message)
-            print("-------------------------------------")
+            print("🌟요청하기 전 socialToken\(UserDefaults.standard.string(forKey: "socialToken"))")
+            print("🌟요청하기 전 accessToken\(UserDefaults.standard.string(forKey: "accessToken"))")
+            print("🌟요청하기 전 refreshToken\(UserDefaults.standard.string(forKey: "refreshToken"))")
+        
             if let response = response, let message = response.message {
-                print("✅✅✅메세지 확인✅✅✅", message)
-                print("---------TOKEN-----------")
-                print(response.data?.refreshToken)
-                print(response.data?.newAccessToken)
-                print("data: ", response.data)
-                print("message: ", message)
-                print("--------------------------------")
+                
                 if response.success == true {
                     if let data = response.data {
                         // 🔥 성공적으로 액세스 토큰, 리프레쉬 토큰 갱신.
                         UserDefaults.standard.setValue(data.newAccessToken, forKey: "accessToken")
                         UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
-                
-                        print("✅✅✅토큰 재발급 성공✅✅✅")
+                        print("✅✅✅토큰 재발급 성공✅✅✅ socialToken\(UserDefaults.standard.string(forKey: "socialToken"))")
+                        print("✅✅✅토큰 재발급 성공✅✅✅ accessToken\(UserDefaults.standard.string(forKey: "accessToken"))")
+                        print("✅✅✅토큰 재발급 성공✅✅✅ refreshToken\(UserDefaults.standard.string(forKey: "refreshToken"))")
+
                     }
                 } else if message == "모든 토큰이 만료되었습니다. 재로그인 해주세요." {
-                    
+                    print("🍄🍄🍄 모든 토큰이 만료된 경우 🍄🍄🍄")
                     UserDefaults.standard.removeObject(forKey: "accessToken")
                     UserDefaults.standard.removeObject(forKey: "refreshToken")
-                    
-                    // self.isRefreshed = true
+                    UserDefaults.standard.removeObject(forKey: "socialToken")
                     
                     let loginVC = LoginVC()
                     let window = UIApplication.shared.windows.first { $0.isKeyWindow }
                     window?.rootViewController = loginVC
-                    self.isRefreshed = false
-                    print("✅✅✅모든 토큰이 만료된 경우✅✅✅")
                     
                 } else if message == "토큰이 유효합니다" {
                     print("✅✅✅ 토큰이 유효함 !!!! ✅✅✅")

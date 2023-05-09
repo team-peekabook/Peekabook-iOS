@@ -11,20 +11,24 @@ struct NetworkConstant {
     
     static let defaultHeader = ["Content-Type": "application/json"]
     
-    // 릴리즈 이전 더미 유저 때 사용. 삭제 예정
-    static let hasUserIdHeader = ["Content-Type": "application/json",
-                                  "auth": "1"] as [String: String]
+    static var socialTokenHeader: [String: String] {
+        return ["Content-Type": "application/json",
+                "accessToken": UserDefaults.standard.string(forKey: "socialToken") ?? ""]
+    }
     
-    static let socialTokenHeader = ["Content-Type": "application/json",
-                                    "accessToken": Config.socialToken] as [String: String]
+    static var hasTokenHeader: [String: String] {
+        return ["Content-Type": "application/json",
+                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""]
+    }
     
-    static let hasTokenHeader = ["Content-Type": "application/json",
-                                 "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""] as [String: String]
+    static var multipartWithTokenHeader: [String: String] {
+        return ["Content-Type": "multipart/form-data",
+                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""]
+    }
     
-    static let multipartWithTokenHeader = ["Content-Type": "multipart/form-data",
-                                           "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""] as [String: String]
-    
-    static let updateTokenHeader = ["Content-Type": "application/json",
-                                    "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? "",
-                                    "refreshToken": UserDefaults.standard.string(forKey: "refreshToken") ?? ""] as [String: String]
+    static var updateTokenHeader: [String: String] {
+        return ["Content-Type": "application/json",
+                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? "",
+                "refreshToken": UserDefaults.standard.string(forKey: "refreshToken") ?? ""]
+    }
 }

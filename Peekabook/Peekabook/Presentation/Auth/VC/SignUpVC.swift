@@ -44,6 +44,10 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     private lazy var naviBar = CustomNavigationBar(self, type: .oneRightButton)
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
         .addRightButtonAction {
+            print("회원가입 도중 창 닫아버림~~~~~~~~~~‼️")
+            UserDefaults.standard.removeObject(forKey: "socialToken")
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "refreshToken")
             self.dismiss(animated: true)
         }
     
@@ -452,14 +456,6 @@ extension SignUpVC {
         UserAPI.shared.signUp(param: param, image: image) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
-                
-                // UserDefaults
-                UserDefaults.standard.setValue(self.nicknameText, forKey: "userNickname")
-                UserDefaults.standard.setValue(self.introText, forKey: "userIntro")
-                UserDefaults.standard.set(true, forKey: "isSignedUpComplete")
-
-                UserManager.shared.userName = self.nicknameText
-                UserManager.shared.userIntro = self.introText
             }
         }
     }
