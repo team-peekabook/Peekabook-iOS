@@ -81,7 +81,7 @@ extension RecommendedVC {
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 230
+        return 250
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

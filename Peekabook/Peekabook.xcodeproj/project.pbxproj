@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		14061CBE29DD993400F290F5 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBD29DD993400F290F5 /* KakaoSDK */; };
 		14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14061CBF29DD993400F290F5 /* KakaoSDKAuth */; };
-		14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14061CE629E5B0CD00F290F5 /* UserManager.swift */; };
 		140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140E373129B48AD60004C8D2 /* CustomPopUpView.swift */; };
 		1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53B2963497000CA72D0 /* RecommendedVC.swift */; };
 		1431D53E2963498B00CA72D0 /* RecommendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431D53D2963498B00CA72D0 /* RecommendingVC.swift */; };
@@ -42,7 +41,6 @@
 		8E13F6722966BDE500E61B47 /* DoubleBottomLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */; };
 		8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18505C296828D00062E92A /* EditPickCVC.swift */; };
 		8E1850622969B1690062E92A /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850612969B1690062E92A /* URLConstant.swift */; };
-		8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850632969B44F0062E92A /* UserDefaultsKey.swift */; };
 		8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850652969B5060062E92A /* NetworkConstant.swift */; };
 		8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850672969BA4A0062E92A /* NetworkResult.swift */; };
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
@@ -117,6 +115,7 @@
 		8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E81F40C29608B66001815B4 /* AddBookVC.swift */; };
 		8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */; };
 		8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FE296C6D010045AD7F /* BaseResponse.swift */; };
+		8EB3BB0B2A0A384900F895F9 /* ExternalURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */; };
 		8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */; };
 		8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
@@ -164,7 +163,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14061CE629E5B0CD00F290F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		140E373129B48AD60004C8D2 /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		1431D53B2963497000CA72D0 /* RecommendedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedVC.swift; sourceTree = "<group>"; };
 		1431D53D2963498B00CA72D0 /* RecommendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingVC.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 		8E13F6712966BDE500E61B47 /* DoubleBottomLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleBottomLineView.swift; sourceTree = "<group>"; };
 		8E18505C296828D00062E92A /* EditPickCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickCVC.swift; sourceTree = "<group>"; };
 		8E1850612969B1690062E92A /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
-		8E1850632969B44F0062E92A /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		8E1850652969B5060062E92A /* NetworkConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstant.swift; sourceTree = "<group>"; };
 		8E1850672969BA4A0062E92A /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
@@ -276,6 +273,7 @@
 		8E81F40C29608B66001815B4 /* AddBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookVC.swift; sourceTree = "<group>"; };
 		8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		8EAB43FE296C6D010045AD7F /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalURL.swift; sourceTree = "<group>"; };
 		8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTouchButton.swift; sourceTree = "<group>"; };
 		8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
@@ -469,6 +467,7 @@
 				8E81F3AD29605A83001815B4 /* FontLiterals.swift */,
 				8E81F3B5296073C6001815B4 /* ImageLiterals.swift */,
 				8E81F3B3296073AF001815B4 /* StringLiterals.swift */,
+				8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -537,9 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				8E1850612969B1690062E92A /* URLConstant.swift */,
-				14061CE629E5B0CD00F290F5 /* UserManager.swift */,
 				8E1850652969B5060062E92A /* NetworkConstant.swift */,
-				8E1850632969B44F0062E92A /* UserDefaultsKey.swift */,
 				8E1850672969BA4A0062E92A /* NetworkResult.swift */,
 				8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */,
 				8EAB43FE296C6D010045AD7F /* BaseResponse.swift */,
@@ -1113,6 +1110,7 @@
 				8EEF8E24296B121000F37AFD /* RecommendRouter.swift in Sources */,
 				9823E7212971BD8600F3713D /* EditBookRequest.swift in Sources */,
 				8E45037429D1F4EB00A829A6 /* MyPageAPI.swift in Sources */,
+				8EB3BB0B2A0A384900F895F9 /* ExternalURL.swift in Sources */,
 				8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */,
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
@@ -1211,7 +1209,6 @@
 				8E81F3C2296078BC001815B4 /* makeVibrate.swift in Sources */,
 				8EEF8E20296B11E300F37AFD /* FriendRouter.swift in Sources */,
 				8E4503A129D46CA900A829A6 /* ManageBlockUsersVC.swift in Sources */,
-				8E1850642969B44F0062E92A /* UserDefaultsKey.swift in Sources */,
 				8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */,
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
@@ -1239,7 +1236,6 @@
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,
 				8E81F3E829608421001815B4 /* UIStackView+.swift in Sources */,
 				9833296229E04E8C00D9DE5A /* SocialLoginResponse.swift in Sources */,
-				14061CE729E5B0CD00F290F5 /* UserManager.swift in Sources */,
 				8E10BA35295FF81700BCF58B /* BookShelfVC.swift in Sources */,
 				8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */,
 			);
@@ -1403,7 +1399,7 @@
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 인식 및 프로필 등록을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1442,7 +1438,7 @@
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Using Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 인식 및 프로필 등록을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

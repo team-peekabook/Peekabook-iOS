@@ -56,6 +56,12 @@ extension LogoutPopUpVC {
     }
     
     @objc func confirmButtonDidTap() {
-        print("a")
+        UserDefaults.standard.setValue(nil, forKey: "socialToken")
+        UserDefaults.standard.setValue(nil, forKey: "accessToken")
+        UserDefaults.standard.setValue(nil, forKey: "refreshToken")
+        self.switchRootViewController(rootViewController: LoginVC(), animated: true, completion: nil)
+        
+        print("로그아웃 accessToken", UserDefaults.standard.string(forKey: "accessToken"))
+        print("로그아웃 refreshToken", UserDefaults.standard.string(forKey: "refreshToken"))
     }
 }

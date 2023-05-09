@@ -16,6 +16,7 @@ import Moya
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import SafariServices
 
 final class LoginVC: UIViewController {
 
@@ -144,15 +145,17 @@ extension LoginVC {
 // MARK: - Methods
 
 extension LoginVC {
+    
     // MARK: - @objc Function
     
-    @objc private func kakaoLoginButtonDidTap() {
+    @objc
+    private func kakaoLoginButtonDidTap() {
         print("카카오 로그인")
-        
-        checkIfKakaoInstalled()
+        kakaoLogin()
     }
     
-    @objc private func appleLoginButtonDidTap() {
+    @objc
+    private func appleLoginButtonDidTap() {
         print("애플 로그인")
         
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -165,15 +168,21 @@ extension LoginVC {
         authorizationController.performRequests()
     }
     
+    @objc
+    private func moveTotermsAndpolicy() {
+        let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.Login.privacyPolicy)!)
+        self.present(safariViewController, animated: true)
+    }
+    
+    // MARK: - Methods
+    
     private func addButtonTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveTotermsAndpolicy))
         labelContainerView.addGestureRecognizer(tapGesture)
     }
-    
-    @objc private func moveTotermsAndpolicy() {
-        print("서비스 이용약관 및 정책")
-    }
 }
+
+// MARK: - 애플 OAuth 소셜 로그인
 
 extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
@@ -187,34 +196,33 @@ extension LoginVC: ASAuthorizationControllerDelegate {
         // 페이스 아이디로 로그인
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            if  let authorizationCode = appleIDCredential.authorizationCode,
-                let identityToken = appleIDCredential.identityToken,
-                let authString = String(data: authorizationCode, encoding: .utf8),
-                let tokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)")
-                print("identityToken: \(identityToken)")
-                print("authString: \(authString)")
-                print("tokenString: \(tokenString)")
-                Config.socialToken = tokenString
+            if let authorizationCode = appleIDCredential.authorizationCode,
+               let identityToken = appleIDCredential.identityToken,
+               let authString = String(data: authorizationCode, encoding: .utf8),
+               let tokenString = String(data: identityToken, encoding: .utf8) {
+//                print("authorizationCode: \(authorizationCode)")
+//                print("identityToken: \(identityToken)")
+//                print("authString: \(authString)")
+//                print("tokenString: \(tokenString)")
+                UserDefaults.standard.setValue(tokenString, forKey: "socialToken")
             }
+            print("페이스아이디로 애플 소셜 인증 성공")
             
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
-            appleLogin(param: appleLoginRequest)
-            
-            let signUpVC = SignUpVC()
-            signUpVC.modalPresentationStyle = .fullScreen
-            present(signUpVC, animated: true, completion: nil)
+            socialLogin(param: appleLoginRequest)
             
         // 비밀번호로 로그인
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
             
-            print("username: \(username)")
-            print("password: \(password)")
+//            print("username: \(username)")
+//            print("password: \(password)")
             
+            print("비밀번호로 애플 소셜 인증 성공, 근데 여기는 토큰을 뭐로 받아오는거지? 🤷🏻")
+
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
-            appleLogin(param: appleLoginRequest)
+            socialLogin(param: appleLoginRequest)
             
         default:
             break
@@ -223,117 +231,85 @@ extension LoginVC: ASAuthorizationControllerDelegate {
     
     // 로그인 실패시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("login err")
+        print("애플 소셜 인증하고 중간에 닫은 경우 ‼️")
+        UserDefaults.standard.removeObject(forKey: "socialToken")
+        UserDefaults.standard.removeObject(forKey: "accessToken")
+        UserDefaults.standard.removeObject(forKey: "refreshToken")
     }
 }
 
+// MARK: - 카카오 OAuth 소셜 로그인
+
 extension LoginVC {
-    
-    func checkIfUserHasToken() {
-        if (AuthApi.hasToken()) {
-            UserApi.shared.accessTokenInfo { (_, error) in
-                if let error = error {
-                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
-                        self.checkIfKakaoInstalled()
-                    } else {
-                        //기타 에러
-                    }
-                } else {
-                    self.present(SignUpVC(), animated: true)
-                }
-            }
-        } else {
-            self.checkIfKakaoInstalled()
-        }
-    }
-    
-    func checkIfKakaoInstalled() {
+
+    func kakaoLogin() {
         // 카카오톡 설치 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
             // 앱으로 로그인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
-                    print(error)
+                    print("앱으로 카카오 소셜 인증하고 중간에 닫은 경우 ‼️", error)
+                    UserDefaults.standard.removeObject(forKey: "socialToken")
+                    UserDefaults.standard.removeObject(forKey: "accessToken")
+                    UserDefaults.standard.removeObject(forKey: "refreshToken")
                 } else {
-                    if let tokenString = oauthToken?.accessToken {
-                        Config.socialToken = tokenString
-                        print("😇😇😇😇😇", tokenString)
-                        
+                    print("앱으로 카카오 소셜 인증 성공")
+                    UserDefaults.standard.setValue(oauthToken?.accessToken, forKey: "socialToken")
+
+                    if let _ = oauthToken?.accessToken {
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
-                        self.kakaoLogin(param: kakaoLoginRequest)
-                        
-                        let signUpVC = SignUpVC()
-                        signUpVC.modalPresentationStyle = .fullScreen
-                        self.present(signUpVC, animated: true, completion: nil)
+                        self.socialLogin(param: kakaoLoginRequest)
                     }
                 }
             }
         } else {
-            loginKakaoAccount()
-        }
-    }
-    
-    func loginKakaoAccount() {
-        print("loginKakaoAccount() called.")
-        
-        // 웹 브라우저를 사용하여 로그인 진행
-        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-            if let error = error {
-                print(error)
-            } else {
-                print("loginWithKakaoAccount() success.")
-                // 회원가입 성공 시 oauthToken 저장
-                if let tokenString = oauthToken?.accessToken {
-                    Config.socialToken = tokenString
-                    
-                    let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
-                    self.kakaoLogin(param: kakaoLoginRequest)
-                    
-                    let signUpVC = SignUpVC()
-                    signUpVC.modalPresentationStyle = .fullScreen
-                    self.present(signUpVC, animated: true, completion: nil)
+            // 웹 브라우저를 사용하여 로그인 진행
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                if let error = error {
+                    print("웹으로 카카오 소셜 인증하고 중간에 닫은 경우 ‼️", error)
+                    UserDefaults.standard.removeObject(forKey: "socialToken")
+                    UserDefaults.standard.removeObject(forKey: "accessToken")
+                    UserDefaults.standard.removeObject(forKey: "refreshToken")
+
+                } else {
+                    print("웹으로 카카오 소셜 인증 성공")
+                    UserDefaults.standard.setValue(oauthToken?.accessToken, forKey: "socialToken")
+
+                    if let _ = oauthToken?.accessToken {
+                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                        self.socialLogin(param: kakaoLoginRequest)
+                    }
                 }
             }
         }
     }
 }
 
+// MARK: - Network: 피카북 서버 소셜 로그인
+
 extension LoginVC {
-    func appleLogin(param: SocialLoginRequest) {
+    func socialLogin(param: SocialLoginRequest) {
         AuthAPI.shared.getSocialLoginAPI(param: param) { response in
             if response?.success == true {
                 if let data = response?.data {
-                    Config.accessToken = data.accessToken
-
                     UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
                     UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
+                    self.changeNextViewController(isSigned: data.isSignedUp)
+                    
                 }
             }
         }
     }
     
-    func kakaoLogin(param: SocialLoginRequest) {
-        AuthAPI.shared.getSocialLoginAPI(param: param) { response in
-            if response?.success == true {
-                if let data = response?.data {
-                    Config.accessToken = data.accessToken
-                    Config.isSignedUp = data.isSignedUp
-                    print("Config의 isSignedUp", Config.isSignedUp)
-
-                    // UserDefaults
-                    UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")
-                    UserDefaults.standard.setValue(data.refreshToken, forKey: "refreshToken")
-                    UserDefaults.standard.set(data.isSignedUp, forKey: "isSignedUpComplete")
-                    if let token = UserDefaults.standard.string(forKey: "accessToken") {
-                        print("🕺🕺 Login VC --------> Access Token : ", token)
-                    }
-                    print("UserDefaults의 isSignedUp", UserDefaults.standard.bool(forKey: "isSignedUpComplete"))
-                    
-                    if data.isSignedUp {
-                        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
-                    }
-                }
-            }
+    /// 이미 회원가입한 유저의 경우 소셜로그인 버튼을 누르고 회원가입 뷰가 아닌 바로 탭 뷰로 이동한다
+    private func changeNextViewController(isSigned: Bool) {
+        if isSigned {
+            self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+        } else {
+            let signUpVC = SignUpVC()
+            signUpVC.modalPresentationStyle = .fullScreen
+            self.present(signUpVC, animated: true, completion: nil)
+            
         }
     }
 }
