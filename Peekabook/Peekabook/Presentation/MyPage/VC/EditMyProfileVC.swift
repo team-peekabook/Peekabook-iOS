@@ -14,6 +14,11 @@ import Moya
 
 final class EditMyProfileVC: UIViewController {
     
+    enum ProfileImageType: CaseIterable {
+        case defaultImage
+        case customImage
+    }
+    
     // MARK: - Properties
     
     private let dummyName: String = "북과빅"
@@ -21,6 +26,14 @@ final class EditMyProfileVC: UIViewController {
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
     var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
+    
+    var isImageDefaultType: Bool = true {
+        didSet {
+            if isImageDefaultType {
+                self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+            }
+        }
+    }
     
     var isDoubleChecked: Bool = true {
         didSet {
@@ -111,6 +124,7 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         introContainerView.updateTextView(type: .editProfileIntro)
         introContainerView.delegate = self
+        checkIsDefaultImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,6 +179,14 @@ final class EditMyProfileVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    private func checkIsDefaultImage() {
+        if self.profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+            self.isImageDefaultType = true
+        } else {
+            self.isImageDefaultType = false
+        }
+    }
+    
     private func checkComplete() {
         if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
             naviBar.isProfileEditComplete = true
@@ -189,8 +211,14 @@ final class EditMyProfileVC: UIViewController {
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
         }))
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        } else {
+            self.isImageDefaultType = false
+        }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
         present(alert, animated: true, completion: nil)
     }
     

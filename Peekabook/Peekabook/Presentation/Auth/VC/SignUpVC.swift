@@ -9,10 +9,23 @@ import UIKit
 
 final class SignUpVC: UIViewController, UITextFieldDelegate {
     
+    enum ProfileImageType: CaseIterable {
+        case defaultImage
+        case customImage
+    }
+    
     // MARK: - Properties
     
     var nicknameText: String = ""
     var introText: String = ""
+    
+    var isImageDefaultType: Bool = true {
+        didSet {
+            if isImageDefaultType {
+                self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+            }
+        }
+    }
     
     var isDoubleChecked: Bool = false {
         didSet {
@@ -228,6 +241,13 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
         }))
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        } else {
+            self.isImageDefaultType = false
+        }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
