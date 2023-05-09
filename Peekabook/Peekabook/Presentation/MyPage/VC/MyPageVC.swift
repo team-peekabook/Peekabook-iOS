@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 import Moya
+import SafariServices
 
 enum MyPageOption {
     case manageBlockUsers
@@ -116,10 +117,7 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.label.text = optionArray[safe: indexPath.row]!.rawValue
-//        cell.selectionStyle = .none
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = .peekaBlack.withAlphaComponent(0.02)
-        cell.selectedBackgroundView = bgColorView
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -130,18 +128,19 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
             manageBlockUsersVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(manageBlockUsersVC, animated: true)
         case .privacyPolicy:
-            print("개인정보 보호 정책")
+            let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.Login.privacyPolicy)!)
+            self.present(safariViewController, animated: true)
         case .contactUs:
-            print("문의하기")
+            let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.MyPage.contact)!)
+            self.present(safariViewController, animated: true)
         case .developerInfo:
-            print("개발자 정보")
+            let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.MyPage.developerInfo)!)
+            self.present(safariViewController, animated: true)
         case .logout:
-            print("로그아웃")
             let popupViewController = LogoutPopUpVC()
             popupViewController.modalPresentationStyle = .overFullScreen
             self.present(popupViewController, animated: false)
         case .deleteAccount:
-            print("서비스 탈퇴하기")
             let withdrawalViewController = DeleteAccountVC()
             withdrawalViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(withdrawalViewController, animated: true)

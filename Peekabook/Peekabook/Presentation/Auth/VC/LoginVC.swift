@@ -16,6 +16,7 @@ import Moya
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import SafariServices
 
 final class LoginVC: UIViewController {
 
@@ -169,8 +170,8 @@ extension LoginVC {
     
     @objc
     private func moveTotermsAndpolicy() {
-        // TODO: - 외부링크 연결
-        print("서비스 이용약관 및 정책")
+        let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.Login.privacyPolicy)!)
+        self.present(safariViewController, animated: true)
     }
     
     // MARK: - Methods
