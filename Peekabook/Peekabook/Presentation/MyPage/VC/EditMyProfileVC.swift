@@ -318,6 +318,7 @@ extension EditMyProfileVC {
         nicknameTextField.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
+            $0.trailing.equalTo(doubleCheckButton.snp.leading).inset(14)
         }
         
         doubleCheckButton.snp.makeConstraints {
