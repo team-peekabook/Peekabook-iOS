@@ -98,7 +98,6 @@ extension ManageBlockUsersVC: UICollectionViewDelegate, UICollectionViewDataSour
                 as? BlockedUserCVC else { return UICollectionViewCell() }
         cell.delegate = self
         cell.setData(blockedList[safe: indexPath.item]!)
-        cell.selectedUserIndex = indexPath.row
         return cell
     }
 }
@@ -120,16 +119,17 @@ extension ManageBlockUsersVC: UICollectionViewDelegateFlowLayout {
 
 extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     
-    func didPressUnblockedButton(index: Int?) {
-        let unblockPopUpVC = UnblockPopUpVC()
+    func didPressUnblockedButton(_ nickName: String, _ userId: Int) {
+        let unblockPopUpVC = UnblockPopUpVC(selectedUserId: userId)
         unblockPopUpVC.modalPresentationStyle = .overFullScreen
-        unblockPopUpVC.selectedUserIndex = index
-        
+        unblockPopUpVC.delegate = self
+        unblockPopUpVC.setData(nickName: nickName)
         self.present(unblockPopUpVC, animated: false)
     }
     
-    func didPressUnblockedPopUp(index: Int) {
-        print("\(index) 차단해제 서버 붙이기")
+    func didPressUnblockedPopUp(_ userId: Int) {
+        print("차단 해제하려는 유저 아이디", userId)
+        unblockAccount(with: userId)
     }
 }
 
@@ -146,6 +146,15 @@ extension ManageBlockUsersVC {
                 if response?.data?.isEmpty == true {
                     // TODO: 엠티뷰 띄우기
                 }
+            }
+        }
+    }
+    
+    private func unblockAccount(with userId: Int) {
+        MyPageAPI.shared.unblockAccount(userId: userId) { response in
+            if response?.success == true {
+                self.presentedViewController?.dismiss(animated: false)
+                self.getBlockedUserList()
             }
         }
     }

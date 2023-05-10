@@ -12,7 +12,7 @@ import SnapKit
 // MARK: - Protocols
 
 protocol UnblockablePopUp: Unblockable {
-    func didPressUnblockedPopUp(index: Int)
+    func didPressUnblockedPopUp(_ userId: Int)
 }
 
 final class UnblockPopUpVC: UIViewController {
@@ -20,11 +20,22 @@ final class UnblockPopUpVC: UIViewController {
     // MARK: - Properties
     
     weak var delegate: UnblockablePopUp?
-    var selectedUserIndex: Int?
+    var selectedUserId: Int
     
     // MARK: - UI Components
     
-    private lazy var unblockPopUpview = CustomPopUpView(frame: .zero, style: .unblock, viewController: self)
+    private lazy var unblockPopUpView = CustomPopUpView(frame: .zero, style: .unblock, viewController: self)
+    
+    // MARK: - Initialization
+    
+    init(selectedUserId: Int) {
+        self.selectedUserId = selectedUserId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
 
@@ -41,13 +52,12 @@ extension UnblockPopUpVC {
     
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        unblockPopUpview.getConfirmLabel(style: .unblock, personName: String(selectedUserIndex ?? -1)) // personName은 임시로 넣었습니다.
     }
     
     private func setLayout() {
-        view.addSubview(unblockPopUpview)
+        view.addSubview(unblockPopUpView)
         
-        unblockPopUpview.snp.makeConstraints {
+        unblockPopUpView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
             $0.height.equalTo(156)
@@ -61,12 +71,22 @@ extension UnblockPopUpVC {
     
     @objc
     func cancelButtonDidTap() {
+        print("취소")
         self.dismiss(animated: false, completion: nil)
     }
 
     @objc
     func confirmButtonDidTap() {
-        guard let selectedUserIndex else { return }
-        delegate?.didPressUnblockedPopUp(index: selectedUserIndex)
+        print("확인")
+        delegate?.didPressUnblockedPopUp(selectedUserId)
+    }
+}
+
+// MARK: - Methods
+
+extension UnblockPopUpVC {
+    
+    func setData(nickName: String) {
+        unblockPopUpView.getConfirmLabel(style: .unblock, personName: nickName)
     }
 }

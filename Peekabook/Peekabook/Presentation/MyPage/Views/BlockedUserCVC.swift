@@ -12,7 +12,7 @@ import SnapKit
 // MARK: - Protocols
 
 protocol UnblockableButton: Unblockable {
-    func didPressUnblockedButton(index: Int?)
+    func didPressUnblockedButton(_ nickName: String, _ userId: Int)
 }
 
 final class BlockedUserCVC: UICollectionViewCell {
@@ -20,7 +20,8 @@ final class BlockedUserCVC: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: UnblockableButton?
-    var selectedUserIndex: Int?
+    var selectedUserName: String?
+    var selectedUserId: Int?
     
     // MARK: - UI Components
     
@@ -99,7 +100,9 @@ extension BlockedUserCVC {
     
     @objc
     private func unblockedButtonDidTap() {
-        delegate?.didPressUnblockedButton(index: selectedUserIndex)
+        guard let selectedUserName, let selectedUserId else { return }
+        print("차단해제 버튼 첨 누르면 여기고", selectedUserId, selectedUserName)
+        delegate?.didPressUnblockedButton(selectedUserName, selectedUserId)
     }
 }
 
@@ -109,7 +112,9 @@ extension BlockedUserCVC {
     
     func setData(_ model: GetBlockedAccountResponse) {
         profileImageView.kf.indicatorType = .activity
-        profileImageView.kf.setImage(with: URL(string: model.profileImage ?? ""))
+        profileImageView.kf.setImage(with: URL(string: model.profileImage))
         nickNameLabel.text = model.nickname
+        selectedUserId = model.id
+        selectedUserName = model.nickname
     }
 }

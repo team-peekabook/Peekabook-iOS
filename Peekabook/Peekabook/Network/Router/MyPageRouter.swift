@@ -13,6 +13,7 @@ enum MyPageRouter {
     case deleteAccount
     case getMyAccount
     case getBlockedAccounts
+    case unblockAccount(userId: Int)
 }
 
 extension MyPageRouter: TargetType {
@@ -28,12 +29,14 @@ extension MyPageRouter: TargetType {
             return URLConstant.mypage + "/profile"
         case .getBlockedAccounts:
             return URLConstant.mypage + "/blocklist"
+        case .unblockAccount(let userId):
+            return URLConstant.mypage + "/blocklist/\(userId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .deleteAccount:
+        case .deleteAccount, .unblockAccount:
             return .delete
         case .getMyAccount, .getBlockedAccounts:
             return .get
@@ -42,7 +45,7 @@ extension MyPageRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .deleteAccount, .getMyAccount, .getBlockedAccounts:
+        case .deleteAccount, .getMyAccount, .getBlockedAccounts, .unblockAccount:
             return .requestPlain
         }
     }
