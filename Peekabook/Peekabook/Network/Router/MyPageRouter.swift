@@ -5,7 +5,7 @@
 //  Created by devxsby on 2023/03/28.
 //
 
-import Foundation
+import UIKit
 
 import Moya
 
@@ -14,6 +14,7 @@ enum MyPageRouter {
     case getMyAccount
     case getBlockedAccounts
     case unblockAccount(userId: Int)
+    case patchMyProfile(request: PatchProfileRequest, Image: UIImage?)
 }
 
 extension MyPageRouter: TargetType {
@@ -31,6 +32,8 @@ extension MyPageRouter: TargetType {
             return URLConstant.mypage + "/blocklist"
         case .unblockAccount(let userId):
             return URLConstant.mypage + "/blocklist/\(userId)"
+        case .patchMyProfile:
+            return URLConstant.mypage + "/profile"
         }
     }
     
@@ -40,6 +43,8 @@ extension MyPageRouter: TargetType {
             return .delete
         case .getMyAccount, .getBlockedAccounts:
             return .get
+        case .patchMyProfile:
+            return .patch
         }
     }
     
@@ -47,10 +52,25 @@ extension MyPageRouter: TargetType {
         switch self {
         case .deleteAccount, .getMyAccount, .getBlockedAccounts, .unblockAccount:
             return .requestPlain
+        case .patchMyProfile(let request, let image):
+            let imageData = image?.pngData() ?? Data()
+            let nicknameData = request.nickname.data(using: String.Encoding.utf8) ?? Data()
+            let introData = request.intro.data(using: String.Encoding.utf8) ?? Data()
+
+            let imageMultipartFormData = MultipartFormData(provider: .data(imageData), name: "file", fileName: ".jpeg", mimeType: "image/jpeg")
+            let nicknameMultipartFormData = MultipartFormData(provider: .data(nicknameData), name: "nickname")
+            let introMultipartFormData = MultipartFormData(provider: .data(introData), name: "intro")
+
+            return .uploadMultipart([imageMultipartFormData, nicknameMultipartFormData, introMultipartFormData])
         }
     }
     
     var headers: [String: String]? {
-        return NetworkConstant.hasTokenHeader
+        switch self {
+        case .deleteAccount, .getMyAccount, .getBlockedAccounts, .unblockAccount:
+            return NetworkConstant.hasTokenHeader
+        case .patchMyProfile:
+            return NetworkConstant.multipartWithTokenHeader
+        }
     }
 }

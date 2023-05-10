@@ -159,10 +159,10 @@ final class EditMyProfileVC: UIViewController {
     }
     
     @objc private func checkButtonDidTap() {
-        UserDefaults.standard.setValue(nicknameText, forKey: "userNickname")
-        UserDefaults.standard.setValue(introText, forKey: "userIntro")
-        UserDefaults.standard.setValue(userImage, forKey: "userImage")
-        navigationController?.popViewController(animated: true)
+        // TODO: 기본이미지로 변경하는 부분은 얼럿이 아직 없어서 못했음. 추후에 반영해야 됨
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameTextField.text ?? "",
+                                                   intro: introText),
+                      image: profileImageView.image)
     }
     
     private func checkComplete() {
@@ -320,13 +320,28 @@ extension EditMyProfileVC: IntroText {
     }
 }
 
+// MARK: - Network
+
 extension EditMyProfileVC {
+    
     private func getAccountAPI() {
         MyPageAPI.shared.getMyAccountInfo { response in
             if response?.success == true {
                 guard let serverGetAccountDetail = response?.data else { return }
                 self.profileImageView.kf.indicatorType = .activity
                 self.profileImageView.kf.setImage(with: URL(string: serverGetAccountDetail.profileImage))
+                
+                if response?.data?.profileImage.isEmpty == true {
+                    self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+                }
+            }
+        }
+    }
+    
+    private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
+        MyPageAPI.shared.editMyProfile(request: request, image: image) { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
         }
     }

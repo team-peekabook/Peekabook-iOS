@@ -5,7 +5,7 @@
 //  Created by devxsby on 2023/03/28.
 //
 
-import Foundation
+import UIKit
 
 import Moya
 
@@ -20,6 +20,7 @@ final class MyPageAPI {
     private(set) var getAccountData: GeneralResponse<GetAccountResponse>?
     private(set) var blockedAccountsData: GeneralResponse<[GetBlockedAccountResponse]>?
     private(set) var unblockAccount: GeneralResponse<BlankData>?
+    private(set) var fetchProfileResponse: GeneralResponse<BlankData>?
     
     // 1. 회원 탈퇴하기
     func deleteAccount(completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
@@ -80,6 +81,23 @@ final class MyPageAPI {
                 do {
                     self.unblockAccount = try response.map(GeneralResponse<BlankData>.self)
                     completion(unblockAccount)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 5. 프로필 수정하기
+    func editMyProfile(request: PatchProfileRequest, image: UIImage?, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        mypageProvider.request(.patchMyProfile(request: request, Image: image)) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.fetchProfileResponse = try response.map(GeneralResponse<BlankData>.self)
+                    completion(fetchProfileResponse)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }
