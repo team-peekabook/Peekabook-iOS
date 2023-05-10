@@ -12,7 +12,7 @@ import SnapKit
 // MARK: - Protocols
 
 protocol UnblockableButton: Unblockable {
-    func didPressUnblockedButton(index: Int?)
+    func didPressUnblockedButton(_ nickName: String, _ userId: Int)
 }
 
 final class BlockedUserCVC: UICollectionViewCell {
@@ -20,7 +20,8 @@ final class BlockedUserCVC: UICollectionViewCell {
     // MARK: - Properties
     
     weak var delegate: UnblockableButton?
-    var selectedUserIndex: Int?
+    var selectedUserName: String?
+    var selectedUserId: Int?
     
     // MARK: - UI Components
     
@@ -29,13 +30,11 @@ final class BlockedUserCVC: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 24
-        iv.image = ImageLiterals.Sample.profile1
         return iv
     }()
     
     private let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "샘플유저"
         label.font = .h1
         label.textColor = .peekaRed
         return label
@@ -101,6 +100,20 @@ extension BlockedUserCVC {
     
     @objc
     private func unblockedButtonDidTap() {
-        delegate?.didPressUnblockedButton(index: selectedUserIndex)
+        guard let selectedUserName, let selectedUserId else { return }
+        delegate?.didPressUnblockedButton(selectedUserName, selectedUserId)
+    }
+}
+
+// MARK: - Methods
+
+extension BlockedUserCVC {
+    
+    func setData(_ model: GetBlockedAccountResponse) {
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: URL(string: model.profileImage))
+        nickNameLabel.text = model.nickname
+        selectedUserId = model.id
+        selectedUserName = model.nickname
     }
 }

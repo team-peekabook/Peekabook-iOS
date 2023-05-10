@@ -15,12 +15,24 @@ import SnapKit
 protocol Unblockable: AnyObject { }
 
 final class ManageBlockUsersVC: UIViewController {
-            
+    
+    // MARK: - Properties
+    
+    private var blockedList = [GetBlockedAccountResponse]()
+    
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .addMiddleLabel(title: I18N.ManageBlockUsers.blockedUsers)
         .addUnderlineView()
+    
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        label.text = I18N.ManageBlockUsers.noblockedUsers
+        return label
+    }()
 
     private let blockedUsersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,6 +52,7 @@ final class ManageBlockUsersVC: UIViewController {
         setLayout()
         registerCells()
         setDelegate()
+        getBlockedUserList()
     }
 }
 
@@ -52,7 +65,7 @@ extension ManageBlockUsersVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, blockedUsersCollectionView)
+        view.addSubviews(naviBar, blockedUsersCollectionView, emptyDescriptionLabel)
         
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -62,6 +75,10 @@ extension ManageBlockUsersVC {
             $0.top.equalTo(naviBar.snp.bottom).offset(10)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
@@ -78,6 +95,11 @@ extension ManageBlockUsersVC {
         blockedUsersCollectionView.delegate = self
         blockedUsersCollectionView.dataSource = self
     }
+    
+    private func setEmptyLabel(isHidden: Bool) {
+        emptyDescriptionLabel.isHidden = !isHidden
+        blockedUsersCollectionView.isHidden = isHidden
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -85,14 +107,14 @@ extension ManageBlockUsersVC {
 extension ManageBlockUsersVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return blockedList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlockedUserCVC.className, for: indexPath)
                 as? BlockedUserCVC else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.selectedUserIndex = indexPath.row
+        cell.setData(blockedList[safe: indexPath.item]!)
         return cell
     }
 }
@@ -114,15 +136,39 @@ extension ManageBlockUsersVC: UICollectionViewDelegateFlowLayout {
 
 extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     
-    func didPressUnblockedButton(index: Int?) {
-        let unblockPopUpVC = UnblockPopUpVC()
+    func didPressUnblockedButton(_ nickName: String, _ userId: Int) {
+        let unblockPopUpVC = UnblockPopUpVC(selectedUserId: userId)
         unblockPopUpVC.modalPresentationStyle = .overFullScreen
-        unblockPopUpVC.selectedUserIndex = index
-        
+        unblockPopUpVC.delegate = self
+        unblockPopUpVC.setData(nickName: nickName)
         self.present(unblockPopUpVC, animated: false)
     }
     
-    func didPressUnblockedPopUp(index: Int) {
-        print("\(index) 차단해제 서버 붙이기")
+    func didPressUnblockedPopUp(_ userId: Int) {
+        unblockAccount(with: userId)
+    }
+}
+
+// MARK: - Network
+
+extension ManageBlockUsersVC {
+    
+    private func getBlockedUserList() {
+        MyPageAPI.shared.getBlockedAccountList { response in
+            if response?.success == true {
+                self.blockedList = response?.data ?? []
+                self.blockedUsersCollectionView.reloadData()
+                self.setEmptyLabel(isHidden: response?.data?.isEmpty ?? true)
+            }
+        }
+    }
+    
+    private func unblockAccount(with userId: Int) {
+        MyPageAPI.shared.unblockAccount(userId: userId) { response in
+            if response?.success == true {
+                self.presentedViewController?.dismiss(animated: false)
+                self.getBlockedUserList()
+            }
+        }
     }
 }
