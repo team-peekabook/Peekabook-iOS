@@ -63,7 +63,6 @@ final class EditMyProfileVC: UIViewController {
         $0.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
-        $0.addTarget(self, action: #selector(ImagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -122,8 +121,8 @@ final class EditMyProfileVC: UIViewController {
         super.viewDidLoad()
         setBackgroundColor()
         setLayout()
-        introContainerView.updateTextView(type: .editProfileIntro)
-        introContainerView.delegate = self
+        setTapGesture()
+        setIntroView()
         checkIsDefaultImage()
     }
     
@@ -179,6 +178,16 @@ final class EditMyProfileVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    private func setIntroView() {
+        introContainerView.updateTextView(type: .editProfileIntro)
+        introContainerView.delegate = self
+    }
+    
+    private func setTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
+        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     private func checkIsDefaultImage() {
         if self.profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
             self.isImageDefaultType = true
@@ -203,7 +212,7 @@ final class EditMyProfileVC: UIViewController {
         }
     }
     
-    @objc private func ImagePickDidTap() {
+    @objc private func imagePickDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
             self.openCamera()
