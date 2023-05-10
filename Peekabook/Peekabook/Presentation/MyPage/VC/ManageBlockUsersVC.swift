@@ -128,7 +128,6 @@ extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     }
     
     func didPressUnblockedPopUp(_ userId: Int) {
-        print("차단 해제하려는 유저 아이디", userId)
         unblockAccount(with: userId)
     }
 }

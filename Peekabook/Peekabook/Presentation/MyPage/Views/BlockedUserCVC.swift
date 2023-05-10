@@ -101,7 +101,6 @@ extension BlockedUserCVC {
     @objc
     private func unblockedButtonDidTap() {
         guard let selectedUserName, let selectedUserId else { return }
-        print("차단해제 버튼 첨 누르면 여기고", selectedUserId, selectedUserName)
         delegate?.didPressUnblockedButton(selectedUserName, selectedUserId)
     }
 }

@@ -71,13 +71,11 @@ extension UnblockPopUpVC {
     
     @objc
     func cancelButtonDidTap() {
-        print("취소")
         self.dismiss(animated: false, completion: nil)
     }
 
     @objc
     func confirmButtonDidTap() {
-        print("확인")
         delegate?.didPressUnblockedPopUp(selectedUserId)
     }
 }
