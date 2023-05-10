@@ -15,6 +15,10 @@ import SnapKit
 protocol Unblockable: AnyObject { }
 
 final class ManageBlockUsersVC: UIViewController {
+    
+    // MARK: - Properties
+    
+    private var blockedList = [GetBlockedAccountResponse]()
             
     // MARK: - UI Components
     
@@ -40,6 +44,7 @@ final class ManageBlockUsersVC: UIViewController {
         setLayout()
         registerCells()
         setDelegate()
+        getBlockedUserList()
     }
 }
 
@@ -85,13 +90,14 @@ extension ManageBlockUsersVC {
 extension ManageBlockUsersVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return blockedList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlockedUserCVC.className, for: indexPath)
                 as? BlockedUserCVC else { return UICollectionViewCell() }
         cell.delegate = self
+        cell.setData(blockedList[safe: indexPath.item]!)
         cell.selectedUserIndex = indexPath.row
         return cell
     }
@@ -124,5 +130,23 @@ extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
     
     func didPressUnblockedPopUp(index: Int) {
         print("\(index) 차단해제 서버 붙이기")
+    }
+}
+
+// MARK: - Network
+
+extension ManageBlockUsersVC {
+    
+    private func getBlockedUserList() {
+        MyPageAPI.shared.getBlockedAccountList { response in
+            if response?.success == true {
+                self.blockedList = response?.data ?? []
+                self.blockedUsersCollectionView.reloadData()
+                
+                if response?.data?.isEmpty == true {
+                    // TODO: 엠티뷰 띄우기
+                }
+            }
+        }
     }
 }

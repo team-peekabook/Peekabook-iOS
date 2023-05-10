@@ -29,13 +29,11 @@ final class BlockedUserCVC: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 24
-        iv.image = ImageLiterals.Sample.profile1
         return iv
     }()
     
     private let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "샘플유저"
         label.font = .h1
         label.textColor = .peekaRed
         return label
@@ -102,5 +100,16 @@ extension BlockedUserCVC {
     @objc
     private func unblockedButtonDidTap() {
         delegate?.didPressUnblockedButton(index: selectedUserIndex)
+    }
+}
+
+// MARK: - Methods
+
+extension BlockedUserCVC {
+    
+    func setData(_ model: GetBlockedAccountResponse) {
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: URL(string: model.profileImage ?? ""))
+        nickNameLabel.text = model.nickname
     }
 }

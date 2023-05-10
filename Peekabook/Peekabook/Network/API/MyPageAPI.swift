@@ -18,6 +18,8 @@ final class MyPageAPI {
     
     private(set) var deleteAccountData: GeneralResponse<BlankData>?
     private(set) var getAccountData: GeneralResponse<GetAccountResponse>?
+    private(set) var blockedAccountsData: GeneralResponse<[GetBlockedAccountResponse]>?
+
     
     // 1. 회원 탈퇴하기
     
@@ -44,6 +46,22 @@ final class MyPageAPI {
                 do {
                     self.getAccountData = try response.map(GeneralResponse<GetAccountResponse>.self)
                     completion(getAccountData)
+                } catch let error {
+                    print(error.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func getBlockedAccountList(completion: @escaping (GeneralResponse<[GetBlockedAccountResponse]>?) -> Void) {
+        mypageProvider.request(.getBlockedAccounts) { [self] (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    self.blockedAccountsData = try response.map(GeneralResponse<[GetBlockedAccountResponse]>.self)
+                    completion(blockedAccountsData)
                 } catch let error {
                     print(error.localizedDescription, 500)
                 }

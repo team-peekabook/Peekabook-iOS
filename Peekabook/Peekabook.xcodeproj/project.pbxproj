@@ -116,6 +116,7 @@
 		8EAB43FD296C6C0D0045AD7F /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */; };
 		8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FE296C6D010045AD7F /* BaseResponse.swift */; };
 		8EB3BB0B2A0A384900F895F9 /* ExternalURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */; };
+		8EB3BB352A0B92A900F895F9 /* GetBlockedAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */; };
 		8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */; };
 		8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
@@ -274,6 +275,7 @@
 		8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		8EAB43FE296C6D010045AD7F /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalURL.swift; sourceTree = "<group>"; };
+		8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedAccountResponse.swift; sourceTree = "<group>"; };
 		8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTouchButton.swift; sourceTree = "<group>"; };
 		8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 			isa = PBXGroup;
 			children = (
 				9832290A29E6C30200C99BBE /* GetAccountResponse.swift */,
+				8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 				8EEF8E1E296B11D400F37AFD /* NaverSearchRouter.swift in Sources */,
 				8E6F7B8429648BD30013F744 /* BottomBookShelfVC.swift in Sources */,
 				14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */,
+				8EB3BB352A0B92A900F895F9 /* GetBlockedAccountResponse.swift in Sources */,
 				8E81F3D629607D6C001815B4 /* setTextLineHeight.swift in Sources */,
 				98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
