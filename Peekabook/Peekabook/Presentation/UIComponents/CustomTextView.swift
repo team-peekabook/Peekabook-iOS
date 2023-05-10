@@ -208,6 +208,7 @@ extension CustomTextView {
             label.text = I18N.Profile.oneLineIntro
             textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
             maxLabel.text = "0/40"
+            boxView.backgroundColor = .peekaWhite
             textView.textColor = .peekaRed
             proposalItemhidden()
         }

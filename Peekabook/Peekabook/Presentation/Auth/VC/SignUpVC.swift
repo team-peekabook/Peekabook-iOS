@@ -82,7 +82,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-        $0.placeholder = I18N.PlaceHolder.nickname
+//        $0.placeholder = I18N.PlaceHolder.nickname
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname, attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -318,6 +319,7 @@ extension SignUpVC {
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
         nicknameHeaderView.backgroundColor = .peekaRed
+        nicknameContainerView.backgroundColor = .peekaWhite
         checkContainerView.backgroundColor = .peekaBeige
     }
     
@@ -394,6 +396,8 @@ extension SignUpVC {
         nicknameTextField.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
+//            $0.top.equalTo(nicknameContainerView.snp.top)
+            $0.width.equalTo(244)
         }
         
         doubleCheckButton.snp.makeConstraints {
