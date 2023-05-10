@@ -19,12 +19,20 @@ final class ManageBlockUsersVC: UIViewController {
     // MARK: - Properties
     
     private var blockedList = [GetBlockedAccountResponse]()
-            
+    
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .addMiddleLabel(title: I18N.ManageBlockUsers.blockedUsers)
         .addUnderlineView()
+    
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        label.text = I18N.ManageBlockUsers.noblockedUsers
+        return label
+    }()
 
     private let blockedUsersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -57,7 +65,7 @@ extension ManageBlockUsersVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, blockedUsersCollectionView)
+        view.addSubviews(naviBar, blockedUsersCollectionView, emptyDescriptionLabel)
         
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -67,6 +75,10 @@ extension ManageBlockUsersVC {
             $0.top.equalTo(naviBar.snp.bottom).offset(10)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
@@ -82,6 +94,11 @@ extension ManageBlockUsersVC {
     private func setDelegate() {
         blockedUsersCollectionView.delegate = self
         blockedUsersCollectionView.dataSource = self
+    }
+    
+    private func setEmptyLabel(isHidden: Bool) {
+        emptyDescriptionLabel.isHidden = !isHidden
+        blockedUsersCollectionView.isHidden = isHidden
     }
 }
 
@@ -141,10 +158,7 @@ extension ManageBlockUsersVC {
             if response?.success == true {
                 self.blockedList = response?.data ?? []
                 self.blockedUsersCollectionView.reloadData()
-                
-                if response?.data?.isEmpty == true {
-                    // TODO: 엠티뷰 띄우기
-                }
+                self.setEmptyLabel(isHidden: response?.data?.isEmpty ?? true)
             }
         }
     }
