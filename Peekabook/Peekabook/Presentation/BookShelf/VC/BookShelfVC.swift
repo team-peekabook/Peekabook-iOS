@@ -637,6 +637,7 @@ extension BookShelfVC {
             self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
             self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
             self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
+            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.friendsCollectionView.reloadData()
             self.pickCollectionView.reloadData()
@@ -653,11 +654,11 @@ extension BookShelfVC {
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             
-            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
-            self.pickCollectionView.reloadData()
-            
             self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
             self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
+            
+            self.pickCollectionView.reloadData()
+
         }
     }
     

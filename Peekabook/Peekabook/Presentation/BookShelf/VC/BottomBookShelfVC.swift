@@ -55,7 +55,6 @@ final class BottomBookShelfVC: UIViewController {
         let label = UILabel()
         label.font = .h2
         label.textColor = .peekaRed_60
-        label.text = I18N.BookShelf.emptyMyBottomBookShelfDescription
         return label
     }()
     
@@ -142,7 +141,7 @@ extension BottomBookShelfVC {
         view.backgroundColor = .peekaBeige
         holdView.backgroundColor = .peekaGray1
         holdView.layer.cornerRadius = 3
-        headerContainerView.backgroundColor = .peekaWhite
+        headerContainerView.backgroundColor = .peekaLightBeige
         bookShelfCollectionView.backgroundColor = .peekaLightBeige
         roundViews()
     }
@@ -215,7 +214,7 @@ extension BottomBookShelfVC {
     }
     
     private func animateView() {
-//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView {
+//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView { /// 안 닫히게
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 let frame = self?.view.frame
                 let yComponent = self?.partialView
@@ -255,7 +254,6 @@ extension BottomBookShelfVC {
     
     func changeLayout(isUser: Bool) {
         addBookButton.isHidden = isUser
-        emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
         bookShelfType = .friend
     }
     
@@ -264,8 +262,10 @@ extension BottomBookShelfVC {
         
         if bookShelfType == .friend {
             emptyDescriptionImage.isHidden = !isEnabled
+            emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
         } else {
             emptyDescriptionImage.isHidden = true
+            emptyDescriptionLabel.text = I18N.BookShelf.emptyMyBottomBookShelfDescription
         }
     }
 }
