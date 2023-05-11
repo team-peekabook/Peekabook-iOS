@@ -24,4 +24,20 @@ extension UIView {
         layer.cornerRadius = cornerRadius
         layer.maskedCorners = CACornerMask(arrayLiteral: maskedCorners)
     }
+    
+    static func animateWithDamping(animation: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(
+            withDuration: 0.45,
+            delay: 0,
+            usingSpringWithDamping: 0.8,
+            initialSpringVelocity: 0.8,
+            options: [.allowUserInteraction],
+            animations: {
+                animation()
+            },
+            completion: { bool in
+                completion?(bool)
+            }
+        )
+    }
 }
