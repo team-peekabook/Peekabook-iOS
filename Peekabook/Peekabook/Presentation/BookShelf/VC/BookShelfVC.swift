@@ -640,3 +640,15 @@ extension BookShelfVC {
         }
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+import SwiftUI
+
+struct BookShelfVCPrevieew: PreviewProvider {
+    static var previews: some View {
+        BookShelfVC().toPreview()
+    }
+}
+#endif
