@@ -25,11 +25,11 @@ final class BookShelfVC: UIViewController {
         didSet {
             switch bookShelfType {
             case .user:
-                bottomShelfVC.changeLayout(wantsToHide: false)
+                bottomShelfVC.changeLayout(isUser: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
                 moreButton.isHidden = true
             case .friend:
-                bottomShelfVC.changeLayout(wantsToHide: true)
+                bottomShelfVC.changeLayout(isUser: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
                 moreButton.isHidden = false
             }
@@ -179,6 +179,13 @@ final class BookShelfVC: UIViewController {
         return lb
     }()
     
+    private let emptyFriendsListDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .s3
+        label.textColor = .peekaRed_60
+        return label
+    }()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -287,7 +294,7 @@ extension BookShelfVC {
         view.addSubviews(naviBar, containerScrollView)
         containerScrollView.addSubviews(friendsListContainerView, introProfileView, pickContainerView)
         
-        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2)
+        friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2, emptyFriendsListDescriptionLabel)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
         introProfileView.addSubviews(introNameLabel, introductionLabel, moreButton, doubleheaderLine, doubleBottomLine)
         pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
@@ -350,6 +357,11 @@ extension BookShelfVC {
             $0.top.trailing.equalToSuperview()
             $0.leading.equalTo(verticalLine.snp.trailing)
             $0.height.equalTo(86)
+        }
+        
+        emptyFriendsListDescriptionLabel.snp.makeConstraints {
+            $0.leading.equalTo(verticalLine.snp.trailing).offset(30.adjusted)
+            $0.centerY.equalToSuperview()
         }
         
         horizontalLine1.snp.makeConstraints {
@@ -477,15 +489,23 @@ extension BookShelfVC {
         }
     }
     
-    private func setEmptyView(description: String) {
-        if picks.isEmpty {
-            emptyView.isHidden = false
-            pickCollectionView.isHidden = true
-            emptyPickViewDescription.text = description
-        } else {
-            emptyView.isHidden = true
-            pickCollectionView.isHidden = false
+    private func setEmptyPickView(description: String, bool: Bool) {
+        emptyView.isHidden = !bool
+        pickCollectionView.isHidden = bool
+        emptyPickViewDescription.text = description
+    }
+    
+    private func setEmptyFriendListView(isEnabled: Bool) {
+        self.emptyFriendsListDescriptionLabel.isHidden = !isEnabled
+        self.friendsCollectionView.isHidden = isEnabled
+        if isEnabled {
+            emptyFriendsListDescriptionLabel.text = I18N.BookShelf.emptyFriendListDescription
         }
+    }
+    
+    private func setEmptyBookListView(isEnabled: Bool) {
+        self.editOrRecommendButton.isEnabled = !isEnabled
+        self.bottomShelfVC.setEmptyLayout(isEnabled)
     }
     
     private func checkSmallLayout() {
@@ -606,12 +626,16 @@ extension BookShelfVC {
             self.introductionLabel.text = data.myIntro.intro
             self.friends = data.friendList
             self.picks = data.picks
-            self.setEmptyView(description: I18N.BookShelf.emptyPickViewDescription)
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
             UserDefaults.standard.setValue(data.myIntro.nickname, forKey: "userNickname")
             UserDefaults.standard.setValue(data.myIntro.intro, forKey: "userIntro")
             UserDefaults.standard.setValue(data.myIntro.profileImage, forKey: "userProfileImage")
+            
+            self.setEmptyFriendListView(isEnabled: data.friendList.isEmpty)
+            self.setEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: true)
+            self.setEmptyBookListView(isEnabled: data.books.isEmpty)
+            
             self.friendsCollectionView.reloadData()
             self.pickCollectionView.reloadData()
         }
@@ -624,10 +648,14 @@ extension BookShelfVC {
             self.introNameLabel.text = data.friendIntro.nickname
             self.introductionLabel.text = data.friendIntro.intro
             self.picks = data.picks
-            self.setEmptyView(description: I18N.BookShelf.emptyFriendPickDescription)
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
+            
+            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             self.pickCollectionView.reloadData()
+            
+            self.setEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: true)
+            self.setEmptyBookListView(isEnabled: data.books.isEmpty)
         }
     }
     

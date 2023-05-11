@@ -51,6 +51,22 @@ final class BottomBookShelfVC: UIViewController {
         return cv
     }()
     
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        label.text = I18N.BookShelf.emptyMyBottomBookShelfDescription
+        return label
+    }()
+    
+    private let emptyDescriptionImage: UIImageView = {
+        let iv = UIImageView()
+        iv.isHidden = true
+        iv.image = ImageLiterals.Icn.progressIndicator
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -133,7 +149,7 @@ extension BottomBookShelfVC {
     
     private func setLayout() {
         
-        view.addSubviews(headerContainerView, bookShelfCollectionView)
+        view.addSubviews(headerContainerView, bookShelfCollectionView, emptyDescriptionLabel, emptyDescriptionImage)
         headerContainerView.addSubviews(holdView, booksCountLabel, addBookButton)
         
         headerContainerView.snp.makeConstraints {
@@ -162,6 +178,17 @@ extension BottomBookShelfVC {
             $0.top.equalTo(headerContainerView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        emptyDescriptionImage.snp.makeConstraints {
+            $0.bottom.equalTo(emptyDescriptionLabel.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(48)
         }
         
         checkSmallLayout()
@@ -226,9 +253,20 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.reloadData()
     }
     
-    func changeLayout(wantsToHide: Bool) {
-        addBookButton.isHidden = wantsToHide
+    func changeLayout(isUser: Bool) {
+        addBookButton.isHidden = isUser
+        emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
         bookShelfType = .friend
+    }
+    
+    func setEmptyLayout(_ isEnabled: Bool) {
+        emptyDescriptionLabel.isHidden = !isEnabled
+        
+        if bookShelfType == .friend {
+            emptyDescriptionImage.isHidden = !isEnabled
+        } else {
+            emptyDescriptionImage.isHidden = true
+        }
     }
 }
 
