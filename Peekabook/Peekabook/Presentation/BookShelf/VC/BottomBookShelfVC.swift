@@ -51,6 +51,21 @@ final class BottomBookShelfVC: UIViewController {
         return cv
     }()
     
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        return label
+    }()
+    
+    private let emptyDescriptionImage: UIImageView = {
+        let iv = UIImageView()
+        iv.isHidden = true
+        iv.image = ImageLiterals.Icn.progressIndicator
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -101,8 +116,8 @@ final class BottomBookShelfVC: UIViewController {
             var duration = velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
             
             duration = duration > 1.3 ? 1 : duration
-            
-            UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
+            UIView.animateWithDamping(animation: {
+//            UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if velocity.y >= 0 {
                     self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
                 } else {
@@ -126,14 +141,14 @@ extension BottomBookShelfVC {
         view.backgroundColor = .peekaBeige
         holdView.backgroundColor = .peekaGray1
         holdView.layer.cornerRadius = 3
-        headerContainerView.backgroundColor = .peekaWhite
+        headerContainerView.backgroundColor = .peekaLightBeige
         bookShelfCollectionView.backgroundColor = .peekaLightBeige
         roundViews()
     }
     
     private func setLayout() {
         
-        view.addSubviews(headerContainerView, bookShelfCollectionView)
+        view.addSubviews(headerContainerView, bookShelfCollectionView, emptyDescriptionLabel, emptyDescriptionImage)
         headerContainerView.addSubviews(holdView, booksCountLabel, addBookButton)
         
         headerContainerView.snp.makeConstraints {
@@ -164,6 +179,17 @@ extension BottomBookShelfVC {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
         }
         
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        emptyDescriptionImage.snp.makeConstraints {
+            $0.bottom.equalTo(emptyDescriptionLabel.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(48)
+        }
+        
         checkSmallLayout()
     }
 }
@@ -188,8 +214,8 @@ extension BottomBookShelfVC {
     }
     
     private func animateView() {
-//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView {
-            UIView.animate(withDuration: 0.6, animations: { [weak self] in
+//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView { /// 안 닫히게
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 let frame = self?.view.frame
                 let yComponent = self?.partialView
                 self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height)
@@ -226,9 +252,21 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.reloadData()
     }
     
-    func changeLayout(wantsToHide: Bool) {
-        addBookButton.isHidden = wantsToHide
+    func changeLayout(isUser: Bool) {
+        addBookButton.isHidden = isUser
         bookShelfType = .friend
+    }
+    
+    func setEmptyLayout(_ isEnabled: Bool) {
+        emptyDescriptionLabel.isHidden = !isEnabled
+        
+        if bookShelfType == .friend {
+            emptyDescriptionImage.isHidden = !isEnabled
+            emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
+        } else {
+            emptyDescriptionImage.isHidden = true
+            emptyDescriptionLabel.text = I18N.BookShelf.emptyMyBottomBookShelfDescription
+        }
     }
 }
 

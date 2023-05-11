@@ -117,6 +117,8 @@
 		8EAB43FF296C6D010045AD7F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB43FE296C6D010045AD7F /* BaseResponse.swift */; };
 		8EB3BB0B2A0A384900F895F9 /* ExternalURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */; };
 		8EB3BB352A0B92A900F895F9 /* GetBlockedAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */; };
+		8EB3BB372A0BEE2C00F895F9 /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB362A0BEE2C00F895F9 /* PatchProfileRequest.swift */; };
+		8EB3BB392A0CC3A200F895F9 /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */; };
 		8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */; };
 		8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */; };
 		8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */; };
@@ -184,7 +186,6 @@
 		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
-		8E10BA1C295FF56800BCF58B /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8E10BA34295FF81700BCF58B /* BookShelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfVC.swift; sourceTree = "<group>"; };
 		8E10BA36295FF81F00BCF58B /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
@@ -276,6 +277,8 @@
 		8EAB43FE296C6D010045AD7F /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		8EB3BB0A2A0A384900F895F9 /* ExternalURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalURL.swift; sourceTree = "<group>"; };
 		8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedAccountResponse.swift; sourceTree = "<group>"; };
+		8EB3BB362A0BEE2C00F895F9 /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
+		8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
 		8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTouchButton.swift; sourceTree = "<group>"; };
 		8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		8EEF8E162969C7D600F37AFD /* MyBookShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookShelfResponse.swift; sourceTree = "<group>"; };
@@ -373,7 +376,6 @@
 				8E10BA15295FF4A700BCF58B /* Literals */,
 				8E10BA16295FF4BA00BCF58B /* Extension */,
 				8E10BA12295FF45800BCF58B /* Utils */,
-				8E10BA1B295FF55800BCF58B /* Protocols */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -482,6 +484,7 @@
 				8E81F3DF296082C1001815B4 /* URL+.swift */,
 				8E81F3E32960835A001815B4 /* UIView+.swift */,
 				8E81F3E1296082FB001815B4 /* UIViewController+.swift */,
+				8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */,
 				8E81F3E729608421001815B4 /* UIStackView+.swift */,
 				8E5E088F29630F86000A8A3F /* UILabel+.swift */,
 				98470D89296BDF9500B78724 /* UIButton+.swift */,
@@ -489,14 +492,6 @@
 				8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		8E10BA1B295FF55800BCF58B /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				8E10BA1C295FF56800BCF58B /* .gitkeep */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		8E10BA1F295FF61E00BCF58B /* TabBar */ = {
@@ -928,6 +923,7 @@
 			children = (
 				9832290A29E6C30200C99BBE /* GetAccountResponse.swift */,
 				8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */,
+				8EB3BB362A0BEE2C00F895F9 /* PatchProfileRequest.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1201,6 +1197,7 @@
 				8E45036C29D1F3F100A829A6 /* MyPageRouter.swift in Sources */,
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
+				8EB3BB372A0BEE2C00F895F9 /* PatchProfileRequest.swift in Sources */,
 				8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
@@ -1220,6 +1217,7 @@
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */,
+				8EB3BB392A0CC3A200F895F9 /* UIViewController+Preview.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
@@ -1396,7 +1394,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2023051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1415,7 +1413,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1435,7 +1433,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2023051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1454,7 +1452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -25,6 +25,15 @@ final class RecommendingVC: UIViewController {
         $0.contentInset.bottom = 15
     }
     
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        label.text = I18N.BookRecommend.recommendingEmptyDescription
+        label.numberOfLines = 2
+        return label
+    }()
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -52,12 +61,16 @@ extension RecommendingVC {
     }
     
     private func setLayout() {
-        view.addSubview(recommendingTableView)
+        view.addSubviews(recommendingTableView, emptyDescriptionLabel)
 
         recommendingTableView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
@@ -107,6 +120,15 @@ extension RecommendingVC {
                 guard let serverGetRecommendingBook = response?.data else { return }
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook
                 self.recommendingTableView.reloadData()
+                
+                // TODO: - 엠티뷰
+                if response?.data?.recommendingBook.isEmpty == true {
+                    self.emptyDescriptionLabel.isHidden = false
+                    self.recommendingTableView.isHidden = true
+                } else {
+                    self.emptyDescriptionLabel.isHidden = true
+                    self.recommendingTableView.isHidden = false
+                }
             }
         }
     }

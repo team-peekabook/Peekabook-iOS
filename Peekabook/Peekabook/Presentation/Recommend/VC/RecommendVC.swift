@@ -211,3 +211,15 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
         return dataViewControllers[nextIndex]
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+import SwiftUI
+
+struct RecommendVCPreview: PreviewProvider {
+    static var previews: some View {
+        RecommendVC().toPreview()
+    }
+}
+#endif

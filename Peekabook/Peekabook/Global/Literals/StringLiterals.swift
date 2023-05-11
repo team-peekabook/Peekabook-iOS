@@ -51,6 +51,9 @@ struct I18N {
         static let editPickDescription = "최대 3개까지 선택 가능해요."
         static let emptyPickViewDescription = "잠깐! PICK한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
         static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천 해보세요!"
+        static let emptyFriendListDescription = "친구추가 버튼을 눌러 친구를 추가해보세요!"
+        static let emptyMyBottomBookShelfDescription = "아직 책장에 책이 없어요.\n+ 버튼을 눌러 좋아하는 책을 추가해볼까요?"
+        static let emptyFriendBottomBookShelfDescription = "친구 책장이 텅 비어있어요!"
         static let unfollow = "언팔로우"
         static let report = "신고하기"
         static let block = "차단하기"
@@ -116,6 +119,8 @@ struct I18N {
     struct BookRecommend {
         static let recommended = "추천받은 책"
         static let recommending = "추천한 책"
+        static let recommendedEmptyDescription = "아직 친구가 추천해준 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
+        static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
     }
     
     struct BookDelete {

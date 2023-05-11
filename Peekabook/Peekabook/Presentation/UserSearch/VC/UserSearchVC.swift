@@ -83,6 +83,11 @@ final class UserSearchVC: UIViewController {
         setBlankView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userSearchView.showKeyboard()
+    }
+    
     @objc private func backBtnTapped() {
         navigationController?.popViewController(animated: true)
     }
