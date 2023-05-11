@@ -168,14 +168,15 @@ final class BookShelfVC: UIViewController {
         return cv
     }()
     
-    private let emptyView = UIView()
+    private let emptyPickView = UIView()
     
-    private let emptyPickViewDescription: UILabel = {
+    private let emptyPickViewDescriptionLabel: UILabel = {
         let lb = UILabel()
         lb.font = .h2
         lb.textColor = .peekaRed_60
         lb.textAlignment = .center
         lb.numberOfLines = 3
+        lb.isHidden = true
         return lb
     }()
     
@@ -297,9 +298,9 @@ extension BookShelfVC {
         friendsListContainerView.addSubviews(myProfileView, verticalLine, friendsCollectionView, horizontalLine1, horizontalLine2, emptyFriendsListDescriptionLabel)
         myProfileView.addSubviews(myProfileImageView, myNameLabel)
         introProfileView.addSubviews(introNameLabel, introductionLabel, moreButton, doubleheaderLine, doubleBottomLine)
-        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyView)
+        pickContainerView.addSubviews(pickLabel, editOrRecommendButton, pickCollectionView, emptyPickView)
         
-        emptyView.addSubview(emptyPickViewDescription)
+        emptyPickView.addSubview(emptyPickViewDescriptionLabel)
         
         naviBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -420,13 +421,13 @@ extension BookShelfVC {
             $0.height.equalTo(270)
         }
         
-        emptyView.snp.makeConstraints {
+        emptyPickView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(70)
         }
         
-        emptyPickViewDescription.snp.makeConstraints {
+        emptyPickViewDescriptionLabel.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
@@ -489,13 +490,14 @@ extension BookShelfVC {
         }
     }
     
-    private func setEmptyPickView(description: String, bool: Bool) {
-        emptyView.isHidden = !bool
+    private func checkEmptyPickView(description: String, bool: Bool) {
+        emptyPickView.isHidden = !bool
         pickCollectionView.isHidden = bool
-        emptyPickViewDescription.text = description
+        emptyPickViewDescriptionLabel.isHidden = !bool
+        emptyPickViewDescriptionLabel.text = description
     }
     
-    private func setEmptyFriendListView(isEnabled: Bool) {
+    private func checkEmptyFriendListView(isEnabled: Bool) {
         self.emptyFriendsListDescriptionLabel.isHidden = !isEnabled
         self.friendsCollectionView.isHidden = isEnabled
         if isEnabled {
@@ -503,7 +505,7 @@ extension BookShelfVC {
         }
     }
     
-    private func setEmptyBookListView(isEnabled: Bool) {
+    private func checkEmptyBookListView(isEnabled: Bool) {
         self.editOrRecommendButton.isEnabled = !isEnabled
         self.bottomShelfVC.setEmptyLayout(isEnabled)
     }
@@ -632,9 +634,9 @@ extension BookShelfVC {
             UserDefaults.standard.setValue(data.myIntro.intro, forKey: "userIntro")
             UserDefaults.standard.setValue(data.myIntro.profileImage, forKey: "userProfileImage")
             
-            self.setEmptyFriendListView(isEnabled: data.friendList.isEmpty)
-            self.setEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: true)
-            self.setEmptyBookListView(isEnabled: data.books.isEmpty)
+            self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
+            self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
+            self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
             
             self.friendsCollectionView.reloadData()
             self.pickCollectionView.reloadData()
@@ -654,8 +656,8 @@ extension BookShelfVC {
             self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             self.pickCollectionView.reloadData()
             
-            self.setEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: true)
-            self.setEmptyBookListView(isEnabled: data.books.isEmpty)
+            self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
+            self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
         }
     }
     
