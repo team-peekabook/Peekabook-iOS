@@ -14,6 +14,11 @@ import Moya
 
 final class EditMyProfileVC: UIViewController {
     
+    enum ProfileImageType: CaseIterable {
+        case defaultImage
+        case customImage
+    }
+    
     // MARK: - Properties
     
     private let dummyName: String = "북과빅"
@@ -21,6 +26,14 @@ final class EditMyProfileVC: UIViewController {
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
     var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
+    
+    var isImageDefaultType: Bool = true {
+        didSet {
+            if isImageDefaultType {
+                self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+            }
+        }
+    }
     
     var isDoubleChecked: Bool = true {
         didSet {
@@ -50,7 +63,6 @@ final class EditMyProfileVC: UIViewController {
         $0.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
-        $0.addTarget(self, action: #selector(ImagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -109,8 +121,9 @@ final class EditMyProfileVC: UIViewController {
         super.viewDidLoad()
         setBackgroundColor()
         setLayout()
-        introContainerView.updateTextView(type: .editProfileIntro)
-        introContainerView.delegate = self
+        setTapGesture()
+        setIntroView()
+        checkIsDefaultImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,6 +178,24 @@ final class EditMyProfileVC: UIViewController {
                       image: profileImageView.image)
     }
     
+    private func setIntroView() {
+        introContainerView.updateTextView(type: .editProfileIntro)
+        introContainerView.delegate = self
+    }
+    
+    private func setTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
+        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    private func checkIsDefaultImage() {
+        if self.profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+            self.isImageDefaultType = true
+        } else {
+            self.isImageDefaultType = false
+        }
+    }
+    
     private func checkComplete() {
         if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
             naviBar.isProfileEditComplete = true
@@ -181,7 +212,7 @@ final class EditMyProfileVC: UIViewController {
         }
     }
     
-    @objc private func ImagePickDidTap() {
+    @objc private func imagePickDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
             self.openCamera()
@@ -189,8 +220,14 @@ final class EditMyProfileVC: UIViewController {
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
         }))
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        } else {
+            self.isImageDefaultType = false
+        }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
         present(alert, animated: true, completion: nil)
     }
     
@@ -281,6 +318,7 @@ extension EditMyProfileVC {
         nicknameTextField.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
+            $0.trailing.equalTo(doubleCheckButton.snp.leading).inset(14)
         }
         
         doubleCheckButton.snp.makeConstraints {

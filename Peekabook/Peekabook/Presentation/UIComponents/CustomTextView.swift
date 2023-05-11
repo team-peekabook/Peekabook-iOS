@@ -208,6 +208,7 @@ extension CustomTextView {
             label.text = I18N.Profile.oneLineIntro
             textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
             maxLabel.text = "0/40"
+            boxView.backgroundColor = .peekaWhite
             textView.textColor = .peekaRed
             proposalItemhidden()
         }
@@ -269,7 +270,6 @@ extension CustomTextView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        
         delegate?.getTextView(text: textView.text)
         
         if label.text == I18N.BookDetail.comment || label.text == I18N.BookProposal.personName {
@@ -288,5 +288,13 @@ extension CustomTextView: UITextViewDelegate {
                 textView.deleteBackward()
             }
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

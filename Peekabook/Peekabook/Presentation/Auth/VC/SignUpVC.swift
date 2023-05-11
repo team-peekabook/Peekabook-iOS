@@ -9,10 +9,23 @@ import UIKit
 
 final class SignUpVC: UIViewController, UITextFieldDelegate {
     
+    enum ProfileImageType: CaseIterable {
+        case defaultImage
+        case customImage
+    }
+    
     // MARK: - Properties
     
     var nicknameText: String = ""
     var introText: String = ""
+    
+    var isImageDefaultType: Bool = true {
+        didSet {
+            if isImageDefaultType {
+                self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+            }
+        }
+    }
     
     var isDoubleChecked: Bool = false {
         didSet {
@@ -66,7 +79,6 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         $0.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
-        $0.addTarget(self, action: #selector(ImagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -82,7 +94,8 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-        $0.placeholder = I18N.PlaceHolder.nickname
+//        $0.placeholder = I18N.PlaceHolder.nickname
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname, attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -144,6 +157,7 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         setBackgroundColor()
         setLayout()
         setIntroView()
+        setImageTapGesture()
         addTapGesture()
         addKeyboardObserver()
         setDelegate()
@@ -219,8 +233,13 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    private func setImageTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
+        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     @objc
-    private func ImagePickDidTap() {
+    private func imagePickDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
             self.openCamera()
@@ -228,6 +247,13 @@ final class SignUpVC: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
         }))
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        } else {
+            self.isImageDefaultType = false
+        }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
@@ -318,6 +344,7 @@ extension SignUpVC {
     private func setBackgroundColor() {
         view.backgroundColor = .peekaBeige
         nicknameHeaderView.backgroundColor = .peekaRed
+        nicknameContainerView.backgroundColor = .peekaWhite
         checkContainerView.backgroundColor = .peekaBeige
     }
     
@@ -394,6 +421,8 @@ extension SignUpVC {
         nicknameTextField.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
+//            $0.top.equalTo(nicknameContainerView.snp.top)
+            $0.width.equalTo(244)
         }
         
         doubleCheckButton.snp.makeConstraints {
