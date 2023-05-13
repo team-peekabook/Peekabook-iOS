@@ -507,7 +507,12 @@ extension BookShelfVC {
     
     private func checkEmptyBookListView(isEnabled: Bool) {
         self.editOrRecommendButton.isEnabled = !isEnabled
-        self.bottomShelfVC.setEmptyLayout(isEnabled)
+        
+        if bookShelfType == .friend {
+            self.editOrRecommendButton.isEnabled = isEnabled
+        } else {
+            self.editOrRecommendButton.isEnabled = !isEnabled
+        }
     }
     
     private func checkSmallLayout() {
