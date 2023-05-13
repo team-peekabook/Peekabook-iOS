@@ -268,12 +268,8 @@ extension CustomNavigationBar {
     private func setUnderlineLayout() {
         self.addSubviews(underlineView)
         
-        self.snp.updateConstraints {
-            $0.height.equalTo(54)
-        }
-        
         underlineView.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(2)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(2)
         }

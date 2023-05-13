@@ -35,6 +35,14 @@ final class MyNotificationVC: UIViewController {
         $0.dataSource = self
     }
     
+    private let emptyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .h2
+        label.textColor = .peekaRed_60
+        label.text = I18N.Alarm.emptyDescription
+        return label
+    }()
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -60,16 +68,20 @@ extension MyNotificationVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, notificationTableView)
+        view.addSubviews(naviBar, notificationTableView, emptyDescriptionLabel)
         
-        naviBar.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        notificationTableView.snp.makeConstraints { make in
-            make.top.equalTo(naviBar.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        notificationTableView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.center.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -81,7 +93,14 @@ extension MyNotificationVC {
     private func registerCells() {
         notificationTableView.register(MyNotificationTVC.self, forCellReuseIdentifier: MyNotificationTVC.className)
     }
+    
+    private func setEmptyView(isEnabled: Bool) {
+        emptyDescriptionLabel.isHidden = !isEnabled
+        notificationTableView.isHidden = isEnabled
+    }
 }
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -127,6 +146,7 @@ extension MyNotificationVC {
         AlarmAPI.shared.getAlarmAPI { response in
             guard let response = response, let data = response.data else { return }
             self.serverGetAlarmData = data
+            self.setEmptyView(isEnabled: data.isEmpty)
             self.notificationTableView.reloadData()
         }
     }

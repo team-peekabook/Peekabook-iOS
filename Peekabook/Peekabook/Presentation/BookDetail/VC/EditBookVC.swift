@@ -123,17 +123,17 @@ extension EditBookVC {
         
         peekaCommentView.snp.makeConstraints {
             $0.top.equalTo(authorLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(229)
+            $0.height.equalTo(230)
         }
         
         peekaMemoView.snp.makeConstraints {
             $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(36)
+            $0.height.equalTo(101)
         }
     }
 }
@@ -185,7 +185,16 @@ extension EditBookVC {
         guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
               let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
         
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description, memo: memo))
+        /// TODO:- 여기 로직 이상해서 다시 점검해야 됨 ``@두영``
+        var description2 = description
+        var memo2 = memo
+        
+        if peekaCommentView.text == "작성된 한 마디가 없습니다" || peekaMemoView.text == "작성된 메모가 없습니다" {
+            description2 = ""
+            memo2 = ""
+        }
+        
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description2, memo: memo2))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }
@@ -243,7 +252,7 @@ extension EditBookVC {
     func editMyBookInfo(id: Int, param: EditBookRequest) {
         BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             } else {
                 print("책 수정 실패")
             }

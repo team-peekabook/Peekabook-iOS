@@ -379,7 +379,8 @@ extension EditMyProfileVC {
     private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
         MyPageAPI.shared.editMyProfile(request: request, image: image) { response in
             if response?.success == true {
-                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+                /// TODO:- 프로필 수정하고 다시 마이페이지로 돌아가면 프로필 업데이트된거로 보이게 해줘야 됨 ``@인영``
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }

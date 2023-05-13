@@ -75,6 +75,11 @@ final class BookSearchVC: UIViewController {
         register()
         setTableViewLayout()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bookSearchView.showKeyboard()
+    }
 }
 
 // MARK: - UI & Layout
