@@ -505,12 +505,8 @@ extension BookShelfVC {
         }
     }
     
-    private func checkEmptyBookListView(isEnabled: Bool) {
-        self.editOrRecommendButton.isEnabled = !isEnabled
-        
-        if bookShelfType == .friend {
-            self.editOrRecommendButton.isEnabled = isEnabled
-        } else {
+    private func checkEmptyBookListView(isEnabled: Bool) {        
+        if bookShelfType == .user {
             self.editOrRecommendButton.isEnabled = !isEnabled
         }
     }
@@ -660,7 +656,6 @@ extension BookShelfVC {
                                        bookTotalNum: data.bookTotalNum)
             
             self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
-            self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
             
             self.pickCollectionView.reloadData()
 
