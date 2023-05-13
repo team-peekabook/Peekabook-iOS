@@ -132,6 +132,7 @@ struct I18N {
         static let followAlarm = "당신을 팔로우했어요!"
         static let recommendAlarm = "당신에게 책을 추천했어요!"
         static let addBookAlarm = "책장에 새로운 책이 추가되었어요!"
+        static let emptyDescription = "새로운 알림이 없습니다." // 임시
     }
     
     struct ManageBlockUsers {
