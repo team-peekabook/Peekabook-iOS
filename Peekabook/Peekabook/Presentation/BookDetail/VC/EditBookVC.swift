@@ -123,17 +123,17 @@ extension EditBookVC {
         
         peekaCommentView.snp.makeConstraints {
             $0.top.equalTo(authorLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(229)
+            $0.height.equalTo(230)
         }
         
         peekaMemoView.snp.makeConstraints {
             $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(36)
+            $0.height.equalTo(101)
         }
     }
 }
@@ -243,7 +243,7 @@ extension EditBookVC {
     func editMyBookInfo(id: Int, param: EditBookRequest) {
         BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             } else {
                 print("책 수정 실패")
             }

@@ -186,7 +186,7 @@ extension BookDetailVC {
         editVC.memo = peekaMemoView.text ?? ""
         editVC.bookIndex = selectedBookIndex
         editVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editVC, animated: true)
+        navigationController?.pushViewController(editVC, animated: false)
     }
     
     @objc
