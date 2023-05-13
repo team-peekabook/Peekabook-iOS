@@ -56,6 +56,13 @@ final class MyPageHeaderView: UITableViewHeaderFooterView {
     @objc private func editMyProfileButtonDidTap() {
         editButtonTappedClosure?()
     }
+    
+    func dataBind(dataModel: GetAccountResponse) {
+        profileImageView.kf.indicatorType = .activity
+        profileImageView.kf.setImage(with: URL(string: dataModel.profileImage))
+        introLabel.text = dataModel.intro
+        nameLabel.text = dataModel.nickname
+    }
 }
 
 extension MyPageHeaderView {

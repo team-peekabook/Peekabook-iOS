@@ -176,6 +176,10 @@ final class EditMyProfileVC: UIViewController {
         editMyProfile(request: PatchProfileRequest(nickname: nicknameTextField.text ?? "",
                                                    intro: introText),
                       image: profileImageView.image)
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(nicknameText, forKey: "userNickname")
+        userDefaults.set(introText, forKey: "userIntro")
+        userDefaults.set(userImage, forKey: "userImage")
     }
     
     private func setIntroView() {
