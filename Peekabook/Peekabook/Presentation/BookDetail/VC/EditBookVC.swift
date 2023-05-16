@@ -196,16 +196,7 @@ extension EditBookVC {
         guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
               let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
         
-        /// TODO:- 여기 로직 이상해서 다시 점검해야 됨 ``@두영``
-        var description2 = description
-        var memo2 = memo
-        
-        if peekaCommentView.text == "작성된 한 마디가 없습니다" || peekaMemoView.text == "작성된 메모가 없습니다" {
-            description2 = ""
-            memo2 = ""
-        }
-        
-        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description2, memo: memo2))
+        editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description, memo: memo))
         let vc = BookDetailVC()
         vc.getBookDetail(id: bookIndex)
     }
