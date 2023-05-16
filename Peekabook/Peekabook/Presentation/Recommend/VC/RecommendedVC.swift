@@ -28,6 +28,7 @@ final class RecommendedVC: UIViewController {
     private let emptyDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .h2
+        label.textAlignment = .center
         label.textColor = .peekaRed_60
         label.text = I18N.BookRecommend.recommendedEmptyDescription
         label.numberOfLines = 2
@@ -119,13 +120,12 @@ extension RecommendedVC {
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
                 self.recommendedTableView.reloadData()
                 
-                // TODO: - 엠티뷰
-                if response?.data?.recommendedBook.isEmpty == true {
-                    self.emptyDescriptionLabel.isHidden = false
-                    self.recommendedTableView.isHidden = true
-                } else {
+                if let recommendedBooks = response?.data?.recommendedBook, !recommendedBooks.isEmpty {
                     self.emptyDescriptionLabel.isHidden = true
                     self.recommendedTableView.isHidden = false
+                } else {
+                    self.emptyDescriptionLabel.isHidden = false
+                    self.recommendedTableView.isHidden = true
                 }
             }
         }
