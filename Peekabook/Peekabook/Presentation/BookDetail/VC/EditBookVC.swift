@@ -25,6 +25,10 @@ final class EditBookVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+        .changeLeftBackButtonToXmark()
+        .addLeftButtonAction {
+            self.leftButtonDidTap()
+        }
         .addMiddleLabel(title: I18N.BookEdit.title)
         .addRightButton(with: I18N.BookEdit.done)
         .addRightButtonAction {
@@ -80,6 +84,7 @@ final class EditBookVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension EditBookVC {
     
     private func setBackgroundColor() {
@@ -181,7 +186,13 @@ extension EditBookVC {
         self.authorLabel = label
     }
     
-    @objc private func checkButtonDidTap() {
+    @objc
+    private func leftButtonDidTap() {
+        dismiss(animated: false)
+    }
+    
+    @objc
+    private func checkButtonDidTap() {
         guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
               let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
         

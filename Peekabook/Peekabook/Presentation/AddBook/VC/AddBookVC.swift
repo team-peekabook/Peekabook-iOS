@@ -37,7 +37,7 @@ final class AddBookVC: UIViewController {
         .addRightButtonAction {
             self.checkButtonDidTap()
         }
-        .addLefttButtonAction {
+        .addLeftButtonAction {
             self.backButtonDidTap()
         }
     

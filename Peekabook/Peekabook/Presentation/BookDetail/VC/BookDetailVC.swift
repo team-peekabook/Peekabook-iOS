@@ -69,6 +69,7 @@ final class BookDetailVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension BookDetailVC {
     
     private func setBackgroundColor() {
@@ -171,6 +172,7 @@ extension BookDetailVC {
     }
     
     // MARK: - @objc Function
+    
     @objc
     private func backButtonDidTap() {
         self.navigationController?.popViewController(animated: true)
@@ -185,8 +187,8 @@ extension BookDetailVC {
         editVC.descriptions = peekaCommentView.text ?? ""
         editVC.memo = peekaMemoView.text ?? ""
         editVC.bookIndex = selectedBookIndex
-        editVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(editVC, animated: false)
+        editVC.modalPresentationStyle = .fullScreen
+        present(editVC, animated: false)
     }
     
     @objc
