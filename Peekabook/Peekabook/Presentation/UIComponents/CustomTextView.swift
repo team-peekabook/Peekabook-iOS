@@ -283,7 +283,8 @@ extension CustomTextView: UITextViewDelegate {
             } else {
                 maxLabel.text = "\(textView.text.count)/40"
             }
-        } else {
+        } else if label.text == I18N.BookDetail.memo {
+            maxLabel.text = "\(textView.text.count)/50"
             if textView.text.count > 50 {
                 textView.deleteBackward()
             }
