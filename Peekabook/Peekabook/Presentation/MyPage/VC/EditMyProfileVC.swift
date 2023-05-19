@@ -21,11 +21,10 @@ final class EditMyProfileVC: UIViewController {
     
     // MARK: - Properties
     
-    private let dummyName: String = "북과빅"
-    
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
     var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
+    private var temporaryName: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
     
     var isImageDefaultType: Bool = true {
         didSet {
@@ -38,10 +37,18 @@ final class EditMyProfileVC: UIViewController {
     var isDoubleChecked: Bool = true {
         didSet {
             if isDoubleChecked {
+                doubleCheckErrorLabel.isHidden = true
+                doubleCheckSuccessLabel.isHidden = false
                 doubleCheckButton.backgroundColor = .peekaGray1
+                doubleCheckButton.isEnabled = false
             } else {
                 doubleCheckButton.backgroundColor = .peekaRed
+                doubleCheckButton.isEnabled = true
+                self.doubleCheckErrorLabel.isHidden = false
+                self.doubleCheckSuccessLabel.isHidden = true
             }
+            
+            checkComplete()
         }
     }
     
@@ -63,6 +70,7 @@ final class EditMyProfileVC: UIViewController {
         $0.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
+        $0.addTarget(self, action: #selector(imagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
@@ -91,6 +99,7 @@ final class EditMyProfileVC: UIViewController {
         $0.backgroundColor = .peekaGray1
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.titleLabel?.font = .c1
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(doubleCheckButtonDidTap), for: .touchUpInside)
     }
     private let doubleCheckErrorLabel = UILabel().then {
@@ -133,13 +142,14 @@ final class EditMyProfileVC: UIViewController {
     @objc private func textFieldDidChange(_ textField: UITextField) {
         guard let nicknameText = textField.text else { return }
         
+        self.nicknameText = nicknameText
+
         // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
-        if UserDefaults.standard.string(forKey: "userNickname") != nicknameText && !nicknameText.isEmpty {
-            doubleCheckButton.backgroundColor = .peekaRed
-            isDoubleChecked = false
-        } else {
+        if nicknameText.isEmpty || temporaryName == nicknameText {
             doubleCheckButton.backgroundColor = .peekaGray1
-            isDoubleChecked = true
+            self.isDoubleChecked = true
+        } else {
+            self.isDoubleChecked = false
         }
         
         if nicknameText.count > 6 {
@@ -147,37 +157,45 @@ final class EditMyProfileVC: UIViewController {
         } else {
             countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
         }
-        
         doubleCheckErrorLabel.isHidden = true
         doubleCheckSuccessLabel.isHidden = true
         
-        // 항상 값을 최신화
-        self.nicknameText = nicknameText
-        checkComplete()
+        self.checkComplete()
     }
     
     @objc private func doubleCheckButtonDidTap() {
-        let isDuplicated = checkIfDuplicated(nicknameTextField.text)
-        if isDuplicated {
-            doubleCheckButton.backgroundColor = .peekaRed
-            doubleCheckErrorLabel.isHidden = false
-            doubleCheckSuccessLabel.isHidden = true
-        } else {
-            doubleCheckButton.backgroundColor = .peekaGray1
-            doubleCheckErrorLabel.isHidden = true
-            doubleCheckSuccessLabel.isHidden = false
-            isDoubleChecked = true
+        let isDuplicated = CheckDuplicateRequest(nickname: nicknameText)
+        checkDuplicateComplete(param: isDuplicated) { [weak self] isDoubleChecked in
+            guard let self = self else { return }
+            
+            // 기존의 UserNickname과 같은 경우
+            if self.nicknameText == UserDefaults.standard.string(forKey: "userNickname") {
+                self.temporaryName = self.nicknameText
+                self.isDoubleChecked = true
+                self.doubleCheckButton.backgroundColor = .peekaGray1
+            }
+            
+            // 닉네임이 중복확인 -> 참인 경우
+            if isDoubleChecked {
+                self.temporaryName = self.nicknameText
+                self.doubleCheckButton.backgroundColor = .peekaGray1
+                self.doubleCheckErrorLabel.isHidden = true
+                self.doubleCheckSuccessLabel.isHidden = false
+            }
+            
+            self.checkComplete()
+            
+            print("isDoubleChecked? ", isDoubleChecked)
+            print("self.introText? ", self.nicknameText)
+            print("임시 저장된 이름은 ", self.temporaryName)
         }
-        checkComplete()
     }
     
     @objc private func checkButtonDidTap() {
         // TODO: 기본이미지로 변경하는 부분은 얼럿이 아직 없어서 못했음. 추후에 반영해야 됨
-        editMyProfile(request: PatchProfileRequest(nickname: nicknameTextField.text ?? "",
-                                                   intro: introText),
-                      image: profileImageView.image)
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameText, intro: introText), image: profileImageView.image)
         let userDefaults = UserDefaults.standard
-        userDefaults.set(nicknameText, forKey: "userNickname")
+        userDefaults.set(temporaryName, forKey: "userNickname")
         userDefaults.set(introText, forKey: "userIntro")
         userDefaults.set(userImage, forKey: "userImage")
     }
@@ -201,18 +219,10 @@ final class EditMyProfileVC: UIViewController {
     }
     
     private func checkComplete() {
-        if !self.nicknameText.isEmpty && !self.introText.isEmpty && isDoubleChecked {
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty && self.isDoubleChecked {
             naviBar.isProfileEditComplete = true
         } else {
             naviBar.isProfileEditComplete = false
-        }
-    }
-    
-    func checkIfDuplicated(_ text: String?) -> Bool {
-        if text != dummyName {
-            return false
-        } else {
-            return true
         }
     }
     
@@ -372,7 +382,6 @@ extension EditMyProfileVC {
                 guard let serverGetAccountDetail = response?.data else { return }
                 self.profileImageView.kf.indicatorType = .activity
                 self.profileImageView.kf.setImage(with: URL(string: serverGetAccountDetail.profileImage))
-                
                 if response?.data?.profileImage.isEmpty == true {
                     self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
                 }
@@ -385,6 +394,22 @@ extension EditMyProfileVC {
             if response?.success == true {
                 /// TODO:- 프로필 수정하고 다시 마이페이지로 돌아가면 프로필 업데이트된거로 보이게 해줘야 됨 ``@인영``
                 self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    private func checkDuplicateComplete(param: CheckDuplicateRequest, completion: @escaping (Bool) -> Void) {
+        UserAPI.shared.checkDuplicate(param: param) { response in
+            if response?.success == true {
+                if let isDuplicated = response?.data?.check {
+                    if isDuplicated == 0 {
+                        self.isDoubleChecked = true
+                        completion(true)
+                    } else {
+                        self.isDoubleChecked = false
+                        completion(false)
+                    }
+                }
             }
         }
     }
