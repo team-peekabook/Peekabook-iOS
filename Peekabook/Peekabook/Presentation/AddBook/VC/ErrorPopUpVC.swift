@@ -101,6 +101,6 @@ extension ErrorPopUpVC {
     }
     
     @objc private func cancelButtonDidTap() {
-        self.dismiss(animated: false, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

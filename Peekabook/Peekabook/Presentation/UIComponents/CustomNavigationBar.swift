@@ -27,9 +27,11 @@ final class CustomNavigationBar: UIView {
     var isProfileEditComplete: Bool = true {
         didSet {
             if isProfileEditComplete {
-                self.rightButton.titleLabel?.textColor = .peekaRed
+                self.rightButton.setTitleColor(.peekaRed, for: .normal)
+                self.rightButton.isEnabled = true
             } else {
-                self.rightButton.titleLabel?.textColor = .peekaGray1
+                self.rightButton.setTitleColor(.peekaGray1, for: .normal)
+                self.rightButton.isEnabled = false
             }
         }
     }
