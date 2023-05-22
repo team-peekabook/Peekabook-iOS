@@ -44,7 +44,7 @@ final class MyPageVC: UIViewController {
     // MARK: - UI Components
     
     private let optionArray: [MyPageOption] = [.manageBlockUsers, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
-    
+    var getAccountData: GetAccountResponse?
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
 
@@ -64,6 +64,11 @@ final class MyPageVC: UIViewController {
         setUI()
         setLayout()
         registerCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAccountAPI()
     }
 }
 
@@ -149,7 +154,9 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyPageHeaderView.className) as? MyPageHeaderView else { return nil }
-        
+        if let getAccountData = self.getAccountData {
+            view.dataBind(dataModel: getAccountData)
+        }
         view.editButtonTappedClosure = {[weak self] in
             let editVC = EditMyProfileVC()
             editVC.hidesBottomBarWhenPushed = true
@@ -160,5 +167,20 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 104
+    }
+}
+
+// MARK: - Network
+
+extension MyPageVC {
+    private func getAccountAPI() {
+        MyPageAPI.shared.getMyAccountInfo { response in
+            if response?.success == true {
+                if let accountData = response?.data {
+                    self.getAccountData = accountData
+                    self.myPageTableView.reloadData()
+                }
+            }
+        }
     }
 }
