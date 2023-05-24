@@ -128,9 +128,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.dataBind(model: serverGetAlarmData[safe: indexPath.row]!)
         cell.changeUserNameFont(model: serverGetAlarmData[safe: indexPath.row]!)
-        if indexPath.row > 2 {
-            cell.changeRead()
-        }
+
         return cell
     }
     
