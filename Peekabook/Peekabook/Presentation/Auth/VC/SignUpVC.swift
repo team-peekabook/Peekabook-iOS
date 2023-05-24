@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SignUpVC: UIViewController, UITextFieldDelegate {
+final class SignUpVC: UIViewController {
     
     enum ProfileImageType: CaseIterable {
         case defaultImage
@@ -497,5 +497,19 @@ extension SignUpVC {
                 }
             }
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SignUpVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let utf8Char = string.cString(using: .utf8)
+        let isBackSpace = strcmp(utf8Char, "\\b")
+        if string.checkNickname() || isBackSpace == -92 {
+            return true
+        }
+        return false
     }
 }
