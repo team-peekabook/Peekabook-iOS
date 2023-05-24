@@ -79,6 +79,7 @@ final class SignUpVC: UIViewController {
         $0.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 12
+        $0.addTarget(self, action: #selector(imagePickDidTap), for: .touchUpInside)
     }
     
     private let nicknameContainerView = UIView().then {
