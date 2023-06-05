@@ -93,6 +93,7 @@ final class EditMyProfileVC: UIViewController {
         $0.font = .h2
         $0.text = UserDefaults.standard.string(forKey: "userNickname")
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        $0.delegate = self
     }
     private lazy var doubleCheckButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Profile.doubleCheck, for: .normal)
@@ -143,7 +144,7 @@ final class EditMyProfileVC: UIViewController {
         guard let nicknameText = textField.text else { return }
         
         self.nicknameText = nicknameText
-
+        
         // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
         if nicknameText.isEmpty || temporaryName == nicknameText {
             doubleCheckButton.backgroundColor = .peekaGray1
@@ -414,3 +415,18 @@ extension EditMyProfileVC {
         }
     }
 }
+
+// MARK: - UITextFieldDelegate
+
+extension EditMyProfileVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let utf8Char = string.cString(using: .utf8)
+        let isBackSpace = strcmp(utf8Char, "\\b")
+        if string.checkNickname() || isBackSpace == -92 {
+            return true
+        }
+        return false
+    }
+}
+

@@ -64,4 +64,18 @@ extension String {
             return dateFormatter.string(from: self.toDate())
         }
     }
+    
+    /// 특수문자 및 공백을 제거하는 정규식
+    func checkNickname() -> Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]$", options: .caseInsensitive)
+            if let _ = regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, self.count)) {
+                return true
+            }
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+        return false
+    }
 }
