@@ -21,6 +21,7 @@ final class BarcodeVC: BarcodeScannerViewController {
     
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
+        $0.textAlignment = .center
         $0.numberOfLines = 2
         $0.textColor = .peekaWhite
         $0.font = .s3
