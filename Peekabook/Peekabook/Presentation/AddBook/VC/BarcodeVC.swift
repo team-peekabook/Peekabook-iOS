@@ -14,7 +14,6 @@ import Then
 final class BarcodeVC: BarcodeScannerViewController {
     
     var searchType: SearchType = .camera
-    var bookInfoList: [BookInfoModel] = []
     var isbnCode: String = ""
     var displayCount: Int = 100
     var publisher: String = ""
@@ -80,16 +79,23 @@ extension BarcodeVC {
     
     private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
         NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
-            if let response = response {
+            if let response = response, !response.isEmpty {
                 let addBookVC = AddBookVC()
                 addBookVC.searchType = .camera
-                self.bookInfoList = []
                 
-                let info = response[0]
-                addBookVC.bookInfo = [BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher)]
-                addBookVC.dataBind(model: BookInfoModel(title: info.title, image: info.image, author: info.author, publisher: info.publisher))
+                if let info = response.first {
+                    let bookInfo = BookInfoModel(title: info.title,
+                                                 image: info.image,
+                                                 author: info.author,
+                                                 publisher: info.publisher)
+                    addBookVC.bookInfo = [bookInfo]
+                    addBookVC.dataBind(model: bookInfo)
+                }
+                
                 addBookVC.modalPresentationStyle = .fullScreen
                 self.present(addBookVC, animated: true, completion: nil)
+            } else {
+                self.showErrorPopUp()
             }
         }
     }

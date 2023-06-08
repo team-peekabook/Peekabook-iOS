@@ -24,7 +24,7 @@ final class NaverSearchAPI {
             case .success(let response):
                 do {
                     let response = try response.map(NaverResponse.self)
-                    let getNaverData: [BookInfoModel] = response.items
+                    let getNaverData: [BookInfoModel]? = response.items
                     completion(getNaverData)
                 } catch let error {
                     print(error.localizedDescription, 500)
