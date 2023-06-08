@@ -46,6 +46,7 @@ final class RecommendListTVC: UITableViewCell {
         $0.layer.shadowOpacity = 0.3
     }
     private let bookRecommendedPersonImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 7.5
         $0.clipsToBounds = true
     }

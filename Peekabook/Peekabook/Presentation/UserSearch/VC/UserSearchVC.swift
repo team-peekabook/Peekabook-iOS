@@ -44,6 +44,7 @@ final class UserSearchVC: UIViewController {
     
     private let friendProfileContainerView = UIView()
     private let profileImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.peekaRed.cgColor
         $0.layer.cornerRadius = 28
