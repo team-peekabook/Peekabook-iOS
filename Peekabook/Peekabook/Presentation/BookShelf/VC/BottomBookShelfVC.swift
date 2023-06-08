@@ -14,6 +14,7 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - Properties
     
     var bookShelfType: BookShelfType = .user
+    private var isInitialLoad = true
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var books: [Book] = []
     private let fullView: CGFloat = 93.adjustedH
@@ -214,13 +215,13 @@ extension BottomBookShelfVC {
     }
     
     private func animateView() {
-//        if self.view.frame.minY <= fullView || self.view.frame.minY >= partialView { /// 안 닫히게
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                let frame = self?.view.frame
-                let yComponent = self?.partialView
-                self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height)
-            })
-//        }
+        if isInitialLoad {
+            self.view.frame = CGRect(x: 0,
+                                     y: partialView,
+                                     width: view.frame.width,
+                                     height: view.frame.height)
+            isInitialLoad = false
+        }
     }
     
     private func roundViews() {
