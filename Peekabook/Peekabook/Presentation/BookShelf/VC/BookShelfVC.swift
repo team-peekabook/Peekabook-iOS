@@ -29,6 +29,7 @@ final class BookShelfVC: UIViewController {
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
                 moreButton.isHidden = true
             case .friend:
+                editOrRecommendButton.isEnabled = true
                 bottomShelfVC.changeLayout(isUser: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
                 moreButton.isHidden = false
@@ -505,10 +506,8 @@ extension BookShelfVC {
         }
     }
     
-    private func checkEmptyBookListView(isEnabled: Bool) {        
-        if bookShelfType == .user {
-            self.editOrRecommendButton.isEnabled = !isEnabled
-        }
+    private func editPickButtonState(with bool: Bool) {        
+        self.editOrRecommendButton.isEnabled = !bool
     }
     
     private func checkSmallLayout() {
@@ -637,7 +636,7 @@ extension BookShelfVC {
             
             self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
             self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
-            self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
+            self.editPickButtonState(with: data.books.isEmpty)
             self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.friendsCollectionView.reloadData()
@@ -656,6 +655,7 @@ extension BookShelfVC {
                                        bookTotalNum: data.bookTotalNum)
             
             self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
+            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.pickCollectionView.reloadData()
 
