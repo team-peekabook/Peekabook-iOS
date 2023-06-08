@@ -197,8 +197,6 @@ extension EditBookVC {
               let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
         
         editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description, memo: memo))
-        let vc = BookDetailVC()
-        vc.getBookDetail(id: bookIndex)
     }
     
     private func addKeyboardObserver() {
@@ -254,7 +252,7 @@ extension EditBookVC {
     func editMyBookInfo(id: Int, param: EditBookRequest) {
         BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
-                self.navigationController?.popViewController(animated: false)
+                self.dismiss(animated: false)
             } else {
                 print("책 수정 실패")
             }
