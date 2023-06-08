@@ -64,6 +64,7 @@ final class EditMyProfileVC: UIViewController {
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 40
     }
     private lazy var editImageButton = UIButton(type: .system).then {
@@ -193,8 +194,9 @@ final class EditMyProfileVC: UIViewController {
     }
     
     @objc private func checkButtonDidTap() {
-        // TODO: 기본이미지로 변경하는 부분은 얼럿이 아직 없어서 못했음. 추후에 반영해야 됨
-        editMyProfile(request: PatchProfileRequest(nickname: nicknameText, intro: introText), image: profileImageView.image)
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameText,
+                                                   intro: introText),
+                      image: profileImageView.image)
         let userDefaults = UserDefaults.standard
         userDefaults.set(temporaryName, forKey: "userNickname")
         userDefaults.set(introText, forKey: "userIntro")
@@ -393,7 +395,6 @@ extension EditMyProfileVC {
     private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
         MyPageAPI.shared.editMyProfile(request: request, image: image) { response in
             if response?.success == true {
-                /// TODO:- 프로필 수정하고 다시 마이페이지로 돌아가면 프로필 업데이트된거로 보이게 해줘야 됨 ``@인영``
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -429,4 +430,3 @@ extension EditMyProfileVC: UITextFieldDelegate {
         return false
     }
 }
-
