@@ -460,7 +460,10 @@ extension BookShelfVC {
         let height = view.frame.height
         let width = view.frame.width
         
-        bottomShelfVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        bottomShelfVC.view.frame = CGRect(x: 0,
+                                          y: self.view.frame.maxY,
+                                          width: width,
+                                          height: height)
     }
     
     private func setDelegate() {
