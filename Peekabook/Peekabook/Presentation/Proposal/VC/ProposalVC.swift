@@ -149,7 +149,7 @@ extension ProposalVC {
     @objc private func checkButtonDidTap() {
         let popupViewController = ProposalConfirmPopUpVC()
         popupViewController.modalPresentationStyle = .overFullScreen
-        popupViewController.recommendDesc = peekaProposalView.text
+        popupViewController.recommendDesc = peekaProposalView.text == I18N.PlaceHolder.recommend ?  "" : peekaProposalView.text
         popupViewController.bookTitle = nameLabel.text!
         popupViewController.bookImage = imageUrl
         popupViewController.author = authorLabel.text!
