@@ -56,6 +56,10 @@ final class EditMyProfileVC: UIViewController {
             self.checkButtonDidTap()
         }
     
+    private let containerScrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
@@ -130,7 +134,12 @@ final class EditMyProfileVC: UIViewController {
         setTapGesture()
         setIntroView()
         checkIsDefaultImage()
+        addKeyboardObserver()
         getAccountAPI()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -144,9 +153,10 @@ extension EditMyProfileVC {
     }
     
     private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
+        view.addSubviews(naviBar, containerScrollView)
+        containerScrollView.addSubviews(profileImageContainerView, nicknameContainerView, introContainerView)
         profileImageContainerView.addSubviews(profileImageView, editImageButton)
-        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
+        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel)
         nicknameHeaderView.addSubviews(nicknameLabel)
         nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
     
@@ -154,10 +164,16 @@ extension EditMyProfileVC {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
+        containerScrollView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         profileImageContainerView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom).offset(23)
+            $0.top.equalToSuperview().offset(23)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(82)
+            $0.height.equalTo(100)
         }
         
         profileImageView.snp.makeConstraints {
@@ -172,7 +188,7 @@ extension EditMyProfileVC {
         
         nicknameContainerView.snp.makeConstraints {
             $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(79)
         }
         
@@ -194,7 +210,6 @@ extension EditMyProfileVC {
         nicknameTextField.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(doubleCheckButton.snp.leading).inset(14)
         }
         
         doubleCheckButton.snp.makeConstraints {
@@ -221,7 +236,8 @@ extension EditMyProfileVC {
         
         introContainerView.snp.makeConstraints {
             $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
-            $0.trailing.leading.equalToSuperview().inset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview().inset(11)
             $0.height.equalTo(101)
         }
     }
@@ -349,6 +365,48 @@ extension EditMyProfileVC {
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height + 20,
+            right: 0.0)
+        
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
+        
+        if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
+            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            containerScrollView.setContentOffset(position, animated: true)
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
+        UIView.animate(withDuration: 0.2, animations: {
+            self.containerScrollView.transform = .identity
+        })
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -378,7 +436,6 @@ extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControll
         return normalizedImage
     }
 }
-
 
 // MARK: - UITextFieldDelegate
 
