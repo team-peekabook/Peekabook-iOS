@@ -61,6 +61,7 @@ extension DeleteAccountPopUpVC {
         MyPageAPI.shared.deleteAccount { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: LoginVC(), animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: "socialToken")
                 UserDefaults.standard.removeObject(forKey: "accessToken")
                 UserDefaults.standard.removeObject(forKey: "refreshToken")
             }

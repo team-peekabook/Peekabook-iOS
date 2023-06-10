@@ -24,7 +24,7 @@ final class BottomBookShelfVC: UIViewController {
         if UIScreen.main.isSmallThan712pt {
             return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 65
         } else {
-            return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 100
+            return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 110
         }
     }
 
