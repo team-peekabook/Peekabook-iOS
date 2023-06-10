@@ -95,9 +95,8 @@ final class SignUpVC: UIViewController {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-        //        $0.placeholder = I18N.PlaceHolder.nickname
         $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname,
-                                                      attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -288,7 +287,7 @@ extension SignUpVC {
         
         introContainerView.snp.makeConstraints {
             $0.top.equalTo(countMaxTextLabel.snp.bottom).offset(21)
-            $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(11)
         }
@@ -535,7 +534,7 @@ extension SignUpVC {
         UserAPI.shared.checkDuplicate(param: param) { response in
             if response?.success == true {
                 if let isDuplicated = response?.data?.check {
-                    self.isDoubleChecked = true ? isDuplicated == 0 : false
+                    self.isDoubleChecked = (isDuplicated == 0) ? true : false
                 }
             }
         }
