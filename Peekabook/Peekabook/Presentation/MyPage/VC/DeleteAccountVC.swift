@@ -76,9 +76,9 @@ extension DeleteAccountVC {
         }
         
         deleteAccountButton.snp.makeConstraints {
-            $0.top.equalTo(deleteAccountLabel.snp.bottom).offset(260)
+            $0.bottom.equalToSuperview().inset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(56)
+            $0.height.equalTo(56.adjustedH)
         }
     }
 }
