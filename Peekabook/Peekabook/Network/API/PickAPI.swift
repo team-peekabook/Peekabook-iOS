@@ -12,7 +12,7 @@ import Moya
 final class PickAPI {
     
     static let shared = PickAPI()
-    private var pickProvider = MoyaProvider<PickRouter>(plugins: [MoyaLoggerPlugin()])
+    private var pickProvider = MoyaProvider<PickRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

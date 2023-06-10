@@ -12,7 +12,7 @@ import Moya
 final class NaverSearchAPI {
     
     static var shared = NaverSearchAPI()
-    private var naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaLoggerPlugin()])
+    private var naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

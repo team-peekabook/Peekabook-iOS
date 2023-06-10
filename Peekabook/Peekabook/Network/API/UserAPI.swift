@@ -12,7 +12,7 @@ import Moya
 final class UserAPI {
     
     static let shared = UserAPI()
-    private var userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin()])
+    private var userProvider = MoyaProvider<UserRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

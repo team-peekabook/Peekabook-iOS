@@ -12,7 +12,7 @@ import Moya
 final class AuthAPI {
     
     static let shared = AuthAPI()
-    private var authProvider = MoyaProvider<AuthRouter>(plugins: [MoyaLoggerPlugin()])
+    private var authProvider = MoyaProvider<AuthRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

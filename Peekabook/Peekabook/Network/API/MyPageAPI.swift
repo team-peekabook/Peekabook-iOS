@@ -12,7 +12,7 @@ import Moya
 final class MyPageAPI {
     
     static let shared = MyPageAPI()
-    private var mypageProvider = MoyaProvider<MyPageRouter>(plugins: [MoyaLoggerPlugin()])
+    private var mypageProvider = MoyaProvider<MyPageRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

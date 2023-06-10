@@ -12,7 +12,7 @@ import Moya
 final class BookShelfAPI {
     
     static let shared = BookShelfAPI()
-    private var bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaLoggerPlugin()])
+    private var bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

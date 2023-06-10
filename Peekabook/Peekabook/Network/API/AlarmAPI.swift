@@ -12,7 +12,7 @@ import Moya
 final class AlarmAPI {
     
     static let shared = AlarmAPI()
-    private var alarmProvider = MoyaProvider<AlarmRouter>(plugins: [MoyaLoggerPlugin()])
+    private var alarmProvider = MoyaProvider<AlarmRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

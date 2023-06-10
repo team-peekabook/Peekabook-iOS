@@ -14,11 +14,6 @@ import Moya
 
 final class EditMyProfileVC: UIViewController {
     
-    enum ProfileImageType: CaseIterable {
-        case defaultImage
-        case customImage
-    }
-    
     // MARK: - Properties
     
     var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
@@ -135,144 +130,8 @@ final class EditMyProfileVC: UIViewController {
         setTapGesture()
         setIntroView()
         checkIsDefaultImage()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         getAccountAPI()
     }
-    
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        guard let nicknameText = textField.text else { return }
-        
-        self.nicknameText = nicknameText
-        
-        // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
-        if nicknameText.isEmpty || temporaryName == nicknameText {
-            doubleCheckButton.backgroundColor = .peekaGray1
-            self.isDoubleChecked = true
-        } else {
-            self.isDoubleChecked = false
-        }
-        
-        if nicknameText.count > 6 {
-            textField.deleteBackward()
-        } else {
-            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
-        }
-        doubleCheckErrorLabel.isHidden = true
-        doubleCheckSuccessLabel.isHidden = true
-        
-        self.checkComplete()
-    }
-    
-    @objc private func doubleCheckButtonDidTap() {
-        let isDuplicated = CheckDuplicateRequest(nickname: nicknameText)
-        checkDuplicateComplete(param: isDuplicated) { [weak self] isDoubleChecked in
-            guard let self = self else { return }
-            
-            // 기존의 UserNickname과 같은 경우
-            if self.nicknameText == UserDefaults.standard.string(forKey: "userNickname") {
-                self.temporaryName = self.nicknameText
-                self.isDoubleChecked = true
-                self.doubleCheckButton.backgroundColor = .peekaGray1
-            }
-            
-            // 닉네임이 중복확인 -> 참인 경우
-            if isDoubleChecked {
-                self.temporaryName = self.nicknameText
-                self.doubleCheckButton.backgroundColor = .peekaGray1
-                self.doubleCheckErrorLabel.isHidden = true
-                self.doubleCheckSuccessLabel.isHidden = false
-            }
-            
-            self.checkComplete()
-            
-            print("isDoubleChecked? ", isDoubleChecked)
-            print("self.introText? ", self.nicknameText)
-            print("임시 저장된 이름은 ", self.temporaryName)
-        }
-    }
-    
-    @objc private func checkButtonDidTap() {
-        editMyProfile(request: PatchProfileRequest(nickname: nicknameText,
-                                                   intro: introText),
-                      image: profileImageView.image)
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(temporaryName, forKey: "userNickname")
-        userDefaults.set(introText, forKey: "userIntro")
-        userDefaults.set(userImage, forKey: "userImage")
-    }
-    
-    private func setIntroView() {
-        introContainerView.updateTextView(type: .editProfileIntro)
-        introContainerView.delegate = self
-    }
-    
-    private func setTapGesture() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
-        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    private func checkIsDefaultImage() {
-        if self.profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
-            self.isImageDefaultType = true
-        } else {
-            self.isImageDefaultType = false
-        }
-    }
-    
-    private func checkComplete() {
-        if !self.nicknameText.isEmpty && !self.introText.isEmpty && self.isDoubleChecked {
-            naviBar.isProfileEditComplete = true
-        } else {
-            naviBar.isProfileEditComplete = false
-        }
-    }
-    
-    @objc private func imagePickDidTap() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
-            self.openCamera()
-        }))
-        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
-            self.openPhotoLibrary()
-        }))
-        if !isImageDefaultType {
-            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
-                self.isImageDefaultType = true
-            }))
-        } else {
-            self.isImageDefaultType = false
-        }
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func openCamera() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func openPhotoLibrary() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-}
-
-extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = image
-        }
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 // MARK: - UI & Layout
@@ -368,7 +227,176 @@ extension EditMyProfileVC {
     }
 }
 
-extension EditMyProfileVC: IntroText {
+// MARK: - Methods
+
+extension EditMyProfileVC {
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        guard let nicknameText = textField.text else { return }
+        
+        self.nicknameText = nicknameText
+        
+        // 기존 닉네임 값과 동일하거나 빈 경우 -> 중복확인 불가
+        if nicknameText.isEmpty || temporaryName == nicknameText {
+            doubleCheckButton.backgroundColor = .peekaGray1
+            self.isDoubleChecked = true
+        } else {
+            self.isDoubleChecked = false
+        }
+        
+        if nicknameText.count > 6 {
+            textField.deleteBackward()
+        } else {
+            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
+        }
+        doubleCheckErrorLabel.isHidden = true
+        doubleCheckSuccessLabel.isHidden = true
+        
+        self.checkComplete()
+    }
+    
+    @objc private func doubleCheckButtonDidTap() {
+        let isDuplicated = CheckDuplicateRequest(nickname: nicknameText)
+        checkDuplicateComplete(param: isDuplicated) { [weak self] isDoubleChecked in
+            guard let self = self else { return }
+            
+            // 기존의 UserNickname과 같은 경우
+            if self.nicknameText == UserDefaults.standard.string(forKey: "userNickname") {
+                self.temporaryName = self.nicknameText
+                self.isDoubleChecked = true
+                self.doubleCheckButton.backgroundColor = .peekaGray1
+            }
+            
+            // 닉네임이 중복확인 -> 참인 경우
+            if isDoubleChecked {
+                self.temporaryName = self.nicknameText
+                self.doubleCheckButton.backgroundColor = .peekaGray1
+                self.doubleCheckErrorLabel.isHidden = true
+                self.doubleCheckSuccessLabel.isHidden = false
+            }
+            
+            self.checkComplete()
+            
+            print("isDoubleChecked? ", isDoubleChecked)
+            print("self.introText? ", self.nicknameText)
+            print("임시 저장된 이름은 ", self.temporaryName)
+        }
+    }
+    
+    @objc private func checkButtonDidTap() {
+        guard let profileImage = profileImageView.image else { return }
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameText,
+                                                   intro: introText),
+                      image: profileImage)
+    }
+    
+    private func setIntroView() {
+        introContainerView.updateTextView(type: .editProfileIntro)
+        introContainerView.delegate = self
+    }
+    
+    private func setTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
+        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    private func checkIsDefaultImage() {
+        if profileImageView.image == nil || profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+            self.isImageDefaultType = true
+        } else {
+            self.isImageDefaultType = false
+        }
+    }
+    
+    private func checkComplete() {
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty && self.isDoubleChecked {
+            naviBar.isProfileEditComplete = true
+        } else {
+            naviBar.isProfileEditComplete = false
+        }
+    }
+    
+    @objc private func imagePickDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
+            self.openCamera()
+        }))
+        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
+            self.openPhotoLibrary()
+        }))
+        
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        } else {
+            self.isImageDefaultType = false
+        }
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func openCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            self.profileImageView.image = fixOrientation(img: image)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // 세로 이미지 회전 문제로 인한 함수
+    private func fixOrientation(img: UIImage) -> UIImage {
+        if img.imageOrientation == .up {
+            return img
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
+        
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return normalizedImage
+    }
+}
+
+
+// MARK: - UITextFieldDelegate
+
+extension EditMyProfileVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let utf8Char = string.cString(using: .utf8)
+        let isBackSpace = strcmp(utf8Char, "\\b")
+        if string.checkNickname() || isBackSpace == -92 {
+            return true
+        }
+        return false
+    }
+}
+
+// MARK: - IntroTextDelegate
+
+extension EditMyProfileVC: IntroTextDelegate {
     func getTextView(text: String) {
         self.introText = text
         checkComplete()
@@ -414,19 +442,5 @@ extension EditMyProfileVC {
                 }
             }
         }
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension EditMyProfileVC: UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let utf8Char = string.cString(using: .utf8)
-        let isBackSpace = strcmp(utf8Char, "\\b")
-        if string.checkNickname() || isBackSpace == -92 {
-            return true
-        }
-        return false
     }
 }

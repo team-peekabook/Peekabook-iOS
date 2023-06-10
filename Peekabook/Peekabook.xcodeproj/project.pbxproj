@@ -43,7 +43,7 @@
 		8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850652969B5060062E92A /* NetworkConstant.swift */; };
 		8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850672969BA4A0062E92A /* NetworkResult.swift */; };
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
-		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
+		8E18506C2969BAC60062E92A /* MoyaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
 		8E21E53429E040B900E68DAB /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53329E040B900E68DAB /* OnboardingVC.swift */; };
 		8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */; };
@@ -197,7 +197,7 @@
 		8E1850652969B5060062E92A /* NetworkConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstant.swift; sourceTree = "<group>"; };
 		8E1850672969BA4A0062E92A /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
-		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
+		8E18506B2969BAC60062E92A /* MoyaPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E21E53329E040B900E68DAB /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 				8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */,
 				8EAB43FE296C6D010045AD7F /* BaseResponse.swift */,
 				8E1850692969BA9F0062E92A /* GeneralResponse.swift */,
-				8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */,
+				8E18506B2969BAC60062E92A /* MoyaPlugin.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1156,7 +1156,7 @@
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
 				1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
-				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
+				8E18506C2969BAC60062E92A /* MoyaPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
 				9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */,
 				14C84E2F29CC2A6D0086F8DF /* EditMyProfileVC.swift in Sources */,
@@ -1386,7 +1386,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23060802;
+				CURRENT_PROJECT_VERSION = 23060901;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1405,7 +1405,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1425,7 +1425,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23060802;
+				CURRENT_PROJECT_VERSION = 23060901;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1444,7 +1444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

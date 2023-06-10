@@ -19,7 +19,7 @@ enum CustomTextViewType: CaseIterable {
     case addProfileIntro
 }
 
-protocol IntroText: AnyObject {
+protocol IntroTextDelegate: AnyObject {
     func getTextView(text: String)
 }
 
@@ -38,7 +38,7 @@ final class CustomTextView: UIView {
         }
     }
     
-    weak var delegate: IntroText?
+    weak var delegate: IntroTextDelegate?
     
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2

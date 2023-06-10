@@ -7,12 +7,12 @@
 
 import UIKit
 
+enum ProfileImageType: CaseIterable {
+    case defaultImage
+    case customImage
+}
+
 final class SignUpVC: UIViewController {
-    
-    enum ProfileImageType: CaseIterable {
-        case defaultImage
-        case customImage
-    }
     
     // MARK: - Properties
     
@@ -95,8 +95,9 @@ final class SignUpVC: UIViewController {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-//        $0.placeholder = I18N.PlaceHolder.nickname
-        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname, attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
+        //        $0.placeholder = I18N.PlaceHolder.nickname
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname,
+                                                      attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -167,6 +168,153 @@ final class SignUpVC: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+}
+
+// MARK: - UI & Layout
+
+extension SignUpVC {
+    
+    private func setIntroView() {
+        introContainerView.delegate = self
+        introContainerView.updateTextView(type: .addProfileIntro)
+        introContainerView.setTextColor(.peekaGray1)
+    }
+    
+    private func setBackgroundColor() {
+        view.backgroundColor = .peekaBeige
+        nicknameHeaderView.backgroundColor = .peekaRed
+        nicknameContainerView.backgroundColor = .peekaWhite
+        checkContainerView.backgroundColor = .peekaBeige
+    }
+    
+    private func updateConfirmSuccess() {
+        signUpButton.backgroundColor = .peekaRed
+        signUpButton.setTitleColor(.peekaWhite, for: .normal)
+        signUpButton.layer.borderColor = UIColor.peekaRed.cgColor
+        signUpButton.isEnabled = true
+    }
+    
+    private func updateConfirmFailed() {
+        signUpButton.setTitleColor(.peekaGray2, for: .normal)
+        signUpButton.backgroundColor = .peekaGray3
+        signUpButton.layer.borderColor = UIColor.peekaGray2_60.cgColor
+        signUpButton.layer.borderWidth = 2
+        signUpButton.isEnabled = false
+    }
+    
+    private func setLayout() {
+        view.addSubviews(containerView, checkContainerView, naviBar)
+        containerView.addSubviews(profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
+        profileImageContainerView.addSubviews(profileImageView, editImageButton)
+        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
+        nicknameHeaderView.addSubviews(nicknameLabel)
+        nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
+        checkContainerView.addSubviews(signUpButton, doubleCheckNotTappedLabel)
+    
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        profileImageContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(23)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(82)
+        }
+        
+        profileImageView.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.height.width.equalTo(80)
+        }
+        
+        editImageButton.snp.makeConstraints {
+            $0.trailing.bottom.equalToSuperview()
+            $0.height.width.equalTo(24)
+        }
+        
+        nicknameContainerView.snp.makeConstraints {
+            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(79)
+        }
+        
+        nicknameHeaderView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(36)
+        }
+        
+        nicknameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(14)
+            $0.centerY.equalToSuperview()
+        }
+        
+        nicknameTextContainerView.snp.makeConstraints {
+            $0.top.equalTo(nicknameHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        nicknameTextField.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
+//            $0.top.equalTo(nicknameContainerView.snp.top)
+            $0.width.equalTo(244)
+        }
+        
+        doubleCheckButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(7)
+            $0.trailing.equalToSuperview().inset(14)
+            $0.height.equalTo(26)
+            $0.width.equalTo(53)
+        }
+        
+        doubleCheckErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        doubleCheckSuccessLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        countMaxTextLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
+            $0.trailing.equalTo(nicknameContainerView)
+        }
+        
+        introContainerView.snp.makeConstraints {
+            $0.top.equalTo(countMaxTextLabel.snp.bottom).offset(21)
+            $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(101)
+            $0.bottom.equalToSuperview().inset(11)
+        }
+        
+        checkContainerView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(115)
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(23)
+            $0.height.equalTo(56)
+        }
+        
+        doubleCheckNotTappedLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(5)
+            $0.centerX.equalToSuperview()
+        }
+    }
+}
+
+// MARK: - Methods
+
+extension SignUpVC {
     
     private func setDelegate() {
         nicknameTextField.delegate = self
@@ -321,165 +469,58 @@ final class SignUpVC: UIViewController {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
 extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = image
+            self.profileImageView.image = fixOrientation(img: image)
         }
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
-
-// MARK: - UI & Layout
-
-extension SignUpVC {
-    
-    private func setIntroView() {
-        introContainerView.delegate = self
-        introContainerView.updateTextView(type: .addProfileIntro)
-        introContainerView.setTextColor(.peekaGray1)
-    }
-    
-    private func setBackgroundColor() {
-        view.backgroundColor = .peekaBeige
-        nicknameHeaderView.backgroundColor = .peekaRed
-        nicknameContainerView.backgroundColor = .peekaWhite
-        checkContainerView.backgroundColor = .peekaBeige
-    }
-    
-    private func updateConfirmSuccess() {
-        signUpButton.backgroundColor = .peekaRed
-        signUpButton.setTitleColor(.peekaWhite, for: .normal)
-        signUpButton.layer.borderColor = UIColor.peekaRed.cgColor
-        signUpButton.isEnabled = true
-    }
-    
-    private func updateConfirmFailed() {
-        signUpButton.setTitleColor(.peekaGray2, for: .normal)
-        signUpButton.backgroundColor = .peekaGray3
-        signUpButton.layer.borderColor = UIColor.peekaGray2_60.cgColor
-        signUpButton.layer.borderWidth = 2
-        signUpButton.isEnabled = false
-    }
-    
-    private func setLayout() {
-        view.addSubviews(containerView, checkContainerView, naviBar)
-        containerView.addSubviews(profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
-        profileImageContainerView.addSubviews(profileImageView, editImageButton)
-        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
-        nicknameHeaderView.addSubviews(nicknameLabel)
-        nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
-        checkContainerView.addSubviews(signUpButton, doubleCheckNotTappedLabel)
-    
-        naviBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+    // 세로 이미지 회전 문제로 인한 함수
+    private func fixOrientation(img: UIImage) -> UIImage {
+        if img.imageOrientation == .up {
+            return img
         }
         
-        containerView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
         
-        profileImageContainerView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(23)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(82)
-        }
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
         
-        profileImageView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
-            $0.height.width.equalTo(80)
-        }
-        
-        editImageButton.snp.makeConstraints {
-            $0.trailing.bottom.equalToSuperview()
-            $0.height.width.equalTo(24)
-        }
-        
-        nicknameContainerView.snp.makeConstraints {
-            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(79)
-        }
-        
-        nicknameHeaderView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(36)
-        }
-        
-        nicknameLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(14)
-            $0.centerY.equalToSuperview()
-        }
-        
-        nicknameTextContainerView.snp.makeConstraints {
-            $0.top.equalTo(nicknameHeaderView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        nicknameTextField.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.centerY.equalToSuperview()
-//            $0.top.equalTo(nicknameContainerView.snp.top)
-            $0.width.equalTo(244)
-        }
-        
-        doubleCheckButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(7)
-            $0.trailing.equalToSuperview().inset(14)
-            $0.height.equalTo(26)
-            $0.width.equalTo(53)
-        }
-        
-        doubleCheckErrorLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
-            $0.leading.equalTo(nicknameContainerView)
-        }
-        
-        doubleCheckSuccessLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
-            $0.leading.equalTo(nicknameContainerView)
-        }
-        
-        countMaxTextLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
-            $0.trailing.equalTo(nicknameContainerView)
-        }
-        
-        introContainerView.snp.makeConstraints {
-            $0.top.equalTo(countMaxTextLabel.snp.bottom).offset(21)
-            $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(101)
-            $0.bottom.equalToSuperview().inset(11)
-        }
-        
-        checkContainerView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(115)
-        }
-        
-        signUpButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(23)
-            $0.height.equalTo(56)
-        }
-        
-        doubleCheckNotTappedLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.centerX.equalToSuperview()
-        }
+        return normalizedImage
     }
 }
 
-extension SignUpVC: IntroText {
+// MARK: - UITextFieldDelegate
+
+extension SignUpVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let utf8Char = string.cString(using: .utf8)
+        let isBackSpace = strcmp(utf8Char, "\\b")
+        if string.checkNickname() || isBackSpace == -92 {
+            return true
+        }
+        return false
+    }
+}
+
+// MARK: - IntroTextDelegate
+
+extension SignUpVC: IntroTextDelegate {
     func getTextView(text: String) {
         self.introText = text
         checkComplete()
     }
 }
+
+// MARK: - Network
 
 extension SignUpVC {
     func signUp(param: SignUpRequest, image: UIImage) {
@@ -498,19 +539,5 @@ extension SignUpVC {
                 }
             }
         }
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension SignUpVC: UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let utf8Char = string.cString(using: .utf8)
-        let isBackSpace = strcmp(utf8Char, "\\b")
-        if string.checkNickname() || isBackSpace == -92 {
-            return true
-        }
-        return false
     }
 }

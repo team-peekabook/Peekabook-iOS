@@ -1,16 +1,15 @@
 //
-//  MoyaLoggerPlugin.swift
+//  MoyaPlugin.swift
 //  Peekabook
 //
 //  Created by devxsby on 2023/01/07.
 //
 
-import Foundation
-
-import Moya
 import UIKit
 
-final class MoyaLoggerPlugin: PluginType {
+import Moya
+
+final class MoyaPlugin: PluginType {
     
     private var isRefreshed: Bool = false {
         didSet {
@@ -87,7 +86,7 @@ final class MoyaLoggerPlugin: PluginType {
     }
 }
 
-extension MoyaLoggerPlugin {
+extension MoyaPlugin {
     
     func userTokenReissueWithAPI() {
         AuthAPI.shared.getUpdatedTokenAPI { response in

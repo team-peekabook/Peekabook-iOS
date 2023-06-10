@@ -12,7 +12,7 @@ import Moya
 final class RecommendAPI {
     
     static let shared = RecommendAPI()
-    private var recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaLoggerPlugin()])
+    private var recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     

@@ -12,7 +12,7 @@ import Moya
 final class FriendAPI {
     
     static let shared = FriendAPI()
-    private var friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaLoggerPlugin()])
+    private var friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaPlugin()])
     
     private init() { }
     
