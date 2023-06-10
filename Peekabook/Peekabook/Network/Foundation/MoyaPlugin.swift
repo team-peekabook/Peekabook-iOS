@@ -104,10 +104,10 @@ extension MoyaPlugin {
                         print("✅✅✅토큰 재발급 성공✅✅✅ socialToken\(UserDefaults.standard.string(forKey: "socialToken"))")
                         print("✅✅✅토큰 재발급 성공✅✅✅ accessToken\(UserDefaults.standard.string(forKey: "accessToken"))")
                         print("✅✅✅토큰 재발급 성공✅✅✅ refreshToken\(UserDefaults.standard.string(forKey: "refreshToken"))")
-
+                        
                     }
-                } else if message == "모든 토큰이 만료되었습니다. 재로그인 해주세요." {
-                    print("🍄🍄🍄 모든 토큰이 만료된 경우 🍄🍄🍄")
+                } else if message == "모든 토큰이 만료되었습니다. 재로그인 해주세요." || message == "잘못된 요청입니다." {
+                    print("🍄🍄 모든 토큰이 만료된 경우 or 유효하지 않은 유저의 리프레시 토큰으로 요청 🍄🍄🍄")
                     UserDefaults.standard.removeObject(forKey: "accessToken")
                     UserDefaults.standard.removeObject(forKey: "refreshToken")
                     UserDefaults.standard.removeObject(forKey: "socialToken")
