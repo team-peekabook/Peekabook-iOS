@@ -530,7 +530,7 @@ extension SignUpVC: IntroTextDelegate {
 
 extension SignUpVC {
     func signUp(param: SignUpRequest, image: UIImage) {
-        UserAPI.shared.signUp(param: param, image: image) { response in
+        UserAPI(viewController: self).signUp(param: param, image: image) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
@@ -538,7 +538,7 @@ extension SignUpVC {
     }
     
     func checkDuplicateComplete(param: CheckDuplicateRequest) {
-        UserAPI.shared.checkDuplicate(param: param) { response in
+        UserAPI(viewController: self).checkDuplicate(param: param) { response in
             if response?.success == true {
                 if let isDuplicated = response?.data?.check {
                     self.isDoubleChecked = (isDuplicated == 0) ? true : false

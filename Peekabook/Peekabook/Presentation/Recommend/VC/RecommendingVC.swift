@@ -93,6 +93,8 @@ extension RecommendingVC {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
 extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -116,7 +118,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
 extension RecommendingVC {
     
     private func getRecommendingBooksAPI() {
-        RecommendAPI.shared.getRecommend { response in
+        RecommendAPI(viewController: self).getRecommend { response in
             if response?.success == true {
                 guard let serverGetRecommendingBook = response?.data else { return }
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook

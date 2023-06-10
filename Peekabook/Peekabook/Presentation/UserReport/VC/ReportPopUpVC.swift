@@ -61,9 +61,11 @@ extension ReportPopUpVC {
     }
 }
 
+// MARK: - Network
+
 extension ReportPopUpVC {
     private func postUserReport(friendId: Int, param: UserReportRequest) {
-        FriendAPI.shared.postUserReport(friendId: friendId, param: param) { response in
+        FriendAPI(viewController: self).postUserReport(friendId: friendId, param: param) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

@@ -13,10 +13,14 @@ import Then
 
 final class BarcodeVC: BarcodeScannerViewController {
     
+    // MARK: - Properties
+    
     var searchType: SearchType = .camera
     var isbnCode: String = ""
     var displayCount: Int = 100
     var publisher: String = ""
+    
+    // MARK: - UI Components
     
     private let descriptionLabel = UILabel().then {
         $0.text = I18N.Barcode.infoLabel
@@ -34,6 +38,8 @@ final class BarcodeVC: BarcodeScannerViewController {
         $0.setUnderline()
     }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -41,6 +47,8 @@ final class BarcodeVC: BarcodeScannerViewController {
         setLayout()
     }
 }
+
+// MARK: - UI & Layout
 
 extension BarcodeVC {
     private func setUI() {
@@ -76,30 +84,9 @@ extension BarcodeVC {
             $0.centerX.equalToSuperview()
         }
     }
-    
-    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
-            if let response = response, !response.isEmpty {
-                let addBookVC = AddBookVC()
-                addBookVC.searchType = .camera
-                
-                if let info = response.first {
-                    let bookInfo = BookInfoModel(title: info.title,
-                                                 image: info.image,
-                                                 author: info.author,
-                                                 publisher: info.publisher)
-                    addBookVC.bookInfo = [bookInfo]
-                    addBookVC.dataBind(model: bookInfo)
-                }
-                
-                addBookVC.modalPresentationStyle = .fullScreen
-                self.present(addBookVC, animated: true, completion: nil)
-            } else {
-                self.showErrorPopUp()
-            }
-        }
-    }
 }
+
+// MARK: - Methods
 
 extension BarcodeVC {
     private func setDelegate() {
@@ -121,6 +108,8 @@ extension BarcodeVC {
     }
 }
 
+// MARK: - BarcodeScannerCodeDelegate
+
 extension BarcodeVC: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
         print("Barcode Data: \(code)")
@@ -134,14 +123,46 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
     }
 }
 
+// MARK: - BarcodeScannerDismissalDelegate
+
 extension BarcodeVC: BarcodeScannerDismissalDelegate {
     func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
 
+// MARK: - BarcodeScannerErrorDelegate
+
 extension BarcodeVC: BarcodeScannerErrorDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
         print(error)
+    }
+}
+
+// MARK: - Network
+
+extension BarcodeVC {
+    
+    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+            if let response = response, !response.isEmpty {
+                let addBookVC = AddBookVC()
+                addBookVC.searchType = .camera
+                
+                if let info = response.first {
+                    let bookInfo = BookInfoModel(title: info.title,
+                                                 image: info.image,
+                                                 author: info.author,
+                                                 publisher: info.publisher)
+                    addBookVC.bookInfo = [bookInfo]
+                    addBookVC.dataBind(model: bookInfo)
+                }
+                
+                addBookVC.modalPresentationStyle = .fullScreen
+                self.present(addBookVC, animated: true, completion: nil)
+            } else {
+                self.showErrorPopUp()
+            }
+        }
     }
 }

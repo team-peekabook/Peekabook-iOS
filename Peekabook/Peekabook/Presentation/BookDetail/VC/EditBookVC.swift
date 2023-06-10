@@ -248,9 +248,11 @@ extension EditBookVC {
     }
 }
 
+// MARK: - Network
+
 extension EditBookVC {
     func editMyBookInfo(id: Int, param: EditBookRequest) {
-        BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
+        BookShelfAPI(viewController: self).editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
                 self.dismiss(animated: false)
             } else {

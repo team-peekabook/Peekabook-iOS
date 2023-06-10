@@ -204,7 +204,7 @@ extension BookDetailVC {
 
 extension BookDetailVC {
     func getBookDetail(id: Int) {
-        BookShelfAPI.shared.getBookDetail(id: id) { response in
+        BookShelfAPI(viewController: self).getBookDetail(id: id) { response in
             guard let serverWatchBookDetail = response?.data else { return }
             self.bookImageView.kf.indicatorType = .activity
             self.bookImageView.kf.setImage(with: URL(string: serverWatchBookDetail.book.bookImage))

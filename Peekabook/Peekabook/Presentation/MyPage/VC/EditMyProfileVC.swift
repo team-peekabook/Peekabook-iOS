@@ -465,7 +465,7 @@ extension EditMyProfileVC: IntroTextDelegate {
 extension EditMyProfileVC {
     
     private func getAccountAPI() {
-        MyPageAPI.shared.getMyAccountInfo { response in
+        MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
                 guard let serverGetAccountDetail = response?.data else { return }
                 self.profileImageView.kf.indicatorType = .activity
@@ -478,7 +478,7 @@ extension EditMyProfileVC {
     }
     
     private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
-        MyPageAPI.shared.editMyProfile(request: request, image: image) { response in
+        MyPageAPI(viewController: self).editMyProfile(request: request, image: image) { response in
             if response?.success == true {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -486,7 +486,7 @@ extension EditMyProfileVC {
     }
     
     private func checkDuplicateComplete(param: CheckDuplicateRequest, completion: @escaping (Bool) -> Void) {
-        UserAPI.shared.checkDuplicate(param: param) { response in
+        UserAPI(viewController: self).checkDuplicate(param: param) { response in
             if response?.success == true {
                 if let isDuplicated = response?.data?.check {
                     if isDuplicated == 0 {

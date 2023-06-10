@@ -222,7 +222,7 @@ extension UserSearchVC: UITextFieldDelegate {
 
 extension UserSearchVC {
     private func getUserAPI(nickname: String) {
-        FriendAPI.shared.searchUserData(nickname: nickname) { response in
+        FriendAPI(viewController: self).searchUserData(nickname: nickname) { response in
             if response?.success == true {
                 guard let serverGetUserData = response?.data else { return }
                 self.nameLabel.text = serverGetUserData.nickname
@@ -240,7 +240,7 @@ extension UserSearchVC {
     }
     
     private func postFollowAPI(friendId: Int) {
-        FriendAPI.shared.postFollowing(id: friendId) { response in
+        FriendAPI(viewController: self).postFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = true
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
@@ -249,7 +249,7 @@ extension UserSearchVC {
     }
     
     private func deleteFollowAPI(friendId: Int) {
-        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+        FriendAPI(viewController: self).deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = false
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)

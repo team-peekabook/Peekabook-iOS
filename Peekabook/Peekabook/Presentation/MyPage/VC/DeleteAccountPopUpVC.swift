@@ -28,6 +28,7 @@ final class DeleteAccountPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension DeleteAccountPopUpVC {
 
     private func setUI() {
@@ -56,9 +57,11 @@ extension DeleteAccountPopUpVC {
     }
 }
 
+// MARK: - Network
+
 extension DeleteAccountPopUpVC {
     private func deleteAccount() {
-        MyPageAPI.shared.deleteAccount { response in
+        MyPageAPI(viewController: self).deleteAccount { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: LoginVC(), animated: true, completion: nil)
                 UserDefaults.standard.removeObject(forKey: "socialToken")

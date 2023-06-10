@@ -141,7 +141,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
 
 extension MyNotificationVC {
     private func getAlarmAPI() {
-        AlarmAPI.shared.getAlarmAPI { response in
+        AlarmAPI(viewController: self).getAlarmAPI { response in
             guard let response = response, let data = response.data else { return }
             self.serverGetAlarmData = data
             self.setEmptyView(isEnabled: data.isEmpty)

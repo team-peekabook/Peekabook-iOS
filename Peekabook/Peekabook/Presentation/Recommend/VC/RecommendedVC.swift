@@ -114,7 +114,7 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
 extension RecommendedVC {
     
     private func getRecommendedBooksAPI() {
-        RecommendAPI.shared.getRecommend { response in
+        RecommendAPI(viewController: self).getRecommend { response in
             if response?.success == true {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook

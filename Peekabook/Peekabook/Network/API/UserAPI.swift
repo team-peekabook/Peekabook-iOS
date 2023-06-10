@@ -11,25 +11,22 @@ import Moya
 
 final class UserAPI {
     
-    static let shared = UserAPI()
-    private var userProvider = MoyaProvider<UserRouter>(plugins: [MoyaPlugin()])
+    private var userProvider: MoyaProvider<UserRouter>
     
-    private init() { }
-    
-    private(set) var signUpData: GeneralResponse<BlankData>?
-    private(set) var checkDuplicateData: GeneralResponse<CheckDuplicateResponse>?
+    init(viewController: UIViewController) {
+        userProvider = MoyaProvider<UserRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+    }
     
     // 1. 회원 가입하기
-    
     func signUp(param: SignUpRequest, image: UIImage, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
-        userProvider.request(.patchSignUp(param: param, image: image)) { [self] (result) in
+        userProvider.request(.patchSignUp(param: param, image: image)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.signUpData = try response.map(GeneralResponse<BlankData>.self)
+                    let signUpData = try response.map(GeneralResponse<BlankData>.self)
                     completion(signUpData)
                 } catch let error {
-                    print(error.localizedDescription, 500)
+                    print(error.localizedDescription)
                 }
             case .failure(let err):
                 print(err)
@@ -38,14 +35,14 @@ final class UserAPI {
     }
     
     func checkDuplicate(param: CheckDuplicateRequest, completion: @escaping (GeneralResponse<CheckDuplicateResponse>?) -> Void) {
-        userProvider.request(.checkDuplicate(param: param)) { [self] (result) in
+        userProvider.request(.checkDuplicate(param: param)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.checkDuplicateData = try response.map(GeneralResponse<CheckDuplicateResponse>.self)
+                    let checkDuplicateData = try response.map(GeneralResponse<CheckDuplicateResponse>.self)
                     completion(checkDuplicateData)
                 } catch let error {
-                    print(error.localizedDescription, 500)
+                    print(error.localizedDescription)
                 }
             case .failure(let err):
                 print(err)

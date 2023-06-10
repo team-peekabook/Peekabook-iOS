@@ -69,7 +69,7 @@ extension DeletePopUpVC {
 extension DeletePopUpVC {
     
     private func deleteBookAPI(id: Int) {
-        BookShelfAPI.shared.deleteBook(bookId: id) { response in
+        BookShelfAPI(viewController: self).deleteBook(bookId: id) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

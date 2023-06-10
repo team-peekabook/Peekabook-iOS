@@ -289,7 +289,7 @@ extension LoginVC {
 
 extension LoginVC {
     func socialLogin(param: SocialLoginRequest) {
-        AuthAPI.shared.getSocialLoginAPI(param: param) { response in
+        AuthAPI(viewController: self).getSocialLoginAPI(param: param) { response in
             if response?.success == true {
                 if let data = response?.data {
                     UserDefaults.standard.setValue(data.accessToken, forKey: "accessToken")

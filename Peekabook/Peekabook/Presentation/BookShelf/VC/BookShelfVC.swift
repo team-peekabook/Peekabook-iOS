@@ -621,7 +621,7 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
 extension BookShelfVC {
     
     private func getMyBookShelfInfo() {
-        BookShelfAPI.shared.getMyBookShelfInfo { response in
+        BookShelfAPI(viewController: self).getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
             self.myProfileImageView.kf.indicatorType = .activity
@@ -648,7 +648,7 @@ extension BookShelfVC {
     }
 
     private func getFriendBookShelfInfo(userId: Int) {
-        BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
+        BookShelfAPI(viewController: self).getFriendBookShelfInfo(friendId: userId) { response in
             self.serverFriendBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
             self.introNameLabel.text = data.friendIntro.nickname
@@ -666,7 +666,7 @@ extension BookShelfVC {
     }
     
     private func deleteFollowAPI(friendId: Int) {
-        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+        FriendAPI(viewController: self).deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = false
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)

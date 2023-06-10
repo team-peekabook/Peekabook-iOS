@@ -11,6 +11,10 @@ import Moya
 
 final class MoyaPlugin: PluginType {
     
+    // MARK: - Properties
+    
+    private let viewController: UIViewController?
+    
     private var isRefreshed: Bool = false {
         didSet {
             if isRefreshed {
@@ -18,6 +22,17 @@ final class MoyaPlugin: PluginType {
             }
         }
     }
+    
+    // MARK: - Initialization
+    
+    init(viewController: UIViewController?) {
+        self.viewController = viewController
+    }
+}
+
+// MARK: - Methods
+
+extension MoyaPlugin {
     
     // Request를 보낼 때 호출
     func willSend(_ request: RequestType, target: TargetType) {
@@ -83,13 +98,19 @@ final class MoyaPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+        
+        // 🔥 present alert view controller.
+        let alertViewController = UIAlertController(title: "네트워크 연결 실패", message: "네트워크 환경을 한번 더 확인해주세요.", preferredStyle: .alert)
+        alertViewController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        
+        viewController?.present(alertViewController, animated: true)
     }
 }
 
 extension MoyaPlugin {
     
     func userTokenReissueWithAPI() {
-        AuthAPI.shared.getUpdatedTokenAPI { response in
+        AuthAPI().getUpdatedTokenAPI { response in
             print("🌟요청하기 전 socialToken\(UserDefaults.standard.string(forKey: "socialToken"))")
             print("🌟요청하기 전 accessToken\(UserDefaults.standard.string(forKey: "accessToken"))")
             print("🌟요청하기 전 refreshToken\(UserDefaults.standard.string(forKey: "refreshToken"))")

@@ -154,7 +154,7 @@ extension ManageBlockUsersVC: UnblockableButton, UnblockablePopUp {
 extension ManageBlockUsersVC {
     
     private func getBlockedUserList() {
-        MyPageAPI.shared.getBlockedAccountList { response in
+        MyPageAPI(viewController: self).getBlockedAccountList { response in
             if response?.success == true {
                 self.blockedList = response?.data ?? []
                 self.blockedUsersCollectionView.reloadData()
@@ -164,7 +164,7 @@ extension ManageBlockUsersVC {
     }
     
     private func unblockAccount(with userId: Int) {
-        MyPageAPI.shared.unblockAccount(userId: userId) { response in
+        MyPageAPI(viewController: self).unblockAccount(userId: userId) { response in
             if response?.success == true {
                 self.presentedViewController?.dismiss(animated: false)
                 self.getBlockedUserList()

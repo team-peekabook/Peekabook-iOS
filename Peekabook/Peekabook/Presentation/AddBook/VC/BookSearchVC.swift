@@ -83,6 +83,7 @@ final class BookSearchVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension BookSearchVC {
     
     private func setBackgroundColor() {
@@ -143,6 +144,12 @@ extension BookSearchVC {
         }
     }
     
+}
+
+// MARK: - Methods
+
+extension BookSearchVC {
+    
     private func register() {
         bookTableView.register(BookInfoTVC.self,
                                forCellReuseIdentifier: BookInfoTVC.className)
@@ -158,15 +165,16 @@ extension BookSearchVC {
         }
     }
     
+    
+    func bookBind(image: String, title: String, author: String, publisher: String) {
+        bookInfoList.append(BookInfoModel(title: title, image: image, author: author, publisher: publisher))
+    }
+    
     // MARK: - @objc Function
     
     @objc
     private func cancelButtonDidTap() {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func bookBind(image: String, title: String, author: String, publisher: String) {
-        bookInfoList.append(BookInfoModel(title: title, image: image, author: author, publisher: publisher))
     }
     
     @objc
@@ -181,15 +189,14 @@ extension BookSearchVC {
     }
 }
 
-// MARK: - Methods
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
-extension BookSearchVC: UITableViewDelegate {
+extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 138
     }
-}
-
-extension BookSearchVC: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookInfoList.count
     }
@@ -250,6 +257,8 @@ extension BookSearchVC: UITableViewDataSource {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchButtonDidTap()
@@ -258,10 +267,12 @@ extension BookSearchVC: UITextFieldDelegate {
     }
 }
 
+// MARK: - Network
+
 extension BookSearchVC {
     
     private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI.shared.getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
             self.bookInfoList = []
             
             guard let response = response else { return }
