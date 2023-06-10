@@ -16,6 +16,8 @@ final class SignUpVC: UIViewController {
     
     // MARK: - Properties
     
+    private var isSignUp: Bool = false
+    
     var nicknameText: String = ""
     var introText: String = ""
     
@@ -58,9 +60,6 @@ final class SignUpVC: UIViewController {
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
         .addRightButtonAction {
             print("회원가입 도중 창 닫아버림~~~~~~~~~~‼️")
-            UserDefaults.standard.removeObject(forKey: "socialToken")
-            UserDefaults.standard.removeObject(forKey: "accessToken")
-            UserDefaults.standard.removeObject(forKey: "refreshToken")
             self.dismiss(animated: true)
         }
     
@@ -162,6 +161,15 @@ final class SignUpVC: UIViewController {
         addTapGesture()
         addKeyboardObserver()
         setDelegate()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("🌟 회원가입 뷰 viewDidDisappear")
+        if !isSignUp {
+            UserDefaults.standard.removeObject(forKey: "socialToken")
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "refreshToken")
+        }
     }
     
     deinit {
@@ -366,8 +374,7 @@ extension SignUpVC {
             doubleCheckNotTappedLabel.isHidden = false
         } else {
             doubleCheckNotTappedLabel.isHidden = true
-            
-            guard let profileImage = profileImageView.image else { return }
+            isSignUp = true
             signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
             view.endEditing(true)
         }
