@@ -102,7 +102,7 @@ extension BarcodeVC {
     }
     
     func showErrorPopUp() {
-        let errorPopUpVC = ErrorPopUpVC()
+        let errorPopUpVC = BookSearchErrorPopUpVC()
         errorPopUpVC.modalPresentationStyle = .overFullScreen
         self.present(errorPopUpVC, animated: false)
     }

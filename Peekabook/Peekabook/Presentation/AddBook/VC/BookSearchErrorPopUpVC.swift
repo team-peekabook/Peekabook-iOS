@@ -1,5 +1,5 @@
 //
-//  ErrorPopUpViewController.swift
+//  BookSearchErrorPopUpVC.swift
 //  Peekabook
 //
 //  Created by 고두영 on 2023/01/09.
@@ -12,11 +12,10 @@ import Then
 
 import Moya
 
-final class ErrorPopUpVC: UIViewController {
+final class BookSearchErrorPopUpVC: UIViewController {
     
-    // MARK: - Properties
-
     // MARK: - UI Components
+    
     private let popUpView = UIView()
     
     private let emptyLabel = UILabel().then {
@@ -51,7 +50,7 @@ final class ErrorPopUpVC: UIViewController {
 
 // MARK: - UI & Layout
 
-extension ErrorPopUpVC {
+extension BookSearchErrorPopUpVC {
     
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
@@ -92,11 +91,11 @@ extension ErrorPopUpVC {
 
 // MARK: - Methods
 
-extension ErrorPopUpVC {
+extension BookSearchErrorPopUpVC {
     
     @objc private func textSearchButtonDidTap() {
         let bookSearchVC = BookSearchVC()
-        bookSearchVC.modalPresentationStyle = .fullScreen
+        bookSearchVC.modalPresentationStyle = .overFullScreen
         self.present(bookSearchVC, animated: true, completion: nil)
     }
     

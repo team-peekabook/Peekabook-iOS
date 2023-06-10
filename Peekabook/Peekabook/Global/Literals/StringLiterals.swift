@@ -11,7 +11,8 @@ struct I18N {
     
     struct Alert {
         static let error = "에러"
-        static let networkError = "네트워크 오류가 발생하였습니다."
+        static let networkError = "앗! 네트워크 연결에 실패했어요.\n확인 후 다시 시도해주세요."
+        static let retry = "다시 시도하기"
         static let emptyNoti = "앗! 준비 중인 기능이에요."
     }
     

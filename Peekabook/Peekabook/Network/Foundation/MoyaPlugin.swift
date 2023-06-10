@@ -99,11 +99,10 @@ extension MoyaPlugin {
         log.append("<-- END HTTP")
         print(log)
         
-        // 🔥 present alert view controller.
-        let alertViewController = UIAlertController(title: "네트워크 연결 실패", message: "네트워크 환경을 한번 더 확인해주세요.", preferredStyle: .alert)
-        alertViewController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-        
-        viewController?.present(alertViewController, animated: true)
+        // 네트워크 연결 유실 시 팝업 띄움
+        let alertVC = NetworkAlertPopUpVC()
+        alertVC.modalPresentationStyle = .fullScreen
+        viewController?.present(alertVC, animated: false)
     }
 }
 
