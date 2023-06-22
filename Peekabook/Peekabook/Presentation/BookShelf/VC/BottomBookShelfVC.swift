@@ -64,15 +64,16 @@ final class BottomBookShelfVC: UIViewController {
         let label = UILabel()
         label.font = .h2
         label.textColor = .peekaRed_60
+        label.numberOfLines = 2
         return label
     }()
     
     private let emptyDescriptionImage: UIImageView = {
-        let iv = UIImageView()
-        iv.isHidden = true
-        iv.image = ImageLiterals.Icn.progressIndicator
-        iv.contentMode = .scaleAspectFill
-        return iv
+        let imageView = UIImageView()
+        imageView.isHidden = true
+        imageView.image = ImageLiterals.Icn.progressIndicator
+        imageView.contentMode = .scaleAspectFill
+        return imageView
     }()
     
     // MARK: - View Life Cycle
@@ -176,7 +177,7 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.snp.makeConstraints {
             $0.top.equalTo(headerContainerView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(70)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
         }
         
         emptyDescriptionLabel.snp.makeConstraints {
