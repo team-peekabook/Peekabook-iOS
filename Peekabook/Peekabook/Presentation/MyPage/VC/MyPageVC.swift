@@ -179,7 +179,10 @@ extension MyPageVC {
         MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
                 if let accountData = response?.data {
-                    self.getAccountData = accountData
+                    self.getAccountData = accountData                    
+                    UserDefaultKeyList.userNickname = accountData.nickname
+                    UserDefaultKeyList.userIntro = accountData.intro
+                    UserDefaultKeyList.userProfileImage = accountData.profileImage
                     self.myPageTableView.reloadData()
                 }
             }
