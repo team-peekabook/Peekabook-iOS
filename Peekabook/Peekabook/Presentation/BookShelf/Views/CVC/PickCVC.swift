@@ -135,7 +135,6 @@ extension PickCVC {
     
     func setData(model: Pick) {
         titleContainerView.isHidden = (model.description?.count) == 0 || model.description == nil
-        
         rankingLabel.text = String(model.pickIndex)
         bookId = model.book.id
         bookNameLabel.text = model.book.bookTitle

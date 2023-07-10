@@ -17,7 +17,7 @@ struct RecommendBook: Codable {
     let createdAt: String
     let friendID: Int
     let friendNickname: String
-    let friendImage: String
+    let friendImage: String?
     let bookID: Int
     let bookTitle, author: String
     let bookImage: String

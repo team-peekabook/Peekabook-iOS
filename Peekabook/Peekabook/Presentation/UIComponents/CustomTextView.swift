@@ -200,7 +200,7 @@ extension CustomTextView {
             boxView.backgroundColor = .peekaWhite_60
         case .editProfileIntro:
             label.text = I18N.Profile.oneLineIntro
-            textView.text = UserDefaults.standard.string(forKey: "userIntro")
+            textView.text = UserDefaultKeyList.userIntro
             maxLabel.text = "\(textView.text.count)/40"
             textView.textColor = .peekaRed
             proposalItemhidden()

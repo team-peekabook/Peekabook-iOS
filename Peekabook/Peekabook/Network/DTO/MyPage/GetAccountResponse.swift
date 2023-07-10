@@ -11,6 +11,6 @@ import Foundation
 struct GetAccountResponse: Codable {
     let id: Int
     let nickname: String
-    let profileImage: String
+    let profileImage: String?
     let intro: String?
 }

@@ -11,10 +11,10 @@ import Moya
 
 final class BookShelfAPI {
     
-    private var bookShelfProvider: MoyaProvider<BookShelfRouter>
-    
+    private var bookShelfProvider = Providers.bookShelfProvider
+        
     init(viewController: UIViewController) {
-        bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 내 책장 (메인 뷰) 조회 하기

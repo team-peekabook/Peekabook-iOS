@@ -11,14 +11,14 @@ import Moya
 
 final class UserAPI {
     
-    private var userProvider: MoyaProvider<UserRouter>
+    private var userProvider = Providers.userProvider
     
     init(viewController: UIViewController) {
-        userProvider = MoyaProvider<UserRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 회원 가입하기
-    func signUp(param: SignUpRequest, image: UIImage, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+    func signUp(param: SignUpRequest, image: UIImage?, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
         userProvider.request(.patchSignUp(param: param, image: image)) { result in
             switch result {
             case .success(let response):
@@ -34,6 +34,7 @@ final class UserAPI {
         }
     }
     
+    // 2. 닉네임 중복검사
     func checkDuplicate(param: CheckDuplicateRequest, completion: @escaping (GeneralResponse<CheckDuplicateResponse>?) -> Void) {
         userProvider.request(.checkDuplicate(param: param)) { result in
             switch result {

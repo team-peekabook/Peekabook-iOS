@@ -10,7 +10,7 @@ import UIKit
 import Moya
 
 enum UserRouter {
-    case patchSignUp(param: SignUpRequest, image: UIImage)
+    case patchSignUp(param: SignUpRequest, image: UIImage?)
     case checkDuplicate(param: CheckDuplicateRequest)
 }
 
@@ -40,17 +40,20 @@ extension UserRouter: TargetType {
     var task: Moya.Task {
         switch self {
         case .patchSignUp(let param, let image):
-            
-            let imageData = image.pngData() ?? Data()
             let nicknameData = param.nickname.data(using: String.Encoding.utf8) ?? Data()
             let introData = param.intro.data(using: String.Encoding.utf8) ?? Data()
-
-            let imageMultipartFormData = MultipartFormData(provider: .data(imageData), name: "file", fileName: ".jpeg", mimeType: "image/jpeg")
-            let nicknameMultipartFormData = MultipartFormData(provider: .data(nicknameData), name: "nickname")
-            let introMultipartFormData = MultipartFormData(provider: .data(introData), name: "intro")
-
-            return .uploadMultipart([imageMultipartFormData, nicknameMultipartFormData, introMultipartFormData])
             
+            let multipartData: [MultipartFormBodyPart]
+            if let image = image, let imageData = image.pngData() {
+                multipartData = [MultipartFormBodyPart(provider: .data(imageData), name: "file", fileName: ".jpeg", mimeType: "image/jpeg"),
+                                 MultipartFormBodyPart(provider: .data(nicknameData), name: "nickname"),
+                                 MultipartFormBodyPart(provider: .data(introData), name: "intro")]
+            } else {
+                multipartData = [MultipartFormBodyPart(provider: .data(nicknameData), name: "nickname"),
+                                 MultipartFormBodyPart(provider: .data(introData), name: "intro")]
+            }
+            
+            return .uploadMultipart(multipartData)
         case .checkDuplicate(let param):
             return .requestJSONEncodable(param)
         }

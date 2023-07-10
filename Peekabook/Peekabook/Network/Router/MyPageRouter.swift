@@ -53,15 +53,20 @@ extension MyPageRouter: TargetType {
         case .deleteAccount, .getMyAccount, .getBlockedAccounts, .unblockAccount:
             return .requestPlain
         case .patchMyProfile(let request, let image):
-            let imageData = image?.pngData() ?? Data()
             let nicknameData = request.nickname.data(using: String.Encoding.utf8) ?? Data()
             let introData = request.intro.data(using: String.Encoding.utf8) ?? Data()
-
-            let imageMultipartFormData = MultipartFormData(provider: .data(imageData), name: "file", fileName: ".jpeg", mimeType: "image/jpeg")
-            let nicknameMultipartFormData = MultipartFormData(provider: .data(nicknameData), name: "nickname")
-            let introMultipartFormData = MultipartFormData(provider: .data(introData), name: "intro")
-
-            return .uploadMultipart([imageMultipartFormData, nicknameMultipartFormData, introMultipartFormData])
+            
+            let multipartData: [MultipartFormBodyPart]
+            if let image = image, let imageData = image.pngData() {
+                multipartData = [MultipartFormBodyPart(provider: .data(imageData), name: "file", fileName: ".jpeg", mimeType: "image/jpeg"),
+                                 MultipartFormBodyPart(provider: .data(nicknameData), name: "nickname"),
+                                 MultipartFormBodyPart(provider: .data(introData), name: "intro")]
+            } else {
+                multipartData = [MultipartFormBodyPart(provider: .data(nicknameData), name: "nickname"),
+                                 MultipartFormBodyPart(provider: .data(introData), name: "intro")]
+            }
+            
+            return .uploadMultipart(multipartData)
         }
     }
     

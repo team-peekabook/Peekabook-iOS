@@ -64,6 +64,7 @@ final class BottomBookShelfVC: UIViewController {
         let label = UILabel()
         label.font = .h2
         label.textColor = .peekaRed_60
+        label.textAlignment = .center
         label.numberOfLines = 2
         return label
     }()
@@ -177,7 +178,7 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.snp.makeConstraints {
             $0.top.equalTo(headerContainerView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(85)
         }
         
         emptyDescriptionLabel.snp.makeConstraints {

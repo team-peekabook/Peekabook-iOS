@@ -11,10 +11,10 @@ import Moya
 
 final class MyPageAPI {
     
-    private var mypageProvider: MoyaProvider<MyPageRouter>
-    
+    private var mypageProvider = Providers.mypageProvider
+                
     init(viewController: UIViewController) {
-        mypageProvider = MoyaProvider<MyPageRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        mypageProvider = MoyaProvider<MyPageRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 회원 탈퇴하기

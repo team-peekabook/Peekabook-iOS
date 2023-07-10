@@ -16,15 +16,18 @@ final class EditMyProfileVC: UIViewController {
     
     // MARK: - Properties
     
-    var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
-    var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
-    var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
-    private var temporaryName: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
+    var nicknameText: String = UserDefaultKeyList.userNickname ?? ""
+    var introText: String = UserDefaultKeyList.userIntro ?? ""
+    var userImage: String = UserDefaultKeyList.userProfileImage ?? ""
+    private var temporaryName: String = UserDefaultKeyList.userNickname ?? ""
     
     var isImageDefaultType: Bool = true {
         didSet {
             if isImageDefaultType {
                 self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+                self.editImageButton.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
+            } else {
+                self.editImageButton.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
             }
         }
     }
@@ -91,7 +94,7 @@ final class EditMyProfileVC: UIViewController {
         $0.autocorrectionType = .no
         $0.returnKeyType = .done
         $0.font = .h2
-        $0.text = UserDefaults.standard.string(forKey: "userNickname")
+        $0.text = UserDefaultKeyList.userNickname
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         $0.delegate = self
     }
@@ -116,7 +119,7 @@ final class EditMyProfileVC: UIViewController {
         $0.isHidden = true
     }
     private let countMaxTextLabel = UILabel().then {
-        if let name = UserDefaults.standard.string(forKey: "userNickname") {
+        if let name = UserDefaultKeyList.userNickname {
             $0.text = "\(name.count)" + I18N.Profile.nicknameLength
             $0.font = .h2
             $0.textColor = .peekaGray2
@@ -133,9 +136,13 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         setTapGesture()
         setIntroView()
-        checkIsDefaultImage()
         addKeyboardObserver()
         getAccountAPI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkIsDefaultImage()
     }
     
     deinit {
@@ -277,7 +284,7 @@ extension EditMyProfileVC {
             guard let self = self else { return }
             
             // 기존의 UserNickname과 같은 경우
-            if self.nicknameText == UserDefaults.standard.string(forKey: "userNickname") {
+            if self.nicknameText == UserDefaultKeyList.userNickname {
                 self.temporaryName = self.nicknameText
                 self.isDoubleChecked = true
                 self.doubleCheckButton.backgroundColor = .peekaGray1
@@ -301,9 +308,8 @@ extension EditMyProfileVC {
     
     @objc private func checkButtonDidTap() {
         guard let profileImage = profileImageView.image else { return }
-        editMyProfile(request: PatchProfileRequest(nickname: nicknameText,
-                                                   intro: introText),
-                      image: profileImage)
+
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameText, intro: introText), image: profileImage)
     }
     
     private func setIntroView() {
@@ -317,7 +323,7 @@ extension EditMyProfileVC {
     }
     
     private func checkIsDefaultImage() {
-        if profileImageView.image == nil || profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
             self.isImageDefaultType = true
         } else {
             self.isImageDefaultType = false
@@ -345,8 +351,6 @@ extension EditMyProfileVC {
             alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
                 self.isImageDefaultType = true
             }))
-        } else {
-            self.isImageDefaultType = false
         }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -416,6 +420,7 @@ extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
             self.profileImageView.image = fixOrientation(img: image)
+            self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -468,17 +473,17 @@ extension EditMyProfileVC {
         MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
                 guard let serverGetAccountDetail = response?.data else { return }
-                self.profileImageView.kf.indicatorType = .activity
-                self.profileImageView.kf.setImage(with: URL(string: serverGetAccountDetail.profileImage))
-                if response?.data?.profileImage.isEmpty == true {
-                    self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
-                }
+                self.profileImageView.loadProfileImage(from: response?.data?.profileImage)
             }
         }
     }
     
     private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
-        MyPageAPI(viewController: self).editMyProfile(request: request, image: image) { response in
+        var finalImage: UIImage? = image
+        if isImageDefaultType {
+            finalImage = nil
+        }
+        MyPageAPI(viewController: self).editMyProfile(request: request, image: finalImage) { response in
             if response?.success == true {
                 self.navigationController?.popViewController(animated: true)
             }

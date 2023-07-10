@@ -13,22 +13,22 @@ struct NetworkConstant {
     
     static var socialTokenHeader: [String: String] {
         return ["Content-Type": "application/json",
-                "accessToken": UserDefaults.standard.string(forKey: "socialToken") ?? ""]
+                "accessToken": UserManager.shared.socialToken ?? ""]
     }
     
     static var hasTokenHeader: [String: String] {
         return ["Content-Type": "application/json",
-                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""]
+                "accessToken": UserManager.shared.accessToken ?? ""]
     }
     
     static var multipartWithTokenHeader: [String: String] {
         return ["Content-Type": "multipart/form-data",
-                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? ""]
+                "accessToken": UserManager.shared.accessToken ?? ""]
     }
     
     static var updateTokenHeader: [String: String] {
         return ["Content-Type": "application/json",
-                "accessToken": UserDefaults.standard.string(forKey: "accessToken") ?? "",
-                "refreshToken": UserDefaults.standard.string(forKey: "refreshToken") ?? ""]
+                "accessToken": UserManager.shared.accessToken ?? "",
+                "refreshToken": UserManager.shared.refreshToken ?? ""]
     }
 }

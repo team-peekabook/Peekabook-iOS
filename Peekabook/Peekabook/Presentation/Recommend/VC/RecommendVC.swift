@@ -152,16 +152,22 @@ extension RecommendVC {
             scrollPosition: .bottom
         )
         
-        if let recommendedVC = dataViewControllers.first {
-            pageViewController.setViewControllers(
-                [recommendedVC],
-                direction: .forward,
-                animated: true,
-                completion: nil
-            )
+        if let recommendedVC = dataViewControllers.first as? RecommendedVC {
+            recommendedVC.viewWillAppear(true)
+        } else {
+            recommendingVC.viewWillAppear(true)
         }
+        
+        pageViewController.setViewControllers(
+            [dataViewControllers[0]],
+            direction: .forward,
+            animated: true,
+            completion: nil
+        )
     }
 }
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 
 extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -188,6 +194,8 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         )
     }
 }
+
+// MARK: - UIPageViewControllerDelegate, UIPageViewControllerDataSource
 
 extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     

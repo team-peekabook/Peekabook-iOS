@@ -181,8 +181,8 @@ extension MyPageVC {
                 if let accountData = response?.data {
                     self.getAccountData = accountData                    
                     UserDefaultKeyList.userNickname = accountData.nickname
-                    UserDefaultKeyList.userIntro = accountData.intro
-                    UserDefaultKeyList.userProfileImage = accountData.profileImage
+                    UserDefaultKeyList.userIntro = accountData.intro                    
+                    UserDefaultKeyList.userProfileImage = URL(string: accountData.profileImage ?? "") != nil ? accountData.profileImage : ""
                     self.myPageTableView.reloadData()
                 }
             }

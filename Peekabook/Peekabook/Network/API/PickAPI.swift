@@ -11,10 +11,10 @@ import Moya
 
 final class PickAPI {
     
-    private var pickProvider: MoyaProvider<PickRouter>
+    private var pickProvider = Providers.pickProvider
     
     init(viewController: UIViewController) {
-        pickProvider = MoyaProvider<PickRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        pickProvider = MoyaProvider<PickRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. Pick 수정뷰에서 책 전체 조회하기

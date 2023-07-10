@@ -101,7 +101,6 @@ final class BookShelfVC: UIViewController {
         iv.layer.borderWidth = 3
         iv.layer.masksToBounds = true
         iv.layer.cornerRadius = 22
-        iv.clipsToBounds = true
         return iv
     }()
     
@@ -182,10 +181,10 @@ final class BookShelfVC: UIViewController {
     }()
     
     private let emptyFriendsListDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .s3
-        label.textColor = .peekaRed_60
-        return label
+        let lb = UILabel()
+        lb.font = .s3
+        lb.textColor = .peekaRed_60
+        return lb
     }()
     
     // MARK: - View Life Cycle
@@ -268,7 +267,6 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func myProfileViewDidTap() {
-        getMyBookShelfInfo()
         selectedUserIndex = nil
     }
 }
@@ -457,13 +455,10 @@ extension BookShelfVC {
         self.addChild(bottomShelfVC)
         bottomShelfVC.didMove(toParent: self)
         
-        let height = view.frame.height
-        let width = view.frame.width
-        
         bottomShelfVC.view.frame = CGRect(x: 0,
-                                          y: self.view.frame.maxY,
-                                          width: width,
-                                          height: height)
+                                          y: view.frame.maxY,
+                                          width: view.frame.width,
+                                          height: view.frame.height)
     }
     
     private func setDelegate() {
@@ -624,8 +619,7 @@ extension BookShelfVC {
         BookShelfAPI(viewController: self).getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
-            self.myProfileImageView.kf.indicatorType = .activity
-            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage ?? "")))
+            self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
             self.myNameLabel.text = data.myIntro.nickname
             self.introNameLabel.text = data.myIntro.nickname
             self.introductionLabel.text = data.myIntro.intro
@@ -633,9 +627,10 @@ extension BookShelfVC {
             self.picks = data.picks
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
-            UserDefaults.standard.setValue(data.myIntro.nickname, forKey: "userNickname")
-            UserDefaults.standard.setValue(data.myIntro.intro, forKey: "userIntro")
-            UserDefaults.standard.setValue(data.myIntro.profileImage, forKey: "userProfileImage")
+            
+            UserDefaultKeyList.userNickname = data.myIntro.nickname
+            UserDefaultKeyList.userIntro = data.myIntro.intro
+            UserDefaultKeyList.userProfileImage = URL(string: data.myIntro.profileImage ?? "") != nil ? data.myIntro.profileImage : ""
             
             self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
             self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
@@ -651,6 +646,7 @@ extension BookShelfVC {
         BookShelfAPI(viewController: self).getFriendBookShelfInfo(friendId: userId) { response in
             self.serverFriendBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
+            
             self.introNameLabel.text = data.friendIntro.nickname
             self.introductionLabel.text = data.friendIntro.intro
             self.picks = data.picks
@@ -661,7 +657,6 @@ extension BookShelfVC {
             self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.pickCollectionView.reloadData()
-
         }
     }
     

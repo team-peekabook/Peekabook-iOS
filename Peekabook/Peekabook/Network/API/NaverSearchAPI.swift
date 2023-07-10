@@ -11,10 +11,10 @@ import Moya
 
 final class NaverSearchAPI {
     
-    private var naverSearchProvider: MoyaProvider<NaverSearchRouter>
-    
+    private var naverSearchProvider = Providers.naverSearchProvider
+                
     init(viewController: UIViewController) {
-        naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 네이버 책 검색

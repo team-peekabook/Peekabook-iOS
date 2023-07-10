@@ -11,10 +11,10 @@ import Moya
 
 final class AlarmAPI {
     
-    private var alarmProvider: MoyaProvider<AlarmRouter>
-    
+    private var alarmProvider = Providers.alarmProvider
+            
     init(viewController: UIViewController) {
-        alarmProvider = MoyaProvider<AlarmRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        alarmProvider = MoyaProvider<AlarmRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 팔로우 알림 조회하기

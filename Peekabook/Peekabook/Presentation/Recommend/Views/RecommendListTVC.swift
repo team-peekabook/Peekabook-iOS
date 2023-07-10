@@ -204,9 +204,8 @@ extension RecommendListTVC {
         bookNameLabel.text = model.bookTitle
         bookWriterLabel.text = model.author
         bookRecommendDateLabel.text = model.createdAt
-        bookRecommendedPersonImage.kf.indicatorType = .activity
-        bookRecommendedPersonImage.kf.setImage(with: URL(string: model.friendImage))
         bookRecommendedPersonLabel.text = model.friendNickname
         bookRecommendTextLabel.text = model.recommendDesc
+        bookRecommendedPersonImage.loadProfileImage(from: model.friendImage)
     }
 }

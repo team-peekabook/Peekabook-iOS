@@ -11,10 +11,10 @@ import Moya
 
 final class RecommendAPI {
     
-    private var recommendProvider: MoyaProvider<RecommendRouter>
-    
+    private var recommendProvider = Providers.recommendProvider
+        
     init(viewController: UIViewController) {
-        recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 추천보기

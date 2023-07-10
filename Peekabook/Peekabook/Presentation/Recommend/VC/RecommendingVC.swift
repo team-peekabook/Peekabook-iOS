@@ -11,7 +11,6 @@ final class RecommendingVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverGetRecommendingBook: GetRecommendResponse?
     private var recommendingBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -39,7 +38,6 @@ final class RecommendingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
         setLayout()
         setDelegate()
@@ -108,7 +106,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC
         else { return UITableViewCell() }
-        cell.dataBind(model: recommendingBooks[safe: indexPath.row]!)
+        cell.dataBind(model: recommendingBooks[indexPath.row])
         return cell
     }
 }
@@ -122,15 +120,22 @@ extension RecommendingVC {
             if response?.success == true {
                 guard let serverGetRecommendingBook = response?.data else { return }
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook
-                self.recommendingTableView.reloadData()
                 
-                if let recommendingBooks = response?.data?.recommendingBook, !recommendingBooks.isEmpty {
-                    self.emptyDescriptionLabel.isHidden = true
-                    self.recommendingTableView.isHidden = false
-                } else {
-                    self.emptyDescriptionLabel.isHidden = false
-                    self.recommendingTableView.isHidden = true
+                DispatchQueue.main.async {
+
+                    if let recommendingBooks = response?.data?.recommendingBook, !recommendingBooks.isEmpty {
+                        self.emptyDescriptionLabel.isHidden = true
+                        self.recommendingTableView.isHidden = false
+                    } else {
+                        self.emptyDescriptionLabel.isHidden = false
+                        self.recommendingTableView.isHidden = true
+                    }
+
+                    print(" 🚽🚽🚽 recommendingBooks 데이터 수: \(self.recommendingBooks.count)")
+
+                    self.recommendingTableView.reloadData()
                 }
+
             }
         }
     }

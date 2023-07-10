@@ -11,7 +11,6 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverGetRecommendedBook: GetRecommendResponse?
     private var recommendedBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -118,15 +117,23 @@ extension RecommendedVC {
             if response?.success == true {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
-                self.recommendedTableView.reloadData()
-                
-                if let recommendedBooks = response?.data?.recommendedBook, !recommendedBooks.isEmpty {
-                    self.emptyDescriptionLabel.isHidden = true
-                    self.recommendedTableView.isHidden = false
-                } else {
-                    self.emptyDescriptionLabel.isHidden = false
-                    self.recommendedTableView.isHidden = true
+
+                DispatchQueue.main.async {
+
+                    if let recommendedBooks = response?.data?.recommendedBook, !recommendedBooks.isEmpty {
+                        self.emptyDescriptionLabel.isHidden = true
+                        self.recommendedTableView.isHidden = false
+                    } else {
+                        self.emptyDescriptionLabel.isHidden = false
+                        self.recommendedTableView.isHidden = true
+                    }
+
+
+                    print(" 💩💩💩 recommendedBooks 데이터 수: \(self.recommendedBooks.count)")
+
+                    self.recommendedTableView.reloadData()
                 }
+                
             }
         }
     }

@@ -43,7 +43,7 @@
 		8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850652969B5060062E92A /* NetworkConstant.swift */; };
 		8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850672969BA4A0062E92A /* NetworkResult.swift */; };
 		8E18506A2969BA9F0062E92A /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1850692969BA9F0062E92A /* GeneralResponse.swift */; };
-		8E18506C2969BAC60062E92A /* MoyaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaPlugin.swift */; };
+		8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */; };
 		8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18506D2969BC130062E92A /* BookShelfRouter.swift */; };
 		8E21E53429E040B900E68DAB /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53329E040B900E68DAB /* OnboardingVC.swift */; };
 		8E21E53829E04BC700E68DAB /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */; };
@@ -57,7 +57,6 @@
 		8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45036F29D1F40300A829A6 /* UserRouter.swift */; };
 		8E45037429D1F4EB00A829A6 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */; };
 		8E45037629D1F4F200A829A6 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037529D1F4F200A829A6 /* UserAPI.swift */; };
-		8E45037829D1F4FD00A829A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45037729D1F4FD00A829A6 /* AuthAPI.swift */; };
 		8E4503A129D46CA900A829A6 /* ManageBlockUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */; };
 		8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */; };
 		8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */; };
@@ -72,8 +71,15 @@
 		8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8929649A920013F744 /* BookShelfCVC.swift */; };
 		8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B8B29651B360013F744 /* FriendsCVC.swift */; };
 		8E6F7B95296533000013F744 /* PickCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7B94296533000013F744 /* PickCVC.swift */; };
+		8E7817A22A5BAE99004DFF95 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7817A12A5BAE99004DFF95 /* UIImageView+.swift */; };
 		8E806F432A32260F002FE5DF /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8E806F422A32260F002FE5DF /* BarcodeScanner */; };
 		8E806F452A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */; };
+		8E806F552A38286B002FE5DF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F542A38286B002FE5DF /* UserManager.swift */; };
+		8E806F572A3828BF002FE5DF /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */; };
+		8E806F592A3828E4002FE5DF /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F582A3828E4002FE5DF /* Providers.swift */; };
+		8E806F5B2A382BF3002FE5DF /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */; };
+		8E806F5D2A384EDE002FE5DF /* UserDefaultKeyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */; };
+		8E806F5F2A385132002FE5DF /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5E2A385132002FE5DF /* SplashVC.swift */; };
 		8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */; };
 		8E81F3A1296058CC001815B4 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */; };
 		8E81F3A2296058CC001815B4 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */; };
@@ -198,7 +204,7 @@
 		8E1850652969B5060062E92A /* NetworkConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstant.swift; sourceTree = "<group>"; };
 		8E1850672969BA4A0062E92A /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		8E1850692969BA9F0062E92A /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
-		8E18506B2969BAC60062E92A /* MoyaPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPlugin.swift; sourceTree = "<group>"; };
+		8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E18506D2969BC130062E92A /* BookShelfRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRouter.swift; sourceTree = "<group>"; };
 		8E21E53329E040B900E68DAB /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		8E21E53729E04BC700E68DAB /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
@@ -209,14 +215,12 @@
 		8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peekabook.entitlements; sourceTree = "<group>"; };
 		8E4083DB296F334500B53339 /* PickAllResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAllResponse.swift; sourceTree = "<group>"; };
 		8E4083DD2970114C00B53339 /* EditPickRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickRequest.swift; sourceTree = "<group>"; };
-		8E4083DF2970122B00B53339 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Peekabook/Network/DTO/Alarm/.gitkeep; sourceTree = SOURCE_ROOT; };
 		8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAlarmResponse.swift; sourceTree = "<group>"; };
 		8E45036B29D1F3F100A829A6 /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
 		8E45036D29D1F3F800A829A6 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		8E45036F29D1F40300A829A6 /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
 		8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		8E45037529D1F4F200A829A6 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
-		8E45037729D1F4FD00A829A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		8E4503A029D46CA900A829A6 /* ManageBlockUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockUsersVC.swift; sourceTree = "<group>"; };
 		8E4503A229D46CF600A829A6 /* BlockedUserCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCVC.swift; sourceTree = "<group>"; };
 		8E4503A429D4889800A829A6 /* UnblockPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockPopUpVC.swift; sourceTree = "<group>"; };
@@ -233,7 +237,14 @@
 		8E6F7B8929649A920013F744 /* BookShelfCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCVC.swift; sourceTree = "<group>"; };
 		8E6F7B8B29651B360013F744 /* FriendsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCVC.swift; sourceTree = "<group>"; };
 		8E6F7B94296533000013F744 /* PickCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCVC.swift; sourceTree = "<group>"; };
+		8E7817A12A5BAE99004DFF95 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAlertPopUpVC.swift; sourceTree = "<group>"; };
+		8E806F542A38286B002FE5DF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		8E806F582A3828E4002FE5DF /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
+		8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
+		8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeyList.swift; sourceTree = "<group>"; };
+		8E806F5E2A385132002FE5DF /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		8E81F39B296058CC001815B4 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		8E81F39C296058CC001815B4 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
@@ -477,6 +488,7 @@
 				8E0C3AF129B6D28C00D51E5A /* Array+.swift */,
 				8E81F3DD29608284001815B4 /* String+.swift */,
 				8E81F3DF296082C1001815B4 /* URL+.swift */,
+				8E7817A12A5BAE99004DFF95 /* UIImageView+.swift */,
 				8E81F3E32960835A001815B4 /* UIView+.swift */,
 				8E81F3E1296082FB001815B4 /* UIViewController+.swift */,
 				8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */,
@@ -533,8 +545,13 @@
 				8EAB43FC296C6C0D0045AD7F /* Encodable+.swift */,
 				8EAB43FE296C6D010045AD7F /* BaseResponse.swift */,
 				8E1850692969BA9F0062E92A /* GeneralResponse.swift */,
-				8E18506B2969BAC60062E92A /* MoyaPlugin.swift */,
+				8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */,
 				8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */,
+				8E806F542A38286B002FE5DF /* UserManager.swift */,
+				8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */,
+				8E806F582A3828E4002FE5DF /* Providers.swift */,
+				8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */,
+				8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -666,6 +683,7 @@
 		8E21E53629E04BB800E68DAB /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				8E806F5E2A385132002FE5DF /* SplashVC.swift */,
 				8E21E53329E040B900E68DAB /* OnboardingVC.swift */,
 				98EAD31729D5AC40000181AF /* LoginVC.swift */,
 				14C84E3629D439450086F8DF /* SignUpVC.swift */,
@@ -677,7 +695,6 @@
 			isa = PBXGroup;
 			children = (
 				8E4083E82970BFF600B53339 /* GetAlarmResponse.swift */,
-				8E4083DF2970122B00B53339 /* .gitkeep */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -873,7 +890,6 @@
 				8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */,
 				8E45037329D1F4EB00A829A6 /* MyPageAPI.swift */,
 				8E45037529D1F4F200A829A6 /* UserAPI.swift */,
-				8E45037729D1F4FD00A829A6 /* AuthAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1134,6 +1150,7 @@
 				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
 				140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
+				8E7817A22A5BAE99004DFF95 /* UIImageView+.swift in Sources */,
 				985C529829684C3000994ED6 /* BookInfoTVC.swift in Sources */,
 				8E4083DC296F334500B53339 /* PickAllResponse.swift in Sources */,
 				8EEF8E26296B125C00F37AFD /* AlarmRouter.swift in Sources */,
@@ -1154,13 +1171,14 @@
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
-				8E45037829D1F4FD00A829A6 /* AuthAPI.swift in Sources */,
+				8E806F572A3828BF002FE5DF /* AuthInterceptor.swift in Sources */,
 				148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */,
 				8E45036E29D1F3F800A829A6 /* AuthRouter.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
+				8E806F5F2A385132002FE5DF /* SplashVC.swift in Sources */,
 				1431D542296354B200CA72D0 /* RecommendListTVC.swift in Sources */,
 				8E10BA37295FF81F00BCF58B /* RecommendVC.swift in Sources */,
-				8E18506C2969BAC60062E92A /* MoyaPlugin.swift in Sources */,
+				8E18506C2969BAC60062E92A /* MoyaLoggerPlugin.swift in Sources */,
 				98A04213296691F100081B8E /* BookSearchVC.swift in Sources */,
 				9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */,
 				14C84E2F29CC2A6D0086F8DF /* EditMyProfileVC.swift in Sources */,
@@ -1180,6 +1198,7 @@
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
+				8E806F592A3828E4002FE5DF /* Providers.swift in Sources */,
 				8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */,
@@ -1216,12 +1235,14 @@
 				8EB3BB392A0CC3A200F895F9 /* UIViewController+Preview.swift in Sources */,
 				8E6F7B8A29649A920013F744 /* BookShelfCVC.swift in Sources */,
 				8E81F3E0296082C1001815B4 /* URL+.swift in Sources */,
+				8E806F552A38286B002FE5DF /* UserManager.swift in Sources */,
 				98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */,
 				8E1850682969BA4A0062E92A /* NetworkResult.swift in Sources */,
 				9833296029E03ECF00D9DE5A /* SignUpRequest.swift in Sources */,
 				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
+				8E806F5B2A382BF3002FE5DF /* NetworkLoggerPlugin.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
@@ -1229,6 +1250,7 @@
 				145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */,
 				14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */,
 				8E81F3DC296080D4001815B4 /* setClearButton.swift in Sources */,
+				8E806F5D2A384EDE002FE5DF /* UserDefaultKeyList.swift in Sources */,
 				8E2855C5296DEEB0005F0E1D /* FriendBookShelfResponse.swift in Sources */,
 				8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */,
 				8EEF8E1B2969D00600F37AFD /* BookShelfAPI.swift in Sources */,

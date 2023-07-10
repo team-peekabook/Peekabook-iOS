@@ -11,10 +11,10 @@ import Moya
 
 final class FriendAPI {
     
-    private var friendProvider: MoyaProvider<FriendRouter>
+    private var friendProvider = Providers.friendProvider
     
     init(viewController: UIViewController) {
-        friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaPlugin(viewController: viewController)])
+        friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
     // 1. 사용자 검색하기

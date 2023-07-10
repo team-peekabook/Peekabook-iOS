@@ -14,7 +14,6 @@ struct UserDefaultWrapper<T> {
         get {
             return UserDefaults.standard.object(forKey: self.key) as? T
         }
-        
         set {
             if newValue == nil {
                 UserDefaults.standard.removeObject(forKey: key)

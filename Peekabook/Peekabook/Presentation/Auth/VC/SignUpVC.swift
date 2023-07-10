@@ -25,6 +25,9 @@ final class SignUpVC: UIViewController {
         didSet {
             if isImageDefaultType {
                 self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+                self.editImageButton.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
+            } else {
+                self.editImageButton.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
             }
         }
     }
@@ -163,12 +166,15 @@ final class SignUpVC: UIViewController {
         setDelegate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkIsDefaultImage()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         print("🌟 회원가입 뷰 viewDidDisappear")
         if !isSignUp {
-            UserDefaults.standard.removeObject(forKey: "socialToken")
-            UserDefaults.standard.removeObject(forKey: "accessToken")
-            UserDefaults.standard.removeObject(forKey: "refreshToken")
+            UserManager.shared.logout()
         }
     }
     
@@ -327,6 +333,14 @@ extension SignUpVC {
         nicknameTextField.delegate = self
     }
     
+    private func checkIsDefaultImage() {
+        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+            self.isImageDefaultType = true
+        } else {
+            self.isImageDefaultType = false
+        }
+    }
+    
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         guard let nicknameText = textField.text else { return }
@@ -406,8 +420,6 @@ extension SignUpVC {
             alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
                 self.isImageDefaultType = true
             }))
-        } else {
-            self.isImageDefaultType = false
         }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
@@ -482,6 +494,7 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
             self.profileImageView.image = fixOrientation(img: image)
+            self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -529,8 +542,12 @@ extension SignUpVC: IntroTextDelegate {
 // MARK: - Network
 
 extension SignUpVC {
-    func signUp(param: SignUpRequest, image: UIImage) {
-        UserAPI(viewController: self).signUp(param: param, image: image) { response in
+    func signUp(param: SignUpRequest, image: UIImage?) {
+        var finalImage: UIImage? = image
+        if isImageDefaultType {
+            finalImage = nil
+        }
+        UserAPI(viewController: self).signUp(param: param, image: finalImage) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }
