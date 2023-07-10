@@ -296,7 +296,7 @@ extension LoginVC {
     }
     
     private func changeNextViewController(isSigned: Bool) {
-        if UserManager.shared.hasAccessToken {
+        if UserManager.shared.isSignUp == true {
             self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
         } else {
             let signUpVC = SignUpVC()

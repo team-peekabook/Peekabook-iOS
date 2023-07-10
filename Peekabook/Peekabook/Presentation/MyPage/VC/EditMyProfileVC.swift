@@ -24,9 +24,11 @@ final class EditMyProfileVC: UIViewController {
     var isImageDefaultType: Bool = true {
         didSet {
             if isImageDefaultType {
+                self.isImageDefaultType = true
                 self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
                 self.editImageButton.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
             } else {
+                self.isImageDefaultType = false
                 self.editImageButton.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
             }
         }
@@ -323,7 +325,7 @@ extension EditMyProfileVC {
     }
     
     private func checkIsDefaultImage() {
-        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage || userImage.isEmpty == true {
             self.isImageDefaultType = true
         } else {
             self.isImageDefaultType = false
