@@ -56,8 +56,8 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let peekaCommentView = CustomTextView()
-    private let peekaMemoView = CustomTextView()
+    private let peekaCommentView = CustomTextView(backgroundColor: .peekaWhite_60)
+    private let peekaMemoView = CustomTextView(backgroundColor: .peekaWhite_60)
     
     // MARK: - View Life Cycle
     

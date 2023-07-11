@@ -83,9 +83,9 @@ final class CustomTextView: UIView {
         return boxView.intrinsicContentSize
     }
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, backgroundColor: UIColor = .clear) {
         super.init(frame: frame)
-        setBackgroundColor()
+        setBackgroundColor(with: backgroundColor)
         setLayout()
         setDelegate()
     }
@@ -103,10 +103,9 @@ extension CustomTextView {
         textView.delegate = self
     }
     
-    private func setBackgroundColor() {
-        backgroundColor = .clear
-        
-        boxView.backgroundColor = .clear
+    private func setBackgroundColor(with backgroundColor: UIColor) {
+        self.backgroundColor = .clear
+        boxView.backgroundColor = backgroundColor
         textView.backgroundColor = .clear
         headerView.backgroundColor = .peekaRed
     }
