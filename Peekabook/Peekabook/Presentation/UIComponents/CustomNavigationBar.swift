@@ -137,6 +137,8 @@ extension CustomNavigationBar {
     @discardableResult
     func addLeftButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.leftButtonClosure = closure
+        self.leftButton.removeTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
+        self.leftButton.removeTarget(self, action: #selector(touchupLeftButton), for: .touchUpInside)
         self.leftButton.addTarget(self, action: #selector(touchupLeftButton), for: .touchUpInside)
         return self
     }

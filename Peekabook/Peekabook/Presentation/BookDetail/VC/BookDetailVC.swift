@@ -12,9 +12,21 @@ import Then
 
 import Moya
 
+@frozen
+private enum BookDetailMode {
+    case show
+    case edit
+}
+
 final class BookDetailVC: UIViewController {
     
     // MARK: - Properties
+    
+    private var mode: BookDetailMode = .show {
+        didSet {
+            updateViewBasedOnMode(.show)
+        }
+    }
     
     private let placeholderBlank: String = "          "
     private var serverWatchBookDetail: WatchBookDetailResponse?
@@ -55,16 +67,18 @@ final class BookDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setCustomView()
+        setShowModeTextView()
         setBackgroundColor()
         setLayout()
+        addKeyboardObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setCustomView()
-        setBackgroundColor()
-        setLayout()
         getBookData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -86,7 +100,7 @@ extension BookDetailVC {
         }
         
         containerScrollView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(52)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -140,7 +154,9 @@ extension BookDetailVC {
             }
     }
     
-    private func setCustomView() {
+    private func setShowModeTextView() {
+        peekaCommentView.changeBackgroundColor(with: .clear)
+        peekaMemoView.changeBackgroundColor(with: .clear)
         peekaCommentView.updateTextView(type: .bookDetailComment)
         peekaMemoView.updateTextView(type: .bookDetailMemo)
     }
@@ -171,6 +187,100 @@ extension BookDetailVC {
         }
     }
     
+    private func updateViewBasedOnMode(_ mode: BookDetailMode) {
+        switch mode {
+        case .show:
+            peekaCommentView.textView.isEditable = false
+            peekaMemoView.textView.isEditable = false
+
+            naviBar.removeFromSuperview()
+            naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
+            naviBar.addRightButton(with: ImageLiterals.Icn.delete!)
+                .addOtherRightButton(with: ImageLiterals.Icn.edit!)
+                .addRightButtonAction {
+                    self.deleteButtonDidTap()
+                } .addOtherRightButtonAction {
+                    self.editButtonDidTap()
+                }
+            view.addSubview(naviBar)
+            setNaviBarConstraints()
+            setShowModeTextView()
+            
+            peekaMemoView.snp.updateConstraints {
+                $0.top.equalTo(peekaCommentView.snp.bottom).offset(12)
+            }
+
+        case .edit:
+
+            peekaCommentView.textView.isEditable = true
+            peekaMemoView.textView.isEditable = true
+
+            naviBar.removeFromSuperview()
+            naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+            naviBar.changeLeftBackButtonToXmark()
+                .addMiddleLabel(title: I18N.BookEdit.title)
+                .addLeftButtonAction {
+                    self.cancelEditButtonDidTap()
+                }
+                .addRightButton(with: I18N.BookEdit.done)
+                .addRightButtonAction {
+                    self.completeEditButtonDidTap()
+                }
+            view.addSubview(naviBar)
+            setNaviBarConstraints()
+            
+            peekaMemoView.snp.updateConstraints {
+                $0.top.equalTo(peekaCommentView.snp.bottom).offset(40)
+            }
+            
+            let tapGestureComment = UITapGestureRecognizer(target: self, action: #selector(commentViewTapped))
+            let tapGestureMemo = UITapGestureRecognizer(target: self, action: #selector(memoViewTapped))
+            peekaCommentView.addGestureRecognizer(tapGestureComment)
+            peekaMemoView.addGestureRecognizer(tapGestureMemo)
+
+            setEditModeTextView()
+        }
+    }
+
+    private func setNaviBarConstraints() {
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+
+
+    @objc func commentViewTapped() {
+        peekaCommentView.textView.becomeFirstResponder()
+    }
+    
+    @objc func memoViewTapped() {
+        peekaMemoView.textView.becomeFirstResponder()
+    }
+    
+    private func setEditModeTextView() {
+        peekaCommentView.updateTextView(type: .editBookComment)
+        peekaMemoView.updateTextView(type: .editBookMemo)
+        peekaCommentView.changeBackgroundColor(with: .peekaWhite_60)
+        peekaMemoView.changeBackgroundColor(with: .peekaWhite_60)
+        
+        guard let descriptions = peekaCommentView.text,
+              let memo = peekaMemoView.text else { return }
+        
+        if descriptions != I18N.BookDetail.emptyComment {
+            peekaCommentView.setTextColor(.peekaRed)
+            peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
+        } else {
+            peekaCommentView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
+        }
+        
+        if memo != I18N.BookDetail.emptyMemo {
+            peekaMemoView.setTextColor(.peekaRed)
+            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
+        } else {
+            peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.memoLength)
+        }
+    }
+
     // MARK: - @objc Function
     
     @objc
@@ -180,15 +290,15 @@ extension BookDetailVC {
     
     @objc
     private func editButtonDidTap() {
-        let editVC = EditBookVC()
-        editVC.setBookImgView(bookImageView)
-        editVC.setNameLabel(bookNameLabel)
-        editVC.setAuthorLabel(bookAuthorLabel)
-        editVC.descriptions = peekaCommentView.text ?? ""
-        editVC.memo = peekaMemoView.text ?? ""
-        editVC.bookIndex = selectedBookIndex
-        editVC.modalPresentationStyle = .fullScreen
-        present(editVC, animated: false)
+        switch mode {
+        case .show:
+            mode = .edit
+            updateViewBasedOnMode(.edit)
+            getBookData()
+        case .edit:
+            mode = .show
+            updateViewBasedOnMode(.show)
+        }
     }
     
     @objc
@@ -197,6 +307,73 @@ extension BookDetailVC {
         popupViewController.bookShelfId = self.selectedBookIndex
         popupViewController.modalPresentationStyle = .overFullScreen
         self.present(popupViewController, animated: false)
+    }
+    
+    @objc
+    private func cancelEditButtonDidTap() {
+        mode = .show
+        updateViewBasedOnMode(.show)
+        getBookData()
+    }
+    
+    @objc
+    private func completeEditButtonDidTap() {
+        guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
+        
+        editMyBookInfo(id: selectedBookIndex, param: EditBookRequest(description: description, memo: memo))
+    }
+    
+}
+
+// MARK: - Keyboard handling
+
+extension BookDetailVC {
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height,
+            right: 0.0)
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
+        
+        if peekaCommentView.isTextViewFirstResponder() {
+            let position = peekaCommentView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            containerScrollView.setContentOffset(position, animated: true)
+            return
+        }
+        
+        if peekaMemoView.isTextViewFirstResponder() {
+            var position = peekaMemoView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            position.y += 250
+            containerScrollView.setContentOffset(position, animated: true)
+            return
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
     }
 }
 
@@ -215,6 +392,16 @@ extension BookDetailVC {
             self.peekaMemoView.text = serverWatchBookDetail.memo
             self.selectedBookIndex = id
             self.setCommentColor()
+        }
+    }
+    
+    func editMyBookInfo(id: Int, param: EditBookRequest) {
+        BookShelfAPI(viewController: self).editMyBookInfo(id: id, param: param) { response in
+            if response?.success == true {
+                self.mode = .show
+                self.updateViewBasedOnMode(.show)
+                self.getBookData()
+            }
         }
     }
 }

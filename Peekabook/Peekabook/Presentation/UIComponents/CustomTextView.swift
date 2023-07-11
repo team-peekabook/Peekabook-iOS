@@ -53,7 +53,7 @@ final class CustomTextView: UIView {
         $0.textColor = .peekaWhite
     }
     
-    private lazy var textView = UITextView().then {
+    lazy var textView = UITextView().then {
         $0.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -98,6 +98,10 @@ final class CustomTextView: UIView {
 // MARK: - Methods
 
 extension CustomTextView {
+    
+    func changeBackgroundColor(with backgroundColor: UIColor) {
+        boxView.backgroundColor = backgroundColor
+    }
     
     private func setDelegate() {
         textView.delegate = self
@@ -172,17 +176,21 @@ extension CustomTextView {
             textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             maxLabel.text = I18N.BookAdd.memoLength
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .addBookComment:
             boxView.backgroundColor = .peekaWhite_60
             textView.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .editBookMemo:
             boxView.frame.size.height = 101
             label.text = I18N.BookDetail.memo
             textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .editBookComment:
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .bookDetailComment:
             maxLabel.isHidden = true
             textView.isUserInteractionEnabled = false
@@ -197,13 +205,16 @@ extension CustomTextView {
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
             boxView.backgroundColor = .peekaWhite_60
+            maxLabel.isHidden = false
         case .editProfileIntro:
+            maxLabel.isHidden = false
             label.text = I18N.Profile.oneLineIntro
             textView.text = UserDefaultKeyList.userIntro
             maxLabel.text = "\(textView.text.count)/40"
             textView.textColor = .peekaRed
             proposalItemhidden()
         case .addProfileIntro:
+            maxLabel.isHidden = false
             label.text = I18N.Profile.oneLineIntro
             textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
             maxLabel.text = "0/40"

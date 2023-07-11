@@ -12,6 +12,7 @@ import Then
 
 import Moya
 
+/// 이제 이 뷰는 사용 안합니다 ``@수빈``
 final class EditBookVC: UIViewController {
     
     // MARK: - Properties
