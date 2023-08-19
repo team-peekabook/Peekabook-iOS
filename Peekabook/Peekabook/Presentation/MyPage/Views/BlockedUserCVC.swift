@@ -110,8 +110,7 @@ extension BlockedUserCVC {
 extension BlockedUserCVC {
     
     func setData(_ model: GetBlockedAccountResponse) {
-        profileImageView.kf.indicatorType = .activity
-        profileImageView.kf.setImage(with: URL(string: model.profileImage))
+        profileImageView.loadProfileImage(from: model.profileImage)
         nickNameLabel.text = model.nickname
         selectedUserId = model.id
         selectedUserName = model.nickname

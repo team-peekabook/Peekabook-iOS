@@ -29,6 +29,7 @@ final class BookShelfVC: UIViewController {
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
                 moreButton.isHidden = true
             case .friend:
+                editOrRecommendButton.isEnabled = true
                 bottomShelfVC.changeLayout(isUser: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
                 moreButton.isHidden = false
@@ -100,7 +101,6 @@ final class BookShelfVC: UIViewController {
         iv.layer.borderWidth = 3
         iv.layer.masksToBounds = true
         iv.layer.cornerRadius = 22
-        iv.clipsToBounds = true
         return iv
     }()
     
@@ -181,10 +181,10 @@ final class BookShelfVC: UIViewController {
     }()
     
     private let emptyFriendsListDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .s3
-        label.textColor = .peekaRed_60
-        return label
+        let lb = UILabel()
+        lb.font = .s3
+        lb.textColor = .peekaRed_60
+        return lb
     }()
     
     // MARK: - View Life Cycle
@@ -267,7 +267,6 @@ final class BookShelfVC: UIViewController {
     
     @objc
     private func myProfileViewDidTap() {
-        getMyBookShelfInfo()
         selectedUserIndex = nil
     }
 }
@@ -456,10 +455,10 @@ extension BookShelfVC {
         self.addChild(bottomShelfVC)
         bottomShelfVC.didMove(toParent: self)
         
-        let height = view.frame.height
-        let width = view.frame.width
-        
-        bottomShelfVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        bottomShelfVC.view.frame = CGRect(x: 0,
+                                          y: view.frame.maxY,
+                                          width: view.frame.width,
+                                          height: view.frame.height)
     }
     
     private func setDelegate() {
@@ -505,10 +504,8 @@ extension BookShelfVC {
         }
     }
     
-    private func checkEmptyBookListView(isEnabled: Bool) {        
-        if bookShelfType == .user {
-            self.editOrRecommendButton.isEnabled = !isEnabled
-        }
+    private func editPickButtonState(with bool: Bool) {        
+        self.editOrRecommendButton.isEnabled = !bool
     }
     
     private func checkSmallLayout() {
@@ -619,11 +616,10 @@ extension BookShelfVC: UICollectionViewDelegateFlowLayout {
 extension BookShelfVC {
     
     private func getMyBookShelfInfo() {
-        BookShelfAPI.shared.getMyBookShelfInfo { response in
+        BookShelfAPI(viewController: self).getMyBookShelfInfo { response in
             self.serverMyBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
-            self.myProfileImageView.kf.indicatorType = .activity
-            self.myProfileImageView.kf.setImage(with: URL(string: (data.myIntro.profileImage ?? "")))
+            self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
             self.myNameLabel.text = data.myIntro.nickname
             self.introNameLabel.text = data.myIntro.nickname
             self.introductionLabel.text = data.myIntro.intro
@@ -631,13 +627,14 @@ extension BookShelfVC {
             self.picks = data.picks
             self.bottomShelfVC.setData(books: data.books,
                                        bookTotalNum: data.bookTotalNum)
-            UserDefaults.standard.setValue(data.myIntro.nickname, forKey: "userNickname")
-            UserDefaults.standard.setValue(data.myIntro.intro, forKey: "userIntro")
-            UserDefaults.standard.setValue(data.myIntro.profileImage, forKey: "userProfileImage")
+            
+            UserDefaultKeyList.userNickname = data.myIntro.nickname
+            UserDefaultKeyList.userIntro = data.myIntro.intro
+            UserDefaultKeyList.userProfileImage = URL(string: data.myIntro.profileImage ?? "") != nil ? data.myIntro.profileImage : ""
             
             self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
             self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
-            self.checkEmptyBookListView(isEnabled: data.books.isEmpty)
+            self.editPickButtonState(with: data.books.isEmpty)
             self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.friendsCollectionView.reloadData()
@@ -646,9 +643,10 @@ extension BookShelfVC {
     }
 
     private func getFriendBookShelfInfo(userId: Int) {
-        BookShelfAPI.shared.getFriendBookShelfInfo(friendId: userId) { response in
+        BookShelfAPI(viewController: self).getFriendBookShelfInfo(friendId: userId) { response in
             self.serverFriendBookShelfInfo = response?.data
             guard let response = response, let data = response.data else { return }
+            
             self.introNameLabel.text = data.friendIntro.nickname
             self.introductionLabel.text = data.friendIntro.intro
             self.picks = data.picks
@@ -656,14 +654,14 @@ extension BookShelfVC {
                                        bookTotalNum: data.bookTotalNum)
             
             self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
+            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
             
             self.pickCollectionView.reloadData()
-
         }
     }
     
     private func deleteFollowAPI(friendId: Int) {
-        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+        FriendAPI(viewController: self).deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 self.isFollowingStatus = false
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)

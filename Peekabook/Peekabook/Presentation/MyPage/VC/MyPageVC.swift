@@ -106,6 +106,8 @@ extension MyPageVC {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
 extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -174,10 +176,13 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
 
 extension MyPageVC {
     private func getAccountAPI() {
-        MyPageAPI.shared.getMyAccountInfo { response in
+        MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
                 if let accountData = response?.data {
-                    self.getAccountData = accountData
+                    self.getAccountData = accountData                    
+                    UserDefaultKeyList.userNickname = accountData.nickname
+                    UserDefaultKeyList.userIntro = accountData.intro                    
+                    UserDefaultKeyList.userProfileImage = URL(string: accountData.profileImage ?? "") != nil ? accountData.profileImage : ""
                     self.myPageTableView.reloadData()
                 }
             }

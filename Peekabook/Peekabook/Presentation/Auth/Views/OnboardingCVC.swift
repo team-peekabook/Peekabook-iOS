@@ -11,17 +11,18 @@ final class OnboardingCVC: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.layer.masksToBounds = true
-    }
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .h2
         label.textColor = .peekaRed
         label.numberOfLines = 0
-        label.textAlignment = .center
+        label.font = .h2
         return label
     }()
     
@@ -49,14 +50,26 @@ extension OnboardingCVC {
         addSubviews(imageView, titleLabel)
         
         imageView.snp.makeConstraints {
-            $0.top.centerX.equalToSuperview()
-            $0.width.equalTo(240.adjusted)
-            $0.height.equalTo(500.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.85)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(20.adjustedH)
+            $0.top.equalTo(imageView.snp.bottom).offset(18)
             $0.centerX.equalToSuperview()
+        }
+        
+        checkSmallLayout()
+    }
+    
+    private func checkSmallLayout() {
+        if UIScreen.main.isSmallThan712pt {
+            imageView.snp.remakeConstraints {
+                $0.top.equalToSuperview().offset(10)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(240 * 0.85)
+                $0.height.equalTo(500 * 0.85)
+            }
         }
     }
 }
@@ -68,6 +81,8 @@ extension OnboardingCVC {
     func setOnboardingSlides(_ slides: OnboardingDataModel) {
         imageView.image = slides.image
         titleLabel.text = slides.title
+        titleLabel.setLineSpacing(lineSpacing: 2)
+        titleLabel.textAlignment = .center
     }
 }
 

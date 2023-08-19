@@ -19,7 +19,7 @@ enum CustomTextViewType: CaseIterable {
     case addProfileIntro
 }
 
-protocol IntroText: AnyObject {
+protocol IntroTextDelegate: AnyObject {
     func getTextView(text: String)
 }
 
@@ -38,7 +38,7 @@ final class CustomTextView: UIView {
         }
     }
     
-    weak var delegate: IntroText?
+    weak var delegate: IntroTextDelegate?
     
     private let boxView = UIView().then {
         $0.layer.borderWidth = 2
@@ -53,7 +53,7 @@ final class CustomTextView: UIView {
         $0.textColor = .peekaWhite
     }
     
-    private lazy var textView = UITextView().then {
+    lazy var textView = UITextView().then {
         $0.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
         $0.font = .h2
         $0.textColor = .peekaGray1
@@ -83,9 +83,9 @@ final class CustomTextView: UIView {
         return boxView.intrinsicContentSize
     }
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, backgroundColor: UIColor = .clear) {
         super.init(frame: frame)
-        setBackgroundColor()
+        setBackgroundColor(with: backgroundColor)
         setLayout()
         setDelegate()
     }
@@ -99,14 +99,17 @@ final class CustomTextView: UIView {
 
 extension CustomTextView {
     
+    func changeBackgroundColor(with backgroundColor: UIColor) {
+        boxView.backgroundColor = backgroundColor
+    }
+    
     private func setDelegate() {
         textView.delegate = self
     }
     
-    private func setBackgroundColor() {
-        backgroundColor = .clear
-        
-        boxView.backgroundColor = .clear
+    private func setBackgroundColor(with backgroundColor: UIColor) {
+        self.backgroundColor = .clear
+        boxView.backgroundColor = backgroundColor
         textView.backgroundColor = .clear
         headerView.backgroundColor = .peekaRed
     }
@@ -173,17 +176,21 @@ extension CustomTextView {
             textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             maxLabel.text = I18N.BookAdd.memoLength
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .addBookComment:
             boxView.backgroundColor = .peekaWhite_60
             textView.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .editBookMemo:
             boxView.frame.size.height = 101
             label.text = I18N.BookDetail.memo
             textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .editBookComment:
             proposalItemhidden()
+            maxLabel.isHidden = false
         case .bookDetailComment:
             maxLabel.isHidden = true
             textView.isUserInteractionEnabled = false
@@ -198,13 +205,16 @@ extension CustomTextView {
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
             boxView.backgroundColor = .peekaWhite_60
+            maxLabel.isHidden = false
         case .editProfileIntro:
+            maxLabel.isHidden = false
             label.text = I18N.Profile.oneLineIntro
-            textView.text = UserDefaults.standard.string(forKey: "userIntro")
+            textView.text = UserDefaultKeyList.userIntro
             maxLabel.text = "\(textView.text.count)/40"
             textView.textColor = .peekaRed
             proposalItemhidden()
         case .addProfileIntro:
+            maxLabel.isHidden = false
             label.text = I18N.Profile.oneLineIntro
             textView.text = I18N.PlaceHolder.profileIntro + placeholderBlank
             maxLabel.text = "0/40"

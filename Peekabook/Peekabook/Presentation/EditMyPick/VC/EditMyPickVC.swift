@@ -185,7 +185,7 @@ extension EditMyPickVC: UICollectionViewDelegateFlowLayout {
 extension EditMyPickVC {
     
     func getAllPicks() {
-        PickAPI.shared.getAllPicks { response in
+        PickAPI(viewController: self).getAllPicks { response in
             guard let response = response, let data = response.data else { return }
             self.serverBookList = response.data
 
@@ -203,7 +203,7 @@ extension EditMyPickVC {
     }
     
     func patchPickList(param: EditPickRequest) {
-        PickAPI.shared.patchPickList(param: param) { response in
+        PickAPI(viewController: self).patchPickList(param: param) { response in
             if response?.success == true {
                 self.navigationController?.popViewController(animated: true)
             } else {

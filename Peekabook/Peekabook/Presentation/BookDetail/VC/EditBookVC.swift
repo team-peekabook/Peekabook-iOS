@@ -12,6 +12,7 @@ import Then
 
 import Moya
 
+/// 이제 이 뷰는 사용 안합니다 ``@수빈``
 final class EditBookVC: UIViewController {
     
     // MARK: - Properties
@@ -25,6 +26,10 @@ final class EditBookVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithOneRightButton)
+        .changeLeftBackButtonToXmark()
+        .addLeftButtonAction {
+            self.leftButtonDidTap()
+        }
         .addMiddleLabel(title: I18N.BookEdit.title)
         .addRightButton(with: I18N.BookEdit.done)
         .addRightButtonAction {
@@ -52,8 +57,8 @@ final class EditBookVC: UIViewController {
         $0.textColor = .peekaRed
     }
     
-    private let peekaCommentView = CustomTextView()
-    private let peekaMemoView = CustomTextView()
+    private let peekaCommentView = CustomTextView(backgroundColor: .peekaWhite_60)
+    private let peekaMemoView = CustomTextView(backgroundColor: .peekaWhite_60)
     
     // MARK: - View Life Cycle
     
@@ -80,6 +85,7 @@ final class EditBookVC: UIViewController {
 }
 
 // MARK: - UI & Layout
+
 extension EditBookVC {
     
     private func setBackgroundColor() {
@@ -181,13 +187,17 @@ extension EditBookVC {
         self.authorLabel = label
     }
     
-    @objc private func checkButtonDidTap() {
-        guard let description = (peekaCommentView.text == I18N.BookDetail.emptyComment) ? "" : peekaCommentView.text,
-              let memo = (peekaMemoView.text == I18N.BookDetail.emptyMemo) ? "" : peekaMemoView.text else { return }
+    @objc
+    private func leftButtonDidTap() {
+        dismiss(animated: false)
+    }
+    
+    @objc
+    private func checkButtonDidTap() {
+        guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
         
         editMyBookInfo(id: bookIndex, param: EditBookRequest(description: description, memo: memo))
-        let vc = BookDetailVC()
-        vc.getBookDetail(id: bookIndex)
     }
     
     private func addKeyboardObserver() {
@@ -239,11 +249,13 @@ extension EditBookVC {
     }
 }
 
+// MARK: - Network
+
 extension EditBookVC {
     func editMyBookInfo(id: Int, param: EditBookRequest) {
-        BookShelfAPI.shared.editMyBookInfo(id: id, param: param) { response in
+        BookShelfAPI(viewController: self).editMyBookInfo(id: id, param: param) { response in
             if response?.success == true {
-                self.navigationController?.popViewController(animated: false)
+                self.dismiss(animated: false)
             } else {
                 print("책 수정 실패")
             }

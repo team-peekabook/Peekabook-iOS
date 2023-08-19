@@ -74,7 +74,8 @@ extension ProposalConfirmPopUpVC {
                                                                         bookTitle: bookTitle,
                                                                         author: author,
                                                                         bookImage: bookImage,
-                                                                        publisher: publisher))
+                                                                        publisher: publisher)
+        )
     }
 }
 
@@ -83,7 +84,7 @@ extension ProposalConfirmPopUpVC {
 extension ProposalConfirmPopUpVC {
     
     private func postProposalBook(friendId: Int, param: ProposalBookRequest) {
-        FriendAPI.shared.postProposalBook(friendId: friendId, param: param) { response in
+        FriendAPI(viewController: self).postProposalBook(friendId: friendId, param: param) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

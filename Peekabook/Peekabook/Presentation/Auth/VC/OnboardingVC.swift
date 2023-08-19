@@ -24,7 +24,7 @@ final class OnboardingVC: UIViewController {
     private let backgroundImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = ImageLiterals.Onboarding.background
-        iv.contentMode = .scaleToFill
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
@@ -79,21 +79,21 @@ extension OnboardingVC {
             $0.edges.equalToSuperview()
         }
                 
-        onboardingCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(620.adjustedH)
+        onboardingCollectionView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(640.adjustedH)
         }
         
-        startButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20.adjustedH)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(56.adjustedH)
+        startButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20.adjustedH)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(56.adjustedH)
         }
         
-        pageControl.snp.makeConstraints { make in
-            make.top.equalTo(startButton).offset(-40.adjustedH)
-            make.centerX.equalToSuperview()
+        pageControl.snp.makeConstraints {
+            $0.top.equalTo(startButton).offset(-36.adjustedH)
+            $0.centerX.equalToSuperview()
         }
     }
 }

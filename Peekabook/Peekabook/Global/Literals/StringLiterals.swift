@@ -11,7 +11,8 @@ struct I18N {
     
     struct Alert {
         static let error = "에러"
-        static let networkError = "네트워크 오류가 발생하였습니다."
+        static let networkError = "앗! 네트워크 연결에 실패했어요.\n확인 후 다시 시도해주세요."
+        static let retry = "다시 시도하기"
         static let emptyNoti = "앗! 준비 중인 기능이에요."
     }
     
@@ -25,8 +26,8 @@ struct I18N {
         static let startButton = "내 책장 만들러 가기"
         static let first = "반가워요!\nPEEK-A-BOOK은 서로의 책장을 공유하고,\n새로운 책을 발견해나가는 서비스예요."
         static let second = "내가 가지고 있는 책의 바코드를 스캔하여\n책장에 추가할 수 있어요.\n책장에 책을 채우며 자신의 취향을 드러내보아요."
-        static let third = "닉네임 검색을 통해 친구를 추가하고,\n친구와 서로의 책장을 공유해요!"
-        static let fourth = "친구에게 먼저 책을 추천해 주면\n친구도 나에게 책을 추천해 줄지도 몰라요!"
+        static let third = "\n닉네임 검색을 통해 친구를 추가하고,\n친구와 서로의 책장을 공유해요!"
+        static let fourth = "\n친구에게 먼저 책을 추천해 주면\n친구도 나에게 책을 추천해 줄지도 몰라요!"
     }
     
     struct Confirm {

@@ -5,31 +5,28 @@
 //  Created by devxsby on 2023/01/09.
 //
 
-import Foundation
+import UIKit
 
 import Moya
 
 final class RecommendAPI {
     
-    static let shared = RecommendAPI()
-    private var recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaLoggerPlugin()])
-    
-    private init() { }
-    
-    private(set) var getRecommendData: GeneralResponse<GetRecommendResponse>?
+    private var recommendProvider = Providers.recommendProvider
+        
+    init(viewController: UIViewController) {
+        recommendProvider = MoyaProvider<RecommendRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
+    }
     
     // 1. 추천보기
-    
     func getRecommend(completion: @escaping (GeneralResponse<GetRecommendResponse>?) -> Void) {
-        recommendProvider.request(.getRecommend) { [self] (result) in
+        recommendProvider.request(.getRecommend) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.getRecommendData = try response.map(GeneralResponse<GetRecommendResponse>.self)
+                    let getRecommendData = try response.map(GeneralResponse<GetRecommendResponse>.self)
                     completion(getRecommendData)
                 } catch let error {
-                    print("error")
-                    print(error.localizedDescription, 500)
+                    print(error.localizedDescription)
                 }
             case .failure(let err):
                 print(err)

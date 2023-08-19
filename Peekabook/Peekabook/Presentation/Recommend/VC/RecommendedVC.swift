@@ -11,7 +11,6 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverGetRecommendedBook: GetRecommendResponse?
     private var recommendedBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -28,6 +27,7 @@ final class RecommendedVC: UIViewController {
     private let emptyDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .h2
+        label.textAlignment = .center
         label.textColor = .peekaRed_60
         label.text = I18N.BookRecommend.recommendedEmptyDescription
         label.numberOfLines = 2
@@ -113,20 +113,27 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
 extension RecommendedVC {
     
     private func getRecommendedBooksAPI() {
-        RecommendAPI.shared.getRecommend { response in
+        RecommendAPI(viewController: self).getRecommend { response in
             if response?.success == true {
                 guard let serverGetRecommendedBook = response?.data else { return }
                 self.recommendedBooks = serverGetRecommendedBook.recommendedBook
-                self.recommendedTableView.reloadData()
-                
-                // TODO: - 엠티뷰
-                if response?.data?.recommendedBook.isEmpty == true {
-                    self.emptyDescriptionLabel.isHidden = false
-                    self.recommendedTableView.isHidden = true
-                } else {
-                    self.emptyDescriptionLabel.isHidden = true
-                    self.recommendedTableView.isHidden = false
+
+                DispatchQueue.main.async {
+
+                    if let recommendedBooks = response?.data?.recommendedBook, !recommendedBooks.isEmpty {
+                        self.emptyDescriptionLabel.isHidden = true
+                        self.recommendedTableView.isHidden = false
+                    } else {
+                        self.emptyDescriptionLabel.isHidden = false
+                        self.recommendedTableView.isHidden = true
+                    }
+
+
+                    print(" 💩💩💩 recommendedBooks 데이터 수: \(self.recommendedBooks.count)")
+
+                    self.recommendedTableView.reloadData()
                 }
+                
             }
         }
     }

@@ -14,22 +14,22 @@ import Moya
 
 final class EditMyProfileVC: UIViewController {
     
-    enum ProfileImageType: CaseIterable {
-        case defaultImage
-        case customImage
-    }
-    
     // MARK: - Properties
     
-    var nicknameText: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
-    var introText: String = UserDefaults.standard.string(forKey: "userIntro") ?? ""
-    var userImage: String = UserDefaults.standard.string(forKey: "userImage") ?? ""
-    private var temporaryName: String = UserDefaults.standard.string(forKey: "userNickname") ?? ""
+    var nicknameText: String = UserDefaultKeyList.userNickname ?? ""
+    var introText: String = UserDefaultKeyList.userIntro ?? ""
+    var userImage: String = UserDefaultKeyList.userProfileImage ?? ""
+    private var temporaryName: String = UserDefaultKeyList.userNickname ?? ""
     
     var isImageDefaultType: Bool = true {
         didSet {
             if isImageDefaultType {
+                self.isImageDefaultType = true
                 self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+                self.editImageButton.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
+            } else {
+                self.isImageDefaultType = false
+                self.editImageButton.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
             }
         }
     }
@@ -61,9 +61,14 @@ final class EditMyProfileVC: UIViewController {
             self.checkButtonDidTap()
         }
     
+    private let containerScrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    
     private let profileImageContainerView = UIView()
     private let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 40
     }
     private lazy var editImageButton = UIButton(type: .system).then {
@@ -91,7 +96,7 @@ final class EditMyProfileVC: UIViewController {
         $0.autocorrectionType = .no
         $0.returnKeyType = .done
         $0.font = .h2
-        $0.text = UserDefaults.standard.string(forKey: "userNickname")
+        $0.text = UserDefaultKeyList.userNickname
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         $0.delegate = self
     }
@@ -116,7 +121,7 @@ final class EditMyProfileVC: UIViewController {
         $0.isHidden = true
     }
     private let countMaxTextLabel = UILabel().then {
-        if let name = UserDefaults.standard.string(forKey: "userNickname") {
+        if let name = UserDefaultKeyList.userNickname {
             $0.text = "\(name.count)" + I18N.Profile.nicknameLength
             $0.font = .h2
             $0.textColor = .peekaGray2
@@ -133,12 +138,123 @@ final class EditMyProfileVC: UIViewController {
         setLayout()
         setTapGesture()
         setIntroView()
-        checkIsDefaultImage()
+        addKeyboardObserver()
+        getAccountAPI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getAccountAPI()
+        super.viewWillAppear(animated)
+        checkIsDefaultImage()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+// MARK: - UI & Layout
+
+extension EditMyProfileVC {
+    
+    private func setBackgroundColor() {
+        view.backgroundColor = .peekaBeige
+        nicknameHeaderView.backgroundColor = .peekaRed
+    }
+    
+    private func setLayout() {
+        view.addSubviews(naviBar, containerScrollView)
+        containerScrollView.addSubviews(profileImageContainerView, nicknameContainerView, introContainerView)
+        profileImageContainerView.addSubviews(profileImageView, editImageButton)
+        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel)
+        nicknameHeaderView.addSubviews(nicknameLabel)
+        nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
+    
+        naviBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        containerScrollView.snp.makeConstraints {
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        profileImageContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(23)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(82)
+            $0.height.equalTo(100)
+        }
+        
+        profileImageView.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.height.width.equalTo(80)
+        }
+        
+        editImageButton.snp.makeConstraints {
+            $0.trailing.bottom.equalToSuperview()
+            $0.height.width.equalTo(24)
+        }
+        
+        nicknameContainerView.snp.makeConstraints {
+            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(79)
+        }
+        
+        nicknameHeaderView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(36)
+        }
+        
+        nicknameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(14)
+            $0.centerY.equalToSuperview()
+        }
+        
+        nicknameTextContainerView.snp.makeConstraints {
+            $0.top.equalTo(nicknameHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        nicknameTextField.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        doubleCheckButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(7)
+            $0.trailing.equalToSuperview().inset(14)
+            $0.height.equalTo(26)
+            $0.width.equalTo(53)
+        }
+        
+        doubleCheckErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        doubleCheckSuccessLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
+            $0.leading.equalTo(nicknameContainerView)
+        }
+        
+        countMaxTextLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
+            $0.trailing.equalTo(nicknameContainerView)
+        }
+        
+        introContainerView.snp.makeConstraints {
+            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview().inset(11)
+            $0.height.equalTo(101)
+        }
+    }
+}
+
+// MARK: - Methods
+
+extension EditMyProfileVC {
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         guard let nicknameText = textField.text else { return }
@@ -170,7 +286,7 @@ final class EditMyProfileVC: UIViewController {
             guard let self = self else { return }
             
             // 기존의 UserNickname과 같은 경우
-            if self.nicknameText == UserDefaults.standard.string(forKey: "userNickname") {
+            if self.nicknameText == UserDefaultKeyList.userNickname {
                 self.temporaryName = self.nicknameText
                 self.isDoubleChecked = true
                 self.doubleCheckButton.backgroundColor = .peekaGray1
@@ -193,12 +309,9 @@ final class EditMyProfileVC: UIViewController {
     }
     
     @objc private func checkButtonDidTap() {
-        // TODO: 기본이미지로 변경하는 부분은 얼럿이 아직 없어서 못했음. 추후에 반영해야 됨
-        editMyProfile(request: PatchProfileRequest(nickname: nicknameText, intro: introText), image: profileImageView.image)
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(temporaryName, forKey: "userNickname")
-        userDefaults.set(introText, forKey: "userIntro")
-        userDefaults.set(userImage, forKey: "userImage")
+        guard let profileImage = profileImageView.image else { return }
+
+        editMyProfile(request: PatchProfileRequest(nickname: nicknameText, intro: introText), image: profileImage)
     }
     
     private func setIntroView() {
@@ -212,7 +325,7 @@ final class EditMyProfileVC: UIViewController {
     }
     
     private func checkIsDefaultImage() {
-        if self.profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage || userImage.isEmpty == true {
             self.isImageDefaultType = true
         } else {
             self.isImageDefaultType = false
@@ -235,12 +348,11 @@ final class EditMyProfileVC: UIViewController {
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
         }))
+        
         if !isImageDefaultType {
             alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
                 self.isImageDefaultType = true
             }))
-        } else {
-            self.isImageDefaultType = false
         }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -260,159 +372,75 @@ final class EditMyProfileVC: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height + 20,
+            right: 0.0)
+        
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
+        
+        if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
+            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            containerScrollView.setContentOffset(position, animated: true)
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerScrollView.contentInset = contentInset
+        containerScrollView.scrollIndicatorInsets = contentInset
+        UIView.animate(withDuration: 0.2, animations: {
+            self.containerScrollView.transform = .identity
+        })
+    }
 }
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = image
+            self.profileImageView.image = fixOrientation(img: image)
+            self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
-
-// MARK: - UI & Layout
-
-extension EditMyProfileVC {
-    
-    private func setBackgroundColor() {
-        view.backgroundColor = .peekaBeige
-        nicknameHeaderView.backgroundColor = .peekaRed
-    }
-    
-    private func setLayout() {
-        view.addSubviews(naviBar, profileImageContainerView, nicknameContainerView, doubleCheckErrorLabel, doubleCheckSuccessLabel, countMaxTextLabel, introContainerView)
-        profileImageContainerView.addSubviews(profileImageView, editImageButton)
-        nicknameContainerView.addSubviews(nicknameHeaderView, nicknameTextContainerView)
-        nicknameHeaderView.addSubviews(nicknameLabel)
-        nicknameTextContainerView.addSubviews(nicknameTextField, doubleCheckButton)
-    
-        naviBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+    // 세로 이미지 회전 문제로 인한 함수
+    private func fixOrientation(img: UIImage) -> UIImage {
+        if img.imageOrientation == .up {
+            return img
         }
         
-        profileImageContainerView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom).offset(23)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(82)
-        }
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
         
-        profileImageView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
-            $0.height.width.equalTo(80)
-        }
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
         
-        editImageButton.snp.makeConstraints {
-            $0.trailing.bottom.equalToSuperview()
-            $0.height.width.equalTo(24)
-        }
-        
-        nicknameContainerView.snp.makeConstraints {
-            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(54)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(79)
-        }
-        
-        nicknameHeaderView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(36)
-        }
-        
-        nicknameLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(14)
-            $0.centerY.equalToSuperview()
-        }
-        
-        nicknameTextContainerView.snp.makeConstraints {
-            $0.top.equalTo(nicknameHeaderView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        nicknameTextField.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(doubleCheckButton.snp.leading).inset(14)
-        }
-        
-        doubleCheckButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(7)
-            $0.trailing.equalToSuperview().inset(14)
-            $0.height.equalTo(26)
-            $0.width.equalTo(53)
-        }
-        
-        doubleCheckErrorLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
-            $0.leading.equalTo(nicknameContainerView)
-        }
-        
-        doubleCheckSuccessLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(10)
-            $0.leading.equalTo(nicknameContainerView)
-        }
-        
-        countMaxTextLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(8)
-            $0.trailing.equalTo(nicknameContainerView)
-        }
-        
-        introContainerView.snp.makeConstraints {
-            $0.top.equalTo(nicknameContainerView.snp.bottom).offset(48)
-            $0.trailing.leading.equalToSuperview().inset(20)
-            $0.height.equalTo(101)
-        }
-    }
-}
-
-extension EditMyProfileVC: IntroText {
-    func getTextView(text: String) {
-        self.introText = text
-        checkComplete()
-    }
-}
-
-// MARK: - Network
-
-extension EditMyProfileVC {
-    
-    private func getAccountAPI() {
-        MyPageAPI.shared.getMyAccountInfo { response in
-            if response?.success == true {
-                guard let serverGetAccountDetail = response?.data else { return }
-                self.profileImageView.kf.indicatorType = .activity
-                self.profileImageView.kf.setImage(with: URL(string: serverGetAccountDetail.profileImage))
-                if response?.data?.profileImage.isEmpty == true {
-                    self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
-                }
-            }
-        }
-    }
-    
-    private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
-        MyPageAPI.shared.editMyProfile(request: request, image: image) { response in
-            if response?.success == true {
-                /// TODO:- 프로필 수정하고 다시 마이페이지로 돌아가면 프로필 업데이트된거로 보이게 해줘야 됨 ``@인영``
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-    
-    private func checkDuplicateComplete(param: CheckDuplicateRequest, completion: @escaping (Bool) -> Void) {
-        UserAPI.shared.checkDuplicate(param: param) { response in
-            if response?.success == true {
-                if let isDuplicated = response?.data?.check {
-                    if isDuplicated == 0 {
-                        self.isDoubleChecked = true
-                        completion(true)
-                    } else {
-                        self.isDoubleChecked = false
-                        completion(false)
-                    }
-                }
-            }
-        }
+        return normalizedImage
     }
 }
 
@@ -430,3 +458,53 @@ extension EditMyProfileVC: UITextFieldDelegate {
     }
 }
 
+// MARK: - IntroTextDelegate
+
+extension EditMyProfileVC: IntroTextDelegate {
+    func getTextView(text: String) {
+        self.introText = text
+        checkComplete()
+    }
+}
+
+// MARK: - Network
+
+extension EditMyProfileVC {
+    
+    private func getAccountAPI() {
+        MyPageAPI(viewController: self).getMyAccountInfo { response in
+            if response?.success == true {
+                guard let serverGetAccountDetail = response?.data else { return }
+                self.profileImageView.loadProfileImage(from: response?.data?.profileImage)
+            }
+        }
+    }
+    
+    private func editMyProfile(request: PatchProfileRequest, image: UIImage?) {
+        var finalImage: UIImage? = image
+        if isImageDefaultType {
+            finalImage = nil
+        }
+        MyPageAPI(viewController: self).editMyProfile(request: request, image: finalImage) { response in
+            if response?.success == true {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    private func checkDuplicateComplete(param: CheckDuplicateRequest, completion: @escaping (Bool) -> Void) {
+        UserAPI(viewController: self).checkDuplicate(param: param) { response in
+            if response?.success == true {
+                if let isDuplicated = response?.data?.check {
+                    if isDuplicated == 0 {
+                        self.isDoubleChecked = true
+                        completion(true)
+                    } else {
+                        self.isDoubleChecked = false
+                        completion(false)
+                    }
+                }
+            }
+        }
+    }
+}

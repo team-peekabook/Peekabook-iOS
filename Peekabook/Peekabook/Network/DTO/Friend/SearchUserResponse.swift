@@ -11,7 +11,8 @@ import Foundation
 
 struct SearchUserResponse: Codable {
     let friendID: Int
-    let nickname, profileImage: String
+    let nickname: String
+    let profileImage: String?
     let isFollowed, isBlocked: Bool
 
     enum CodingKeys: String, CodingKey {

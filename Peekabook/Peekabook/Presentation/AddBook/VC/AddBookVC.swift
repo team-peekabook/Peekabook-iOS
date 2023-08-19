@@ -37,7 +37,7 @@ final class AddBookVC: UIViewController {
         .addRightButtonAction {
             self.checkButtonDidTap()
         }
-        .addLefttButtonAction {
+        .addLeftButtonAction {
             self.backButtonDidTap()
         }
     
@@ -236,9 +236,11 @@ extension AddBookVC {
     }
 }
 
+// MARK: - Network
+
 extension AddBookVC {
     private func postMyBook(param: PostBookRequest) {
-        BookShelfAPI.shared.postMyBookInfo(param: param) { response in
+        BookShelfAPI(viewController: self).postMyBookInfo(param: param) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

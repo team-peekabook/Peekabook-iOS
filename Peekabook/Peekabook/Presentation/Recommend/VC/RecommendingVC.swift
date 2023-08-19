@@ -11,7 +11,6 @@ final class RecommendingVC: UIViewController {
     
     // MARK: - Properties
     
-    private var serverGetRecommendingBook: GetRecommendResponse?
     private var recommendingBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -28,6 +27,7 @@ final class RecommendingVC: UIViewController {
     private let emptyDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .h2
+        label.textAlignment = .center
         label.textColor = .peekaRed_60
         label.text = I18N.BookRecommend.recommendingEmptyDescription
         label.numberOfLines = 2
@@ -38,7 +38,6 @@ final class RecommendingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
         setLayout()
         setDelegate()
@@ -92,6 +91,8 @@ extension RecommendingVC {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
 extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -105,7 +106,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC
         else { return UITableViewCell() }
-        cell.dataBind(model: recommendingBooks[safe: indexPath.row]!)
+        cell.dataBind(model: recommendingBooks[indexPath.row])
         return cell
     }
 }
@@ -115,20 +116,26 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
 extension RecommendingVC {
     
     private func getRecommendingBooksAPI() {
-        RecommendAPI.shared.getRecommend { response in
+        RecommendAPI(viewController: self).getRecommend { response in
             if response?.success == true {
                 guard let serverGetRecommendingBook = response?.data else { return }
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook
-                self.recommendingTableView.reloadData()
                 
-                // TODO: - 엠티뷰
-                if response?.data?.recommendingBook.isEmpty == true {
-                    self.emptyDescriptionLabel.isHidden = false
-                    self.recommendingTableView.isHidden = true
-                } else {
-                    self.emptyDescriptionLabel.isHidden = true
-                    self.recommendingTableView.isHidden = false
+                DispatchQueue.main.async {
+
+                    if let recommendingBooks = response?.data?.recommendingBook, !recommendingBooks.isEmpty {
+                        self.emptyDescriptionLabel.isHidden = true
+                        self.recommendingTableView.isHidden = false
+                    } else {
+                        self.emptyDescriptionLabel.isHidden = false
+                        self.recommendingTableView.isHidden = true
+                    }
+
+                    print(" 🚽🚽🚽 recommendingBooks 데이터 수: \(self.recommendingBooks.count)")
+
+                    self.recommendingTableView.reloadData()
                 }
+
             }
         }
     }

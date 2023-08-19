@@ -20,6 +20,7 @@ final class MyNotificationTVC: UITableViewCell {
     
     private let notiContainerView = UIView()
     private let notiImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 24
         $0.layer.masksToBounds = true
     }
@@ -118,10 +119,7 @@ extension MyNotificationTVC {
 extension MyNotificationTVC {
     
     func dataBind(model: GetAlarmResponse) {
-        if let image = model.profileImage {
-            self.notiImageView.kf.indicatorType = .activity
-            self.notiImageView.kf.setImage(with: URL(string: image))
-        }
+        notiImageView.loadProfileImage(from: model.profileImage)
         userNameLabel.text = model.senderName
         contentLabel.text = "\(setContentLabel(model: model))"
         bookNameLabel.text = model.bookTitle

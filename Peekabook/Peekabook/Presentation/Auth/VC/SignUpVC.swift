@@ -7,14 +7,16 @@
 
 import UIKit
 
+enum ProfileImageType: CaseIterable {
+    case defaultImage
+    case customImage
+}
+
 final class SignUpVC: UIViewController {
     
-    enum ProfileImageType: CaseIterable {
-        case defaultImage
-        case customImage
-    }
-    
     // MARK: - Properties
+    
+    private var isSignUp: Bool = false
     
     var nicknameText: String = ""
     var introText: String = ""
@@ -23,6 +25,9 @@ final class SignUpVC: UIViewController {
         didSet {
             if isImageDefaultType {
                 self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage
+                self.editImageButton.setImage(ImageLiterals.Icn.addProfileImage, for: .normal)
+            } else {
+                self.editImageButton.setImage(ImageLiterals.Icn.profileImageEdit, for: .normal)
             }
         }
     }
@@ -58,9 +63,6 @@ final class SignUpVC: UIViewController {
         .addMiddleLabel(title: I18N.Profile.addMyInfo)
         .addRightButtonAction {
             print("회원가입 도중 창 닫아버림~~~~~~~~~~‼️")
-            UserDefaults.standard.removeObject(forKey: "socialToken")
-            UserDefaults.standard.removeObject(forKey: "accessToken")
-            UserDefaults.standard.removeObject(forKey: "refreshToken")
             self.dismiss(animated: true)
         }
     
@@ -95,8 +97,8 @@ final class SignUpVC: UIViewController {
     }
     private let nicknameTextContainerView = UIView()
     private lazy var nicknameTextField = UITextField().then {
-//        $0.placeholder = I18N.PlaceHolder.nickname
-        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname, attributes: [NSAttributedString.Key.foregroundColor : UIColor.peekaGray1])
+        $0.attributedPlaceholder = NSAttributedString(string: I18N.PlaceHolder.nickname,
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.peekaGray1])
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
@@ -164,172 +166,21 @@ final class SignUpVC: UIViewController {
         setDelegate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkIsDefaultImage()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("🌟 회원가입 뷰 viewDidDisappear")
+        if !isSignUp {
+            UserManager.shared.logout()
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    private func setDelegate() {
-        nicknameTextField.delegate = self
-    }
-    
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        guard let nicknameText = textField.text else { return }
-        // 항상 값을 최신화
-        self.nicknameText = nicknameText
-        if nicknameText.isEmpty {
-            isDoubleChecked = true
-            doubleCheckButton.backgroundColor = .peekaGray1
-        } else {
-            isDoubleChecked = false
-            doubleCheckButton.isEnabled = true
-        }
-        
-        if nicknameText.count > 6 {
-            textField.deleteBackward()
-        } else {
-            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
-        }
-    
-        doubleCheckErrorLabel.isHidden = true
-        doubleCheckSuccessLabel.isHidden = true
-        doubleCheckNotTappedLabel.isHidden = true
-        
-        checkComplete()
-    }
-    
-    @objc
-    private func doubleCheckButtonDidTap() {
-        let checkDuplicated = CheckDuplicateRequest(nickname: nicknameText)
-        checkDuplicateComplete(param: checkDuplicated)
-        
-        if nicknameText.isEmpty {
-            doubleCheckButton.isEnabled = false
-            isDoubleChecked = false
-            doubleCheckButton.backgroundColor = .peekaGray1
-        }
-        checkComplete()
-    }
-    
-    @objc
-    private func checkButtonDidTap() {
-        guard let profileImage = profileImageView.image else { return }
-        
-        if !isDoubleChecked {
-            doubleCheckNotTappedLabel.isHidden = false
-        } else {
-            doubleCheckNotTappedLabel.isHidden = true
-            
-            guard let profileImage = profileImageView.image else { return }
-            signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
-            view.endEditing(true)
-        }
-    }
-    
-    private func checkComplete() {
-        if !self.nicknameText.isEmpty && !self.introText.isEmpty {
-            isCheckComplete = true
-        } else {
-            isCheckComplete = false
-        }
-    }
-    
-    private func setImageTapGesture() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
-        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc
-    private func imagePickDidTap() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
-            self.openCamera()
-        }))
-        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
-            self.openPhotoLibrary()
-        }))
-        if !isImageDefaultType {
-            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
-                self.isImageDefaultType = true
-            }))
-        } else {
-            self.isImageDefaultType = false
-        }
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func openCamera() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func openPhotoLibrary() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
-    
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
-        let contentInset = UIEdgeInsets(
-            top: 0.0,
-            left: 0.0,
-            bottom: keyboardFrame.size.height + checkContainerView.frame.height,
-            right: 0.0)
-        
-        containerView.contentInset = contentInset
-        containerView.scrollIndicatorInsets = contentInset
-        
-        if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
-            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
-            position.y += checkContainerView.frame.height // maxLength 레이아웃 28
-            
-            containerView.setContentOffset(position, animated: true)
-            self.checkContainerView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.size.height)
-            
-        }
-    }
-    
-    @objc private func keyboardWillHide() {
-        let contentInset = UIEdgeInsets.zero
-        containerView.contentInset = contentInset
-        containerView.scrollIndicatorInsets = contentInset
-        UIView.animate(withDuration: 0.2, animations: {
-            self.checkContainerView.transform = .identity
-        })
-    }
-}
-
-extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = image
-        }
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 // MARK: - UI & Layout
@@ -450,7 +301,7 @@ extension SignUpVC {
         
         introContainerView.snp.makeConstraints {
             $0.top.equalTo(countMaxTextLabel.snp.bottom).offset(21)
-            $0.trailing.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(101)
             $0.bottom.equalToSuperview().inset(11)
         }
@@ -474,30 +325,194 @@ extension SignUpVC {
     }
 }
 
-extension SignUpVC: IntroText {
-    func getTextView(text: String) {
-        self.introText = text
-        checkComplete()
-    }
-}
+// MARK: - Methods
 
 extension SignUpVC {
-    func signUp(param: SignUpRequest, image: UIImage) {
-        UserAPI.shared.signUp(param: param, image: image) { response in
-            if response?.success == true {
-                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
-            }
+    
+    private func setDelegate() {
+        nicknameTextField.delegate = self
+    }
+    
+    private func checkIsDefaultImage() {
+        if profileImageView.image == ImageLiterals.Icn.emptyProfileImage {
+            self.isImageDefaultType = true
+        } else {
+            self.isImageDefaultType = false
         }
     }
     
-    func checkDuplicateComplete(param: CheckDuplicateRequest) {
-        UserAPI.shared.checkDuplicate(param: param) { response in
-            if response?.success == true {
-                if let isDuplicated = response?.data?.check {
-                    self.isDoubleChecked = true ? isDuplicated == 0 : false
-                }
-            }
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        guard let nicknameText = textField.text else { return }
+        // 항상 값을 최신화
+        self.nicknameText = nicknameText
+        if nicknameText.isEmpty {
+            isDoubleChecked = true
+            doubleCheckButton.backgroundColor = .peekaGray1
+        } else {
+            isDoubleChecked = false
+            doubleCheckButton.isEnabled = true
         }
+        
+        if nicknameText.count > 6 {
+            textField.deleteBackward()
+        } else {
+            countMaxTextLabel.text = "\(nicknameText.count)\(I18N.Profile.nicknameLength)"
+        }
+    
+        doubleCheckErrorLabel.isHidden = true
+        doubleCheckSuccessLabel.isHidden = true
+        doubleCheckNotTappedLabel.isHidden = true
+        
+        checkComplete()
+    }
+    
+    @objc
+    private func doubleCheckButtonDidTap() {
+        let checkDuplicated = CheckDuplicateRequest(nickname: nicknameText)
+        checkDuplicateComplete(param: checkDuplicated)
+        
+        if nicknameText.isEmpty {
+            doubleCheckButton.isEnabled = false
+            isDoubleChecked = false
+            doubleCheckButton.backgroundColor = .peekaGray1
+        }
+        checkComplete()
+    }
+    
+    @objc
+    private func checkButtonDidTap() {
+        guard let profileImage = profileImageView.image else { return }
+        
+        if !isDoubleChecked {
+            doubleCheckNotTappedLabel.isHidden = false
+        } else {
+            doubleCheckNotTappedLabel.isHidden = true
+            isSignUp = true
+            signUp(param: SignUpRequest(nickname: nicknameTextField.text ?? "", intro: introText), image: profileImage)
+            view.endEditing(true)
+        }
+    }
+    
+    private func checkComplete() {
+        if !self.nicknameText.isEmpty && !self.introText.isEmpty {
+            isCheckComplete = true
+        } else {
+            isCheckComplete = false
+        }
+    }
+    
+    private func setImageTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePickDidTap))
+        profileImageContainerView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc
+    private func imagePickDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
+            self.openCamera()
+        }))
+        alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
+            self.openPhotoLibrary()
+        }))
+        if !isImageDefaultType {
+            alert.addAction(UIAlertAction(title: "기본이미지로 변경", style: .default, handler: { (action) in
+                self.isImageDefaultType = true
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func openCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height + checkContainerView.frame.height,
+            right: 0.0)
+        
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        
+        if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
+            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            position.y += checkContainerView.frame.height // maxLength 레이아웃 28
+            
+            containerView.setContentOffset(position, animated: true)
+            self.checkContainerView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.size.height)
+            
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        containerView.contentInset = contentInset
+        containerView.scrollIndicatorInsets = contentInset
+        UIView.animate(withDuration: 0.2, animations: {
+            self.checkContainerView.transform = .identity
+        })
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            self.profileImageView.image = fixOrientation(img: image)
+            self.isImageDefaultType = false
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // 세로 이미지 회전 문제로 인한 함수
+    private func fixOrientation(img: UIImage) -> UIImage {
+        if img.imageOrientation == .up {
+            return img
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
+        
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return normalizedImage
     }
 }
 
@@ -512,5 +527,40 @@ extension SignUpVC: UITextFieldDelegate {
             return true
         }
         return false
+    }
+}
+
+// MARK: - IntroTextDelegate
+
+extension SignUpVC: IntroTextDelegate {
+    func getTextView(text: String) {
+        self.introText = text
+        checkComplete()
+    }
+}
+
+// MARK: - Network
+
+extension SignUpVC {
+    func signUp(param: SignUpRequest, image: UIImage?) {
+        var finalImage: UIImage? = image
+        if isImageDefaultType {
+            finalImage = nil
+        }
+        UserAPI(viewController: self).signUp(param: param, image: finalImage) { response in
+            if response?.success == true {
+                self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func checkDuplicateComplete(param: CheckDuplicateRequest) {
+        UserAPI(viewController: self).checkDuplicate(param: param) { response in
+            if response?.success == true {
+                if let isDuplicated = response?.data?.check {
+                    self.isDoubleChecked = (isDuplicated == 0) ? true : false
+                }
+            }
+        }
     }
 }

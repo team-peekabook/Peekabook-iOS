@@ -66,8 +66,8 @@ extension DeleteAccountVC {
         }
         
         deleteAccountImgView.snp.makeConstraints {
-            $0.top.equalTo(naviBar.snp.bottom).offset(225)
             $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.9)
         }
         
         deleteAccountLabel.snp.makeConstraints {
@@ -76,9 +76,9 @@ extension DeleteAccountVC {
         }
         
         deleteAccountButton.snp.makeConstraints {
-            $0.top.equalTo(deleteAccountLabel.snp.bottom).offset(260)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(56)
+            $0.height.equalTo(56.adjustedH)
         }
     }
 }

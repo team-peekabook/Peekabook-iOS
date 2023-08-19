@@ -108,6 +108,12 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
+    func changeLeftBackButtonToXmark() -> Self {
+        self.leftButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        return self
+    }
+    
+    @discardableResult
     func addRightButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.rightButtonClosure = closure
         self.rightButton.addTarget(self, action: #selector(touchupRightButton), for: .touchUpInside)
@@ -129,8 +135,10 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
-    func addLefttButtonAction(_ closure: (() -> Void)? = nil) -> Self {
+    func addLeftButtonAction(_ closure: (() -> Void)? = nil) -> Self {
         self.leftButtonClosure = closure
+        self.leftButton.removeTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
+        self.leftButton.removeTarget(self, action: #selector(touchupLeftButton), for: .touchUpInside)
         self.leftButton.addTarget(self, action: #selector(touchupLeftButton), for: .touchUpInside)
         return self
     }

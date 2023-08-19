@@ -69,9 +69,14 @@ extension UnfollowPopUpVC {
     @objc func confirmButtonDidTap() {
         self.deleteFollowAPI(friendId: personId)
     }
+}
+
+// MARK: - Network
+
+extension UnfollowPopUpVC {
     
     private func deleteFollowAPI(friendId: Int) {
-        FriendAPI.shared.deleteFollowing(id: friendId) { response in
+        FriendAPI(viewController: self).deleteFollowing(id: friendId) { response in
             if response?.success == true {
                 let bookShelfVC = BookShelfVC()
                 bookShelfVC.isFollowingStatus = false

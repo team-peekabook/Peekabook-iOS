@@ -46,6 +46,7 @@ final class RecommendListTVC: UITableViewCell {
         $0.layer.shadowOpacity = 0.3
     }
     private let bookRecommendedPersonImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 7.5
         $0.clipsToBounds = true
     }
@@ -203,9 +204,8 @@ extension RecommendListTVC {
         bookNameLabel.text = model.bookTitle
         bookWriterLabel.text = model.author
         bookRecommendDateLabel.text = model.createdAt
-        bookRecommendedPersonImage.kf.indicatorType = .activity
-        bookRecommendedPersonImage.kf.setImage(with: URL(string: model.friendImage))
         bookRecommendedPersonLabel.text = model.friendNickname
         bookRecommendTextLabel.text = model.recommendDesc
+        bookRecommendedPersonImage.loadProfileImage(from: model.friendImage)
     }
 }

@@ -70,9 +70,11 @@ extension BlockPopUpVC {
     }
 }
 
+// MARK: - Network
+
 extension BlockPopUpVC {
     private func postUserReport(friendId: Int) {
-        FriendAPI.shared.postUserBlock(friendId: friendId) { response in
+        FriendAPI(viewController: self).postUserBlock(friendId: friendId) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
             }

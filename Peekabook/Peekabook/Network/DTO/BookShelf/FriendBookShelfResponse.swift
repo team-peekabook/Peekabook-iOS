@@ -20,5 +20,5 @@ struct FriendBookShelfResponse: Codable {
 
 // MARK: - MyIntro
 struct MyIntro2: Codable {
-    let nickname, profileImage: String
+    let nickname, profileImage: String?
 }
