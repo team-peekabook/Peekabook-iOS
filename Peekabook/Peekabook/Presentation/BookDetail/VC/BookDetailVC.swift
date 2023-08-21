@@ -166,24 +166,39 @@ extension BookDetailVC {
     }
     
     private func setCommentColor() {
-        if let text = peekaCommentView.text,
-           (text == I18N.BookDetail.commentPlaceholder + placeholderBlank)
-            || (text == I18N.BookDetail.emptyComment)
-            || (text.isEmpty) {
-            peekaCommentView.setTextColor(.peekaGray2)
-            peekaCommentView.text = I18N.BookDetail.emptyComment
-        } else {
-            peekaCommentView.setTextColor(.peekaRed)
-        }
         
-        if let memoText = peekaMemoView.text,
-           (memoText == I18N.BookDetail.memoPlaceholder + placeholderBlank)
-            || (memoText == I18N.BookDetail.emptyMemo)
-            || (memoText.isEmpty) {
-            peekaMemoView.setTextColor(.peekaGray2)
-            peekaMemoView.text = I18N.BookDetail.emptyMemo
-        } else {
-            peekaMemoView.setTextColor(.peekaRed)
+        guard let descriptions = peekaCommentView.text,
+              let memo = peekaMemoView.text else { return }
+        
+        if mode == .edit {
+            if descriptions.isEmpty || peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank {
+                peekaCommentView.text = I18N.BookDetail.commentPlaceholder + placeholderBlank
+                peekaCommentView.setTextColor(.peekaGray2)
+            } else {
+                peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
+            }
+            
+            if memo.isEmpty || peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank {
+                peekaMemoView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
+                peekaMemoView.setTextColor(.peekaGray2)
+            } else {
+                peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
+            }
+            
+        } else { // mode == .show
+            if descriptions.isEmpty || peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank {
+                peekaCommentView.setTextColor(.peekaGray2)
+                peekaCommentView.text = I18N.BookDetail.emptyComment
+            } else {
+                peekaCommentView.setTextColor(.peekaRed)
+            }
+            
+            if memo.isEmpty || peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank {
+                peekaMemoView.setTextColor(.peekaGray2)
+                peekaMemoView.text = I18N.BookDetail.emptyMemo
+            } else {
+                peekaMemoView.setTextColor(.peekaRed)
+            }
         }
     }
     
@@ -248,7 +263,6 @@ extension BookDetailVC {
         }
     }
 
-
     @objc func commentViewTapped() {
         peekaCommentView.textView.becomeFirstResponder()
     }
@@ -265,19 +279,17 @@ extension BookDetailVC {
         
         guard let descriptions = peekaCommentView.text,
               let memo = peekaMemoView.text else { return }
-        
-        if descriptions != I18N.BookDetail.emptyComment {
-            peekaCommentView.setTextColor(.peekaRed)
-            peekaCommentView.setTextCustomMaxLabel("\(descriptions.count)/200")
+            
+        if descriptions.isEmpty || descriptions == I18N.BookDetail.commentPlaceholder + placeholderBlank {
+            peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
         } else {
-            peekaCommentView.setTextCustomMaxLabel(I18N.BookAdd.commentLength)
+            peekaMemoView.setTextCustomMaxLabel("\(descriptions.count)/200")
         }
         
-        if memo != I18N.BookDetail.emptyMemo {
-            peekaMemoView.setTextColor(.peekaRed)
-            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
-        } else {
+        if memo.isEmpty || memo == I18N.BookDetail.memoPlaceholder + placeholderBlank {
             peekaMemoView.setTextCustomMaxLabel(I18N.BookAdd.memoLength)
+        } else {
+            peekaMemoView.setTextCustomMaxLabel("\(memo.count)/50")
         }
     }
 
@@ -318,8 +330,8 @@ extension BookDetailVC {
     
     @objc
     private func completeEditButtonDidTap() {
-        guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
-              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
+        guard let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) || (peekaCommentView.text == I18N.BookDetail.emptyComment) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) || (peekaMemoView.text == I18N.BookDetail.emptyMemo) ? "" : peekaMemoView.text else { return }
         
         editMyBookInfo(id: selectedBookIndex, param: EditBookRequest(description: description, memo: memo))
     }
