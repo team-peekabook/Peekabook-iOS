@@ -87,9 +87,12 @@ extension RecommendVC {
     private func addSubviews() {
         view.addSubviews(
             naviBar,
-            recommendCollectionView,
-            pageViewController.view
+            recommendCollectionView
         )
+        
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
+        pageViewController.didMove(toParent: self)
     }
     
     private func setLayout() {
