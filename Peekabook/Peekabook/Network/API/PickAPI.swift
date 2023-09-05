@@ -10,7 +10,7 @@ import UIKit
 import Moya
 
 final class PickAPI {
-    
+
     private var pickProvider = Providers.pickProvider
     
     init(viewController: UIViewController) {
