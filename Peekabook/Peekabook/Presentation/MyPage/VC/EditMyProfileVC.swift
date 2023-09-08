@@ -421,10 +421,17 @@ extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = fixOrientation(img: image)
+            let compressedImage = compressImage(image: image, compressionQuality: 0.5) // 중간정도로 이미지 압축함
+            self.profileImageView.image = fixOrientation(img: compressedImage)
             self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    private func compressImage(image: UIImage, compressionQuality: CGFloat) -> UIImage {
+        guard let compressedImageData = image.jpegData(compressionQuality: compressionQuality) else { return image }
+        guard let compressedUIImage = UIImage(data: compressedImageData) else { return image }
+        return compressedUIImage
     }
     
     // 세로 이미지 회전 문제로 인한 함수
