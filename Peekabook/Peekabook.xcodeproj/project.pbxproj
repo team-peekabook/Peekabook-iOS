@@ -75,9 +75,6 @@
 		8E806F432A32260F002FE5DF /* BarcodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8E806F422A32260F002FE5DF /* BarcodeScanner */; };
 		8E806F452A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */; };
 		8E806F552A38286B002FE5DF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F542A38286B002FE5DF /* UserManager.swift */; };
-		8E806F572A3828BF002FE5DF /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */; };
-		8E806F592A3828E4002FE5DF /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F582A3828E4002FE5DF /* Providers.swift */; };
-		8E806F5B2A382BF3002FE5DF /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */; };
 		8E806F5D2A384EDE002FE5DF /* UserDefaultKeyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */; };
 		8E806F5F2A385132002FE5DF /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E806F5E2A385132002FE5DF /* SplashVC.swift */; };
 		8E81F39F296058CC001815B4 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */; };
@@ -240,9 +237,6 @@
 		8E7817A12A5BAE99004DFF95 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAlertPopUpVC.swift; sourceTree = "<group>"; };
 		8E806F542A38286B002FE5DF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
-		8E806F582A3828E4002FE5DF /* Providers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
-		8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeyList.swift; sourceTree = "<group>"; };
 		8E806F5E2A385132002FE5DF /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		8E81F399296058CB001815B4 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -547,10 +541,6 @@
 				8E1850692969BA9F0062E92A /* GeneralResponse.swift */,
 				8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */,
 				8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */,
-				8E806F542A38286B002FE5DF /* UserManager.swift */,
-				8E806F562A3828BF002FE5DF /* AuthInterceptor.swift */,
-				8E806F582A3828E4002FE5DF /* Providers.swift */,
-				8E806F5A2A382BF3002FE5DF /* NetworkLoggerPlugin.swift */,
 				8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */,
 			);
 			path = Foundation;
@@ -882,6 +872,7 @@
 		8EEF8E182969CFE800F37AFD /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8E806F542A38286B002FE5DF /* UserManager.swift */,
 				8EEF8E1A2969D00600F37AFD /* BookShelfAPI.swift */,
 				8EEF8E27296B128300F37AFD /* PickAPI.swift */,
 				8EEF8E29296B128C00F37AFD /* RecommendAPI.swift */,
@@ -1171,7 +1162,6 @@
 				8E81F3BE296077BD001815B4 /* showNetworkAlert.swift in Sources */,
 				983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
-				8E806F572A3828BF002FE5DF /* AuthInterceptor.swift in Sources */,
 				148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */,
 				8E45036E29D1F3F800A829A6 /* AuthRouter.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
@@ -1198,7 +1188,6 @@
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
-				8E806F592A3828E4002FE5DF /* Providers.swift in Sources */,
 				8E4503A329D46CF600A829A6 /* BlockedUserCVC.swift in Sources */,
 				8E4083DE2970114C00B53339 /* EditPickRequest.swift in Sources */,
 				98F1803A29CD7BB900550E45 /* UnfollowPopUpVC.swift in Sources */,
@@ -1242,7 +1231,6 @@
 				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
-				8E806F5B2A382BF3002FE5DF /* NetworkLoggerPlugin.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
 				8E81F3E2296082FB001815B4 /* UIViewController+.swift in Sources */,
@@ -1412,7 +1400,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23090701;
+				CURRENT_PROJECT_VERSION = 23090803;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1432,7 +1420,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1452,7 +1440,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23090701;
+				CURRENT_PROJECT_VERSION = 23090803;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1472,7 +1460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

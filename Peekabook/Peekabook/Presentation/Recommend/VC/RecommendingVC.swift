@@ -130,9 +130,7 @@ extension RecommendingVC {
                         self.emptyDescriptionLabel.isHidden = false
                         self.recommendingTableView.isHidden = true
                     }
-
-                    print(" 🚽🚽🚽 recommendingBooks 데이터 수: \(self.recommendingBooks.count)")
-
+                    
                     self.recommendingTableView.reloadData()
                 }
 

@@ -38,13 +38,22 @@ final class NetworkAlertPopUpVC: UIViewController {
         button.addTarget(self, action: #selector(retryButtonDidTap), for: .touchUpInside)
         return button
     }()
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
+        self.view.alpha = 0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.alpha = 1
+        }
     }
 }
 
@@ -93,10 +102,10 @@ extension NetworkAlertPopUpVC {
     
     @objc
     private func retryButtonDidTap() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.view.alpha = 0
         }) { _ in
-            self.dismiss(animated: false)
+            self.dismiss(animated: true)
         }
     }
 }

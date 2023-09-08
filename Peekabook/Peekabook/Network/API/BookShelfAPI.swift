@@ -11,8 +11,8 @@ import Moya
 
 final class BookShelfAPI {
     
-    private var bookShelfProvider = Providers.bookShelfProvider
-        
+    private var bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaLoggerPlugin(viewController: nil)])
+    
     init(viewController: UIViewController) {
         bookShelfProvider = MoyaProvider<BookShelfRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }

@@ -284,18 +284,17 @@ extension LoginVC {
 extension LoginVC {
     
     func signIn(param: SocialLoginRequest) {
-        UserManager.shared.getSocialLoginAPI(param: param) { [weak self] result in
-            switch result {
-            case .success(let isSignUp):
-                UserManager.shared.isKakao = param.socialPlatform == "kakao"
-                self?.changeNextViewController(isSigned: isSignUp)
-            case .failure(let error):
-                print(error.localizedDescription)
+        UserManager.shared.getSocialLoginAPI(param: param) { [weak self] response in
+            if response?.success == true {
+                if let data = response?.data {
+                    UserManager.shared.isKakao = param.socialPlatform == "kakao"
+                    self?.changeNextViewController()
+                }
             }
         }
     }
     
-    private func changeNextViewController(isSigned: Bool) {
+    private func changeNextViewController() {
         if UserManager.shared.isSignUp == true {
             self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
         } else {
