@@ -17,6 +17,7 @@ final class SignUpVC: UIViewController {
     // MARK: - Properties
     
     private var isSignUp: Bool = false
+    private var isCameraMode: Bool = false
     
     var nicknameText: String = ""
     var introText: String = ""
@@ -173,7 +174,7 @@ final class SignUpVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         print("🌟 회원가입 뷰 viewDidDisappear")
-        if !isSignUp {
+        if !isSignUp && !isCameraMode {
             UserManager.shared.logout()
         }
     }
@@ -412,6 +413,7 @@ extension SignUpVC {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
             self.openCamera()
+            self.isCameraMode = true
         }))
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
