@@ -208,10 +208,6 @@ final class BookShelfVC: UIViewController {
         updateLatestMyProfile() // 나의 미니 프로필 데이터 최신화
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     // MARK: - @objc Function
     
     @objc
