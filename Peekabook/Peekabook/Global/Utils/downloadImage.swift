@@ -14,7 +14,7 @@ extension NSObject {
         guard let url = URL.init(string: urlString) else {
             return  imageCompletionHandler(nil)
         }
-        let resource = ImageResource(downloadURL: url)
+        let resource = KF.ImageResource(downloadURL: url)
         
         KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
             switch result {

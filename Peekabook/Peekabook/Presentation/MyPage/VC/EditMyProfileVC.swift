@@ -400,7 +400,7 @@ extension EditMyProfileVC {
         containerScrollView.scrollIndicatorInsets = contentInset
         
         if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
-            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            let position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
             containerScrollView.setContentOffset(position, animated: true)
         }
     }
@@ -481,7 +481,7 @@ extension EditMyProfileVC {
     private func getAccountAPI() {
         MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
-                guard let serverGetAccountDetail = response?.data else { return }
+                guard response?.data != nil else { return }
                 self.profileImageView.loadProfileImage(from: response?.data?.profileImage)
             }
         }

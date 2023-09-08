@@ -19,7 +19,7 @@ import KakaoSDKUser
 import SafariServices
 
 final class LoginVC: UIViewController {
-
+    
     // MARK: - UI Components
     
     private let logoImgView = UIImageView().then {
@@ -68,7 +68,7 @@ final class LoginVC: UIViewController {
     }
     
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addButtonTapGesture()
@@ -117,14 +117,14 @@ extension LoginVC {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(16)
         }
-
+        
         labelContainerView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(59)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(157)
             $0.height.equalTo(16)
         }
-
+        
         serviceTermsLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview()
@@ -134,7 +134,7 @@ extension LoginVC {
             $0.leading.equalTo(serviceTermsLabel.snp.trailing).offset(4)
             $0.centerY.equalToSuperview()
         }
-
+        
         privacyPolicyLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(andLabel.snp.trailing).offset(4)
@@ -212,7 +212,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
             signIn(param: appleLoginRequest)
             
-        // 비밀번호로 로그인
+            // 비밀번호로 로그인
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
@@ -240,7 +240,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
 // MARK: - 카카오 OAuth 소셜 로그인
 
 extension LoginVC {
-
+    
     func kakaoLogin() {
         // 카카오톡 설치 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -253,7 +253,7 @@ extension LoginVC {
                     print("앱으로 카카오 소셜 인증 성공")
                     UserManager.shared.socialToken = oauthToken?.accessToken
                     
-                    if let _ = oauthToken?.accessToken {
+                    if oauthToken?.accessToken != nil {
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.signIn(param: kakaoLoginRequest)
                     }
@@ -269,7 +269,7 @@ extension LoginVC {
                     print("웹으로 카카오 소셜 인증 성공")
                     UserManager.shared.socialToken = oauthToken?.accessToken
                     
-                    if let _ = oauthToken?.accessToken {
+                    if oauthToken?.accessToken != nil {
                         let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
                         self.signIn(param: kakaoLoginRequest)
                     }
@@ -286,7 +286,7 @@ extension LoginVC {
     func signIn(param: SocialLoginRequest) {
         UserManager.shared.getSocialLoginAPI(param: param) { [weak self] response in
             if response?.success == true {
-                if let data = response?.data {
+                if response?.data != nil {
                     UserManager.shared.isKakao = param.socialPlatform == "kakao"
                     self?.changeNextViewController()
                 }

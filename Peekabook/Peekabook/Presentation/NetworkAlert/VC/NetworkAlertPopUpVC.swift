@@ -107,8 +107,8 @@ extension NetworkAlertPopUpVC {
     private func retryButtonDidTap() {
         UIView.animate(withDuration: 0.4, animations: {
             self.view.alpha = 0
-        }) { _ in
+        }, completion: { _ in
             self.dismiss(animated: true)
-        }
+        })
     }
 }
