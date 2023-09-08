@@ -197,35 +197,19 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
-        if let cachedData = UserDefaults.standard.getMyBookShelfInfo() {
-            updateUI(with: cachedData)
-        }
-    }
-    
-    private func updateUI(with data: MyBookShelfResponse) {
-        self.serverMyBookShelfInfo = data
-        self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
-        self.myNameLabel.text = data.myIntro.nickname
-        self.introNameLabel.text = data.myIntro.nickname
-        self.introductionLabel.text = data.myIntro.intro
-        self.friends = data.friendList
-        self.picks = data.picks
-        self.bottomShelfVC.setData(books: data.books, bookTotalNum: data.bookTotalNum)
-        
-        self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
-        self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
-        self.editPickButtonState(with: data.books.isEmpty)
-        self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
-        self.friendsCollectionView.reloadData()
-        self.pickCollectionView.reloadData()
+        getCachedData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if selectedUserIndex == nil {
-            // 백그라운드에서 서버로부터 최신 데이터 가져오기
-            getMyBookShelfInfo()
+            getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
+        updateLatestMyProfile() // 나의 미니 프로필 데이터 최신화
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     // MARK: - @objc Function
@@ -309,6 +293,35 @@ extension BookShelfVC {
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
         containerScrollView.bounces = false
+    }
+    
+    private func updateLatestMyProfile() {
+        self.myProfileImageView.loadProfileImage(from: UserDefaultKeyList.userProfileImage)
+        self.myNameLabel.text = UserDefaultKeyList.userNickname
+    }
+    
+    private func updateUI(with data: MyBookShelfResponse) {
+        self.serverMyBookShelfInfo = data
+        self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
+        self.myNameLabel.text = data.myIntro.nickname
+        self.introNameLabel.text = data.myIntro.nickname
+        self.introductionLabel.text = data.myIntro.intro
+        self.friends = data.friendList
+        self.picks = data.picks
+        self.bottomShelfVC.setData(books: data.books, bookTotalNum: data.bookTotalNum)
+        
+        self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
+        self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
+        self.editPickButtonState(with: data.books.isEmpty)
+        self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+        self.friendsCollectionView.reloadData()
+        self.pickCollectionView.reloadData()
+    }
+    
+    private func getCachedData() {
+        if let cachedData = UserDefaults.standard.getMyBookShelfInfo() {
+            updateUI(with: cachedData)
+        }
     }
     
     private func setLayout() {

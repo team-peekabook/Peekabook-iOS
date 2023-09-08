@@ -123,6 +123,7 @@
 		8EB3BB352A0B92A900F895F9 /* GetBlockedAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */; };
 		8EB3BB372A0BEE2C00F895F9 /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB362A0BEE2C00F895F9 /* PatchProfileRequest.swift */; };
 		8EB3BB392A0CC3A200F895F9 /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */; };
+		8ECB2DDC2AAAF8DF0021ABAE /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2DDB2AAAF8DF0021ABAE /* CacheKey.swift */; };
 		8ECCB0B32A31F4E7002F1710 /* safeAreaHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCB0B22A31F4E7002F1710 /* safeAreaHeight.swift */; };
 		8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */; };
 		8EEBFFBA29B81F7D00EEE1DB /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */; };
@@ -285,6 +286,7 @@
 		8EB3BB342A0B92A900F895F9 /* GetBlockedAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedAccountResponse.swift; sourceTree = "<group>"; };
 		8EB3BB362A0BEE2C00F895F9 /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
 		8EB3BB382A0CC3A200F895F9 /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
+		8ECB2DDB2AAAF8DF0021ABAE /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
 		8ECCB0B22A31F4E7002F1710 /* safeAreaHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safeAreaHeight.swift; sourceTree = "<group>"; };
 		8EEBFFB529B7710E00EEE1DB /* SingleTouchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTouchButton.swift; sourceTree = "<group>"; };
 		8EEBFFB929B81F7C00EEE1DB /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		8E10BA0F295FF43A00BCF58B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8ECB2DDD2AAAF9090021ABAE /* NetworkAlert */,
 				143A19CD29D9675F00931655 /* Auth */,
 				8E10BA1F295FF61E00BCF58B /* TabBar */,
 				8E10BA20295FF62500BCF58B /* BookShelf */,
@@ -443,6 +446,8 @@
 				8E81F3C329607AA5001815B4 /* showToastMessage.swift */,
 				8E234769297F6A550066D7B3 /* switchRootViewController.swift */,
 				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
+				8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */,
+				8ECB2DDB2AAAF8DF0021ABAE /* CacheKey.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -540,8 +545,6 @@
 				8EAB43FE296C6D010045AD7F /* BaseResponse.swift */,
 				8E1850692969BA9F0062E92A /* GeneralResponse.swift */,
 				8E18506B2969BAC60062E92A /* MoyaLoggerPlugin.swift */,
-				8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */,
-				8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -857,6 +860,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8ECB2DDD2AAAF9090021ABAE /* NetworkAlert */ = {
+			isa = PBXGroup;
+			children = (
+				8ECB2DDE2AAAF9290021ABAE /* VC */,
+			);
+			path = NetworkAlert;
+			sourceTree = "<group>";
+		};
+		8ECB2DDE2AAAF9290021ABAE /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				8E806F442A34B6EF002FE5DF /* NetworkAlertPopUpVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
 		8EEF8E152969C7B800F37AFD /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
@@ -1163,6 +1182,7 @@
 				983D556E29A881BF00EB6E53 /* CustomSearchView.swift in Sources */,
 				8E81F3FA29608A83001815B4 /* BookDetailVC.swift in Sources */,
 				148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */,
+				8ECB2DDC2AAAF8DF0021ABAE /* CacheKey.swift in Sources */,
 				8E45036E29D1F3F800A829A6 /* AuthRouter.swift in Sources */,
 				1431D53C2963497000CA72D0 /* RecommendedVC.swift in Sources */,
 				8E806F5F2A385132002FE5DF /* SplashVC.swift in Sources */,

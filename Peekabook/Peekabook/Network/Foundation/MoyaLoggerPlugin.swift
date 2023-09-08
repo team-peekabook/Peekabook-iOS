@@ -43,7 +43,7 @@ extension MoyaLoggerPlugin {
             log.append("\(bodyString)\n")
         }
         log.append("------------------- END \(method) -------------------")
-        print(log)
+//        print(log)
     }
     
     // Response가 왔을 때
@@ -67,7 +67,7 @@ extension MoyaLoggerPlugin {
             log.append("4️⃣\(reString)\n")
         }
         log.append("------------------- END HTTP -------------------")
-        print(log)
+//        print(log)
         
         // 🔥 토큰 갱신 서버통신 메서드.
         switch statusCode {
@@ -88,7 +88,7 @@ extension MoyaLoggerPlugin {
         log.append("<-- \(error.errorCode)\n")
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
-        print(log)
+//        print(log)
         
         // 네트워크 연결 유실 시 팝업 띄움
         let alertVC = NetworkAlertPopUpVC()
