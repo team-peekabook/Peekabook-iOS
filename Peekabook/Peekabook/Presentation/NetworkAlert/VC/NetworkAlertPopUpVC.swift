@@ -45,15 +45,11 @@ final class NetworkAlertPopUpVC: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        self.view.alpha = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4) {
-            self.view.alpha = 1
-        }
+        animateViewAlapha()
     }
 }
 
@@ -65,6 +61,13 @@ extension NetworkAlertPopUpVC {
         view.backgroundColor = .peekaBeige
         containerView.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
+        self.view.alpha = 0
+    }
+    
+    private func animateViewAlapha() {
+        UIView.animate(withDuration: 0.4) {
+            self.view.alpha = 1
+        }
     }
     
     private func setLayout() {

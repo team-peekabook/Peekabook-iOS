@@ -76,6 +76,7 @@ final class UserManager {
     
     func logout() {
         self.resetTokens()
+        UserDefaults.standard.clearCachedData()
     }
     
     private func resetTokens() {
@@ -84,6 +85,5 @@ final class UserManager {
         self.refreshToken = nil
         self.isKakao = nil
         self.isSignUp = nil
-        UserDefaults.standard.clearCachedData()
     }
 }
