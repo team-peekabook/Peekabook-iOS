@@ -130,7 +130,7 @@ extension MyPageHeaderView {
         nameLabel.text = dataModel.nickname
         
         profileImageView.kf.indicatorType = .activity
-        if let profileImage = dataModel.profileImage, let _ = URL(string: profileImage) {
+        if let profileImage = dataModel.profileImage, URL(string: profileImage) != nil {
             self.profileImageView.kf.setImage(with: URL(string: dataModel.profileImage!))
         } else {
             self.profileImageView.image = ImageLiterals.Icn.emptyProfileImage

@@ -11,8 +11,8 @@ import Moya
 
 final class NaverSearchAPI {
     
-    private var naverSearchProvider = Providers.naverSearchProvider
-                
+    private var naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaLoggerPlugin(viewController: nil)])
+    
     init(viewController: UIViewController) {
         naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }

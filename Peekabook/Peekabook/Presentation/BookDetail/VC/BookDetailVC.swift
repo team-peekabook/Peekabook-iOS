@@ -134,7 +134,7 @@ extension BookDetailVC {
             $0.top.equalTo(peekaCommentView.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(15)
+            $0.bottom.equalToSuperview().inset(25)
             $0.height.equalTo(101)
         }
     }

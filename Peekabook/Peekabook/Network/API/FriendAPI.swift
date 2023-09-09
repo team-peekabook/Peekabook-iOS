@@ -11,7 +11,7 @@ import Moya
 
 final class FriendAPI {
     
-    private var friendProvider = Providers.friendProvider
+    private var friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaLoggerPlugin(viewController: nil)])
     
     init(viewController: UIViewController) {
         friendProvider = MoyaProvider<FriendRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])

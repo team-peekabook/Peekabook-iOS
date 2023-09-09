@@ -38,13 +38,18 @@ final class NetworkAlertPopUpVC: UIViewController {
         button.addTarget(self, action: #selector(retryButtonDidTap), for: .touchUpInside)
         return button
     }()
-
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        animateViewAlapha()
     }
 }
 
@@ -56,6 +61,13 @@ extension NetworkAlertPopUpVC {
         view.backgroundColor = .peekaBeige
         containerView.backgroundColor = .black.withAlphaComponent(0.7)
         popUpView.backgroundColor = .peekaBeige
+        self.view.alpha = 0
+    }
+    
+    private func animateViewAlapha() {
+        UIView.animate(withDuration: 0.4) {
+            self.view.alpha = 1
+        }
     }
     
     private func setLayout() {
@@ -93,10 +105,10 @@ extension NetworkAlertPopUpVC {
     
     @objc
     private func retryButtonDidTap() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.view.alpha = 0
-        }) { _ in
-            self.dismiss(animated: false)
-        }
+        }, completion: { _ in
+            self.dismiss(animated: true)
+        })
     }
 }

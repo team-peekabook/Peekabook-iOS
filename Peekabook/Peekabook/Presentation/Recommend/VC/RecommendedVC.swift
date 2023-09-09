@@ -128,9 +128,6 @@ extension RecommendedVC {
                         self.recommendedTableView.isHidden = true
                     }
 
-
-                    print(" 💩💩💩 recommendedBooks 데이터 수: \(self.recommendedBooks.count)")
-
                     self.recommendedTableView.reloadData()
                 }
                 

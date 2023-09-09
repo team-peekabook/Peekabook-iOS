@@ -11,8 +11,8 @@ import Moya
 
 final class UserAPI {
     
-    private var userProvider = Providers.userProvider
-    
+    private var userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin(viewController: nil)])
+
     init(viewController: UIViewController) {
         userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }

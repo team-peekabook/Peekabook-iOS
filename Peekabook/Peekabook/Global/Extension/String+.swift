@@ -69,7 +69,7 @@ extension String {
     func checkNickname() -> Bool {
         do {
             let regex = try NSRegularExpression(pattern: "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]$", options: .caseInsensitive)
-            if let _ = regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, self.count)) {
+            if regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(0..<self.count)) != nil {
                 return true
             }
         } catch {

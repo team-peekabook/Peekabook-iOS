@@ -18,11 +18,18 @@ final class RecommendVC: UIViewController {
     
     // MARK: - Properties
     
-    private let recommendedVC = RecommendedVC()
-    private let recommendingVC = RecommendingVC()
+    private lazy var recommendedVC: RecommendedVC = {
+        return RecommendedVC()
+    }()
+    
+    private lazy var recommendingVC: RecommendingVC = {
+        return RecommendingVC()
+    }()
+    
     private lazy var dataViewControllers: [UIViewController] = {
         return [recommendedVC, recommendingVC]
     }()
+    
     private var currentPage: Int = 0 {
         didSet {
             bind(newValue: currentPage)
@@ -154,12 +161,6 @@ extension RecommendVC {
             animated: true,
             scrollPosition: .bottom
         )
-        
-        if let recommendedVC = dataViewControllers.first as? RecommendedVC {
-            recommendedVC.viewWillAppear(true)
-        } else {
-            recommendingVC.viewWillAppear(true)
-        }
         
         pageViewController.setViewControllers(
             [dataViewControllers[0]],

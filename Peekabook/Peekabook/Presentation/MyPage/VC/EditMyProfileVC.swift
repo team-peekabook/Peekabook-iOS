@@ -217,7 +217,7 @@ extension EditMyProfileVC {
         }
         
         nicknameTextField.snp.makeConstraints {
-            $0.leading.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
         
@@ -400,7 +400,7 @@ extension EditMyProfileVC {
         containerScrollView.scrollIndicatorInsets = contentInset
         
         if nicknameTextField.isFirstResponder || introContainerView.isTextViewFirstResponder() {
-            var position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
+            let position = introContainerView.getPositionForKeyboard(keyboardFrame: keyboardFrame)
             containerScrollView.setContentOffset(position, animated: true)
         }
     }
@@ -421,10 +421,17 @@ extension EditMyProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = fixOrientation(img: image)
+            let compressedImage = compressImage(image: image, compressionQuality: 0.5) // 중간정도로 이미지 압축함
+            self.profileImageView.image = fixOrientation(img: compressedImage)
             self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    private func compressImage(image: UIImage, compressionQuality: CGFloat) -> UIImage {
+        guard let compressedImageData = image.jpegData(compressionQuality: compressionQuality) else { return image }
+        guard let compressedUIImage = UIImage(data: compressedImageData) else { return image }
+        return compressedUIImage
     }
     
     // 세로 이미지 회전 문제로 인한 함수
@@ -474,7 +481,7 @@ extension EditMyProfileVC {
     private func getAccountAPI() {
         MyPageAPI(viewController: self).getMyAccountInfo { response in
             if response?.success == true {
-                guard let serverGetAccountDetail = response?.data else { return }
+                guard response?.data != nil else { return }
                 self.profileImageView.loadProfileImage(from: response?.data?.profileImage)
             }
         }

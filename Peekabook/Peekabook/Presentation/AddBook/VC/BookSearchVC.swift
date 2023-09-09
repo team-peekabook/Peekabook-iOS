@@ -165,7 +165,6 @@ extension BookSearchVC {
         }
     }
     
-    
     func bookBind(image: String, title: String, author: String, publisher: String) {
         bookInfoList.append(BookInfoModel(title: title, image: image, author: author, publisher: publisher))
     }

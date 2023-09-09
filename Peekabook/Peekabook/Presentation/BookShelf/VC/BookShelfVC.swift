@@ -39,7 +39,7 @@ final class BookShelfVC: UIViewController {
     
     private var serverMyBookShelfInfo: MyBookShelfResponse?
     private var serverFriendBookShelfInfo: FriendBookShelfResponse?
-
+    
     private var friends: [MyIntro] = []
     private var picks: [Pick] = []
     
@@ -197,13 +197,15 @@ final class BookShelfVC: UIViewController {
         setTapGesture()
         registerCells()
         addBottomSheetView()
+        getCachedData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if selectedUserIndex == nil {
-            getMyBookShelfInfo()
+            getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
+        updateLatestMyProfile() // 나의 미니 프로필 데이터 최신화
     }
     
     // MARK: - @objc Function
@@ -287,6 +289,35 @@ extension BookShelfVC {
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
         containerScrollView.bounces = false
+    }
+    
+    private func updateLatestMyProfile() {
+        self.myProfileImageView.loadProfileImage(from: UserDefaultKeyList.userProfileImage)
+        self.myNameLabel.text = UserDefaultKeyList.userNickname
+    }
+    
+    private func updateUI(with data: MyBookShelfResponse) {
+        self.serverMyBookShelfInfo = data
+        self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
+        self.myNameLabel.text = data.myIntro.nickname
+        self.introNameLabel.text = data.myIntro.nickname
+        self.introductionLabel.text = data.myIntro.intro
+        self.friends = data.friendList
+        self.picks = data.picks
+        self.bottomShelfVC.setData(books: data.books, bookTotalNum: data.bookTotalNum)
+        
+        self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
+        self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
+        self.editPickButtonState(with: data.books.isEmpty)
+        self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+        self.friendsCollectionView.reloadData()
+        self.pickCollectionView.reloadData()
+    }
+    
+    private func getCachedData() {
+        if let cachedData = UserDefaults.standard.getMyBookShelfInfo() {
+            updateUI(with: cachedData)
+        }
     }
     
     private func setLayout() {
@@ -431,6 +462,9 @@ extension BookShelfVC {
         }
         
         checkSmallLayout()
+        
+        friendsCollectionView.layoutIfNeeded()
+        pickCollectionView.layoutIfNeeded()
     }
 }
 
@@ -617,28 +651,31 @@ extension BookShelfVC {
     
     private func getMyBookShelfInfo() {
         BookShelfAPI(viewController: self).getMyBookShelfInfo { response in
-            self.serverMyBookShelfInfo = response?.data
-            guard let response = response, let data = response.data else { return }
+            guard let data = response?.data else { return }
+            
+            // 데이터 캐싱
+            UserDefaults.standard.setMyBookShelfInfo(data)
+            
+            self.serverMyBookShelfInfo = data
             self.myProfileImageView.loadProfileImage(from: data.myIntro.profileImage)
             self.myNameLabel.text = data.myIntro.nickname
             self.introNameLabel.text = data.myIntro.nickname
             self.introductionLabel.text = data.myIntro.intro
             self.friends = data.friendList
             self.picks = data.picks
-            self.bottomShelfVC.setData(books: data.books,
-                                       bookTotalNum: data.bookTotalNum)
-            
+            self.bottomShelfVC.setData(books: data.books, bookTotalNum: data.bookTotalNum)
             UserDefaultKeyList.userNickname = data.myIntro.nickname
             UserDefaultKeyList.userIntro = data.myIntro.intro
             UserDefaultKeyList.userProfileImage = URL(string: data.myIntro.profileImage ?? "") != nil ? data.myIntro.profileImage : ""
             
-            self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
-            self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
-            self.editPickButtonState(with: data.books.isEmpty)
-            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
-            
-            self.friendsCollectionView.reloadData()
-            self.pickCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.checkEmptyFriendListView(isEnabled: data.friendList.isEmpty)
+                self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
+                self.editPickButtonState(with: data.books.isEmpty)
+                self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+                self.friendsCollectionView.reloadData()
+                self.pickCollectionView.reloadData()
+            }
         }
     }
 
@@ -650,13 +687,13 @@ extension BookShelfVC {
             self.introNameLabel.text = data.friendIntro.nickname
             self.introductionLabel.text = data.friendIntro.intro
             self.picks = data.picks
-            self.bottomShelfVC.setData(books: data.books,
-                                       bookTotalNum: data.bookTotalNum)
+            self.bottomShelfVC.setData(books: data.books, bookTotalNum: data.bookTotalNum)
             
-            self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
-            self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
-            
-            self.pickCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.checkEmptyPickView(description: I18N.BookShelf.emptyFriendPickDescription, bool: data.picks.isEmpty)
+                self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+                self.pickCollectionView.reloadData()
+            }
         }
     }
     

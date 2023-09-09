@@ -17,6 +17,7 @@ final class SignUpVC: UIViewController {
     // MARK: - Properties
     
     private var isSignUp: Bool = false
+    private var isCameraMode: Bool = false
     
     var nicknameText: String = ""
     var introText: String = ""
@@ -173,7 +174,7 @@ final class SignUpVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         print("🌟 회원가입 뷰 viewDidDisappear")
-        if !isSignUp {
+        if !isSignUp && !isCameraMode {
             UserManager.shared.logout()
         }
     }
@@ -412,6 +413,7 @@ extension SignUpVC {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (action) in
             self.openCamera()
+            self.isCameraMode = true
         }))
         alert.addAction(UIAlertAction(title: "앨범", style: .default, handler: { (action) in
             self.openPhotoLibrary()
@@ -493,10 +495,17 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.originalImage] as? UIImage {
-            self.profileImageView.image = fixOrientation(img: image)
+            let compressedImage = compressImage(image: image, compressionQuality: 0.5) // 중간정도로 이미지 압축함
+            self.profileImageView.image = fixOrientation(img: compressedImage)
             self.isImageDefaultType = false
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    private func compressImage(image: UIImage, compressionQuality: CGFloat) -> UIImage {
+        guard let compressedImageData = image.jpegData(compressionQuality: compressionQuality) else { return image }
+        guard let compressedUIImage = UIImage(data: compressedImageData) else { return image }
+        return compressedUIImage
     }
     
     // 세로 이미지 회전 문제로 인한 함수
