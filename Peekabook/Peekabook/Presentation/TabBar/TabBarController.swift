@@ -12,6 +12,7 @@ final class TabBarController: UITabBarController {
     
     // MARK: - Properties
     private var refreshLaunch = true
+    private var lastSelectedIndex: Int = -1
     
     // MARK: - View Life Cycle
     
@@ -25,9 +26,8 @@ final class TabBarController: UITabBarController {
     // MARK: - Custom Methods
     
     private func setViewControllers() {
-        
+
         let bookShelfNVC = makeNavigationController(
-            
             unselectedImage: ImageLiterals.TabBar.bookshelf,
             selectedImage: ImageLiterals.TabBar.bookshelfSelected,
             rootViewController: BookShelfVC(), title: I18N.Tabbar.bookshelf)
@@ -49,6 +49,8 @@ final class TabBarController: UITabBarController {
         tabBar.backgroundColor = .white
         tabBar.tintColor = .peekaRed
         tabBar.unselectedItemTintColor = .peekaGray1
+        
+        self.delegate = self
     }
     
     private func makeNavigationController(unselectedImage: UIImage?, selectedImage: UIImage?, rootViewController: UIViewController, title: String) -> UINavigationController {
@@ -68,6 +70,7 @@ final class TabBarController: UITabBarController {
         
         nav.interactivePopGestureRecognizer?.isEnabled = true
         nav.interactivePopGestureRecognizer?.delegate = self
+        
         return nav
     }
     
@@ -91,3 +94,16 @@ final class TabBarController: UITabBarController {
 }
 
 extension TabBarController: UIGestureRecognizerDelegate { }
+
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if lastSelectedIndex == selectedIndex {
+            if let bookShelfVC = viewController.children.first(where: { $0 is BookShelfVC }) as? BookShelfVC {
+                bookShelfVC.scrollToTop()
+            }
+        }
+        
+        lastSelectedIndex = selectedIndex
+        print(lastSelectedIndex)
+    }
+}

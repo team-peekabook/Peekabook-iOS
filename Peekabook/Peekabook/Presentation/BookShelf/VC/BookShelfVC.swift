@@ -558,6 +558,10 @@ extension BookShelfVC {
             }
         }
     }
+    
+    func scrollToTop() {
+        print("hi I am tapped~ wahaha")
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
