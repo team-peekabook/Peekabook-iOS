@@ -104,6 +104,5 @@ extension TabBarController: UITabBarControllerDelegate {
         }
         
         lastSelectedIndex = selectedIndex
-        print(lastSelectedIndex)
     }
 }
