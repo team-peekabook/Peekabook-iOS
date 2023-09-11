@@ -169,6 +169,13 @@ extension RecommendVC {
             completion: nil
         )
     }
+    
+    func scrollToTop() {
+        setFirstIndexSelected()
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendedVC {
+            currentViewController.scrollToTop()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout

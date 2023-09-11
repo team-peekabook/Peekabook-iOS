@@ -89,6 +89,11 @@ extension RecommendedVC {
         recommendedTableView.delegate = self
         recommendedTableView.dataSource = self
     }
+    
+    func scrollToTop() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        recommendedTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 }
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {

@@ -85,9 +85,14 @@ extension RecommendingVC {
         )
     }
     
-    private func setDelegate() {
+    func setDelegate() {
         recommendingTableView.delegate = self
         recommendingTableView.dataSource = self
+    }
+    
+    private func scrollToTop() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        recommendingTableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 

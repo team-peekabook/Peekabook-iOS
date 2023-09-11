@@ -101,6 +101,9 @@ extension TabBarController: UITabBarControllerDelegate {
             if let bookShelfVC = viewController.children.first(where: { $0 is BookShelfVC }) as? BookShelfVC {
                 bookShelfVC.scrollToTop()
             }
+            if let recommendVC = viewController.children.first(where: { $0 is RecommendVC }) as? RecommendVC {
+                recommendVC.scrollToTop()
+            }
         }
         
         lastSelectedIndex = selectedIndex
