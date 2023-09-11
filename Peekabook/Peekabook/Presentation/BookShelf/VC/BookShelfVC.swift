@@ -560,7 +560,12 @@ extension BookShelfVC {
     }
     
     func scrollToTop() {
-        print("hi I am tapped~ wahaha")
+        let bottomShelfVC = bottomShelfVC
+        if bottomShelfVC.checkBottomShelfUp(y: bottomShelfVC.view.frame.minY) == true {
+            print("바텀시트가 올라가있어서 내릴게요")
+        } else {
+            print("바텀시트가 이미 내려가있슴니다")
+        }
     }
 }
 
