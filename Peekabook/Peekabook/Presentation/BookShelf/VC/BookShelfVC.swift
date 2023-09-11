@@ -566,6 +566,7 @@ extension BookShelfVC {
         } else {
             print("바텀시트가 이미 내려가있슴니다")
         }
+        selectedUserIndex = nil
     }
 }
 
