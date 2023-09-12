@@ -154,7 +154,7 @@ extension RecommendVC {
         )
     }
     
-    private func setFirstIndexSelected() {
+    func setFirstIndexSelected() {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         recommendCollectionView.selectItem(
             at: selectedIndexPath,
@@ -171,8 +171,10 @@ extension RecommendVC {
     }
     
     func scrollToTop() {
-        setFirstIndexSelected()
         if let currentViewController = pageViewController.viewControllers?.first as? RecommendedVC {
+            currentViewController.scrollToTop()
+        }
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendingVC {
             currentViewController.scrollToTop()
         }
     }
@@ -203,6 +205,7 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             animated: true,
             completion: nil
         )
+        self.scrollToTop()
     }
 }
 

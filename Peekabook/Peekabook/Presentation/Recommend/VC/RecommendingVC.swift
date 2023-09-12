@@ -90,9 +90,9 @@ extension RecommendingVC {
         recommendingTableView.dataSource = self
     }
     
-    private func scrollToTop() {
+    func scrollToTop() {
         let indexPath = IndexPath(row: 0, section: 0)
-        recommendingTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        self.recommendingTableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 
