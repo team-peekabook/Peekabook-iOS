@@ -89,6 +89,11 @@ extension RecommendingVC {
         recommendingTableView.delegate = self
         recommendingTableView.dataSource = self
     }
+    
+    func scrollToTop() {
+        let contentOffset = CGPoint(x: 0, y: 0)
+        self.recommendingTableView.setContentOffset(contentOffset, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource

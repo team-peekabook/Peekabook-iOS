@@ -333,4 +333,17 @@ extension BottomBookShelfVC: UIGestureRecognizerDelegate {
         }
         return false
     }
+    
+    func checkBottomShelfUp(y: CGFloat) -> Bool {
+        UIView.animateWithDamping(animation: {
+            if Int(y) == Int(self.fullView) {
+                self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
+            }
+        }, completion: nil)
+        
+        if Int(y) == Int(fullView) {
+            return true
+        }
+        return false
+    }
 }
