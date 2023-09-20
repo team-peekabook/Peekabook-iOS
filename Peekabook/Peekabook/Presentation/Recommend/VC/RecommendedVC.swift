@@ -91,8 +91,8 @@ extension RecommendedVC {
     }
     
     func scrollToTop() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        recommendedTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        let contentOffset = CGPoint(x: 0, y: 0)
+        self.recommendedTableView.setContentOffset(contentOffset, animated: true)
     }
 }
 
