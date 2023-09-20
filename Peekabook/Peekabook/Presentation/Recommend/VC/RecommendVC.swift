@@ -154,7 +154,7 @@ extension RecommendVC {
         )
     }
     
-    func setFirstIndexSelected() {
+    private func setFirstIndexSelected() {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         recommendCollectionView.selectItem(
             at: selectedIndexPath,
