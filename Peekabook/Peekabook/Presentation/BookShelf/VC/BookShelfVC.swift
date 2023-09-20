@@ -566,7 +566,6 @@ extension BookShelfVC {
         } else {
             print("바텀시트가 이미 내려가있슴니다")
         }
-        selectedUserIndex = nil
         
         let contentOffset = CGPoint(x: 0, y: 0)
         pickCollectionView.setContentOffset(contentOffset, animated: true)

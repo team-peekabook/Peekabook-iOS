@@ -12,7 +12,7 @@ final class TabBarController: UITabBarController {
     
     // MARK: - Properties
     private var refreshLaunch = true
-    private var lastSelectedIndex: Int = -1
+    private var lastSelectedIndex: Int?
     
     // MARK: - View Life Cycle
     
@@ -102,7 +102,6 @@ extension TabBarController: UITabBarControllerDelegate {
                 bookShelfVC.scrollToTop()
             }
             if let recommendVC = viewController.children.first(where: { $0 is RecommendVC }) as? RecommendVC {
-                recommendVC.setFirstIndexSelected()
                 recommendVC.scrollToTop()
             }
         }
