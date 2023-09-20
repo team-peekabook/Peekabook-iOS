@@ -85,7 +85,7 @@ extension RecommendingVC {
         )
     }
     
-    func setDelegate() {
+    private func setDelegate() {
         recommendingTableView.delegate = self
         recommendingTableView.dataSource = self
     }
