@@ -188,9 +188,11 @@ extension CustomTextView {
             textView.text = I18N.BookDetail.memoPlaceholder + placeholderBlank
             proposalItemhidden()
             maxLabel.isHidden = false
+            textView.isUserInteractionEnabled = true
         case .editBookComment:
             proposalItemhidden()
             maxLabel.isHidden = false
+            textView.isUserInteractionEnabled = true
         case .bookDetailComment:
             maxLabel.isHidden = true
             textView.isUserInteractionEnabled = false
