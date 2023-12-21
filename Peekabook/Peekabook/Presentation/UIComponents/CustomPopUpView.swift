@@ -16,6 +16,7 @@ enum ButtonLabelStyle: CaseIterable {
     case report
     case logout
     case deleteAccount
+    case forceUpdate
 }
 
 final class CustomPopUpView: UIView {
@@ -84,7 +85,7 @@ extension CustomPopUpView {
             self.setOneButtonLayout()
         case .logout:
             self.setTwoButtonAndOneLineLabelLayout()
-        case .deleteAccount:
+        case .deleteAccount, .forceUpdate:
             self.setOneButtonAndTwoLineLabelLayout()
         }
     }
@@ -232,6 +233,9 @@ extension CustomPopUpView {
             confirmLabel.text = I18N.Logout.logoutComment
         case .deleteAccount:
             confirmLabel.text = I18N.DeleteAccount.popUpComment
+        case .forceUpdate:
+            deleteAccountDetailLabel.text = I18N.Update.updateComment
+            confirmLabel.text = I18N.Update.update
         }
     }
     
@@ -267,7 +271,9 @@ extension CustomPopUpView {
         case .deleteAccount:
             confirmButton.setTitle(I18N.DeleteAccount.confirm, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(DeleteAccountPopUpVC.confirmButtonDidTap), for: .touchUpInside)
-            
+        case .forceUpdate:
+            confirmButton.setTitle(I18N.Update.button, for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(ForceUpdateVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     
