@@ -16,9 +16,12 @@
 		143DBFD52971ECE20056C609 /* MyPageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD42971ECE20056C609 /* MyPageTVC.swift */; };
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
+		1444CC052B18A4B400FB9F7E /* ForceUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */; };
 		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
+		1492DC5D2AFBC99D00C29B7F /* CheckVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */; };
+		1492DC622AFBFC8000C29B7F /* AppVersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DC612AFBFC8000C29B7F /* AppVersionCheck.swift */; };
 		14B3544A296899CB00998925 /* MyNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B35449296899CB00998925 /* MyNotificationTVC.swift */; };
 		14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */; };
 		14C84E2F29CC2A6D0086F8DF /* EditMyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E2E29CC2A6D0086F8DF /* EditMyProfileVC.swift */; };
@@ -178,9 +181,12 @@
 		143DBFD42971ECE20056C609 /* MyPageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTVC.swift; sourceTree = "<group>"; };
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
+		1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateVC.swift; sourceTree = "<group>"; };
 		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
+		1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckVersionResponse.swift; sourceTree = "<group>"; };
+		1492DC612AFBFC8000C29B7F /* AppVersionCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionCheck.swift; sourceTree = "<group>"; };
 		14B35449296899CB00998925 /* MyNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationTVC.swift; sourceTree = "<group>"; };
 		14B47F8229632EE600B5B60F /* RecommendTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTypeCVC.swift; sourceTree = "<group>"; };
 		14C84E2E29CC2A6D0086F8DF /* EditMyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyProfileVC.swift; sourceTree = "<group>"; };
@@ -365,6 +371,7 @@
 			children = (
 				14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */,
 				14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */,
+				1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -448,6 +455,7 @@
 				8E81F3D329607D3B001815B4 /* UserDefaultWrapper.swift */,
 				8E806F5C2A384EDE002FE5DF /* UserDefaultKeyList.swift */,
 				8ECB2DDB2AAAF8DF0021ABAE /* CacheKey.swift */,
+				1492DC612AFBFC8000C29B7F /* AppVersionCheck.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -680,6 +688,7 @@
 				8E21E53329E040B900E68DAB /* OnboardingVC.swift */,
 				98EAD31729D5AC40000181AF /* LoginVC.swift */,
 				14C84E3629D439450086F8DF /* SignUpVC.swift */,
+				1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1157,6 +1166,7 @@
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
 				14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */,
 				8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */,
+				1492DC622AFBFC8000C29B7F /* AppVersionCheck.swift in Sources */,
 				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
 				140E373229B48AD60004C8D2 /* CustomPopUpView.swift in Sources */,
 				8E81F3C629607B14001815B4 /* delayWithSeconds.swift in Sources */,
@@ -1222,6 +1232,7 @@
 				8E81F3B229605F7F001815B4 /* applyShadow.swift in Sources */,
 				8E81F40D29608B66001815B4 /* AddBookVC.swift in Sources */,
 				8EB3BB372A0BEE2C00F895F9 /* PatchProfileRequest.swift in Sources */,
+				1492DC5D2AFBC99D00C29B7F /* CheckVersionResponse.swift in Sources */,
 				8EEBFFB629B7710E00EEE1DB /* SingleTouchButton.swift in Sources */,
 				8E81F3F1296089F7001815B4 /* EditMyPickVC.swift in Sources */,
 				8E81F3B4296073AF001815B4 /* StringLiterals.swift in Sources */,
@@ -1250,6 +1261,7 @@
 				9833296029E03ECF00D9DE5A /* SignUpRequest.swift in Sources */,
 				98F1804329CE84E100550E45 /* DeleteAccountVC.swift in Sources */,
 				8E81F3DE29608284001815B4 /* String+.swift in Sources */,
+				1444CC052B18A4B400FB9F7E /* ForceUpdateVC.swift in Sources */,
 				8E81F3D029607C61001815B4 /* calculatePastTime.swift in Sources */,
 				8EEF8E172969C7D600F37AFD /* MyBookShelfResponse.swift in Sources */,
 				8E81F40329608B00001815B4 /* MyNotificationVC.swift in Sources */,
@@ -1440,7 +1452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.6;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1480,7 +1492,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.6;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
