@@ -50,9 +50,13 @@ extension ForceUpdateVC {
     
     private func openAppStore() {
         let appleID = Config.appleID
-        guard let url = URL(string: "itms-apps://itunes.apple.com/app/\(appleID)") else { return }
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
+        let url = "itms-apps://itunes.apple.com/app/apple-store/" + appleID
+        if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
     

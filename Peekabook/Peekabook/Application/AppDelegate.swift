@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
         
-        checkAppVersionOnAppLaunch()
-        
         KakaoSDK.initSDK(appKey: Config.kakaoNativeAppKey)
         
         //        if #available(iOS 15, *) {
@@ -53,15 +51,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
     
-    func checkAppVersionOnAppLaunch() {
-        AppVersionCheck.checkAppVersion { needsUpdate in
-            DispatchQueue.main.async {
-                if needsUpdate {
-                    let forceUpdateVC = ForceUpdateVC()
-                    guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
-                    rootViewController.present(forceUpdateVC, animated: false, completion: nil)
-                }
-            }
-        }
-    }
 }

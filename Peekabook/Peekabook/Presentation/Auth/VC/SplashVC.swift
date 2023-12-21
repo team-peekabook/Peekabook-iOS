@@ -27,6 +27,7 @@ final class SplashVC: UIViewController {
         self.setUI()
         self.setNavigationBar()
         self.setLayout()
+        checkAppVersionOnAppLaunch()
         self.checkDidSignIn()
     }
 }
@@ -55,6 +56,19 @@ extension SplashVC {
         guard let window = self.view.window else { return }
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
+    }
+    
+    func checkAppVersionOnAppLaunch() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            AppVersionCheck.checkAppVersion { needsUpdate in
+                if needsUpdate {
+                    let forceUpdateVC = ForceUpdateVC()
+                    guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
+                    forceUpdateVC.modalPresentationStyle = .fullScreen
+                    rootViewController.present(forceUpdateVC, animated: false, completion: nil)
+                }
+            }
+        }
     }
 }
 
