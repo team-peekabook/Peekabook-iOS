@@ -40,7 +40,7 @@ class AppVersionCheck {
                 if needsUpdate {
                     let forceUpdateVC = ForceUpdateVC()
                     guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
-                    forceUpdateVC.modalPresentationStyle = .fullScreen
+                    forceUpdateVC.modalPresentationStyle = .overFullScreen
                     rootViewController.present(forceUpdateVC, animated: false, completion: nil)
                 }
             }
