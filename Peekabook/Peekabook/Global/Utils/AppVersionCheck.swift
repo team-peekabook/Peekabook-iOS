@@ -33,4 +33,17 @@ class AppVersionCheck {
             }
         }
     }
+    
+    static func checkAppVersionOnAppLaunch() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            AppVersionCheck.checkAppVersion { needsUpdate in
+                if needsUpdate {
+                    let forceUpdateVC = ForceUpdateVC()
+                    guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
+                    forceUpdateVC.modalPresentationStyle = .fullScreen
+                    rootViewController.present(forceUpdateVC, animated: false, completion: nil)
+                }
+            }
+        }
+    }
 }
