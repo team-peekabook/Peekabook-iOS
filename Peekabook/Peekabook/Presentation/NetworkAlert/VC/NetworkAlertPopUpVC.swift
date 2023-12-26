@@ -109,7 +109,6 @@ extension NetworkAlertPopUpVC {
             self.view.alpha = 0
         }, completion: { _ in
             self.dismiss(animated: true)
-            AppVersionCheck.checkAppVersionOnAppLaunch()
         })
     }
 }

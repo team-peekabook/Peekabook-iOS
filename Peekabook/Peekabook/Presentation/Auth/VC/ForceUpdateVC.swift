@@ -62,6 +62,5 @@ extension ForceUpdateVC {
     
     @objc func confirmButtonDidTap() {
         openAppStore()
-        self.dismiss(animated: false, completion: nil)
     }
 }
