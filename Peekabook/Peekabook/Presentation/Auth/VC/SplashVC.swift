@@ -35,7 +35,6 @@ final class SplashVC: UIViewController {
 // MARK: - Methods
 
 extension SplashVC {
-    
     private func checkAppVersionOnAppLaunch() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             AppVersionCheck.checkAppVersion { needsUpdate in

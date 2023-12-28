@@ -21,7 +21,6 @@ class AppVersionCheck {
             let splitForceVersion = forceVersion.split(separator: ".").map { $0 }
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }
                 
-            // major나 minor가 다른 경우
             if splitForceVersion[0] > splitCurrentVersion[0] ||
                 splitForceVersion[0] == splitCurrentVersion[0] && splitForceVersion[1] > splitCurrentVersion[1] ||
                 splitForceVersion[0] == splitCurrentVersion[0] && splitForceVersion[1] == splitCurrentVersion[1] && splitForceVersion[2] >= splitCurrentVersion[2] {

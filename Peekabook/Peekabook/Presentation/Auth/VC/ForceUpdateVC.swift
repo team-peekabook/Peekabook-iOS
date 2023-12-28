@@ -23,7 +23,6 @@ final class ForceUpdateVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("plz..............I'm here.......")
         setUI()
         setLayout()
     }
@@ -32,7 +31,6 @@ final class ForceUpdateVC: UIViewController {
 // MARK: - UI & Layout
 
 extension ForceUpdateVC {
-
     private func setUI() {
         view.backgroundColor = .peekaBeige
         containerView.backgroundColor = .black.withAlphaComponent(0.7)
