@@ -16,6 +16,7 @@ final class ForceUpdateVC: UIViewController {
     
     // MARK: - UI Components
     
+    private let containerView = UIView()
     private lazy var forceUpdatePopUpVC = CustomPopUpView(frame: .zero, style: .forceUpdate, viewController: self)
 
     // MARK: - View Life Cycle
@@ -33,13 +34,19 @@ final class ForceUpdateVC: UIViewController {
 extension ForceUpdateVC {
 
     private func setUI() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.7)
+        view.backgroundColor = .peekaBeige
+        containerView.backgroundColor = .black.withAlphaComponent(0.7)
         forceUpdatePopUpVC.backgroundColor = .peekaBeige
         forceUpdatePopUpVC.getConfirmLabel(style: .forceUpdate)
     }
     
     private func setLayout() {
-        view.addSubview(forceUpdatePopUpVC)
+        view.addSubviews(containerView)
+        containerView.addSubview(forceUpdatePopUpVC)
+        
+        containerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         forceUpdatePopUpVC.snp.makeConstraints {
             $0.center.equalToSuperview()
