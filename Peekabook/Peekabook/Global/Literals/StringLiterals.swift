@@ -209,4 +209,10 @@ struct I18N {
         static let privacyPolicy = "개인정보 정책"
         static let and = "및"
     }
+    
+    struct Update {
+        static let update = "앗! 피카북이 달라졌어요"
+        static let updateComment = "어떤 기능이 추가되었는지 알아볼까요?"
+        static let button = "업데이트 하러가기"
+    }
 }

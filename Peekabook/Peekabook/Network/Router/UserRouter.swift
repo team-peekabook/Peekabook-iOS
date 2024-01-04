@@ -12,6 +12,7 @@ import Moya
 enum UserRouter {
     case patchSignUp(param: SignUpRequest, image: UIImage?)
     case checkDuplicate(param: CheckDuplicateRequest)
+    case checkVersion
 }
 
 extension UserRouter: TargetType {
@@ -25,6 +26,8 @@ extension UserRouter: TargetType {
             return URLConstant.auth + "/signup"
         case .checkDuplicate:
             return URLConstant.user + "/duplicate"
+        case .checkVersion:
+            return URLConstant.user + "/v1/version"
         }
     }
     
@@ -34,6 +37,8 @@ extension UserRouter: TargetType {
             return .patch
         case .checkDuplicate:
             return .post
+        case .checkVersion:
+            return .get
         }
     }
     
@@ -56,6 +61,8 @@ extension UserRouter: TargetType {
             return .uploadMultipart(multipartData)
         case .checkDuplicate(let param):
             return .requestJSONEncodable(param)
+        case .checkVersion:
+            return .requestPlain
         }
     }
     
@@ -63,7 +70,7 @@ extension UserRouter: TargetType {
         switch self {
         case .patchSignUp:
             return NetworkConstant.multipartWithTokenHeader
-        case .checkDuplicate:
+        case .checkDuplicate, .checkVersion:
             return NetworkConstant.hasTokenHeader
         }
     }

@@ -13,7 +13,7 @@ final class UserAPI {
     
     private var userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin(viewController: nil)])
 
-    init(viewController: UIViewController) {
+    init(viewController: UIViewController? = nil) {
         userProvider = MoyaProvider<UserRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
@@ -49,6 +49,23 @@ final class UserAPI {
                 print(err)
             }
             
+        }
+    }
+    
+    // 3. 현재 버전 확인
+    func checkVersion(completion: @escaping (GeneralResponse<CheckVersionResponse>?) -> Void) {
+        userProvider.request(.checkVersion) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let checkVersionData = try response.map(GeneralResponse<CheckVersionResponse>.self)
+                    completion(checkVersionData)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            case .failure(let err):
+                print(err)
+            }
         }
     }
 }

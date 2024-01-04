@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
+        
         KakaoSDK.initSDK(appKey: Config.kakaoNativeAppKey)
         
         //        if #available(iOS 15, *) {
