@@ -64,8 +64,8 @@ struct I18N {
     struct BookDetail {
         static let comment = "한 마디"
         static let memo = "메모"
-        static let commentPlaceholder = "한 마디를 남겨주세요"
-        static let memoPlaceholder = "메모에 적은 내용은 나한테만 보여요!"
+        static let commentPlaceholder = "책을 읽고 느낀 점, 좋았던 구절을 적어보세요."
+        static let memoPlaceholder = "메모에 적은 내용은 나만 볼 수 있어요.\nex) 7/3~7/10 완독, 두두에게 선물 받음"
         static let emptyComment = "작성된 한 마디가 없습니다"
         static let emptyMemo = "작성된 메모가 없습니다"
     }
