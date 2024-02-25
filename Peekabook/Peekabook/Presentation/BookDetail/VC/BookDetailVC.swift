@@ -154,6 +154,10 @@ extension BookDetailVC {
             }
     }
     
+    func updateMemoView() {
+        peekaMemoView.updateTextView(type: .hiddenBookMemo)
+    }
+    
     private func setShowModeTextView() {
         peekaCommentView.changeBackgroundColor(with: .clear)
         peekaMemoView.changeBackgroundColor(with: .clear)

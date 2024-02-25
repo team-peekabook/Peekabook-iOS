@@ -621,6 +621,9 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
+            if bookShelfType == .friend {
+                bookDetailVC.updateMemoView()
+            }
         }
     }
     

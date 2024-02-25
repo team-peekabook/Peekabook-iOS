@@ -17,6 +17,7 @@ enum CustomTextViewType: CaseIterable {
     case bookProposal
     case editProfileIntro
     case addProfileIntro
+    case hiddenBookMemo
 }
 
 protocol IntroTextDelegate: AnyObject {
@@ -203,6 +204,9 @@ extension CustomTextView {
             boxView.frame.size.height = 101
             textView.isUserInteractionEnabled = false
             proposalItemhidden()
+        case .hiddenBookMemo:
+            boxView.isHidden = true
+            textView.isHidden = true
         case .bookProposal:
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
