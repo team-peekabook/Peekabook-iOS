@@ -99,7 +99,7 @@ struct I18N {
     
     struct Barcode {
         static let infoLabel = "책의 뒷면에 있는 ISBN 바코드가\n사각형 안에 들어오게 해주세요."
-        static let infoButton = "바코드 인식이 어려우신가요?"
+        static let infoButton = "책 제목으로 검색하기"
         static let searchLabel = "책 검색하기"
     }
     
