@@ -13,11 +13,15 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var bookTotalNum: Int = 0
     var bookShelfType: BookShelfType = .user
     private var isInitialLoad = true
     private var books: [Book] = []
     private var fullView: CGFloat {
         return SafeAreaHeight.safeAreaTopInset() + 52
+    }
+    private var middleView: CGFloat {
+        return SafeAreaHeight.safeAreaTopInset() + 250
     }
 
     private var partialView: CGFloat {
@@ -182,8 +186,8 @@ extension BottomBookShelfVC {
         }
         
         emptyDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(booksCountLabel.snp.bottom).offset(190)
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().multipliedBy(0.8)
         }
         
         emptyDescriptionImage.snp.makeConstraints {
@@ -215,12 +219,30 @@ extension BottomBookShelfVC {
     }
     
     private func setInitialAnimateView() {
-        if isInitialLoad {
-            self.view.frame = CGRect(x: 0,
-                                     y: partialView,
-                                     width: view.frame.width,
-                                     height: view.frame.height)
-            isInitialLoad = false
+        self.view.frame = CGRect(x: 0, y: partialView, width: view.frame.width, height: view.frame.height)
+        holdView.isHidden = false
+        enablePanGesture()
+    }
+    
+    private func setEmptyAnimateView() {
+        self.view.frame = CGRect(x: 0, y: middleView, width: view.frame.width, height: view.frame.height)
+        holdView.isHidden = true
+        disablePanGesture()
+    }
+    
+    private func enablePanGesture() {
+        for gestureRecognizer in view.gestureRecognizers ?? [] {
+            if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+                panGestureRecognizer.isEnabled = true
+            }
+        }
+    }
+    
+    private func disablePanGesture() {
+        for gestureRecognizer in view.gestureRecognizers ?? [] {
+            if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+                panGestureRecognizer.isEnabled = false
+            }
         }
     }
     
@@ -243,8 +265,15 @@ extension BottomBookShelfVC {
     
     func setData(books: [Book], bookTotalNum: Int) {
         self.books = books
+        self.bookTotalNum = bookTotalNum
         self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
         bookShelfCollectionView.reloadData()
+        
+        if bookTotalNum == 0 {
+            setEmptyAnimateView()
+        } else {
+            setInitialAnimateView()
+        }
     }
     
     func changeLayout(isUser: Bool) {
