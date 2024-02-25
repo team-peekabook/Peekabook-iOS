@@ -35,9 +35,6 @@ final class BarcodeVC: BarcodeScannerViewController {
         $0.titleLabel!.font = .s3
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
-    }
-
-    private let textSearchCircle = UIView().then {
         $0.layer.borderWidth = 0.5
         $0.layer.borderColor = UIColor.peekaWhite.cgColor
         $0.layer.cornerRadius = 13
@@ -76,8 +73,7 @@ extension BarcodeVC {
     private func setLayout() {
         view.addSubviews([
             descriptionLabel,
-            textSearchButton,
-            textSearchCircle
+            textSearchButton
         ])
         
         descriptionLabel.snp.makeConstraints {
@@ -86,14 +82,10 @@ extension BarcodeVC {
         }
         
         textSearchButton.snp.makeConstraints {
+            $0.width.equalTo(129)
+            $0.height.equalTo(26)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(175)
             $0.centerX.equalToSuperview()
-        }
-        
-        textSearchCircle.snp.makeConstraints {
-            $0.leading.trailing.equalTo(textSearchButton).inset(-12)
-            $0.height.equalTo(26)
-            $0.center.equalTo(textSearchButton)
         }
     }
 }
