@@ -22,12 +22,9 @@ class AppVersionCheck {
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }
                 
             if splitForceVersion[0] > splitCurrentVersion[0] ||
-                splitForceVersion[0] == splitCurrentVersion[0] && splitForceVersion[1] > splitCurrentVersion[1] ||
-                splitForceVersion[0] == splitCurrentVersion[0] && splitForceVersion[1] == splitCurrentVersion[1] && splitForceVersion[2] >= splitCurrentVersion[2] {
-                print("😡😡😡😡 업데이트 하세욥 😡😡😡😡")
+                splitForceVersion[0] == splitCurrentVersion[0] && splitForceVersion[1] > splitCurrentVersion[1] {
                 completion(true)
             } else {
-                print("😍😍😍😍 업데이트 노노필요 😍😍😍😍")
                 completion(false)
             }
         }
