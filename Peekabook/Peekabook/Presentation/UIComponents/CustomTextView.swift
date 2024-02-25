@@ -61,6 +61,7 @@ final class CustomTextView: UIView {
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         $0.returnKeyType = .done
+        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
     private let maxLabel = UILabel().then {
