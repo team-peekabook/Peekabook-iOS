@@ -17,6 +17,8 @@
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
 		1444CC052B18A4B400FB9F7E /* ForceUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */; };
+		144AD84B2B8B6F4700272412 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 144AD84A2B8B6F4700272412 /* FirebaseMessaging */; };
+		144AD84D2B8B719B00272412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144AD84C2B8B719B00272412 /* GoogleService-Info.plist */; };
 		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
@@ -182,6 +184,7 @@
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
 		1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateVC.swift; sourceTree = "<group>"; };
+		144AD84C2B8B719B00272412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
@@ -344,6 +347,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144AD84B2B8B6F4700272412 /* FirebaseMessaging in Frameworks */,
 				8E806F432A32260F002FE5DF /* BarcodeScanner in Frameworks */,
 				14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */,
 				8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */,
@@ -721,6 +725,7 @@
 		8E5A30A0295DAE6D00285A15 /* Peekabook */ = {
 			isa = PBXGroup;
 			children = (
+				144AD84C2B8B719B00272412 /* GoogleService-Info.plist */,
 				8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */,
 				8E10BA0D295FF42400BCF58B /* Global */,
 				8E10BA10295FF44800BCF58B /* Network */,
@@ -1037,6 +1042,7 @@
 				14061CBD29DD993400F290F5 /* KakaoSDK */,
 				14061CBF29DD993400F290F5 /* KakaoSDKAuth */,
 				8E806F422A32260F002FE5DF /* BarcodeScanner */,
+				144AD84A2B8B6F4700272412 /* FirebaseMessaging */,
 			);
 			productName = Peekabook;
 			productReference = 8E5A309E295DAE6D00285A15 /* Peekabook.app */;
@@ -1074,6 +1080,7 @@
 				8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */,
 				14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				8E806F412A32260F002FE5DF /* XCRemoteSwiftPackageReference "BarcodeScanner" */,
+				144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 8E5A309F295DAE6D00285A15 /* Products */;
 			projectDirPath = "";
@@ -1089,6 +1096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144AD84D2B8B719B00272412 /* GoogleService-Info.plist in Resources */,
 				8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */,
 				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
 				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
@@ -1535,6 +1543,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1587,6 +1603,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKAuth;
+		};
+		144AD84A2B8B6F4700272412 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		8E10BA02295FF33200BCF58B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
