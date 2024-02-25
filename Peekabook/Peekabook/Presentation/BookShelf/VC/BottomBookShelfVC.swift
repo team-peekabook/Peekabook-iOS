@@ -94,7 +94,12 @@ final class BottomBookShelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setInitialAnimateView()
+        
+        if bookTotalNum == 0 {
+            setEmptyAnimateView()
+        } else {
+            setInitialAnimateView()
+        }
     }
     
     // MARK: - @objc Function
