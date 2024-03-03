@@ -118,4 +118,25 @@ final class BookShelfAPI {
             }
         }
     }
+    
+    // 7. 등록된 책 중복검사
+    func checkBookDuplicate(param: CheckBookDuplicateRequest, completion: @escaping (GeneralResponse<CheckBookDuplicateResponse>?) -> Void) {
+        bookShelfProvider.request(.checkBookDuplicate(param: param)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let checkBookDuplicateData = try response.map(GeneralResponse<CheckBookDuplicateResponse>.self)
+                    completion(checkBookDuplicateData)
+                    print(response)
+                    print("뿜뿜")
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            case .failure(let err):
+                print(err)
+            }
+            
+        }
+    }
+
 }

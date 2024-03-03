@@ -16,6 +16,7 @@ enum BookShelfRouter {
     case watchBookDetail(id: Int)
     case postMyBook(param: PostBookRequest)
     case editBookInfo(id: Int, param: EditBookRequest)
+    case checkBookDuplicate(param: CheckBookDuplicateRequest)
 }
 
 extension BookShelfRouter: TargetType {
@@ -37,6 +38,9 @@ extension BookShelfRouter: TargetType {
             return URLConstant.bookShelf
         case .editBookInfo(let bookId, _):
             return "\(URLConstant.bookShelf)/\(bookId)"
+        case .checkBookDuplicate:
+            return URLConstant.bookShelf + "/duplicate"
+
         }
     }
     
@@ -46,7 +50,7 @@ extension BookShelfRouter: TargetType {
             return .get
         case .deleteBook:
             return .delete
-        case .postMyBook:
+        case .postMyBook, .checkBookDuplicate:
             return .post
         case .editBookInfo:
             return .patch
@@ -58,6 +62,8 @@ extension BookShelfRouter: TargetType {
         case .getMyBookShelf, .getFriendBookShelf, .watchBookDetail, .deleteBook:
             return .requestPlain
         case .postMyBook(let param):
+            return .requestJSONEncodable(param)
+        case .checkBookDuplicate(let param):
             return .requestJSONEncodable(param)
         case .editBookInfo(_, let param):
             return .requestJSONEncodable(param)
