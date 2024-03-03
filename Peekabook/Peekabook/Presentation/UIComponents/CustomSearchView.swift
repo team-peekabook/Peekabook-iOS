@@ -26,7 +26,6 @@ final class CustomSearchView: UIView {
         $0.textColor = .peekaRed
         $0.addLeftPadding()
         $0.autocorrectionType = .no
-//        $0.becomeFirstResponder()
         $0.returnKeyType = .done
     }
     

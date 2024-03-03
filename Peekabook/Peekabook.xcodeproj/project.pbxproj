@@ -144,6 +144,9 @@
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
 		981B0B682B8B86B900BB6B85 /* RecommendingPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B672B8B86B900BB6B85 /* RecommendingPopUpVC.swift */; };
 		981B0B6A2B8BAF5900BB6B85 /* RecommendedPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B692B8BAF5900BB6B85 /* RecommendedPopUpVC.swift */; };
+		981B0B6C2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6B2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift */; };
+		981B0B6E2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6D2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift */; };
+		981B0B702B94881A00BB6B85 /* BookDuplicatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6F2B94881A00BB6B85 /* BookDuplicatePopUpVC.swift */; };
 		9823E7212971BD8600F3713D /* EditBookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823E7202971BD8600F3713D /* EditBookRequest.swift */; };
 		9832290B29E6C30200C99BBE /* GetAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9832290A29E6C30200C99BBE /* GetAccountResponse.swift */; };
 		9833295D29DFAA9B00D9DE5A /* UserReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */; };
@@ -312,6 +315,9 @@
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
 		981B0B672B8B86B900BB6B85 /* RecommendingPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingPopUpVC.swift; sourceTree = "<group>"; };
 		981B0B692B8BAF5900BB6B85 /* RecommendedPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPopUpVC.swift; sourceTree = "<group>"; };
+		981B0B6B2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBookDuplicateRequest.swift; sourceTree = "<group>"; };
+		981B0B6D2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBookDuplicateResponse.swift; sourceTree = "<group>"; };
+		981B0B6F2B94881A00BB6B85 /* BookDuplicatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDuplicatePopUpVC.swift; sourceTree = "<group>"; };
 		9823E7202971BD8600F3713D /* EditBookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookRequest.swift; sourceTree = "<group>"; };
 		9832290A29E6C30200C99BBE /* GetAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountResponse.swift; sourceTree = "<group>"; };
 		9833295C29DFAA9B00D9DE5A /* UserReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportRequest.swift; sourceTree = "<group>"; };
@@ -863,6 +869,7 @@
 				98A04212296691F100081B8E /* BookSearchVC.swift */,
 				98A00B9A2968213E002A5A23 /* BarcodeVC.swift */,
 				986F5423296BBD92002EDD46 /* BookSearchErrorPopUpVC.swift */,
+				981B0B6F2B94881A00BB6B85 /* BookDuplicatePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -899,6 +906,8 @@
 				8E2855C4296DEEB0005F0E1D /* FriendBookShelfResponse.swift */,
 				98D775E22970979200FF9FBA /* PostBookRequest.swift */,
 				9823E7202971BD8600F3713D /* EditBookRequest.swift */,
+				981B0B6B2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift */,
+				981B0B6D2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift */,
 			);
 			path = BookShelf;
 			sourceTree = "<group>";
@@ -1170,8 +1179,10 @@
 				98F1804029CE7FB800550E45 /* LogoutPopUpVC.swift in Sources */,
 				8E81F3C02960788F001815B4 /* makeAlert.swift in Sources */,
 				8E81F3AE29605A83001815B4 /* FontLiterals.swift in Sources */,
+				981B0B6C2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift in Sources */,
 				8E81F40929608B36001815B4 /* UserSearchVC.swift in Sources */,
 				14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */,
+				981B0B702B94881A00BB6B85 /* BookDuplicatePopUpVC.swift in Sources */,
 				8E1850662969B5060062E92A /* NetworkConstant.swift in Sources */,
 				1492DC622AFBFC8000C29B7F /* AppVersionCheck.swift in Sources */,
 				98601A8529C9C09B002F7753 /* ReportTVC.swift in Sources */,
@@ -1257,6 +1268,7 @@
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
+				981B0B6E2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
 				98F1804529D19EB800550E45 /* DeleteAccountPopUpVC.swift in Sources */,

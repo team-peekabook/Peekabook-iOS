@@ -166,6 +166,11 @@ struct I18N {
         static let deleteDetailComment = "나에게 추천해준 사용자의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
     }
     
+    struct BookDuplicatePopUp {
+        static let add = "추가하기"
+        static let duplicateComment = "이미 내 책장에 있는 도서예요.\n하나 더 추가하시겠어요?"
+    }
+    
     struct Logout {
         static let logout = "로그아웃"
         static let logoutComment = "로그아웃 하시겠어요?"

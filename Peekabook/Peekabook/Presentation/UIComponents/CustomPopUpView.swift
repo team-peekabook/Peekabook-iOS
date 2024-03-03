@@ -19,6 +19,7 @@ enum ButtonLabelStyle: CaseIterable {
     case forceUpdate
     case recommending
     case recommended
+    case bookDuplicate
 }
 
 final class CustomPopUpView: UIView {
@@ -79,7 +80,7 @@ extension CustomPopUpView {
         }
         
         switch style {
-        case .recommend, .delete, .unfollow:
+        case .recommend, .delete, .unfollow, .bookDuplicate:
             self.setTwoButtonAndTwoLineLabelLayout()
         case .block, .unblock, .recommending, .recommended:
             self.setTwoButtonAndDetailLabelLayout()
@@ -244,6 +245,9 @@ extension CustomPopUpView {
         case .forceUpdate:
             deleteAccountDetailLabel.text = I18N.Update.updateComment
             confirmLabel.text = I18N.Update.update
+        case .bookDuplicate:
+            confirmLabel.text = I18N.BookDuplicatePopUp.duplicateComment
+            
         }
     }
     
@@ -285,11 +289,13 @@ extension CustomPopUpView {
         case .recommending:
             confirmButton.setTitle(I18N.RecommendingPopUp.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(RecommendingPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            cancelButton.addTarget(viewController, action: #selector(RecommendingPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .recommended:
             confirmButton.setTitle(I18N.RecommendedPopUp.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(RecommendedPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-            cancelButton.addTarget(viewController, action: #selector(RecommendedPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .bookDuplicate:
+            confirmButton.setTitle(I18N.BookDuplicatePopUp.add, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     
