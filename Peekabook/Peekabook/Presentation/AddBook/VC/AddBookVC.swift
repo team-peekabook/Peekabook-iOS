@@ -78,6 +78,8 @@ final class AddBookVC: UIViewController {
         setLayout()
         addTapGesture()
         addKeyboardObserver()
+        // 항상 중복 확인
+        checkDuplicate()
     }
     
     deinit {
@@ -165,7 +167,23 @@ extension AddBookVC {
         }
     }
     
+    // 완료 버튼 누르면 항상 post
     @objc private func checkButtonDidTap() {
+        postCurrentBook()
+    }
+    
+    // 책 중복 확인하는 함수
+    @objc func checkDuplicate() {
+        guard let bookTitle = self.nameLabel.text,
+              let author = self.authorLabel.text,
+              let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
+              let memo = (peekaMemoView.text == I18N.BookDetail.memoPlaceholder + placeholderBlank) ? "" : peekaMemoView.text else { return }
+        
+        let checkBookDuplicated = CheckBookDuplicateRequest(bookTitle: bookTitle, author: author, publisher: self.publisher)
+        checkBookDuplicateComplete(param: checkBookDuplicated)
+    }
+    
+    @objc func postCurrentBook() {
         guard let bookTitle = self.nameLabel.text,
               let author = self.authorLabel.text,
               let description = (peekaCommentView.text == I18N.BookDetail.commentPlaceholder + placeholderBlank) ? "" : peekaCommentView.text,
@@ -243,6 +261,18 @@ extension AddBookVC {
         BookShelfAPI(viewController: self).postMyBookInfo(param: param) { response in
             if response?.success == true {
                 self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func checkBookDuplicateComplete(param: CheckBookDuplicateRequest) {
+        BookShelfAPI(viewController: self).checkBookDuplicate(param: param) { response in
+            if response?.success == true {
+                if response?.data?.isDuplicate == true { // 중복일때
+                    let vc = BookDuplicatePopUpVC()
+                    vc.modalPresentationStyle = .overFullScreen
+                    self.present(vc, animated: false)
+                }
             }
         }
     }
