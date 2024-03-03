@@ -56,8 +56,7 @@ extension BookDuplicatePopUpVC {
 extension BookDuplicatePopUpVC {
     
     @objc func cancelButtonDidTap() {
-//        self.dismiss(animated: false, completion: nil)
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.switchRootViewController(rootViewController: TabBarController(), animated: true, completion: nil)
     }
 
     @objc func confirmButtonDidTap() {
