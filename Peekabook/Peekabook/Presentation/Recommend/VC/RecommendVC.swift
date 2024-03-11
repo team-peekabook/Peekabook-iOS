@@ -45,7 +45,7 @@ final class RecommendVC: UIViewController {
     private lazy var editButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.titleLabel!.font = .c1
-        bt.setTitle("삭제하기", for: .normal)
+        bt.setTitle("수정하기", for: .normal)
         bt.setTitleColor(.peekaRed, for: .normal)
         bt.layer.borderWidth = 1
         bt.layer.borderColor = UIColor.peekaRed.cgColor
@@ -207,9 +207,9 @@ extension RecommendVC {
     private func updateEditingMode(_ isEditing: Bool) {
         // Edit 버튼 상태에 따라 텍스트 업데이트
         if isEditing {
-            editButton.setTitle("완료하기", for: .normal)
+            editButton.setTitle("완료", for: .normal)
         } else {
-            editButton.setTitle("삭제하기", for: .normal)
+            editButton.setTitle("수정하기", for: .normal)
         }
         
         // TableView의 Editing 상태 업데이트
