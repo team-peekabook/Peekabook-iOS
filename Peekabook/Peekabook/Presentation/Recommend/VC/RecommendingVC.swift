@@ -107,6 +107,7 @@ extension RecommendingVC {
         // TableView의 모든 셀의 Editing 모드를 업데이트
         for case let cell as RecommendListTVC in recommendingTableView.visibleCells {
             cell.checkEditing(isEditing)
+            
         }
     }
     
@@ -114,8 +115,12 @@ extension RecommendingVC {
         NotificationCenter.default.addObserver(self, selector: #selector(handleImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
     }
     
-    @objc func handleImageTapped() {
-        print("Tapped")
+    @objc func handleImageTapped(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+               let recommendID = userInfo["recommendID"] as? Int {
+                deleteRecommendingAPI(recommendId: recommendID)
+            }
+        self.recommendingTableView.reloadData()
     }
 }
 
@@ -136,7 +141,7 @@ extension RecommendingVC: UITableViewDelegate, UITableViewDataSource {
         else { return UITableViewCell() }
         
         cell.dataBind(model: recommendingBooks[indexPath.row])
-    
+        cell.checkEditing(self.isEditingMode)
         return cell
     }
 }
@@ -164,6 +169,20 @@ extension RecommendingVC {
                     self.recommendingTableView.reloadData()
                 }
 
+            }
+        }
+    }
+    
+    private func deleteRecommendingAPI(recommendId: Int) {
+        RecommendAPI(viewController: self).deleteRecommend(recommendId: recommendId) { response in
+            print(response)
+            if response?.success == true {
+                if let index = self.recommendingBooks.firstIndex(where: { $0.recommendID == recommendId }) {
+                    self.recommendingBooks.remove(at: index)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.recommendingTableView.deleteRows(at: [indexPath], with: .left)
+                    self.recommendingTableView.reloadData()
+                }
             }
         }
     }

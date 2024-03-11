@@ -12,6 +12,8 @@ import Then
 
 final class RecommendListTVC: UITableViewCell {
     
+    private var recommendID: Int?
+    
     // MARK: - UI Components
     
     private let bookHeaderView = UIView()
@@ -223,7 +225,7 @@ extension RecommendListTVC {
     }
     
     @objc func deleteImageDidTapped(sender: UITapGestureRecognizer) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: self)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: self, userInfo: ["recommendID": self.recommendID ?? 0])
     }
 }
 
@@ -232,6 +234,7 @@ extension RecommendListTVC {
 extension RecommendListTVC {
     
     func dataBind(model: RecommendBook) {
+        self.recommendID = model.recommendID
         bookImage.kf.setImage(with: URL(string: model.bookImage))
         bookImage.kf.indicatorType = .activity
         bookNameLabel.text = model.bookTitle
@@ -240,6 +243,7 @@ extension RecommendListTVC {
         bookRecommendedPersonLabel.text = model.friendNickname
         bookRecommendTextLabel.text = model.recommendDesc
         bookRecommendedPersonImage.loadProfileImage(from: model.friendImage)
+        
     }
     
     func checkEditing(_ isEditing: Bool) {

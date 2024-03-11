@@ -252,9 +252,9 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             [dataViewControllers[indexPath.item]],
             direction: indexPath.row == 0 ? .reverse : .forward,
             animated: true,
-            completion: nil
-        )
+            completion: nil)
         self.scrollToTop()
+        updateEditingMode(self.isEditingMode)
     }
 }
 
