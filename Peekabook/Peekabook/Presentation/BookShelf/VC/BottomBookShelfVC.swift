@@ -14,6 +14,7 @@ final class BottomBookShelfVC: UIViewController {
     // MARK: - Properties
     
     private var bookTotalNum: Int = 0
+    var isSheetUp: Bool = false
     var bookShelfType: BookShelfType = .user
     private var isInitialLoad = true
     private var books: [Book] = []
@@ -97,8 +98,6 @@ final class BottomBookShelfVC: UIViewController {
         
         if bookTotalNum == 0 {
             setEmptyAnimateView()
-        } else {
-            setInitialAnimateView()
         }
     }
     
@@ -223,6 +222,16 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.register(BookShelfCVC.self, forCellWithReuseIdentifier: BookShelfCVC.className)
     }
     
+    private func setPriorAnimateView() {
+        if isInitialLoad {
+            self.view.frame = CGRect(x: 0,
+                                     y: partialView,
+                                     width: view.frame.width,
+                                     height: view.frame.height)
+            isInitialLoad = false
+        }
+    }
+        
     private func setInitialAnimateView() {
         self.view.frame = CGRect(x: 0, y: partialView, width: view.frame.width, height: view.frame.height)
         holdView.isHidden = false
@@ -275,9 +284,14 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.reloadData()
         
         if bookTotalNum == 0 {
-            setEmptyAnimateView()
+            setEmptyAnimateView() // 아예 책장이 위에 딱 붙는 상태
         } else {
-            setInitialAnimateView()
+            if isSheetUp == true {
+                setPriorAnimateView() // 책장 상태 올라간 기존상태 유지
+                isSheetUp = false
+            } else {
+                setInitialAnimateView() // 책장 내려간 상태
+            }
         }
     }
     
@@ -321,6 +335,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             bookShelfCollectionView.isUserInteractionEnabled = true
             
             let bookDetailVC = BookDetailVC()
+            isSheetUp = true
             if bookShelfType == .user {
                 bookDetailVC.changeUserViewLayout()
             }

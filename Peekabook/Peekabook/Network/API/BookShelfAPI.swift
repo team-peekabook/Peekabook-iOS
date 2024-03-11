@@ -127,8 +127,6 @@ final class BookShelfAPI {
                 do {
                     let checkBookDuplicateData = try response.map(GeneralResponse<CheckBookDuplicateResponse>.self)
                     completion(checkBookDuplicateData)
-                    print(response)
-                    print("뿜뿜")
                 } catch let error {
                     print(error.localizedDescription)
                 }
