@@ -11,6 +11,13 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - Properties
     
+    var isEditingMode: Bool = false {
+        didSet {
+            // isEditingMode 속성 변경 시에도 적절히 처리
+            updateCellsEditingMode(isEditingMode)
+        }
+    }
+
     private var recommendedBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -42,6 +49,8 @@ final class RecommendedVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+        getNotification()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +103,22 @@ extension RecommendedVC {
         let contentOffset = CGPoint(x: 0, y: 0)
         self.recommendedTableView.setContentOffset(contentOffset, animated: true)
     }
+    
+    func updateCellsEditingMode(_ isEditing: Bool) {
+        // TableView의 모든 셀의 Editing 모드를 업데이트
+        for case let cell as RecommendListTVC in recommendedTableView.visibleCells {
+            cell.checkEditing(isEditing)
+        }
+    }
+    
+    func getNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+    }
+    
+    @objc func handleImageTapped() {
+        // 여기에 이미지가 탭되었을 때 수행할 작업을 구현합니다.
+        print("Image tapped!")
+    }
 }
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
@@ -109,6 +134,7 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC else { return UITableViewCell() }
         cell.dataBind(model: recommendedBooks[safe: indexPath.row]!)
+        
         return cell
     }
 }

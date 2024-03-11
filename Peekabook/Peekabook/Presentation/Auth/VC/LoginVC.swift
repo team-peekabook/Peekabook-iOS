@@ -209,7 +209,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             }
             print("페이스아이디로 애플 소셜 인증 성공")
             
-            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
+            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple", fcmToken: FCMManager.shared.fcmToken ?? "")
             signIn(param: appleLoginRequest)
             
             // 비밀번호로 로그인
@@ -222,7 +222,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             
             print("비밀번호로 애플 소셜 인증 성공, 근데 여기는 토큰을 뭐로 받아오는거지? 🤷🏻")
             
-            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple")
+            let appleLoginRequest = SocialLoginRequest(socialPlatform: "apple", fcmToken: FCMManager.shared.fcmToken ?? "")
             signIn(param: appleLoginRequest)
             
         default:
@@ -254,7 +254,7 @@ extension LoginVC {
                     UserManager.shared.socialToken = oauthToken?.accessToken
                     
                     if oauthToken?.accessToken != nil {
-                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao", fcmToken: FCMManager.shared.fcmToken ?? "")
                         self.signIn(param: kakaoLoginRequest)
                     }
                 }
@@ -270,7 +270,7 @@ extension LoginVC {
                     UserManager.shared.socialToken = oauthToken?.accessToken
                     
                     if oauthToken?.accessToken != nil {
-                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao")
+                        let kakaoLoginRequest = SocialLoginRequest(socialPlatform: "kakao", fcmToken: FCMManager.shared.fcmToken ?? "")
                         self.signIn(param: kakaoLoginRequest)
                     }
                 }

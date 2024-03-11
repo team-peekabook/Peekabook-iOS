@@ -36,6 +36,23 @@ final class RecommendVC: UIViewController {
         }
     }
     
+    private var isEditingMode: Bool = false {
+        didSet {
+            updateEditingMode(isEditingMode)
+        }
+    }
+    
+    private lazy var editButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.titleLabel!.font = .c1
+        bt.setTitle("삭제하기", for: .normal)
+        bt.setTitleColor(.peekaRed, for: .normal)
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.peekaRed.cgColor
+        bt.addTarget(self, action: #selector(editOrCompleteButtonDidTap), for: .touchUpInside)
+        return bt
+    }()
+    
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
@@ -94,7 +111,8 @@ extension RecommendVC {
     private func addSubviews() {
         view.addSubviews(
             naviBar,
-            recommendCollectionView
+            recommendCollectionView,
+            editButton
         )
         
         addChild(pageViewController)
@@ -111,6 +129,13 @@ extension RecommendVC {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(63)
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.centerY.equalTo(recommendCollectionView)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(66)
+            $0.height.equalTo(24)
         }
         
         pageViewController.view.snp.makeConstraints {
@@ -178,6 +203,30 @@ extension RecommendVC {
             currentViewController.scrollToTop()
         }
     }
+    
+    private func updateEditingMode(_ isEditing: Bool) {
+        // Edit 버튼 상태에 따라 텍스트 업데이트
+        if isEditing {
+            editButton.setTitle("완료하기", for: .normal)
+        } else {
+            editButton.setTitle("삭제하기", for: .normal)
+        }
+        
+        // TableView의 Editing 상태 업데이트
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendedVC {
+            currentViewController.isEditingMode = isEditing
+            currentViewController.updateCellsEditingMode(isEditing)
+        }
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendingVC {
+            currentViewController.isEditingMode = isEditing
+            currentViewController.updateCellsEditingMode(isEditing)
+        }
+    }
+    
+    @objc
+    private func editOrCompleteButtonDidTap() {
+        self.isEditingMode.toggle()
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -224,6 +273,12 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
         guard let currentVC = pageViewController.viewControllers?.first,
               let currentIndex = dataViewControllers.firstIndex(of: currentVC) else { return }
         currentPage = currentIndex
+        
+        if let currentVC = pageViewController.viewControllers?.first as? RecommendedVC {
+            currentVC.isEditingMode = self.isEditingMode
+        } else if let currentVC = pageViewController.viewControllers?.first as? RecommendingVC {
+            currentVC.isEditingMode = self.isEditingMode
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -245,3 +300,4 @@ struct RecommendVCPreview: PreviewProvider {
     }
 }
 #endif
+
