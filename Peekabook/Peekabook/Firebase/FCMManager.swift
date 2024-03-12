@@ -9,6 +9,6 @@ import Foundation
 
 final class FCMManager {
     static let shared: FCMManager = FCMManager()
-    private init() {}
+    private init() { }
     var fcmToken: String?
 }

@@ -17,6 +17,7 @@ enum ButtonLabelStyle: CaseIterable {
     case logout
     case deleteAccount
     case forceUpdate
+    case deleteRecommend
 }
 
 final class CustomPopUpView: UIView {
@@ -79,7 +80,7 @@ extension CustomPopUpView {
         switch style {
         case .recommend, .delete, .unfollow:
             self.setTwoButtonAndTwoLineLabelLayout()
-        case .block, .unblock:
+        case .block, .unblock, .deleteRecommend:
             self.setTwoButtonAndDetailLabelLayout()
         case .report:
             self.setOneButtonLayout()
@@ -205,7 +206,7 @@ extension CustomPopUpView {
         confirmLabel.font = .nameBold
     }
     
-    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
+    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil, detailComment: String? = nil) {
         switch style {
         case .recommend:
             if let personName = personName {
@@ -236,6 +237,11 @@ extension CustomPopUpView {
         case .forceUpdate:
             deleteAccountDetailLabel.text = I18N.Update.updateComment
             confirmLabel.text = I18N.Update.update
+        case .deleteRecommend:
+            if let personName = personName, let detailComment = detailComment {
+                confirmLabel.text = personName + I18N.BookRecommend.deleteComment
+                blockDetailLabel.text = detailComment
+            }
         }
     }
     
@@ -274,6 +280,10 @@ extension CustomPopUpView {
         case .forceUpdate:
             confirmButton.setTitle(I18N.Update.button, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(ForceUpdateVC.confirmButtonDidTap), for: .touchUpInside)
+        case .deleteRecommend:
+            confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

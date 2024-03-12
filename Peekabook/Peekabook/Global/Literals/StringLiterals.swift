@@ -122,6 +122,9 @@ struct I18N {
         static let recommending = "추천한 책"
         static let recommendedEmptyDescription = "아직 친구가 추천해준 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
         static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
+        
+        static let deleteComment = "책을 삭제하시겠어요?"
+        static let deleteRecommendDetailComment = "상대방의 추천 내역에서도 사라지며,\n 삭제 후에는 되돌릴 수 없어요."
     }
     
     struct BookDelete {

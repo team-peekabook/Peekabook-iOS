@@ -274,11 +274,12 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
               let currentIndex = dataViewControllers.firstIndex(of: currentVC) else { return }
         currentPage = currentIndex
         
-        if let currentVC = pageViewController.viewControllers?.first as? RecommendedVC {
-            currentVC.isEditingMode = self.isEditingMode
-        } else if let currentVC = pageViewController.viewControllers?.first as? RecommendingVC {
-            currentVC.isEditingMode = self.isEditingMode
+        if let currentVC = currentVC as? RecommendedVC {
+            currentVC.updateCellsEditingMode(self.isEditingMode)
+        } else if let currentVC = currentVC as? RecommendingVC {
+            currentVC.updateCellsEditingMode(self.isEditingMode)
         }
+        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {

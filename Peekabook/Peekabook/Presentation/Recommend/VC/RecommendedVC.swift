@@ -13,7 +13,6 @@ final class RecommendedVC: UIViewController {
     
     var isEditingMode: Bool = false {
         didSet {
-            // isEditingMode 속성 변경 시에도 적절히 처리
             updateCellsEditingMode(isEditingMode)
         }
     }
@@ -113,15 +112,31 @@ extension RecommendedVC {
     }
     
     func getNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recommendDeletedNotification), name: NSNotification.Name(rawValue: "RecommendDeletedNotification"), object: nil)
     }
     
-    @objc func handleImageTapped(_ notification: Notification) {
+    @objc func deleteImageTapped(_ notification: Notification) {
         if let userInfo = notification.userInfo,
-               let recommendID = userInfo["recommendID"] as? Int {
-                deleteRecommendedAPI(recommendId: recommendID)
-            }
+           let recommendID = userInfo["recommendID"] as? Int {
+            let deletePopUpVC = RecommendDeletePopUpVC()
+            deletePopUpVC.recommendId = recommendID
+            deletePopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(deletePopUpVC, animated: false, completion: nil)
+        }
     }
+    
+    @objc func recommendDeletedNotification(_ notification: Notification) {
+           if let userInfo = notification.userInfo,
+              let recommendId = userInfo["recommendID"] as? Int {
+               if let index = recommendedBooks.firstIndex(where: { $0.recommendID == recommendId }) {
+                   recommendedBooks.remove(at: index)
+                   let indexPath = IndexPath(row: index, section: 0)
+                   recommendedTableView.deleteRows(at: [indexPath], with: .left)
+                   recommendedTableView.reloadData()
+               }
+           }
+       }
 }
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
@@ -165,20 +180,6 @@ extension RecommendedVC {
                     self.recommendedTableView.reloadData()
                 }
                 
-            }
-        }
-    }
-    
-    private func deleteRecommendedAPI(recommendId: Int) {
-        RecommendAPI(viewController: self).deleteRecommend(recommendId: recommendId) { response in
-            print(response)
-            if response?.success == true {
-                if let index = self.recommendedBooks.firstIndex(where: { $0.recommendID == recommendId }) {
-                    self.recommendedBooks.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.recommendedTableView.deleteRows(at: [indexPath], with: .left)
-                    self.recommendedTableView.reloadData()
-                }
             }
         }
     }

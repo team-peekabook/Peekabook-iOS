@@ -21,6 +21,7 @@
 		144AD84D2B8B719B00272412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144AD84C2B8B719B00272412 /* GoogleService-Info.plist */; };
 		144AD8502B8B8A0100272412 /* FCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144AD84F2B8B8A0100272412 /* FCMManager.swift */; };
 		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
+		14772F662B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
 		1492DC5D2AFBC99D00C29B7F /* CheckVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */; };
@@ -188,6 +189,7 @@
 		144AD84C2B8B719B00272412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		144AD84F2B8B8A0100272412 /* FCMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMManager.swift; sourceTree = "<group>"; };
 		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
+		14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDeletePopUpVC.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
 		1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckVersionResponse.swift; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 				8E10BA36295FF81F00BCF58B /* RecommendVC.swift */,
 				1431D53B2963497000CA72D0 /* RecommendedVC.swift */,
 				1431D53D2963498B00CA72D0 /* RecommendingVC.swift */,
+				14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1226,6 +1229,7 @@
 				8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */,
 				8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */,
 				14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */,
+				14772F662B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift in Sources */,
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,

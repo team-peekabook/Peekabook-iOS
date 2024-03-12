@@ -112,16 +112,30 @@ extension RecommendingVC {
     }
     
     func getNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recommendDeletedNotification), name: NSNotification.Name(rawValue: "RecommendDeletedNotification"), object: nil)
     }
     
-    @objc func handleImageTapped(_ notification: Notification) {
+    @objc func deleteImageTapped(_ notification: Notification) {
         if let userInfo = notification.userInfo,
-               let recommendID = userInfo["recommendID"] as? Int {
-                deleteRecommendingAPI(recommendId: recommendID)
-            }
-        self.recommendingTableView.reloadData()
+           let recommendID = userInfo["recommendID"] as? Int {
+            let deletePopUpVC = RecommendDeletePopUpVC()
+            deletePopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(deletePopUpVC, animated: false)
+        }
     }
+    
+    @objc func recommendDeletedNotification(_ notification: Notification) {
+           if let userInfo = notification.userInfo,
+              let recommendId = userInfo["recommendID"] as? Int {
+               if let index = recommendingBooks.firstIndex(where: { $0.recommendID == recommendId }) {
+                   recommendingBooks.remove(at: index)
+                   let indexPath = IndexPath(row: index, section: 0)
+                   recommendingTableView.deleteRows(at: [indexPath], with: .left)
+                   recommendingTableView.reloadData()
+               }
+           }
+       }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -169,20 +183,6 @@ extension RecommendingVC {
                     self.recommendingTableView.reloadData()
                 }
 
-            }
-        }
-    }
-    
-    private func deleteRecommendingAPI(recommendId: Int) {
-        RecommendAPI(viewController: self).deleteRecommend(recommendId: recommendId) { response in
-            print(response)
-            if response?.success == true {
-                if let index = self.recommendingBooks.firstIndex(where: { $0.recommendID == recommendId }) {
-                    self.recommendingBooks.remove(at: index)
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.recommendingTableView.deleteRows(at: [indexPath], with: .left)
-                    self.recommendingTableView.reloadData()
-                }
             }
         }
     }
