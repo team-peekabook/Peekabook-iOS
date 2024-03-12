@@ -176,6 +176,7 @@ struct I18N {
         static let developerInfo = "개발자 정보"
         static let logout = "로그아웃"
         static let deleteAccount = "서비스 탈퇴하기"
+        static let setNotification = "알림 설정"
     }
     
     struct Report {

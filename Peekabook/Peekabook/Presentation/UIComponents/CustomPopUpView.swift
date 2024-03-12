@@ -44,7 +44,7 @@ final class CustomPopUpView: UIView {
     
     private lazy var cancelButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
-        $0.titleLabel!.font = .h2
+        $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
     }
     
@@ -222,11 +222,13 @@ extension CustomPopUpView {
             if let personName = personName {
                 confirmLabel.text = personName + I18N.BlockPopUp.blockComment
                 blockDetailLabel.text = I18N.BlockPopUp.blockDetailComment
+                changeFontToBold()
             }
         case .unblock:
             if let personName = personName {
                 confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
                 blockDetailLabel.text = I18N.ManageBlockUsers.unblockPopSubtitle
+                changeFontToBold()
             }
         case .report:
             confirmLabel.text = I18N.Report.reportLabel
@@ -241,6 +243,7 @@ extension CustomPopUpView {
             if let personName = personName, let detailComment = detailComment {
                 confirmLabel.text = personName + I18N.BookRecommend.deleteComment
                 blockDetailLabel.text = detailComment
+                changeFontToBold()
             }
         }
     }
