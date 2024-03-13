@@ -228,6 +228,8 @@ extension RecommendVC {
             currentViewController.isEditingMode = isEditing
             currentViewController.updateCellsEditingMode(isEditing)
         }
+        
+        getRecommendBooksAPI()
     }
     
     @objc
