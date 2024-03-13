@@ -126,16 +126,16 @@ extension RecommendingVC {
     }
     
     @objc func recommendDeletedNotification(_ notification: Notification) {
-           if let userInfo = notification.userInfo,
-              let recommendId = userInfo["recommendID"] as? Int {
-               if let index = recommendingBooks.firstIndex(where: { $0.recommendID == recommendId }) {
-                   recommendingBooks.remove(at: index)
-                   let indexPath = IndexPath(row: index, section: 0)
-                   recommendingTableView.deleteRows(at: [indexPath], with: .left)
-                   recommendingTableView.reloadData()
-               }
-           }
-       }
+        if let userInfo = notification.userInfo,
+           let recommendId = userInfo["recommendID"] as? Int {
+            if let index = recommendingBooks.firstIndex(where: { $0.recommendID == recommendId }) {
+                recommendingBooks.remove(at: index)
+                let indexPath = IndexPath(row: index, section: 0)
+                recommendingTableView.deleteRows(at: [indexPath], with: .left)
+                recommendingTableView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -171,7 +171,6 @@ extension RecommendingVC {
                 self.recommendingBooks = serverGetRecommendingBook.recommendingBook
                 
                 DispatchQueue.main.async {
-
                     if let recommendingBooks = response?.data?.recommendingBook, !recommendingBooks.isEmpty {
                         self.emptyDescriptionLabel.isHidden = true
                         self.recommendingTableView.isHidden = false

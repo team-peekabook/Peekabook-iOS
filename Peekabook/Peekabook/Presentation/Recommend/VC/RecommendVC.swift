@@ -15,6 +15,8 @@ import Moya
 final class RecommendVC: UIViewController {
 
     private var recommendTypes: [String] = [I18N.BookRecommend.recommended, I18N.BookRecommend.recommending]
+    private var recommendedIsEmpty = false
+    private var recommendingIsEmpty = false
     
     // MARK: - Properties
     
@@ -96,6 +98,11 @@ final class RecommendVC: UIViewController {
         setDelegate()
         registerCells()
         setFirstIndexSelected()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getRecommendBooksAPI()
     }
 }
 
@@ -287,6 +294,26 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
         let nextIndex = index + 1
         if nextIndex == dataViewControllers.count { return nil }
         return dataViewControllers[nextIndex]
+    }
+}
+
+// MARK: - Network
+
+extension RecommendVC {
+    private func getRecommendBooksAPI() {
+        RecommendAPI(viewController: self).getRecommend { response in
+            if response?.success == true {
+                guard let serverGetRecommendBook = response?.data else { return }
+                self.recommendedIsEmpty = serverGetRecommendBook.recommendedBook.isEmpty
+                self.recommendingIsEmpty = serverGetRecommendBook.recommendingBook.isEmpty
+                
+                if self.recommendedIsEmpty == true && self.recommendingIsEmpty == true {
+                    self.editButton.isHidden = true
+                } else {
+                    self.editButton.isHidden = false
+                }
+            }
+        }
     }
 }
 

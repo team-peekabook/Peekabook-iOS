@@ -107,11 +107,10 @@ extension RecommendedVC {
         // TableView의 모든 셀의 Editing 모드를 업데이트
         for case let cell as RecommendListTVC in recommendedTableView.visibleCells {
             cell.checkEditing(isEditing)
-            
         }
     }
     
-    func getNotification() {
+    private func getNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(deleteImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recommendDeletedNotification), name: NSNotification.Name(rawValue: "RecommendDeletedNotification"), object: nil)
     }
