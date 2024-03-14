@@ -64,8 +64,8 @@ struct I18N {
     struct BookDetail {
         static let comment = "한 마디"
         static let memo = "메모"
-        static let commentPlaceholder = "한 마디를 남겨주세요"
-        static let memoPlaceholder = "메모를 남겨주세요"
+        static let commentPlaceholder = "책을 읽고 느낀 점, 좋았던 구절을 적어보세요."
+        static let memoPlaceholder = "메모에 적은 내용은 나만 볼 수 있어요.\nex) 7/3~7/10 완독, 두두에게 선물 받음"
         static let emptyComment = "작성된 한 마디가 없습니다"
         static let emptyMemo = "작성된 메모가 없습니다"
     }
@@ -99,7 +99,7 @@ struct I18N {
     
     struct Barcode {
         static let infoLabel = "책의 뒷면에 있는 ISBN 바코드가\n사각형 안에 들어오게 해주세요."
-        static let infoButton = "바코드 인식이 어려우신가요?"
+        static let infoButton = "책 제목으로 검색하기"
         static let searchLabel = "책 검색하기"
     }
     
@@ -120,6 +120,8 @@ struct I18N {
     struct BookRecommend {
         static let recommended = "추천받은 책"
         static let recommending = "추천한 책"
+        static let edit = "수정하기"
+        static let complete = "완료"
         static let recommendedEmptyDescription = "아직 친구가 추천해준 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
         static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
         
@@ -153,6 +155,23 @@ struct I18N {
         static let block = "차단하기"
         static let blockComment = "님을 차단하시겠어요?"
         static let blockDetailComment = "서로에게 추천한 책이 삭제되며,\n서로의 프로필을 볼 수 없게 돼요."
+    }
+    
+    struct RecommendingPopUp {
+        static let delete = "삭제하기"
+        static let deleteComment = "추천한 책을 삭제하시겠어요?"
+        static let deleteDetailComment = "추천받은 사용자의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
+    }
+    
+    struct RecommendedPopUp {
+        static let delete = "삭제하기"
+        static let deleteComment = "추천받은 책을 삭제하시겠어요?"
+        static let deleteDetailComment = "나에게 추천해준 사용자의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
+    }
+    
+    struct BookDuplicatePopUp {
+        static let add = "추가하기"
+        static let duplicateComment = "이미 내 책장에 있는 도서예요.\n하나 더 추가하시겠어요?"
     }
     
     struct Logout {

@@ -18,6 +18,7 @@ enum ButtonLabelStyle: CaseIterable {
     case deleteAccount
     case forceUpdate
     case deleteRecommend
+    case bookDuplicate
 }
 
 final class CustomPopUpView: UIView {
@@ -78,7 +79,7 @@ extension CustomPopUpView {
         }
         
         switch style {
-        case .recommend, .delete, .unfollow:
+        case .recommend, .delete, .unfollow, .bookDuplicate:
             self.setTwoButtonAndTwoLineLabelLayout()
         case .block, .unblock, .deleteRecommend:
             self.setTwoButtonAndDetailLabelLayout()
@@ -239,6 +240,9 @@ extension CustomPopUpView {
         case .forceUpdate:
             deleteAccountDetailLabel.text = I18N.Update.updateComment
             confirmLabel.text = I18N.Update.update
+        case .bookDuplicate:
+            confirmLabel.text = I18N.BookDuplicatePopUp.duplicateComment
+            
         case .deleteRecommend:
             if let personName = personName, let detailComment = detailComment {
                 confirmLabel.text = personName + I18N.BookRecommend.deleteComment
@@ -283,6 +287,10 @@ extension CustomPopUpView {
         case .forceUpdate:
             confirmButton.setTitle(I18N.Update.button, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(ForceUpdateVC.confirmButtonDidTap), for: .touchUpInside)
+        case .bookDuplicate:
+            confirmButton.setTitle(I18N.BookDuplicatePopUp.add, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .deleteRecommend:
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)

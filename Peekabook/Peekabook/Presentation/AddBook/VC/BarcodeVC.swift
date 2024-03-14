@@ -27,15 +27,17 @@ final class BarcodeVC: BarcodeScannerViewController {
         $0.textAlignment = .center
         $0.numberOfLines = 2
         $0.textColor = .peekaWhite
-        $0.font = .s3
+        $0.font = .h2
     }
     
     private lazy var textSearchButton = UIButton().then {
         $0.setTitle(I18N.Barcode.infoButton, for: .normal)
-        $0.titleLabel!.font = .c2
+        $0.titleLabel!.font = .s3
         $0.setTitleColor(.peekaWhite, for: .normal)
         $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
-        $0.setUnderline()
+        $0.layer.borderWidth = 0.5
+        $0.layer.borderColor = UIColor.peekaWhite.cgColor
+        $0.layer.cornerRadius = 13
     }
     
     // MARK: - View Life Cycle
@@ -75,12 +77,14 @@ extension BarcodeVC {
         ])
         
         descriptionLabel.snp.makeConstraints {
-            $0.bottom.equalTo(textSearchButton.snp.top).offset(-100)
+            $0.bottom.equalTo(textSearchButton.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }
         
         textSearchButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+            $0.width.equalTo(129)
+            $0.height.equalTo(26)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(175)
             $0.centerX.equalToSuperview()
         }
     }

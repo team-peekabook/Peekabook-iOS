@@ -13,11 +13,16 @@ final class BottomBookShelfVC: UIViewController {
     
     // MARK: - Properties
     
+    private var bookTotalNum: Int = 0
+    var isSheetUp: Bool = false
     var bookShelfType: BookShelfType = .user
     private var isInitialLoad = true
     private var books: [Book] = []
     private var fullView: CGFloat {
         return SafeAreaHeight.safeAreaTopInset() + 52
+    }
+    private var middleView: CGFloat {
+        return SafeAreaHeight.safeAreaTopInset() + 250
     }
 
     private var partialView: CGFloat {
@@ -90,7 +95,10 @@ final class BottomBookShelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setInitialAnimateView()
+        
+        if bookTotalNum == 0 {
+            setEmptyAnimateView()
+        }
     }
     
     // MARK: - @objc Function
@@ -182,8 +190,8 @@ extension BottomBookShelfVC {
         }
         
         emptyDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(booksCountLabel.snp.bottom).offset(190)
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().multipliedBy(0.8)
         }
         
         emptyDescriptionImage.snp.makeConstraints {
@@ -214,13 +222,41 @@ extension BottomBookShelfVC {
         bookShelfCollectionView.register(BookShelfCVC.self, forCellWithReuseIdentifier: BookShelfCVC.className)
     }
     
-    private func setInitialAnimateView() {
+    private func setPriorAnimateView() {
         if isInitialLoad {
             self.view.frame = CGRect(x: 0,
                                      y: partialView,
                                      width: view.frame.width,
                                      height: view.frame.height)
             isInitialLoad = false
+        }
+    }
+        
+    private func setInitialAnimateView() {
+        self.view.frame = CGRect(x: 0, y: partialView, width: view.frame.width, height: view.frame.height)
+        holdView.isHidden = false
+        enablePanGesture()
+    }
+    
+    private func setEmptyAnimateView() {
+        self.view.frame = CGRect(x: 0, y: middleView, width: view.frame.width, height: view.frame.height)
+        holdView.isHidden = true
+        disablePanGesture()
+    }
+    
+    private func enablePanGesture() {
+        for gestureRecognizer in view.gestureRecognizers ?? [] {
+            if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+                panGestureRecognizer.isEnabled = true
+            }
+        }
+    }
+    
+    private func disablePanGesture() {
+        for gestureRecognizer in view.gestureRecognizers ?? [] {
+            if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+                panGestureRecognizer.isEnabled = false
+            }
         }
     }
     
@@ -243,8 +279,20 @@ extension BottomBookShelfVC {
     
     func setData(books: [Book], bookTotalNum: Int) {
         self.books = books
+        self.bookTotalNum = bookTotalNum
         self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
         bookShelfCollectionView.reloadData()
+        
+        if bookTotalNum == 0 {
+            setEmptyAnimateView() // 아예 책장이 위에 딱 붙는 상태
+        } else {
+            if isSheetUp == true {
+                setPriorAnimateView() // 책장 상태 올라간 기존상태 유지
+                isSheetUp = false
+            } else {
+                setInitialAnimateView() // 책장 내려간 상태
+            }
+        }
     }
     
     func changeLayout(isUser: Bool) {
@@ -287,12 +335,16 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             bookShelfCollectionView.isUserInteractionEnabled = true
             
             let bookDetailVC = BookDetailVC()
+            isSheetUp = true
             if bookShelfType == .user {
                 bookDetailVC.changeUserViewLayout()
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = books[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
+            if bookShelfType == .friend {
+                bookDetailVC.updateMemoView()
+            }
         }
     }
 }

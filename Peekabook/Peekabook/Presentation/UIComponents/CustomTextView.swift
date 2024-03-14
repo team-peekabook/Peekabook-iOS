@@ -17,6 +17,7 @@ enum CustomTextViewType: CaseIterable {
     case bookProposal
     case editProfileIntro
     case addProfileIntro
+    case hiddenBookMemo
 }
 
 protocol IntroTextDelegate: AnyObject {
@@ -60,6 +61,7 @@ final class CustomTextView: UIView {
         $0.autocorrectionType = .no
         $0.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         $0.returnKeyType = .done
+        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
     private let maxLabel = UILabel().then {
@@ -203,6 +205,9 @@ extension CustomTextView {
             boxView.frame.size.height = 101
             textView.isUserInteractionEnabled = false
             proposalItemhidden()
+        case .hiddenBookMemo:
+            boxView.isHidden = true
+            textView.isHidden = true
         case .bookProposal:
             textView.text = I18N.PlaceHolder.recommend
             label.text = I18N.BookProposal.personName
