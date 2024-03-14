@@ -126,7 +126,7 @@ struct I18N {
         static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
         
         static let deleteComment = "책을 삭제하시겠어요?"
-        static let deleteRecommendDetailComment = "상대방의 추천 내역에서도 사라지며,\n 삭제 후에는 되돌릴 수 없어요."
+        static let deleteRecommendDetailComment = "상대방의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
     }
     
     struct BookDelete {
@@ -155,18 +155,6 @@ struct I18N {
         static let block = "차단하기"
         static let blockComment = "님을 차단하시겠어요?"
         static let blockDetailComment = "서로에게 추천한 책이 삭제되며,\n서로의 프로필을 볼 수 없게 돼요."
-    }
-    
-    struct RecommendingPopUp {
-        static let delete = "삭제하기"
-        static let deleteComment = "추천한 책을 삭제하시겠어요?"
-        static let deleteDetailComment = "추천받은 사용자의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
-    }
-    
-    struct RecommendedPopUp {
-        static let delete = "삭제하기"
-        static let deleteComment = "추천받은 책을 삭제하시겠어요?"
-        static let deleteDetailComment = "나에게 추천해준 사용자의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
     }
     
     struct BookDuplicatePopUp {
