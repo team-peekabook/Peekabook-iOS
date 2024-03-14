@@ -8,4 +8,5 @@
 // MARK: - AppleLoginRequest
 struct SocialLoginRequest: Codable {
     let socialPlatform: String
+    let fcmToken: String
 }

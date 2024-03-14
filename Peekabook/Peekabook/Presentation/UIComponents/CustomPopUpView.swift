@@ -17,8 +17,7 @@ enum ButtonLabelStyle: CaseIterable {
     case logout
     case deleteAccount
     case forceUpdate
-    case recommending
-    case recommended
+    case deleteRecommend
     case bookDuplicate
 }
 
@@ -46,7 +45,7 @@ final class CustomPopUpView: UIView {
     
     private lazy var cancelButton = UIButton(type: .system).then {
         $0.setTitle(I18N.Confirm.cancel, for: .normal)
-        $0.titleLabel!.font = .h2
+        $0.titleLabel!.font = .h1
         $0.setTitleColor(.white, for: .normal)
     }
     
@@ -82,7 +81,7 @@ extension CustomPopUpView {
         switch style {
         case .recommend, .delete, .unfollow, .bookDuplicate:
             self.setTwoButtonAndTwoLineLabelLayout()
-        case .block, .unblock, .recommending, .recommended:
+        case .block, .unblock, .deleteRecommend:
             self.setTwoButtonAndDetailLabelLayout()
         case .report:
             self.setOneButtonLayout()
@@ -208,7 +207,7 @@ extension CustomPopUpView {
         confirmLabel.font = .nameBold
     }
     
-    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil) {
+    func getConfirmLabel(style: ButtonLabelStyle, personName: String? = nil, detailComment: String? = nil) {
         switch style {
         case .recommend:
             if let personName = personName {
@@ -224,18 +223,14 @@ extension CustomPopUpView {
             if let personName = personName {
                 confirmLabel.text = personName + I18N.BlockPopUp.blockComment
                 blockDetailLabel.text = I18N.BlockPopUp.blockDetailComment
+                changeFontToBold()
             }
         case .unblock:
             if let personName = personName {
                 confirmLabel.text = personName + I18N.ManageBlockUsers.unblockPopUpTitle
                 blockDetailLabel.text = I18N.ManageBlockUsers.unblockPopSubtitle
+                changeFontToBold()
             }
-        case .recommending:
-            confirmLabel.text = I18N.RecommendingPopUp.deleteComment
-            blockDetailLabel.text = I18N.RecommendingPopUp.deleteDetailComment
-        case .recommended:
-            confirmLabel.text = I18N.RecommendedPopUp.deleteComment
-            blockDetailLabel.text = I18N.RecommendedPopUp.deleteDetailComment
         case .report:
             confirmLabel.text = I18N.Report.reportLabel
         case .logout:
@@ -248,6 +243,12 @@ extension CustomPopUpView {
         case .bookDuplicate:
             confirmLabel.text = I18N.BookDuplicatePopUp.duplicateComment
             
+        case .deleteRecommend:
+            if let personName = personName, let detailComment = detailComment {
+                confirmLabel.text = personName + I18N.BookRecommend.deleteComment
+                blockDetailLabel.text = detailComment
+                changeFontToBold()
+            }
         }
     }
     
@@ -286,16 +287,14 @@ extension CustomPopUpView {
         case .forceUpdate:
             confirmButton.setTitle(I18N.Update.button, for: .normal)
             confirmButton.addTarget(viewController, action: #selector(ForceUpdateVC.confirmButtonDidTap), for: .touchUpInside)
-        case .recommending:
-            confirmButton.setTitle(I18N.RecommendingPopUp.delete, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(RecommendingPopUpVC.cancelButtonDidTap), for: .touchUpInside)
-        case .recommended:
-            confirmButton.setTitle(I18N.RecommendedPopUp.delete, for: .normal)
-            cancelButton.addTarget(viewController, action: #selector(RecommendedPopUpVC.cancelButtonDidTap), for: .touchUpInside)
         case .bookDuplicate:
             confirmButton.setTitle(I18N.BookDuplicatePopUp.add, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(BookDuplicatePopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .deleteRecommend:
+            confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
+            cancelButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

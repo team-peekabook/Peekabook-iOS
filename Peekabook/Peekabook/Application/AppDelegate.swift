@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseMessaging
 import KakaoSDKCommon
 
 @main
@@ -32,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: Config.kakaoNativeAppKey)
         
+        FirebaseApp.configure()
+        setupFCM(application)
+        
         //        if #available(iOS 15, *) {
         //            let appearance = UITabBarAppearance()
         //            appearance.configureWithOpaqueBackground()
@@ -50,5 +55,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     
+    private func setupFCM(_ application: UIApplication) {
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.sound, .alert, .badge]) { isAgree, error in
+                if isAgree {
+                    print("알림 허용")
+                } // TODO: 알림 허용 로그
+            }
+        application.registerForRemoteNotifications()
+    }
+
+    // 푸쉬 클릭 시
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse
+    ) async {
+        print("푸쉬 클릭")
+//        let userInfo = response.notification.request.content.userInfo as NSDictionary
+//        SceneManager.route(data: userInfo)
+    }
+
+    // 앱화면 보고있는중에 푸시올 때
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification
+    ) async -> UNNotificationPresentationOptions {
+        if #available(iOS 14.0, *) {
+            return [.sound, .banner, .list]
+        } else {
+            return [.sound, .alert]
+        }
+    }
+
+    // FCM Token 업데이트시
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        FCMManager.shared.fcmToken = fcmToken
+        if let fcmToken {
+            print("FCM Token: \(fcmToken)")
+//
+//            // TODO: 기존 유저 대응 후 버전 업하면서 아래 코드를 제거합니다.
+//            let userService = UserService()
+//            userService.updateFCMToken()
+        }
+    }
+
+    /// 스위즐링 NO시, APNs등록, 토큰값가져옴
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        Messaging.messaging().apnsToken = deviceToken
+        print("APNs Token: \(deviceToken)")
+    }
 }

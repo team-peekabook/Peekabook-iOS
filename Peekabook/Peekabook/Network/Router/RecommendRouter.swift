@@ -11,6 +11,7 @@ import Moya
 
 enum RecommendRouter {
     case getRecommend
+    case deleteRecommend(recommendID: Int)
 }
 
 extension RecommendRouter: TargetType {
@@ -22,6 +23,8 @@ extension RecommendRouter: TargetType {
         switch self {
         case .getRecommend:
             return URLConstant.recommend
+        case .deleteRecommend(let recommendId):
+            return "\(URLConstant.recommend)/\(recommendId)"
         }
     }
     
@@ -29,12 +32,16 @@ extension RecommendRouter: TargetType {
         switch self {
         case .getRecommend:
             return .get
+        case .deleteRecommend:
+            return .delete
         }
     }
     
     var task: Moya.Task {
         switch self {
         case .getRecommend:
+            return .requestPlain
+        case .deleteRecommend:
             return .requestPlain
         }
     }

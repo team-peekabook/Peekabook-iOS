@@ -15,6 +15,8 @@ import Moya
 final class RecommendVC: UIViewController {
 
     private var recommendTypes: [String] = [I18N.BookRecommend.recommended, I18N.BookRecommend.recommending]
+    private var recommendedIsEmpty = false
+    private var recommendingIsEmpty = false
     
     // MARK: - Properties
     
@@ -35,6 +37,23 @@ final class RecommendVC: UIViewController {
             bind(newValue: currentPage)
         }
     }
+    
+    private var isEditingMode: Bool = false {
+        didSet {
+            updateEditingMode(isEditingMode)
+        }
+    }
+    
+    private lazy var editButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.titleLabel!.font = .c1
+        bt.setTitle("수정하기", for: .normal)
+        bt.setTitleColor(.peekaRed, for: .normal)
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.peekaRed.cgColor
+        bt.addTarget(self, action: #selector(editOrCompleteButtonDidTap), for: .touchUpInside)
+        return bt
+    }()
     
     // MARK: - UI Components
     
@@ -80,6 +99,11 @@ final class RecommendVC: UIViewController {
         registerCells()
         setFirstIndexSelected()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getRecommendBooksAPI()
+    }
 }
 
 // MARK: - UI & Layout
@@ -94,7 +118,8 @@ extension RecommendVC {
     private func addSubviews() {
         view.addSubviews(
             naviBar,
-            recommendCollectionView
+            recommendCollectionView,
+            editButton
         )
         
         addChild(pageViewController)
@@ -111,6 +136,13 @@ extension RecommendVC {
             $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(63)
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.centerY.equalTo(recommendCollectionView)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(66)
+            $0.height.equalTo(24)
         }
         
         pageViewController.view.snp.makeConstraints {
@@ -178,6 +210,32 @@ extension RecommendVC {
             currentViewController.scrollToTop()
         }
     }
+    
+    private func updateEditingMode(_ isEditing: Bool) {
+        // Edit 버튼 상태에 따라 텍스트 업데이트
+        if isEditing {
+            editButton.setTitle("완료", for: .normal)
+        } else {
+            editButton.setTitle("수정하기", for: .normal)
+        }
+        
+        // TableView의 Editing 상태 업데이트
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendedVC {
+            currentViewController.isEditingMode = isEditing
+            currentViewController.updateCellsEditingMode(isEditing)
+        }
+        if let currentViewController = pageViewController.viewControllers?.first as? RecommendingVC {
+            currentViewController.isEditingMode = isEditing
+            currentViewController.updateCellsEditingMode(isEditing)
+        }
+        
+        getRecommendBooksAPI()
+    }
+    
+    @objc
+    private func editOrCompleteButtonDidTap() {
+        self.isEditingMode.toggle()
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -203,9 +261,9 @@ extension RecommendVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             [dataViewControllers[indexPath.item]],
             direction: indexPath.row == 0 ? .reverse : .forward,
             animated: true,
-            completion: nil
-        )
+            completion: nil)
         self.scrollToTop()
+        updateEditingMode(self.isEditingMode)
     }
 }
 
@@ -224,6 +282,13 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
         guard let currentVC = pageViewController.viewControllers?.first,
               let currentIndex = dataViewControllers.firstIndex(of: currentVC) else { return }
         currentPage = currentIndex
+        
+        if let currentVC = currentVC as? RecommendedVC {
+            currentVC.updateCellsEditingMode(self.isEditingMode)
+        } else if let currentVC = currentVC as? RecommendingVC {
+            currentVC.updateCellsEditingMode(self.isEditingMode)
+        }
+        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -231,6 +296,26 @@ extension RecommendVC: UIPageViewControllerDelegate, UIPageViewControllerDataSou
         let nextIndex = index + 1
         if nextIndex == dataViewControllers.count { return nil }
         return dataViewControllers[nextIndex]
+    }
+}
+
+// MARK: - Network
+
+extension RecommendVC {
+    private func getRecommendBooksAPI() {
+        RecommendAPI(viewController: self).getRecommend { response in
+            if response?.success == true {
+                guard let serverGetRecommendBook = response?.data else { return }
+                self.recommendedIsEmpty = serverGetRecommendBook.recommendedBook.isEmpty
+                self.recommendingIsEmpty = serverGetRecommendBook.recommendingBook.isEmpty
+                
+                if self.recommendedIsEmpty == true && self.recommendingIsEmpty == true {
+                    self.editButton.isHidden = true
+                } else {
+                    self.editButton.isHidden = false
+                }
+            }
+        }
     }
 }
 
@@ -245,3 +330,4 @@ struct RecommendVCPreview: PreviewProvider {
     }
 }
 #endif
+

@@ -20,6 +20,7 @@ enum MyPageOption {
     case developerInfo
     case logout
     case deleteAccount
+    case setNotification
     
     var rawValue: String {
         switch self {
@@ -35,6 +36,8 @@ enum MyPageOption {
             return I18N.MyPageOption.logout
         case .deleteAccount:
             return I18N.MyPageOption.deleteAccount
+        case .setNotification:
+            return I18N.MyPageOption.setNotification
         }
     }
 }
@@ -43,7 +46,7 @@ final class MyPageVC: UIViewController {
     
     // MARK: - UI Components
     
-    private let optionArray: [MyPageOption] = [.manageBlockUsers, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
+    private let optionArray: [MyPageOption] = [.setNotification, .manageBlockUsers, .privacyPolicy, .contactUs, .developerInfo, .logout, .deleteAccount]
     var getAccountData: GetAccountResponse?
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
         .changeLeftBackButtonToLogoImage()
@@ -151,6 +154,11 @@ extension MyPageVC: UITableViewDelegate, UITableViewDataSource {
             let withdrawalViewController = DeleteAccountVC()
             withdrawalViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(withdrawalViewController, animated: true)
+        case .setNotification:
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
         }
     }
     

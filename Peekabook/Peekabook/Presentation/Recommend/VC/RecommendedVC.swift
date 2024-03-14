@@ -11,6 +11,12 @@ final class RecommendedVC: UIViewController {
     
     // MARK: - Properties
     
+    var isEditingMode: Bool = false {
+        didSet {
+            updateCellsEditingMode(isEditingMode)
+        }
+    }
+
     private var recommendedBooks: [RecommendBook] = []
     
     // MARK: - UI Components
@@ -42,6 +48,8 @@ final class RecommendedVC: UIViewController {
         setLayout()
         setDelegate()
         registerCells()
+        getNotification()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +102,40 @@ extension RecommendedVC {
         let contentOffset = CGPoint(x: 0, y: 0)
         self.recommendedTableView.setContentOffset(contentOffset, animated: true)
     }
+    
+    func updateCellsEditingMode(_ isEditing: Bool) {
+        // TableView의 모든 셀의 Editing 모드를 업데이트
+        for case let cell as RecommendListTVC in recommendedTableView.visibleCells {
+            cell.checkEditing(isEditing)
+        }
+    }
+    
+    private func getNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteImageTapped), name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recommendDeletedNotification), name: NSNotification.Name(rawValue: "RecommendDeletedNotification"), object: nil)
+    }
+    
+    @objc func deleteImageTapped(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let recommendID = userInfo["recommendID"] as? Int {
+            let deletePopUpVC = RecommendDeletePopUpVC()
+            deletePopUpVC.recommendId = recommendID
+            deletePopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(deletePopUpVC, animated: false, completion: nil)
+        }
+    }
+    
+    @objc func recommendDeletedNotification(_ notification: Notification) {
+           if let userInfo = notification.userInfo,
+              let recommendId = userInfo["recommendID"] as? Int {
+               if let index = recommendedBooks.firstIndex(where: { $0.recommendID == recommendId }) {
+                   recommendedBooks.remove(at: index)
+                   let indexPath = IndexPath(row: index, section: 0)
+                   recommendedTableView.deleteRows(at: [indexPath], with: .left)
+                   recommendedTableView.reloadData()
+               }
+           }
+       }
 }
 
 extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
@@ -109,6 +151,7 @@ extension RecommendedVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendListTVC.className, for: indexPath) as? RecommendListTVC else { return UITableViewCell() }
         cell.dataBind(model: recommendedBooks[safe: indexPath.row]!)
+        cell.checkEditing(self.isEditingMode)
         return cell
     }
 }

@@ -17,7 +17,11 @@
 		143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143DBFD62971FA980056C609 /* MyPageHeaderView.swift */; };
 		143FC665296EBA2B0034C7B9 /* GetRecommendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */; };
 		1444CC052B18A4B400FB9F7E /* ForceUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */; };
+		144AD84B2B8B6F4700272412 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 144AD84A2B8B6F4700272412 /* FirebaseMessaging */; };
+		144AD84D2B8B719B00272412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144AD84C2B8B719B00272412 /* GoogleService-Info.plist */; };
+		144AD8502B8B8A0100272412 /* FCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144AD84F2B8B8A0100272412 /* FCMManager.swift */; };
 		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
+		14772F662B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148C2E45296F64D200E04662 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C2E44296F64D200E04662 /* DeletePopUpVC.swift */; };
 		1492DC5D2AFBC99D00C29B7F /* CheckVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */; };
@@ -142,8 +146,6 @@
 		8EEF8E2C296B129400F37AFD /* FriendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2B296B129400F37AFD /* FriendAPI.swift */; };
 		8EEF8E2E296B129E00F37AFD /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */; };
 		8EEF8E30296B12A800F37AFD /* NaverSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */; };
-		981B0B682B8B86B900BB6B85 /* RecommendingPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B672B8B86B900BB6B85 /* RecommendingPopUpVC.swift */; };
-		981B0B6A2B8BAF5900BB6B85 /* RecommendedPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B692B8BAF5900BB6B85 /* RecommendedPopUpVC.swift */; };
 		981B0B6C2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6B2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift */; };
 		981B0B6E2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6D2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift */; };
 		981B0B702B94881A00BB6B85 /* BookDuplicatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B0B6F2B94881A00BB6B85 /* BookDuplicatePopUpVC.swift */; };
@@ -187,7 +189,10 @@
 		143DBFD62971FA980056C609 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		143FC664296EBA2B0034C7B9 /* GetRecommendResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecommendResponse.swift; sourceTree = "<group>"; };
 		1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateVC.swift; sourceTree = "<group>"; };
+		144AD84C2B8B719B00272412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		144AD84F2B8B8A0100272412 /* FCMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMManager.swift; sourceTree = "<group>"; };
 		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
+		14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDeletePopUpVC.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148C2E44296F64D200E04662 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
 		1492DC5C2AFBC99D00C29B7F /* CheckVersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckVersionResponse.swift; sourceTree = "<group>"; };
@@ -313,8 +318,6 @@
 		8EEF8E2B296B129400F37AFD /* FriendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2D296B129E00F37AFD /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
 		8EEF8E2F296B12A800F37AFD /* NaverSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPI.swift; sourceTree = "<group>"; };
-		981B0B672B8B86B900BB6B85 /* RecommendingPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendingPopUpVC.swift; sourceTree = "<group>"; };
-		981B0B692B8BAF5900BB6B85 /* RecommendedPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedPopUpVC.swift; sourceTree = "<group>"; };
 		981B0B6B2B905E7500BB6B85 /* CheckBookDuplicateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBookDuplicateRequest.swift; sourceTree = "<group>"; };
 		981B0B6D2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBookDuplicateResponse.swift; sourceTree = "<group>"; };
 		981B0B6F2B94881A00BB6B85 /* BookDuplicatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDuplicatePopUpVC.swift; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144AD84B2B8B6F4700272412 /* FirebaseMessaging in Frameworks */,
 				8E806F432A32260F002FE5DF /* BarcodeScanner in Frameworks */,
 				14061CC029DD993400F290F5 /* KakaoSDKAuth in Frameworks */,
 				8E10BA09295FF37B00BCF58B /* Kingfisher in Frameworks */,
@@ -374,6 +378,14 @@
 				8E21E53629E04BB800E68DAB /* VC */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		144AD84E2B8B89EA00272412 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				144AD84F2B8B8A0100272412 /* FCMManager.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		14D07E0429E6BD3200C7B99E /* User */ = {
@@ -624,8 +636,7 @@
 				8E10BA36295FF81F00BCF58B /* RecommendVC.swift */,
 				1431D53B2963497000CA72D0 /* RecommendedVC.swift */,
 				1431D53D2963498B00CA72D0 /* RecommendingVC.swift */,
-				981B0B672B8B86B900BB6B85 /* RecommendingPopUpVC.swift */,
-				981B0B692B8BAF5900BB6B85 /* RecommendedPopUpVC.swift */,
+				14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -733,6 +744,8 @@
 		8E5A30A0295DAE6D00285A15 /* Peekabook */ = {
 			isa = PBXGroup;
 			children = (
+				144AD84E2B8B89EA00272412 /* Firebase */,
+				144AD84C2B8B719B00272412 /* GoogleService-Info.plist */,
 				8E39A59D29C83CF3009AC57A /* Peekabook.entitlements */,
 				8E10BA0D295FF42400BCF58B /* Global */,
 				8E10BA10295FF44800BCF58B /* Network */,
@@ -1052,6 +1065,7 @@
 				14061CBD29DD993400F290F5 /* KakaoSDK */,
 				14061CBF29DD993400F290F5 /* KakaoSDKAuth */,
 				8E806F422A32260F002FE5DF /* BarcodeScanner */,
+				144AD84A2B8B6F4700272412 /* FirebaseMessaging */,
 			);
 			productName = Peekabook;
 			productReference = 8E5A309E295DAE6D00285A15 /* Peekabook.app */;
@@ -1089,6 +1103,7 @@
 				8E10BA0A295FF3B700BCF58B /* XCRemoteSwiftPackageReference "Moya" */,
 				14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				8E806F412A32260F002FE5DF /* XCRemoteSwiftPackageReference "BarcodeScanner" */,
+				144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 8E5A309F295DAE6D00285A15 /* Products */;
 			projectDirPath = "";
@@ -1104,6 +1119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144AD84D2B8B719B00272412 /* GoogleService-Info.plist in Resources */,
 				8E5A30AB295DAE6F00285A15 /* Assets.xcassets in Resources */,
 				8E5A30A9295DAE6D00285A15 /* Main.storyboard in Resources */,
 				8E5A30AE295DAE6F00285A15 /* LaunchScreen.storyboard in Resources */,
@@ -1161,7 +1177,6 @@
 				8ECCB0B32A31F4E7002F1710 /* safeAreaHeight.swift in Sources */,
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
-				981B0B6A2B8BAF5900BB6B85 /* RecommendedPopUpVC.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
 				98F1803E29CE79BF00550E45 /* ReportPopUpVC.swift in Sources */,
 				8E6F7B95296533000013F744 /* PickCVC.swift in Sources */,
@@ -1225,6 +1240,7 @@
 				8E45037029D1F40300A829A6 /* UserRouter.swift in Sources */,
 				8EEF8E2A296B128C00F37AFD /* RecommendAPI.swift in Sources */,
 				14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */,
+				14772F662B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift in Sources */,
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,
@@ -1233,6 +1249,7 @@
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
 				8E81F3BC2960778B001815B4 /* getClassName.swift in Sources */,
+				144AD8502B8B8A0100272412 /* FCMManager.swift in Sources */,
 				8E10BA44295FF95D00BCF58B /* MyPageVC.swift in Sources */,
 				14B47F8329632EE600B5B60F /* RecommendTypeCVC.swift in Sources */,
 				8E18505D296828D00062E92A /* EditPickCVC.swift in Sources */,
@@ -1242,7 +1259,6 @@
 				8E23476A297F6A550066D7B3 /* switchRootViewController.swift in Sources */,
 				8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */,
 				8E81F3B6296073C6001815B4 /* ImageLiterals.swift in Sources */,
-				981B0B682B8B86B900BB6B85 /* RecommendingPopUpVC.swift in Sources */,
 				8E4503A529D4889800A829A6 /* UnblockPopUpVC.swift in Sources */,
 				8E81F3CC29607BB2001815B4 /* adjusted+.swift in Sources */,
 				8EEF8E22296B120600F37AFD /* PickRouter.swift in Sources */,
@@ -1555,6 +1571,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		8E10BA01295FF33200BCF58B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1607,6 +1631,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14061CBC29DD993400F290F5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKAuth;
+		};
+		144AD84A2B8B6F4700272412 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 144AD8492B8B6F4700272412 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		8E10BA02295FF33200BCF58B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

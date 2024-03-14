@@ -33,4 +33,22 @@ final class RecommendAPI {
             }
         }
     }
+    
+    // 2. 추천삭제
+    func deleteRecommend(recommendId: Int, completion: @escaping (GeneralResponse<BlankData>?) -> Void) {
+        recommendProvider.request(.deleteRecommend(recommendID: recommendId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let deleteRecommendData = try response.map(GeneralResponse<BlankData>.self)
+                    completion(deleteRecommendData)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
 }

@@ -12,6 +12,8 @@ import Then
 
 final class RecommendListTVC: UITableViewCell {
     
+    private var recommendID: Int?
+    
     // MARK: - UI Components
     
     private let bookHeaderView = UIView()
@@ -64,7 +66,16 @@ final class RecommendListTVC: UITableViewCell {
         $0.numberOfLines = 0
         $0.lineBreakMode = .byCharWrapping
     }
-
+    
+    private let bookImageCoverView = UIView().then {
+        $0.backgroundColor = .peekaWhite_90
+        $0.isUserInteractionEnabled = true
+    }
+      
+    private let recommendDeleteImage = UIImageView().then {
+        $0.image = ImageLiterals.Icn.delete
+    }
+    
     // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -73,6 +84,8 @@ final class RecommendListTVC: UITableViewCell {
         setBackgroundColor()
         setLayout()
         setPriority()
+        makeDeleteButton()
+        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -107,7 +120,7 @@ extension RecommendListTVC {
             bookImageContainerView,
             bookCommentsContainerView
         )
-        bookImageContainerView.addSubview(bookImage)
+        bookImageContainerView.addSubviews(bookImage, bookImageCoverView)
         bookCommentsContainerView.addSubviews(
             bookRecommendedPersonImage,
             bookRecommendedPersonLabel,
@@ -182,8 +195,21 @@ extension RecommendListTVC {
         bookRecommendTextLabel.snp.makeConstraints {
             $0.top.equalTo(bookRecommendedPersonLabel.snp.bottom).offset(11)
             $0.leading.trailing.equalToSuperview().inset(13)
-            
         }
+        
+        bookImageCoverView.snp.makeConstraints {
+            $0.edges.equalTo(bookImageContainerView)
+        }
+    }
+    
+    private func makeDeleteButton() {
+        bookImageCoverView.addSubviews(recommendDeleteImage)
+    
+        recommendDeleteImage.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        bookImageCoverView.isHidden = true
     }
     
     private func setPriority() {
@@ -192,6 +218,15 @@ extension RecommendListTVC {
         bookNameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         bookWriterLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
+    
+    private func setTapGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteImageDidTapped))
+        bookImageCoverView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func deleteImageDidTapped(sender: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageTappedNotification"), object: self, userInfo: ["recommendID": self.recommendID ?? 0])
+    }
 }
 
 // MARK: - Methods
@@ -199,6 +234,7 @@ extension RecommendListTVC {
 extension RecommendListTVC {
     
     func dataBind(model: RecommendBook) {
+        self.recommendID = model.recommendID
         bookImage.kf.setImage(with: URL(string: model.bookImage))
         bookImage.kf.indicatorType = .activity
         bookNameLabel.text = model.bookTitle
@@ -207,5 +243,10 @@ extension RecommendListTVC {
         bookRecommendedPersonLabel.text = model.friendNickname
         bookRecommendTextLabel.text = model.recommendDesc
         bookRecommendedPersonImage.loadProfileImage(from: model.friendImage)
+        
+    }
+    
+    func checkEditing(_ isEditing: Bool) {
+        bookImageCoverView.isHidden = !isEditing
     }
 }
