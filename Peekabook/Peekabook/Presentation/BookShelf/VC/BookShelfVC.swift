@@ -568,6 +568,10 @@ extension BookShelfVC {
         let contentOffset = CGPoint(x: 0, y: 0)
         pickCollectionView.setContentOffset(contentOffset, animated: true)
     }
+    
+    func setEditOrRecommendButtonHidden(_ isHidden: Bool) {
+        editOrRecommendButton.isHidden = isHidden
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
