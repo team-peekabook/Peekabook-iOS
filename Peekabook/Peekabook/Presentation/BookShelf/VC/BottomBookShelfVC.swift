@@ -248,7 +248,7 @@ extension BottomBookShelfVC {
         self.booksCountLabel.text = "\(String(bookTotalNum)) Books"
         bookShelfCollectionView.reloadData()
         
-        if bookTotalNum == 0 {
+        if bookTotalNum == 0 && bookShelfType == .user {
             if let bookShelfVC = parent as? BookShelfVC {
                 bookShelfVC.setEditOrRecommendButtonHidden(true)
             }
@@ -257,6 +257,7 @@ extension BottomBookShelfVC {
                 bookShelfVC.setEditOrRecommendButtonHidden(false)
             }
         }
+        
     }
     
     func changeLayout(isUser: Bool) {
