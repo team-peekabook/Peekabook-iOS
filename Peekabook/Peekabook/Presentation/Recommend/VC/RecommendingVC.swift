@@ -120,6 +120,7 @@ extension RecommendingVC {
         if let userInfo = notification.userInfo,
            let recommendID = userInfo["recommendID"] as? Int {
             let deletePopUpVC = RecommendDeletePopUpVC()
+            deletePopUpVC.recommendId = recommendID
             deletePopUpVC.modalPresentationStyle = .overFullScreen
             self.present(deletePopUpVC, animated: false)
         }

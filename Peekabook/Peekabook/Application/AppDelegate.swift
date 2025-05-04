@@ -97,13 +97,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
 
     // FCM Token 업데이트시
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        FCMManager.shared.fcmToken = fcmToken
         if let fcmToken {
             print("FCM Token: \(fcmToken)")
-//
-//            // TODO: 기존 유저 대응 후 버전 업하면서 아래 코드를 제거합니다.
-//            let userService = UserService()
-//            userService.updateFCMToken()
+            FCMManager.shared.fcmToken = fcmToken
         }
     }
 

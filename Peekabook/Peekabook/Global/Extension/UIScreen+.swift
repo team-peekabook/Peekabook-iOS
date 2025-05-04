@@ -11,5 +11,8 @@ extension UIScreen {
     /// - Mini, SE: 375.0
     /// - pro: 390.0
     /// - pro max: 428.0
-    var isSmallThan712pt: Bool { self.bounds.size.height < 712 }
+    var isSmallThan712pt: Bool {
+        let nativeHeight = UIScreen.main.nativeBounds.height / UIScreen.main.nativeScale
+        return nativeHeight < 712
+    }
 }
