@@ -262,13 +262,13 @@ extension BottomBookShelfVC {
     
     func changeLayout(isUser: Bool) {
         addBookButton.isHidden = isUser
-        bookShelfType = .friend
+        bookShelfType = .friendFollowing
     }
     
     func setEmptyLayout(_ isEnabled: Bool) {
         emptyDescriptionLabel.isHidden = !isEnabled
         
-        if bookShelfType == .friend {
+        if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
             emptyDescriptionImage.isHidden = !isEnabled
             emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
         } else {
@@ -306,7 +306,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = books[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            if bookShelfType == .friend {
+            if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
         }

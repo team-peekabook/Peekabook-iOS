@@ -12,7 +12,8 @@ import SnapKit
 
 enum BookShelfType: CaseIterable {
     case user
-    case friend
+    case friendFollowing
+    case friendNotFollowing
 }
 
 final class BookShelfVC: UIViewController {
@@ -21,17 +22,28 @@ final class BookShelfVC: UIViewController {
     
     // MARK: - Properties
     
-    private var bookShelfType: BookShelfType = .user {
+    var bookShelfType: BookShelfType = .user {
         didSet {
             switch bookShelfType {
             case .user:
                 bottomShelfVC.changeLayout(isUser: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaRed, for: .normal)
+                editOrRecommendButton.backgroundColor = .white.withAlphaComponent(0.4)
                 moreButton.isHidden = true
-            case .friend:
+            case .friendFollowing:
                 editOrRecommendButton.isEnabled = true
                 bottomShelfVC.changeLayout(isUser: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaRed, for: .normal)
+                editOrRecommendButton.backgroundColor = .white.withAlphaComponent(0.4)
+                moreButton.isHidden = false
+            case .friendNotFollowing:
+                editOrRecommendButton.isEnabled = true
+                bottomShelfVC.changeLayout(isUser: true)
+                editOrRecommendButton.setTitle(I18N.BookShelf.follow, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaBeige, for: .normal)
+                editOrRecommendButton.backgroundColor = .peekaRed
                 moreButton.isHidden = false
             }
         }
@@ -52,8 +64,8 @@ final class BookShelfVC: UIViewController {
                 bottomShelfVC.bookShelfType = .user
             } else {
                 getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
-                bookShelfType = .friend
-                bottomShelfVC.bookShelfType = .friend
+                bookShelfType = .friendFollowing
+                bottomShelfVC.bookShelfType = .friendFollowing
             }
         }
     }
@@ -148,12 +160,12 @@ final class BookShelfVC: UIViewController {
     }()
     
     private lazy var editOrRecommendButton: UIButton = {
-        let bt = UIButton(type: .system)
+        let bt = UIButton(type: .custom)
         bt.titleLabel!.font = .c1
         bt.setTitle(I18N.BookShelf.editPick, for: .normal)
-        bt.setTitleColor(.peekaRed, for: .normal)
         bt.layer.borderWidth = 1
         bt.layer.borderColor = UIColor.peekaRed.cgColor
+        bt.setTitleColor(.peekaRed, for: .normal)
         bt.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
         return bt
     }()
@@ -214,15 +226,17 @@ final class BookShelfVC: UIViewController {
     private func moreButtonDidTap(_ sender: UIButton) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
-            
-            let unfollowPopUpVC = UnfollowPopUpVC()
-            unfollowPopUpVC.modalPresentationStyle = .overFullScreen
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            unfollowPopUpVC.personName = friend.nickname
-            unfollowPopUpVC.personId = friend.id
-            self.present(unfollowPopUpVC, animated: false)
-        }))
+        if bookShelfType == .friendFollowing {
+            actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
+                
+                let unfollowPopUpVC = UnfollowPopUpVC()
+                unfollowPopUpVC.modalPresentationStyle = .overFullScreen
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                unfollowPopUpVC.personName = friend.nickname
+                unfollowPopUpVC.personId = friend.id
+                self.present(unfollowPopUpVC, animated: false)
+            }))
+        }
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
@@ -255,15 +269,18 @@ final class BookShelfVC: UIViewController {
             let editPickVC = EditMyPickVC()
             editPickVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(editPickVC, animated: true)
-        case .friend:
+        case .friendFollowing:
             let bookSearchVC = BookSearchVC()
-            bookSearchVC.bookShelfType = .friend
+            bookSearchVC.bookShelfType = .friendFollowing
             guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
             bookSearchVC.personName = friend.nickname
             bookSearchVC.personId = friend.id
             bookSearchVC.hidesBottomBarWhenPushed = true
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)
+        case .friendNotFollowing:
+            print("친구 팔로우 팝업 떠야해요")
+            // 친구 팔로우 팝업 코드
         }
     }
     
@@ -272,7 +289,6 @@ final class BookShelfVC: UIViewController {
         selectedUserIndex = nil
     }
 }
-
 // MARK: - UI & Layout
 
 extension BookShelfVC {
@@ -284,7 +300,6 @@ extension BookShelfVC {
         verticalLine.backgroundColor = .peekaRed
         myProfileView.backgroundColor = .peekaBeige
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
@@ -625,7 +640,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            if bookShelfType == .friend {
+            if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
         }

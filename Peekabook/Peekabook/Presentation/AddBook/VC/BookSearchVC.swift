@@ -208,7 +208,7 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
             addBookVC.modalPresentationStyle = .fullScreen
             addBookVC.dataBind(model: bookInfoList[safe: indexPath.row]!)
             present(addBookVC, animated: true, completion: nil)
-        case .friend:
+        case .friendFollowing, .friendNotFollowing:
             let proposalVC = ProposalVC()
             proposalVC.personName = personName
             proposalVC.personId = personId

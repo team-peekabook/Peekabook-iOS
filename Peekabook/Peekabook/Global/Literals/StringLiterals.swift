@@ -59,6 +59,7 @@ struct I18N {
         static let report = "신고하기"
         static let block = "차단하기"
         static let cancel = "취소"
+        static let follow = "팔로우 하기"
     }
     
     struct BookDetail {
