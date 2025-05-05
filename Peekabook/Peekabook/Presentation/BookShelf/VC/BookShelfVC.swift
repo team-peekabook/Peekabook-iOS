@@ -21,8 +21,6 @@ final class BookShelfVC: UIViewController {
     var userId: Int = 0 {
         didSet {
             print("userId \(userId)")
-            getFriendBookShelfInfo(userId: userId)
-
         }
     }
     var isFollowingStatus: Bool = false
@@ -248,10 +246,13 @@ final class BookShelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if selectedUserIndex == nil {
+        if userId != 0 {
+            getFriendBookShelfInfo(userId: userId)
+        }
+        else if selectedUserIndex == nil {
             getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
+        
         updateLatestMyProfile() // 나의 미니 프로필 데이터 최신화
     }
     
