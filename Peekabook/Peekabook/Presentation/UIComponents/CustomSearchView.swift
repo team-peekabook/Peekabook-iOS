@@ -5,6 +5,10 @@ enum CustomSearchType: CaseIterable {
     case bookSearch
 }
 
+protocol CustomSearchViewDelegate: AnyObject {
+    func barcodeButtonDidTap()
+}
+
 final class CustomSearchView: UIView {
 
     // MARK: - UI Components
@@ -12,6 +16,8 @@ final class CustomSearchView: UIView {
     private let type: CustomSearchType
     private weak var viewController: UIViewController?
     private let searchContainerView = UIView()
+    weak var externalDelegate: UITextFieldDelegate?
+    weak var delegate: CustomSearchViewDelegate?
 
     private let searchImgView = UIImageView().then {
         $0.image = ImageLiterals.Icn.searchGrey
@@ -24,6 +30,7 @@ final class CustomSearchView: UIView {
     private lazy var barcodeButton = UIButton().then {
         $0.setImage(ImageLiterals.Icn.barcode, for: .normal)
         $0.isHidden = false
+        $0.addTarget(self, action: #selector(barcodeButtonDidTap), for: .touchUpInside)
     }
 
     private lazy var cancelButton = UIButton().then {
@@ -122,7 +129,7 @@ extension CustomSearchView {
                 $0.width.equalTo(40)
             }
             
-        } else { // 사용자검색 (우측에만)
+        } else { // 사용자검색
             [searchButton, searchTextField].forEach {
                 searchContainerView.addSubview($0)
             }
@@ -150,7 +157,6 @@ extension CustomSearchView {
             searchButton.addTarget(viewController, action: #selector(UserSearchVC.searchBtnTapped), for: .touchUpInside)
             searchTextField.placeholder = I18N.PlaceHolder.userSearch
         case .bookSearch:
-            barcodeButton.addTarget(viewController, action: #selector(barcodeButtonDidTap), for: .touchUpInside)
             searchTextField.placeholder = I18N.PlaceHolder.bookSearch
         }
     }
@@ -164,8 +170,7 @@ extension CustomSearchView {
     }
 
     func setSearchTextFieldDelegate(_ delegate: UITextFieldDelegate) {
-//        searchTextField.delegate = delegate
-        searchTextField.delegate = self
+        searchTextField.delegate = delegate
 
     }
 
@@ -180,9 +185,7 @@ extension CustomSearchView {
     }
 
     @objc private func barcodeButtonDidTap() {
-        let barcodeVC = BarcodeVC()
-        barcodeVC.modalPresentationStyle = .fullScreen
-        viewController?.present(barcodeVC, animated: true)
+        delegate?.barcodeButtonDidTap()
     }
 
     @objc private func cancelButtonTapped() {
@@ -190,6 +193,13 @@ extension CustomSearchView {
         searchTextField.resignFirstResponder()
         updateButtonState()
     }
+    
+    func textDidChange(_ text: String) {
+        let hasText = !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        barcodeButton.isHidden = hasText
+        cancelButton.isHidden = !hasText
+    }
+
 }
 
 // MARK: - UITextFieldDelegate
@@ -197,13 +207,10 @@ extension CustomSearchView {
 extension CustomSearchView: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("111")
         updateButtonState()
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("2222")
-
         updateButtonState()
     }
 
@@ -216,6 +223,11 @@ extension CustomSearchView: UITextFieldDelegate {
                 self.cancelButton.isHidden = !hasText
             }
         }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        externalDelegate?.textFieldShouldReturn?(textField)
         return true
     }
 }

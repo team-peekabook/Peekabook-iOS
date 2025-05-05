@@ -12,7 +12,7 @@ import Then
 
 import Moya
 
-final class BookSearchVC: UIViewController {
+final class BookSearchVC: UIViewController, CustomSearchViewDelegate {
     
     // MARK: - Properties
     
@@ -69,6 +69,7 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
+        bookSearchView.delegate = self
         bookSearchView.setSearchTextFieldDelegate(self)
         setBackgroundColor()
         setLayout()
@@ -186,6 +187,13 @@ extension BookSearchVC {
             getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
         }
     }
+    
+    func barcodeButtonDidTap() {
+        let barcodeVC = BarcodeVC()
+        barcodeVC.modalPresentationStyle = .fullScreen
+        self.present(barcodeVC, animated: true, completion: nil)
+    }
+
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -264,6 +272,14 @@ extension BookSearchVC: UITextFieldDelegate {
         bookSearchView.endEditing()
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        bookSearchView.textDidChange(updatedText)
+        return true
+    }
+
 }
 
 // MARK: - Network
