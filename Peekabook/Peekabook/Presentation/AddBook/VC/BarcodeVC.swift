@@ -98,7 +98,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
         if type != "org.gs1.EAN-13" {
             showErrorPopUp()
         } else {
-            getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
+            getNaverSearchedBooks(query: "", d_isbn: "\(code)", display: displayCount)
         }
     }
 }
@@ -123,8 +123,8 @@ extension BarcodeVC: BarcodeScannerErrorDelegate {
 
 extension BarcodeVC {
     
-    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+    private func getNaverSearchedBooks(query: String, d_isbn: String, display: Int) {
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(query: query, d_isbn: d_isbn, display: display) { response in
             if let response = response, !response.isEmpty {
                 let addBookVC = AddBookVC()
                 addBookVC.searchType = .camera

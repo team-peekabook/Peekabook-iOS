@@ -184,7 +184,7 @@ extension BookSearchVC {
         }
         bookSearchView.endEditing()
         if let searchText = bookSearchView.text {
-            getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+            getNaverSearchData(query: searchText, d_isbn: "", display: displayCount)
         }
     }
     
@@ -258,7 +258,7 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
         if scrollViewOffset + scrollViewHeight == scrollViewContentHeight {
             displayCount += 10
             if let searchText = bookSearchView.text {
-                getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+                getNaverSearchData(query: searchText, d_isbn: "", display: displayCount)
             }
         }
     }
@@ -286,8 +286,8 @@ extension BookSearchVC: UITextFieldDelegate {
 
 extension BookSearchVC {
     
-    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+    private func getNaverSearchData(query: String, d_isbn: String, display: Int) {
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(query: query, d_isbn: d_isbn, display: display) { response in
             self.bookInfoList = []
             
             guard let response = response else { return }
