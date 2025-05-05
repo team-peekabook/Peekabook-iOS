@@ -18,9 +18,11 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
-    var userId: Int = 0 {
+    var notificationId: Int = 0 {
         didSet {
-            print("userId \(userId)")
+            bookShelfType = .friendFollowing
+            bottomShelfVC.bookShelfType = .friendFollowing
+            print("notificationId \(notificationId)")
         }
     }
     var isFollowingStatus: Bool = false
@@ -246,8 +248,8 @@ final class BookShelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userId != 0 {
-            getFriendBookShelfInfo(userId: userId)
+        if notificationId != 0 {
+            getFriendBookShelfInfo(userId: notificationId)
         }
         else if selectedUserIndex == nil {
             getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
@@ -309,7 +311,16 @@ final class BookShelfVC: UIViewController {
         case .friendFollowing:
             let bookSearchVC = BookSearchVC()
             bookSearchVC.bookShelfType = .friendFollowing
-            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
+            
+            if let idx = selectedUserIndex {
+        
+            } else {
+                if let notificationIndex = serverMyBookShelfInfo?.friendList.firstIndex(where: { $0.id == notificationId }) {
+                    selectedUserIndex = notificationIndex
+                }
+            }
+            
+            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex ?? 0] else { return }
             bookSearchVC.personName = friend.nickname
             bookSearchVC.personId = friend.id
             bookSearchVC.hidesBottomBarWhenPushed = true
@@ -696,7 +707,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             if isFromNotification {
                 // friends 중에 id가 alrmIdx 랑 같은 사람을 찾아서 해당 인덱스로 이동
                 
-                if let targetIndex = friends.firstIndex(where: { $0.id == userId }) {
+                if let targetIndex = friends.firstIndex(where: { $0.id == notificationId }) {
                     let targetIndexPath = IndexPath(item: targetIndex, section: 0)
                     collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
                     

@@ -60,9 +60,6 @@ final class RecommendVC: UIViewController {
     private lazy var naviBar: CustomNavigationBar = {
         if isFromNotification {
             let bar = CustomNavigationBar(self, type: .oneLeftButton)
-                .addLeftButtonAction {
-                self.dismiss(animated: false)
-            }
             return bar
         } else {
             let bar = CustomNavigationBar(self, type:

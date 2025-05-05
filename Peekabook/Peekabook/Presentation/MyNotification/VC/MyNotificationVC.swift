@@ -128,10 +128,9 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.dataBind(model: serverGetAlarmData[safe: indexPath.row]!)
         cell.changeUserNameFont(model: serverGetAlarmData[safe: indexPath.row]!)
-
+        cell.selectionStyle = .none
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = serverGetAlarmData[safe: indexPath.row]!
@@ -146,7 +145,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             destinationVC = BookShelfVC(isFromNotification: true)
 
             if let bookShelfVC = destinationVC as? BookShelfVC {
-                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.notificationId = alarmData.senderID
             }
         case 2:
             destinationVC = RecommendVC(isFromNotification: true) // RecommendVC로 이동
@@ -154,7 +153,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             destinationVC = BookShelfVC(isFromNotification: true)
 
             if let bookShelfVC = destinationVC as? BookShelfVC {
-                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.notificationId = alarmData.senderID
             }
         default:
             return

@@ -50,11 +50,7 @@ final class CustomNavigationBar: UIView {
         self.vc = vc
         self.setUI(type, backgroundColor: backgroundColor, isFromNotification: isFromNotification)
         self.setLayout(type)
-        if isFromNotification {
-            self.leftDismissAction()
-        } else {
-            setLeftBackButtonAction()
-        }
+        self.setLeftBackButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -65,10 +61,6 @@ final class CustomNavigationBar: UIView {
 // MARK: - Methods
 
 extension CustomNavigationBar {
-    
-    private func leftDismissAction() {
-        self.leftButton.addTarget(self, action: #selector(dismissToPreviousVC), for: .touchUpInside)
-    }
     
     private func setLeftBackButtonAction() {
         self.leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
@@ -119,7 +111,6 @@ extension CustomNavigationBar {
     func changeLeftLogoImageToBackButton() -> Self {
         self.leftButton.isUserInteractionEnabled = true
         self.leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        self.dismissToPreviousVC()
         return self
     }
     
@@ -168,11 +159,6 @@ extension CustomNavigationBar {
 // MARK: - @objc Function
 
 extension CustomNavigationBar {
-    
-    @objc
-    private func dismissToPreviousVC() {
-        self.vc?.dismiss(animated: true)
-    }
     
     @objc
     private func popToPreviousVC() {
