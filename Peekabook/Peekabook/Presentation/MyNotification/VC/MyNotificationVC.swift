@@ -143,24 +143,30 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         
         switch alarmData.typeID {
         case 1:
-            destinationVC = BookShelfVC(isFromNotification: true) // BookShelfVC로 이동
+            destinationVC = BookShelfVC(isFromNotification: true)
+
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                bookShelfVC.userId = alarmData.senderID
+            }
         case 2:
             destinationVC = RecommendVC(isFromNotification: true) // RecommendVC로 이동
         case 3:
-            destinationVC = BookShelfVC(isFromNotification: true) // BookShelfVC로 이동
+            destinationVC = BookShelfVC(isFromNotification: true)
+
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                bookShelfVC.userId = alarmData.senderID
+            }
         default:
             return
         }
         
         if let destinationVC = destinationVC {
-            destinationVC.modalPresentationStyle = .overFullScreen
-            destinationVC.modalTransitionStyle = .crossDissolve
-            self.present(destinationVC, animated: false)
+            self.navigationController?.pushViewController(destinationVC, animated: false)
         }
     }
     
     @objc private func backButtonTapped() {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
 }
 

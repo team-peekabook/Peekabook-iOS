@@ -18,7 +18,13 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
-    
+    var userId: Int = 0 {
+        didSet {
+            print("userId \(userId)")
+            getFriendBookShelfInfo(userId: userId)
+
+        }
+    }
     var isFollowingStatus: Bool = false
     var isFromNotification: Bool = false
 
@@ -82,7 +88,7 @@ final class BookShelfVC: UIViewController {
         if isFromNotification {
             let bar = CustomNavigationBar(self, type: .oneLeftButton)
                 .addLeftButtonAction {
-                self.dismiss(animated: false)
+                    self.navigationController?.popViewController(animated: false)
             }
             return bar
         } else {
@@ -245,6 +251,7 @@ final class BookShelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if selectedUserIndex == nil {
             getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
@@ -275,6 +282,7 @@ final class BookShelfVC: UIViewController {
             guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
             reportVC.personId = friend.id
             reportVC.hidesBottomBarWhenPushed = true
+            
             self.navigationController?.pushViewController(reportVC, animated: true)
         }))
         
@@ -532,8 +540,8 @@ extension BookShelfVC {
     
     private func presentNotiVC() {
         let vc = MyNotificationVC()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     private func pushUserSearchVC() {
@@ -643,8 +651,6 @@ extension BookShelfVC {
         friendsListContainerView.isHidden = isHidden
         myProfileView.isHidden = isHidden
         naviBar.changeLeftLogoImageToBackButton()
-        
-        // partialView
     }
 }
 
@@ -687,9 +693,29 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
             guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
-            cell.changeBorderLayout(isSelected: true)
-            selectedUserIndex = indexPath.row
+            // 수빈 여기서 fromAlarm true 이면 알림에서 오면 index 찾아
+            
+            if isFromNotification {
+                // friends 중에 id가 alrmIdx 랑 같은 사람을 찾아서 해당 인덱스로 이동
+                
+                if let targetIndex = friends.firstIndex(where: { $0.id == userId }) {
+                    let targetIndexPath = IndexPath(item: targetIndex, section: 0)
+                    collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
+                    
+                    // 선택된 셀도 갱신
+                    if let targetCell = collectionView.cellForItem(at: targetIndexPath) as? FriendsCVC {
+                        targetCell.changeBorderLayout(isSelected: true)
+                    }
+                    selectedUserIndex = targetIndex
+                }
+                
+            } else {
+                cell.changeBorderLayout(isSelected: true)
+                selectedUserIndex = indexPath.row
+                
+            }
         }
+        
         
         if collectionView == pickCollectionView {
             let bookDetailVC = BookDetailVC()
@@ -698,7 +724,11 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
-            navigationController?.pushViewController(bookDetailVC, animated: true)
+            if isFromNotification {
+                self.present(bookDetailVC, animated: false)
+            } else {
+                navigationController?.pushViewController(bookDetailVC, animated: true)
+            }
             if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
