@@ -327,8 +327,9 @@ final class BookShelfVC: UIViewController {
             bookSearchVC.modalPresentationStyle = .fullScreen
             present(bookSearchVC, animated: true)
         case .friendNotFollowing:
-            print("친구 팔로우 팝업 떠야해요")
-            // 친구 팔로우 팝업 코드
+            let followPopUpVC = FollowPopUpVC()
+            followPopUpVC.modalPresentationStyle = .overFullScreen
+            self.present(followPopUpVC, animated: false)
         }
     }
     
