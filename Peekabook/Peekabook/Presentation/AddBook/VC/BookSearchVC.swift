@@ -177,7 +177,7 @@ extension BookSearchVC {
     }
     
     @objc
-    func searchButtonDidTap() {
+    func ReturnDidTap() {
         guard bookSearchView.hasSearchText() else {
             return setView()
         }
@@ -260,7 +260,7 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchButtonDidTap()
+        ReturnDidTap()
         bookSearchView.endEditing()
         return true
     }
