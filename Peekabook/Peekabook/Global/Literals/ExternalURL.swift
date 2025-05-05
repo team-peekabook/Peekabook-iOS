@@ -20,4 +20,8 @@ struct ExternalURL {
         static let developerInfo = "https://interesting-door-b57.notion.site/About-Team-b25424073add46b9a186d69c17815bf2"
     }
     
+    struct BookSearch {
+        static let addNewBook = "https://walla.my/v/1g1JvcCRxDwmAeTM6xZw"
+    }
+    
 }
