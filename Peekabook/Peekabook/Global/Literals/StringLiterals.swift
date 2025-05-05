@@ -38,7 +38,7 @@ struct I18N {
     
     struct PlaceHolder {
         static let recommend = "추천사를 적어주세요"
-        static let bookSearch = "책 제목을 입력해주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
         static let userSearch = "사용자의 닉네임을 입력해주세요."
         static let nickname = "닉네임은 6자까지 쓸 수 있어요!"
         static let profileIntro = "한 줄 소개를 입력해주세요."
@@ -72,7 +72,7 @@ struct I18N {
     
     struct BookSearch {
         static let title = "책 검색하기"
-        static let bookSearch = "책 제목을 입력해주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해주세요."
         static let empty = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
         static let addMyBookshelf = "내 책장에 추가하기"
         static let recommendFriendBookShelf = "친구에게 책 추천하기"
