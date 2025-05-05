@@ -20,10 +20,13 @@ final class BottomBookShelfVC: UIViewController {
     private var fullView: CGFloat {
         return SafeAreaHeight.safeAreaTopInset() + 52
     }
+    var isFromNotification: Bool = false
 
     private var partialView: CGFloat {
         if UIScreen.main.isSmallThan712pt {
             return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 65
+        } else if isFromNotification {
+            return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 110 - 165
         } else {
             return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 110
         }

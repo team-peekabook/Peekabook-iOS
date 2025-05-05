@@ -45,12 +45,16 @@ final class CustomNavigationBar: UIView {
     
     // MARK: - initialization
     
-    init(_ vc: UIViewController, type: NaviType, backgroundColor: UIColor = .peekaBeige) {
+    init(_ vc: UIViewController, type: NaviType, isFromNotification: Bool = false, backgroundColor: UIColor = .peekaBeige) {
         super.init(frame: .zero)
         self.vc = vc
-        self.setUI(type, backgroundColor: backgroundColor)
+        self.setUI(type, backgroundColor: backgroundColor, isFromNotification: isFromNotification)
         self.setLayout(type)
-        self.setLeftBackButtonAction()
+        if isFromNotification {
+            self.leftDismissAction()
+        } else {
+            setLeftBackButtonAction()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -61,6 +65,10 @@ final class CustomNavigationBar: UIView {
 // MARK: - Methods
 
 extension CustomNavigationBar {
+    
+    private func leftDismissAction() {
+        self.leftButton.addTarget(self, action: #selector(dismissToPreviousVC), for: .touchUpInside)
+    }
     
     private func setLeftBackButtonAction() {
         self.leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
@@ -104,6 +112,14 @@ extension CustomNavigationBar {
         self.leftButton.snp.updateConstraints {
             $0.leading.equalToSuperview().inset(20)
         }
+        return self
+    }
+    
+    @discardableResult
+    func changeLeftLogoImageToBackButton() -> Self {
+        self.leftButton.isUserInteractionEnabled = true
+        self.leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        self.dismissToPreviousVC()
         return self
     }
     
@@ -154,8 +170,14 @@ extension CustomNavigationBar {
 extension CustomNavigationBar {
     
     @objc
+    private func dismissToPreviousVC() {
+        self.vc?.dismiss(animated: true)
+    }
+    
+    @objc
     private func popToPreviousVC() {
         self.vc?.navigationController?.popViewController(animated: true)
+        
     }
     
     @objc
@@ -182,14 +204,20 @@ extension CustomNavigationBar {
 
 extension CustomNavigationBar {
     
-    private func setUI(_ type: NaviType, backgroundColor: UIColor) {
+    private func setUI(_ type: NaviType, backgroundColor: UIColor, isFromNotification: Bool = false) {
         self.backgroundColor = backgroundColor
         
-        switch type {
-        case .oneLeftButton, .oneLeftButtonWithTwoRightButtons, .oneLeftButtonWithOneRightButton:
-            leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        case .oneRightButton:
-            rightButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        if isFromNotification {
+                self.leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+                self.leftButton.isUserInteractionEnabled = true
+                self.leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
+        } else {
+            switch type {
+            case .oneLeftButton, .oneLeftButtonWithTwoRightButtons, .oneLeftButtonWithOneRightButton:
+                leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+            case .oneRightButton:
+                rightButton.setImage(ImageLiterals.Icn.close, for: .normal)
+            }
         }
     }
     

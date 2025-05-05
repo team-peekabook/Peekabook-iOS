@@ -18,8 +18,10 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
-    var isFollowingStatus: Bool = false
     
+    var isFollowingStatus: Bool = false
+    var isFromNotification: Bool = false
+
     // MARK: - Properties
     
     var bookShelfType: BookShelfType = .user {
@@ -45,6 +47,8 @@ final class BookShelfVC: UIViewController {
                 editOrRecommendButton.setTitleColor(.peekaBeige, for: .normal)
                 editOrRecommendButton.backgroundColor = .peekaRed
                 moreButton.isHidden = false
+                friendsListContainerView.isHidden = true
+                
             }
         }
     }
@@ -74,16 +78,28 @@ final class BookShelfVC: UIViewController {
     
     private let bottomShelfVC = BottomBookShelfVC()
     private let containerScrollView = UIScrollView()
-    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
-        .changeLeftBackButtonToLogoImage()
-        .addRightButton(with: ImageLiterals.Icn.notification)
-        .addOtherRightButton(with: ImageLiterals.Icn.friend)
-        .addRightButtonAction {
-            self.presentNotiVC()
+    private lazy var naviBar: CustomNavigationBar = {
+        if isFromNotification {
+            let bar = CustomNavigationBar(self, type: .oneLeftButton)
+                .addLeftButtonAction {
+                self.dismiss(animated: false)
+            }
+            return bar
+        } else {
+            let bar = CustomNavigationBar(self, type:
+                .oneLeftButtonWithTwoRightButtons)
+                .addRightButton(with: ImageLiterals.Icn.notification)
+                .addOtherRightButton(with: ImageLiterals.Icn.friend)
+                .addRightButtonAction {
+                    self.presentNotiVC()
+                }
+                .addOtherRightButtonAction {
+                    self.pushUserSearchVC()
+                }
+                .changeLeftBackButtonToLogoImage()
+            return bar
         }
-        .addOtherRightButtonAction {
-            self.pushUserSearchVC()
-        }
+    }()
     
     private let friendsListContainerView = UIView()
     private let introProfileView = UIView()
@@ -200,6 +216,21 @@ final class BookShelfVC: UIViewController {
     }()
     
     // MARK: - View Life Cycle
+    
+    init(isFromNotification: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        self.isFromNotification = isFromNotification
+        
+        if isFromNotification {
+            self.friendsListContainerView.isHidden = true
+        } else {
+            self.friendsListContainerView.isHidden = false
+        }
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -325,6 +356,9 @@ extension BookShelfVC {
         self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
         self.editPickButtonState(with: data.books.isEmpty)
         self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+            
+        checkFriendListView(isFromNotification: self.isFromNotification)
+        
         self.friendsCollectionView.reloadData()
         self.pickCollectionView.reloadData()
     }
@@ -481,6 +515,15 @@ extension BookShelfVC {
         friendsCollectionView.layoutIfNeeded()
         pickCollectionView.layoutIfNeeded()
     }
+    
+    private func updateLayoutWithoutFriendList() {
+        introProfileView.snp.remakeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(70)
+        }
+    }
 }
 
 // MARK: - Methods
@@ -503,7 +546,7 @@ extension BookShelfVC {
         self.view.addSubview(bottomShelfVC.view)
         self.addChild(bottomShelfVC)
         bottomShelfVC.didMove(toParent: self)
-        
+        bottomShelfVC.isFromNotification = self.isFromNotification
         bottomShelfVC.view.frame = CGRect(x: 0,
                                           y: view.frame.maxY,
                                           width: view.frame.width,
@@ -574,6 +617,14 @@ extension BookShelfVC {
         }
     }
     
+    private func checkFriendListView(isFromNotification: Bool) {
+        if isFromNotification {
+            self.friendsCollectionView.isHidden = isFromNotification
+            
+            updateLayoutWithoutFriendList()
+        }
+    }
+    
     func scrollToTop() {
         if bottomShelfVC.checkBottomShelfUp(y: bottomShelfVC.view.frame.minY) == true {
             print("바텀시트가 올라가있어서 내릴게요")
@@ -586,6 +637,14 @@ extension BookShelfVC {
     
     func setEditOrRecommendButtonHidden(_ isHidden: Bool) {
         editOrRecommendButton.isHidden = isHidden
+    }
+    
+    func setFriendListHidden(_ isHidden: Bool) {
+        friendsListContainerView.isHidden = isHidden
+        myProfileView.isHidden = isHidden
+        naviBar.changeLeftLogoImageToBackButton()
+        
+        // partialView
     }
 }
 
@@ -746,7 +805,7 @@ import SwiftUI
 
 struct BookShelfVCPrevieew: PreviewProvider {
     static var previews: some View {
-        BookShelfVC().toPreview()
+        BookShelfVC(isFromNotification: true).toPreview()
     }
 }
 #endif

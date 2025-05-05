@@ -28,7 +28,7 @@ final class MyNotificationVC: UIViewController {
     
     private lazy var notificationTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.allowsSelection = false
+//        $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.delegate = self
@@ -130,6 +130,33 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         cell.changeUserNameFont(model: serverGetAlarmData[safe: indexPath.row]!)
 
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = serverGetAlarmData[safe: indexPath.row]!
+        navigateToAppropriateVC(for: data)
+    }
+    
+    private func navigateToAppropriateVC(for alarmData: GetAlarmResponse) {
+        var destinationVC: UIViewController?
+        
+        switch alarmData.typeID {
+        case 1:
+            destinationVC = BookShelfVC(isFromNotification: true) // BookShelfVC로 이동
+        case 2:
+            destinationVC = RecommendVC(isFromNotification: true) // RecommendVC로 이동
+        case 3:
+            destinationVC = BookShelfVC(isFromNotification: true) // BookShelfVC로 이동
+        default:
+            return
+        }
+        
+        if let destinationVC = destinationVC {
+            destinationVC.modalPresentationStyle = .overFullScreen
+            destinationVC.modalTransitionStyle = .crossDissolve
+            self.present(destinationVC, animated: false)
+        }
     }
     
     @objc private func backButtonTapped() {
