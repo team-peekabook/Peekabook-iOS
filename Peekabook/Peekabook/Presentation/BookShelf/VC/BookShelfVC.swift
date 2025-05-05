@@ -87,9 +87,6 @@ final class BookShelfVC: UIViewController {
     private lazy var naviBar: CustomNavigationBar = {
         if isFromNotification {
             let bar = CustomNavigationBar(self, type: .oneLeftButton)
-                .addLeftButtonAction {
-                    self.navigationController?.popViewController(animated: false)
-            }
             return bar
         } else {
             let bar = CustomNavigationBar(self, type:
@@ -716,7 +713,6 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
         
-        
         if collectionView == pickCollectionView {
             let bookDetailVC = BookDetailVC()
             if bookShelfType == .user {
@@ -724,11 +720,8 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
-            if isFromNotification {
-                self.present(bookDetailVC, animated: false)
-            } else {
-                navigationController?.pushViewController(bookDetailVC, animated: true)
-            }
+            self.navigationController?.pushViewController(bookDetailVC, animated: false)
+            
             if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
