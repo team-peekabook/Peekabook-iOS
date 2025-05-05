@@ -37,7 +37,7 @@ enum ReportMenu {
 
 final class ReportVC: UIViewController {
     
-    var selectedRowIndex: Int?
+    var selectedRowIndex: Int? = 0
     var personId: Int = 0
 
     // MARK: - UI Components
@@ -203,7 +203,7 @@ extension ReportVC {
             reportPopUpVC.friendId = personId
             reportPopUpVC.reasonIndex = rowIndex + 1
             if textView.text == I18N.Report.placeholder {
-                reportPopUpVC.specificReason = nil
+                reportPopUpVC.specificReason = ""
             } else {
                 reportPopUpVC.specificReason = textView.text
             }
