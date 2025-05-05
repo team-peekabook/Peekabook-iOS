@@ -56,13 +56,27 @@ final class BookSearchVC: UIViewController, CustomSearchViewDelegate {
     private lazy var footerButtonView: UIView = {
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80))
         let button = UIButton(type: .system)
+        let lineView = UIView()
+        lineView.backgroundColor = .peekaRed
+        
+        footer.addSubview(button)
+        footer.addSubview(lineView)
+        
         button.setTitle(I18N.BookSearch.notFound, for: .normal)
         button.setTitleColor(.peekaRed, for: .normal)
         button.titleLabel?.font = .c2
         button.addTarget(self, action: #selector(footerButtonDidTap), for: .touchUpInside)
         footer.addSubview(button)
+        
         button.snp.makeConstraints {
             $0.center.equalToSuperview()
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(button.snp.bottom).offset(-6)
+            $0.centerX.equalTo(button)
+            $0.width.equalTo(button)
+            $0.height.equalTo(1)
         }
         
         return footer
@@ -76,6 +90,13 @@ final class BookSearchVC: UIViewController, CustomSearchViewDelegate {
         button.addTarget(self, action: #selector(footerButtonDidTap), for: .touchUpInside)
         button.isHidden = true
         return button
+    }()
+    
+    private let fixedFooterLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .peekaRed
+        view.isHidden = true
+        return view
     }()
     
     // emptyView elements
@@ -125,7 +146,7 @@ extension BookSearchVC {
     }
     
     private func setLayout() {
-        view.addSubviews(headerView, bookSearchView, fixedFooterButton)
+        view.addSubviews(headerView, bookSearchView, fixedFooterButton, fixedFooterLineView)
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -140,6 +161,13 @@ extension BookSearchVC {
         fixedFooterButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(59)
+        }
+
+        fixedFooterLineView.snp.makeConstraints {
+            $0.top.equalTo(fixedFooterButton.snp.bottom).offset(-6)
+            $0.centerX.equalTo(fixedFooterButton)
+            $0.width.equalTo(fixedFooterButton)
+            $0.height.equalTo(1)
         }
 
         // emptyView Layout
@@ -202,8 +230,10 @@ extension BookSearchVC {
             
             if bookInfoList.count >= 1 && bookInfoList.count <= 3 {
                 fixedFooterButton.isHidden = false
+                fixedFooterLineView.isHidden = false
             } else {
                 fixedFooterButton.isHidden = true
+                fixedFooterLineView.isHidden = true
             }
         }
     }
