@@ -91,6 +91,8 @@ final class ReportVC: UIViewController {
         $0.setTitle(I18N.Report.buttonTitle, for: .normal)
         $0.titleLabel!.font = .h3
         $0.setTitleColor(.white, for: .normal)
+        $0.isEnabled = false
+        $0.backgroundColor = .peekaGray1
         $0.addTarget(self, action: #selector(reportButtonDidTap), for: .touchUpInside)
     }
     
@@ -211,6 +213,12 @@ extension ReportVC {
         self.present(reportPopUpVC, animated: false)
     }
     
+    private func updateReportButtonState() {
+        let isEnabled = selectedRowIndex != nil
+        reportButton.isEnabled = isEnabled
+        reportButton.backgroundColor = isEnabled ? .peekaRed : .peekaGray1
+    }
+    
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
             self,
@@ -263,12 +271,20 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.setLabel(with: reportArray[safe: indexPath.row]!.rawValue)
+        let title = reportArray[safe: indexPath.row]?.rawValue ?? ""
+        cell.setLabel(with: title)
+            
+        let isSelected = indexPath.row == selectedRowIndex
+        cell.setSelectedState(isSelected)
+            
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRowIndex = indexPath.row
+        tableView.reloadData()
+            
+        updateReportButtonState()
     }
 }
 
