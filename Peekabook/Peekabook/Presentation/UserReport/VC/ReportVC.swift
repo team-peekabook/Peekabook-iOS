@@ -92,7 +92,6 @@ final class ReportVC: UIViewController {
         $0.titleLabel!.font = .h3
         $0.setTitleColor(.white, for: .normal)
         $0.isEnabled = false
-        $0.backgroundColor = .peekaGray1
         $0.addTarget(self, action: #selector(reportButtonDidTap), for: .touchUpInside)
     }
     
@@ -123,7 +122,7 @@ extension ReportVC {
         topLineView.backgroundColor = .peekaGray1
         boxView.backgroundColor = .peekaWhite_60
         textView.backgroundColor = .clear
-        reportButton.backgroundColor = .peekaRed
+        reportButton.backgroundColor = .peekaGray1
     }
     
     private func setLayout() {
