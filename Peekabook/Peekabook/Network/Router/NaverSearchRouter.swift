@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum NaverSearchRouter {
-    case getBook(d_titl: String, d_isbn: String, display: Int)
+    case getBook(query: String, d_isbn: String, display: Int)
 }
 
 extension NaverSearchRouter: TargetType {
@@ -34,8 +34,8 @@ extension NaverSearchRouter: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBook(let d_titl, let d_isbn, let display):
-            return .requestParameters(parameters: ["d_titl": d_titl, "d_isbn": d_isbn, "display": display], encoding: URLEncoding.queryString)
+        case .getBook(let query, let d_isbn, let display):
+            return .requestParameters(parameters: ["query": query, "d_isbn": d_isbn, "display": display], encoding: URLEncoding.queryString)
         }
     }
     

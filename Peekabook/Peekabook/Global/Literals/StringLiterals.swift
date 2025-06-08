@@ -11,7 +11,7 @@ struct I18N {
     
     struct Alert {
         static let error = "에러"
-        static let networkError = "앗! 네트워크 연결에 실패했어요.\n확인 후 다시 시도해주세요."
+        static let networkError = "앗! 네트워크 연결에 실패했어요.\n확인 후 다시 시도해 주세요."
         static let retry = "다시 시도하기"
         static let emptyNoti = "앗! 준비 중인 기능이에요."
     }
@@ -27,7 +27,7 @@ struct I18N {
         static let first = "반가워요!\nPEEK-A-BOOK은 서로의 책장을 공유하고,\n새로운 책을 발견해나가는 서비스예요."
         static let second = "내가 가지고 있는 책의 바코드를 스캔하여\n책장에 추가할 수 있어요.\n책장에 책을 채우며 자신의 취향을 드러내보아요."
         static let third = "\n닉네임 검색을 통해 친구를 추가하고,\n친구와 서로의 책장을 공유해요!"
-        static let fourth = "\n친구에게 먼저 책을 추천해 주면\n친구도 나에게 책을 추천해 줄지도 몰라요!"
+        static let fourth = "\n친구에게 먼저 책을 추천해주면\n친구도 나에게 책을 추천해 줄지도 몰라요!"
     }
     
     struct Confirm {
@@ -38,10 +38,10 @@ struct I18N {
     
     struct PlaceHolder {
         static let recommend = "추천사를 적어주세요"
-        static let bookSearch = "책 제목을 입력해주세요."
-        static let userSearch = "사용자의 닉네임을 입력해주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해 주세요."
+        static let userSearch = "사용자의 닉네임을 입력해 주세요."
         static let nickname = "닉네임은 6자까지 쓸 수 있어요!"
-        static let profileIntro = "한 줄 소개를 입력해주세요."
+        static let profileIntro = "한 줄 소개를 입력해 주세요."
     }
     
     struct BookShelf {
@@ -51,9 +51,9 @@ struct I18N {
         static let books = "Books"
         static let editPickDescription = "최대 3개까지 선택 가능해요."
         static let emptyPickViewDescription = "잠깐! PICK한 책이 없어요.\nPICK 수정하기 버튼을 눌러\n추천하고 싶은 책을 PICK 해보세요!"
-        static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천 해보세요!"
-        static let emptyFriendListDescription = "친구추가 버튼을 눌러 친구를 추가해보세요!"
-        static let emptyMyBottomBookShelfDescription = "아직 책장에 책이 없어요.\n+ 버튼을 눌러 좋아하는 책을 추가해볼까요?"
+        static let emptyFriendPickDescription = "앗! 친구가 PICK한 책이 없어요.\n책 추천하기 버튼을 눌러\n친구에게 책을 추천해 보세요!"
+        static let emptyFriendListDescription = "친구추가 버튼을 눌러 친구를 추가해 보세요!"
+        static let emptyMyBottomBookShelfDescription = "아직 책장에 책이 없어요.\n+ 버튼을 눌러 좋아하는 책을 추가해 볼까요?"
         static let emptyFriendBottomBookShelfDescription = "친구 책장이 텅 비어있어요!"
         static let unfollow = "언팔로우"
         static let report = "신고하기"
@@ -73,10 +73,11 @@ struct I18N {
     
     struct BookSearch {
         static let title = "책 검색하기"
-        static let bookSearch = "책 제목을 입력해주세요."
+        static let bookSearch = "책 제목 또는 작가명을 입력해 주세요."
         static let empty = "앗! 검색어에 해당되는 책이 없는 것 같아요.\n다른 검색어를 입력해 보세요."
         static let addMyBookshelf = "내 책장에 추가하기"
         static let recommendFriendBookShelf = "친구에게 책 추천하기"
+        static let notFound = "찾으시는 책이 없으신가요?"
     }
     
     struct BookEdit {
@@ -123,8 +124,8 @@ struct I18N {
         static let recommending = "추천한 책"
         static let edit = "수정하기"
         static let complete = "완료"
-        static let recommendedEmptyDescription = "아직 친구가 추천해준 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
-        static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해보세요."
+        static let recommendedEmptyDescription = "아직 친구가 추천해준 책이 없어요.\n친구와 함께 읽을 책을 공유해 보세요."
+        static let recommendingEmptyDescription = "친구에게 추천한 책이 없어요.\n친구와 함께 읽을 책을 공유해 보세요."
         
         static let deleteComment = "책을 삭제하시겠어요?"
         static let deleteRecommendDetailComment = "상대방의 추천 내역에서도 사라지며,\n삭제 후에는 되돌릴 수 없어요."
@@ -209,8 +210,8 @@ struct I18N {
         static let nickname = "닉네임"
         static let oneLineIntro = "한 줄 소개"
         static let doubleCheck = "중복 확인"
-        static let doubleCheckError = "이미 사용 중인 닉네임 입니다"
-        static let doubleCheckSuccess = "사용 가능한 닉네임 입니다"
+        static let doubleCheckError = "이미 사용 중인 닉네임입니다"
+        static let doubleCheckSuccess = "사용 가능한 닉네임입니다"
         static let doubleUncheckedError = "닉네임 중복확인을 해주세요"
         static let nicknameLength = "/6"
     }
@@ -225,7 +226,7 @@ struct I18N {
     struct Update {
         static let update = "앗! 피카북이 달라졌어요"
         static let updateComment = "어떤 기능이 추가되었는지 알아볼까요?"
-        static let button = "업데이트 하러가기"
+        static let button = "업데이트하러 가기"
     }
     
     struct Follow {

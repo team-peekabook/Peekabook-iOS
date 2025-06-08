@@ -18,8 +18,8 @@ final class NaverSearchAPI {
     }
     
     // 1. 네이버 책 검색
-    func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
-        naverSearchProvider.request(.getBook(d_titl: d_titl, d_isbn: d_isbn, display: display)) { (result) in
+    func getNaverSearchedBooks(query: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
+        naverSearchProvider.request(.getBook(query: query, d_isbn: d_isbn, display: display)) { (result) in
             switch result {
             case .success(let response):
                 do {

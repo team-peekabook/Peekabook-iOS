@@ -30,16 +30,6 @@ final class BarcodeVC: BarcodeScannerViewController {
         $0.font = .h2
     }
     
-    private lazy var textSearchButton = UIButton().then {
-        $0.setTitle(I18N.Barcode.infoButton, for: .normal)
-        $0.titleLabel!.font = .s3
-        $0.setTitleColor(.peekaWhite, for: .normal)
-        $0.addTarget(self, action: #selector(textSearchButtonDidTap), for: .touchUpInside)
-        $0.layer.borderWidth = 0.5
-        $0.layer.borderColor = UIColor.peekaWhite.cgColor
-        $0.layer.cornerRadius = 13
-    }
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -72,19 +62,11 @@ extension BarcodeVC {
     
     private func setLayout() {
         view.addSubviews([
-            descriptionLabel,
-            textSearchButton
+            descriptionLabel
         ])
         
         descriptionLabel.snp.makeConstraints {
-            $0.bottom.equalTo(textSearchButton.snp.top).offset(-25)
-            $0.centerX.equalToSuperview()
-        }
-        
-        textSearchButton.snp.makeConstraints {
-            $0.width.equalTo(129)
-            $0.height.equalTo(26)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(175)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(200)
             $0.centerX.equalToSuperview()
         }
     }
@@ -97,12 +79,6 @@ extension BarcodeVC {
         dismissalDelegate = self
         codeDelegate = self
         errorDelegate = self
-    }
-    
-    @objc private func textSearchButtonDidTap() {
-        let nextVC = BookSearchVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
     }
     
     func showErrorPopUp() {
@@ -122,7 +98,7 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
         if type != "org.gs1.EAN-13" {
             showErrorPopUp()
         } else {
-            getNaverSearchedBooks(d_titl: "", d_isbn: "\(code)", display: displayCount)
+            getNaverSearchedBooks(query: "", d_isbn: "\(code)", display: displayCount)
         }
     }
 }
@@ -147,8 +123,8 @@ extension BarcodeVC: BarcodeScannerErrorDelegate {
 
 extension BarcodeVC {
     
-    private func getNaverSearchedBooks(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+    private func getNaverSearchedBooks(query: String, d_isbn: String, display: Int) {
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(query: query, d_isbn: d_isbn, display: display) { response in
             if let response = response, !response.isEmpty {
                 let addBookVC = AddBookVC()
                 addBookVC.searchType = .camera
