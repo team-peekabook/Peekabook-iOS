@@ -10,10 +10,22 @@ import SnapKit
 import Then
 
 enum AlarmType: CaseIterable {
-    case follow
+    case follow_mutual
     case recommended
     case addBook
+    case follow_received_only
 }
+
+extension AlarmType {
+    init?(id: Int) {
+        switch id {
+        case 1: self = .follow_mutual
+        case 4: self = .follow_received_only
+        default: return nil
+        }
+    }
+}
+
 final class MyNotificationTVC: UITableViewCell {
     
     // MARK: - UI Components
@@ -142,6 +154,8 @@ extension MyNotificationTVC {
             return "'\(model.senderName)'님이\(changeLines(userName: model.senderName))\(I18N.Alarm.recommendAlarm)"
         } else if model.typeID == 3 {
             return "'\(model.senderName)'님의\n\(I18N.Alarm.addBookAlarm)"
+        } else if model.typeID == 4 {
+            return "'\(model.senderName)'님이 \(I18N.Alarm.followAlarm)"
         } else {
             return ""
         }

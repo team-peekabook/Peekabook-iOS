@@ -108,7 +108,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         let data = serverGetAlarmData[safe: indexPath.row]!
         if data.senderName.count > 4 && serverGetAlarmData[safe: indexPath.row]!.typeID != 1 {
             return 96
-        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) {
+        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) || data.typeID == 4 {
             return 80
         } else {
             return 96
@@ -134,6 +134,10 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = serverGetAlarmData[safe: indexPath.row]!
+        print("---------------------------------")
+        print("-------------------------알림탭 클릭")
+        print(data)
+        print("---------------------------------")
         navigateToAppropriateVC(for: data)
     }
     
@@ -145,7 +149,10 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             destinationVC = BookShelfVC(isFromNotification: true)
 
             if let bookShelfVC = destinationVC as? BookShelfVC {
-                bookShelfVC.notificationId = alarmData.senderID
+                bookShelfVC.userId = alarmData.senderID
+                print("alarmData.senderID: \(alarmData.senderID)")
+                
+                bookShelfVC.bookShelfType = .friendFollowing
             }
         case 2:
             destinationVC = RecommendVC(isFromNotification: true) // RecommendVC로 이동
@@ -153,7 +160,15 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
             destinationVC = BookShelfVC(isFromNotification: true)
 
             if let bookShelfVC = destinationVC as? BookShelfVC {
-                bookShelfVC.notificationId = alarmData.senderID
+                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.bookShelfType = .friendFollowing
+            }
+        case 4:
+            destinationVC = BookShelfVC(isFromNotification: true)
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                print("alarmData.senderID: \(alarmData.senderID)")
+                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.bookShelfType = .friendNotFollowing
             }
         default:
             return
@@ -175,6 +190,7 @@ extension MyNotificationVC {
     private func getAlarmAPI() {
         AlarmAPI(viewController: self).getAlarmAPI { response in
             guard let response = response, let data = response.data else { return }
+            print(data)
             self.serverGetAlarmData = data
             self.setEmptyView(isEnabled: data.isEmpty)
             self.notificationTableView.reloadData()

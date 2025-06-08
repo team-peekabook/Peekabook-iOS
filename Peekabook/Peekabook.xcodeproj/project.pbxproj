@@ -20,6 +20,8 @@
 		144AD84B2B8B6F4700272412 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 144AD84A2B8B6F4700272412 /* FirebaseMessaging */; };
 		144AD8502B8B8A0100272412 /* FCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144AD84F2B8B8A0100272412 /* FCMManager.swift */; };
 		145DC3142A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */; };
+		1464AEFF2DC8702C005E2B3E /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1464AEFE2DC87027005E2B3E /* Config.swift */; };
+		1464AF032DC8D794005E2B3E /* FollowPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1464AF022DC8D794005E2B3E /* FollowPopUpVC.swift */; };
 		14772F662B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */; };
 		1481CDD9296D227500F2B207 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1481CDD8296D227500F2B207 /* SearchUserResponse.swift */; };
 		148AF5BE2BEBCA0400A90049 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 148AF5BD2BEBCA0400A90049 /* GoogleService-Info.plist */; };
@@ -32,7 +34,6 @@
 		14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E3629D439450086F8DF /* SignUpVC.swift */; };
 		14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */; };
 		14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */; };
-		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
@@ -191,6 +192,8 @@
 		1444CC042B18A4B400FB9F7E /* ForceUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateVC.swift; sourceTree = "<group>"; };
 		144AD84F2B8B8A0100272412 /* FCMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMManager.swift; sourceTree = "<group>"; };
 		145DC3132A04ED8D00D2FB50 /* GetUpdatedTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpdatedTokenResponse.swift; sourceTree = "<group>"; };
+		1464AEFE2DC87027005E2B3E /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		1464AF022DC8D794005E2B3E /* FollowPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowPopUpVC.swift; sourceTree = "<group>"; };
 		14772F652B9FF2E8007B9FC6 /* RecommendDeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDeletePopUpVC.swift; sourceTree = "<group>"; };
 		1481CDD8296D227500F2B207 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 		148AF5BD2BEBCA0400A90049 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -203,7 +206,6 @@
 		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateRequest.swift; sourceTree = "<group>"; };
 		14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateResponse.swift; sourceTree = "<group>"; };
-		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -445,7 +447,7 @@
 		8E10BA10295FF44800BCF58B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8E097201296C83C0007731E3 /* Config.swift */,
+				1464AEFE2DC87027005E2B3E /* Config.swift */,
 				8E10BA23295FF6CB00BCF58B /* Foundation */,
 				8E10BA24295FF6D500BCF58B /* Router */,
 				8EEF8E182969CFE800F37AFD /* API */,
@@ -619,6 +621,7 @@
 				8E6F7B8329648BD30013F744 /* BottomBookShelfVC.swift */,
 				98F1803929CD7BB900550E45 /* UnfollowPopUpVC.swift */,
 				98F1803B29CD804300550E45 /* BlockPopUpVC.swift */,
+				1464AF022DC8D794005E2B3E /* FollowPopUpVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				8E81F3D429607D3B001815B4 /* UserDefaultWrapper.swift in Sources */,
 				8E81F3C429607AA5001815B4 /* showToastMessage.swift in Sources */,
 				8ECCB0B32A31F4E7002F1710 /* safeAreaHeight.swift in Sources */,
+				1464AF032DC8D794005E2B3E /* FollowPopUpVC.swift in Sources */,
 				98470D8A296BDF9500B78724 /* UIButton+.swift in Sources */,
 				143DBFD72971FA980056C609 /* MyPageHeaderView.swift in Sources */,
 				8E81F3CE29607C0F001815B4 /* addToolBar.swift in Sources */,
@@ -1244,7 +1248,6 @@
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,
-				8E097202296C83C0007731E3 /* Config.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
@@ -1284,6 +1287,7 @@
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
+				1464AEFF2DC8702C005E2B3E /* Config.swift in Sources */,
 				981B0B6E2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,

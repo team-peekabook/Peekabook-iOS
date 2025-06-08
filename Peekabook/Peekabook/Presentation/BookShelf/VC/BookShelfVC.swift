@@ -18,10 +18,28 @@ enum BookShelfType: CaseIterable {
 
 final class BookShelfVC: UIViewController {
     
-    var notificationId: Int = 0 {
+    var userId: Int = 0 {
         didSet {
             bookShelfType = .friendFollowing
             bottomShelfVC.bookShelfType = .friendFollowing
+        }
+    }
+    
+    var notificationId: Int = 0 {
+        didSet {
+            guard let alarmType = AlarmType(id: notificationId) else { return }
+            
+            switch alarmType {
+            case .follow_mutual:
+                bookShelfType = .friendFollowing
+                bottomShelfVC.bookShelfType = .friendFollowing
+            case .follow_received_only:
+                bookShelfType = .friendNotFollowing
+                bottomShelfVC.bookShelfType = .friendNotFollowing
+            default:
+                break
+            }
+
             print("notificationId \(notificationId)")
         }
     }
@@ -248,10 +266,9 @@ final class BookShelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if notificationId != 0 {
-            getFriendBookShelfInfo(userId: notificationId)
-        }
-        else if selectedUserIndex == nil {
+        if userId != 0 {
+            getFriendBookShelfInfo(userId: userId)
+        } else if selectedUserIndex == nil {
             getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
         
@@ -315,7 +332,7 @@ final class BookShelfVC: UIViewController {
             if let idx = selectedUserIndex {
         
             } else {
-                if let notificationIndex = serverMyBookShelfInfo?.friendList.firstIndex(where: { $0.id == notificationId }) {
+                if let notificationIndex = serverMyBookShelfInfo?.friendList.firstIndex(where: { $0.id == userId }) {
                     selectedUserIndex = notificationIndex
                 }
             }
@@ -708,7 +725,7 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             if isFromNotification {
                 // friends 중에 id가 alrmIdx 랑 같은 사람을 찾아서 해당 인덱스로 이동
                 
-                if let targetIndex = friends.firstIndex(where: { $0.id == notificationId }) {
+                if let targetIndex = friends.firstIndex(where: { $0.id == userId }) {
                     let targetIndexPath = IndexPath(item: targetIndex, section: 0)
                     collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
                     
