@@ -32,11 +32,17 @@ final class BarcodeVC: BarcodeScannerViewController {
     
     // MARK: - View Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.resetWithError(message: "다시 스캔합니다.")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setDelegate()
         setLayout()
+        setActions()
     }
 }
 
@@ -60,10 +66,35 @@ extension BarcodeVC {
         cameraViewController.flashButton.transform = CGAffineTransform(scaleX: 0, y: 0)
     }
     
+    private func setActions() {
+        headerViewController.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func closeButtonTapped() {
+        navigationController?.popViewController(animated: false)
+    }
+    
     private func setLayout() {
+        let topBackgroundView = UIView()
+        topBackgroundView.backgroundColor = .peekaBeige
+        
         view.addSubviews([
-            descriptionLabel
+            topBackgroundView,
+            descriptionLabel,
+            headerViewController.view
         ])
+        
+        topBackgroundView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
+        
+        headerViewController.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(60)
+        }
         
         descriptionLabel.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(200)
@@ -83,8 +114,7 @@ extension BarcodeVC {
     
     func showErrorPopUp() {
         let errorPopUpVC = BookSearchErrorPopUpVC()
-        errorPopUpVC.modalPresentationStyle = .overFullScreen
-        self.present(errorPopUpVC, animated: false)
+        self.navigationController?.pushViewController(errorPopUpVC, animated: false)
     }
 }
 
@@ -107,7 +137,8 @@ extension BarcodeVC: BarcodeScannerCodeDelegate {
 
 extension BarcodeVC: BarcodeScannerDismissalDelegate {
     func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
-        controller.dismiss(animated: true, completion: nil)
+//        controller.dismiss(animated: true, completion: nil)
+        closeButtonTapped()
     }
 }
 
@@ -138,8 +169,8 @@ extension BarcodeVC {
                     addBookVC.dataBind(model: bookInfo)
                 }
                 
-                addBookVC.modalPresentationStyle = .fullScreen
-                self.present(addBookVC, animated: true, completion: nil)
+                self.navigationController?.pushViewController(addBookVC, animated: false)
+
             } else {
                 self.showErrorPopUp()
             }

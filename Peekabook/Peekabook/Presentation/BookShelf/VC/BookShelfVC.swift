@@ -286,9 +286,14 @@ final class BookShelfVC: UIViewController {
                 
                 let unfollowPopUpVC = UnfollowPopUpVC()
                 unfollowPopUpVC.modalPresentationStyle = .overFullScreen
-                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-                unfollowPopUpVC.personName = friend.nickname
-                unfollowPopUpVC.personId = friend.id
+                if self.isFromNotification {
+                    unfollowPopUpVC.personId = self.userId
+                    unfollowPopUpVC.personName = self.introNameLabel.text ?? ""
+                } else {
+                    guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                    unfollowPopUpVC.personId = friend.id
+                    unfollowPopUpVC.personName = friend.nickname
+                }
                 self.present(unfollowPopUpVC, animated: false)
             }))
         }
@@ -296,8 +301,14 @@ final class BookShelfVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let reportVC = ReportVC()
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            reportVC.personId = friend.id
+            
+            if self.isFromNotification {
+                reportVC.personId = self.userId
+
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                reportVC.personId = friend.id
+            }
             reportVC.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(reportVC, animated: true)
@@ -306,9 +317,14 @@ final class BookShelfVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let blockPopUpVC = BlockPopUpVC()
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            blockPopUpVC.personId = friend.id
-            blockPopUpVC.personName = friend.nickname
+            if self.isFromNotification {
+                blockPopUpVC.personId = self.userId
+                blockPopUpVC.personName = self.introNameLabel.text ?? ""
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                blockPopUpVC.personId = friend.id
+                blockPopUpVC.personName = friend.nickname
+            }
             blockPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(blockPopUpVC, animated: false)
         }))
@@ -329,24 +345,29 @@ final class BookShelfVC: UIViewController {
             let bookSearchVC = BookSearchVC()
             bookSearchVC.bookShelfType = .friendFollowing
             
-            if let idx = selectedUserIndex {
-        
+            if self.isFromNotification {
+                bookSearchVC.personId = self.userId
+                bookSearchVC.personName = self.introNameLabel.text ?? ""
             } else {
-                if let notificationIndex = serverMyBookShelfInfo?.friendList.firstIndex(where: { $0.id == userId }) {
-                    selectedUserIndex = notificationIndex
-                }
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                bookSearchVC.personId = friend.id
+                bookSearchVC.personName = friend.nickname
             }
-            
-            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex ?? 0] else { return }
-            bookSearchVC.personName = friend.nickname
-            bookSearchVC.personId = friend.id
             bookSearchVC.hidesBottomBarWhenPushed = true
-            bookSearchVC.modalPresentationStyle = .fullScreen
-            present(bookSearchVC, animated: true)
+            navigationController?.pushViewController(bookSearchVC, animated: false)
         case .friendNotFollowing:
-            let followPopUpVC = FollowPopUpVC()
-            followPopUpVC.modalPresentationStyle = .overFullScreen
-            self.present(followPopUpVC, animated: false)
+            if self.isFromNotification {
+                let followPopUpVC = FollowPopUpVC(friendId: self.userId)
+                followPopUpVC.setData(nickName: self.introNameLabel.text ?? "")
+                followPopUpVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(followPopUpVC, animated: false)
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                let followPopUpVC = FollowPopUpVC(friendId: friend.id)
+                followPopUpVC.setData(nickName: friend.nickname)
+                followPopUpVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(followPopUpVC, animated: false)
+            }
         }
     }
     

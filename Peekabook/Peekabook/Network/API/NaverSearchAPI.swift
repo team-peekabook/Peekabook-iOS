@@ -17,20 +17,24 @@ final class NaverSearchAPI {
         naverSearchProvider = MoyaProvider<NaverSearchRouter>(plugins: [MoyaLoggerPlugin(viewController: viewController)])
     }
     
-    // 1. 네이버 책 검색
     func getNaverSearchedBooks(query: String, d_isbn: String, display: Int, completion: @escaping ([BookInfoModel]?) -> Void) {
-        naverSearchProvider.request(.getBook(query: query, d_isbn: d_isbn, display: display)) { (result) in
+        // query와 d_isbn 중 하나만 넘기도록 조정
+        let queryParam = d_isbn.isEmpty ? query : nil
+        let isbnParam = d_isbn.isEmpty ? nil : d_isbn
+
+        naverSearchProvider.request(.getBook(query: queryParam, d_isbn: isbnParam, display: display)) { result in
             switch result {
             case .success(let response):
                 do {
                     let response = try response.map(NaverResponse.self)
-                    let getNaverData: [BookInfoModel]? = response.items
-                    completion(getNaverData)
+                    completion(response.items)
                 } catch let error {
-                    print(error.localizedDescription)
+                    print("📦 JSON 디코딩 실패: \(error.localizedDescription)")
+                    completion(nil)
                 }
             case .failure(let err):
-                print(err)
+                print("🌐 API 호출 실패: \(err)")
+                completion(nil)
             }
         }
     }

@@ -35,6 +35,9 @@ final class BookDetailVC: UIViewController {
     // MARK: - UI Components
     
     private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
+        .addLeftButtonAction {
+            self.navigationController?.popViewController(animated: false)
+        }
     
     private let containerScrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -321,8 +324,7 @@ extension BookDetailVC {
     private func deleteButtonDidTap() {
         let popupViewController = DeletePopUpVC()
         popupViewController.bookShelfId = self.selectedBookIndex
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+        self.navigationController?.pushViewController(popupViewController, animated: false)
     }
     
     @objc

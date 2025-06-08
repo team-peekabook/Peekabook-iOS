@@ -60,6 +60,6 @@ extension BookDuplicatePopUpVC {
     }
 
     @objc func confirmButtonDidTap() {
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: false)
     }
 }

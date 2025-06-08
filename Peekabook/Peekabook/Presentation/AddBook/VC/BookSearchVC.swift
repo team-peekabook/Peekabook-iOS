@@ -246,7 +246,7 @@ extension BookSearchVC {
     
     @objc
     private func cancelButtonDidTap() {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc
@@ -262,13 +262,13 @@ extension BookSearchVC {
     
     @objc func footerButtonDidTap() {
         let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.BookSearch.addNewBook)!)
-        self.present(safariViewController, animated: true)
+        self.navigationController?.pushViewController(safariViewController, animated: true)
     }
     
     func barcodeButtonDidTap() {
         let barcodeVC = BarcodeVC()
-        barcodeVC.modalPresentationStyle = .fullScreen
-        self.present(barcodeVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(barcodeVC, animated: false)
+        barcodeVC.navigationController?.navigationBar.isHidden = true
     }
 
 }
@@ -290,9 +290,8 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
         switch bookShelfType {
         case .user:
             let addBookVC = AddBookVC()
-            addBookVC.modalPresentationStyle = .fullScreen
             addBookVC.dataBind(model: bookInfoList[safe: indexPath.row]!)
-            present(addBookVC, animated: true, completion: nil)
+            self.navigationController?.pushViewController(addBookVC, animated: false)
         case .friendFollowing, .friendNotFollowing:
             let proposalVC = ProposalVC()
             proposalVC.personName = personName
@@ -300,9 +299,8 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
             proposalVC.author = bookInfoList[safe: indexPath.row]!.author
             proposalVC.bookTitle = bookInfoList[safe: indexPath.row]!.title
             proposalVC.imageUrl = bookInfoList[safe: indexPath.row]!.image
-            proposalVC.modalPresentationStyle = .fullScreen
             proposalVC.dataBind(model: bookInfoList[safe: indexPath.row]!)
-            present(proposalVC, animated: true, completion: nil)
+            self.navigationController?.pushViewController(proposalVC, animated: false)
         }
     }
     

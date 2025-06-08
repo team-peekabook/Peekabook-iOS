@@ -1,20 +1,29 @@
 import UIKit
 
 import SnapKit
-import Then
-
 import Moya
 
 final class FollowPopUpVC: UIViewController {
     
     // MARK: - Properties
     
-    var friendId: Int = 0
-
+    var friendId: Int
+    
     // MARK: - UI Components
     
-    private lazy var followPopUpVC = CustomPopUpView(frame: .zero, style: .report, viewController: self)
-
+    private lazy var followPopUpView = CustomPopUpView(frame: .zero, style: .follow, viewController: self)
+    
+    // MARK: - Initialization
+    
+    init(friendId: Int) {
+        self.friendId = friendId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
@@ -25,24 +34,32 @@ final class FollowPopUpVC: UIViewController {
 }
 
 // MARK: - UI & Layout
-extension FollowPopUpVC {
 
+extension FollowPopUpVC {
+    
     private func setUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
-        followPopUpVC.backgroundColor = .peekaBeige
-        followPopUpVC.getConfirmLabel(style: .report)
     }
     
     private func setLayout() {
-        view.addSubview(followPopUpVC)
+        view.addSubview(followPopUpView)
         
-        followPopUpVC.snp.makeConstraints {
+        followPopUpView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(295)
-            $0.height.equalTo(136)
+            $0.height.equalTo(156)
         }
     }
 }
+
+// MARK: - Methods
+
+extension FollowPopUpVC {
+    func setData(nickName: String) {
+        followPopUpView.getConfirmLabel(style: .follow, personName: nickName)
+    }
+}
+
 
 // MARK: - Methods
 

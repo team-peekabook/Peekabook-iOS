@@ -95,11 +95,10 @@ extension BookSearchErrorPopUpVC {
     
     @objc private func textSearchButtonDidTap() {
         let bookSearchVC = BookSearchVC()
-        bookSearchVC.modalPresentationStyle = .overFullScreen
-        self.present(bookSearchVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(bookSearchVC, animated: false)
     }
     
     @objc private func cancelButtonDidTap() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: false)
     }
 }
