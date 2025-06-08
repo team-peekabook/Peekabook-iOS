@@ -11,12 +11,14 @@ import SnapKit
 import Then
 
 import Moya
+import SafariServices
 
-final class BookSearchVC: UIViewController {
+final class BookSearchVC: UIViewController, CustomSearchViewDelegate {
     
     // MARK: - Properties
     
     private var serverNaverSearch: [BookInfoModel]?
+    private var isLastPage: Bool = false
     
     var searchType: SearchType = .text
     var personName: String = ""
@@ -46,7 +48,55 @@ final class BookSearchVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         return tableView
+    }()
+    
+    private lazy var footerButtonView: UIView = {
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80))
+        let button = UIButton(type: .system)
+        let lineView = UIView()
+        lineView.backgroundColor = .peekaRed
+        
+        footer.addSubview(button)
+        footer.addSubview(lineView)
+        
+        button.setTitle(I18N.BookSearch.notFound, for: .normal)
+        button.setTitleColor(.peekaRed, for: .normal)
+        button.titleLabel?.font = .c2
+        button.addTarget(self, action: #selector(footerButtonDidTap), for: .touchUpInside)
+        footer.addSubview(button)
+        
+        button.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(button.snp.bottom).offset(-6)
+            $0.centerX.equalTo(button)
+            $0.width.equalTo(button)
+            $0.height.equalTo(1)
+        }
+        
+        return footer
+    }()
+    
+    private lazy var fixedFooterButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(I18N.BookSearch.notFound, for: .normal)
+        button.setTitleColor(.peekaRed, for: .normal)
+        button.titleLabel?.font = .c2
+        button.addTarget(self, action: #selector(footerButtonDidTap), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+    
+    private let fixedFooterLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .peekaRed
+        view.isHidden = true
+        return view
     }()
     
     // emptyView elements
@@ -69,7 +119,9 @@ final class BookSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emptyView.isHidden = true
+        bookSearchView.delegate = self
         bookSearchView.setSearchTextFieldDelegate(self)
+        bookTableView.tableFooterView = UIView(frame: .zero)
         setBackgroundColor()
         setLayout()
         register()
@@ -94,7 +146,7 @@ extension BookSearchVC {
     }
     
     private func setLayout() {
-        view.addSubviews(headerView, bookSearchView)
+        view.addSubviews(headerView, bookSearchView, fixedFooterButton, fixedFooterLineView)
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -106,6 +158,18 @@ extension BookSearchVC {
             $0.height.equalTo(40)
         }
         
+        fixedFooterButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(59)
+        }
+
+        fixedFooterLineView.snp.makeConstraints {
+            $0.top.equalTo(fixedFooterButton.snp.bottom).offset(-6)
+            $0.centerX.equalTo(fixedFooterButton)
+            $0.width.equalTo(fixedFooterButton)
+            $0.height.equalTo(1)
+        }
+
         // emptyView Layout
         
         view.addSubview(emptyView)
@@ -156,12 +220,21 @@ extension BookSearchVC {
     }
     
     func setView() {
-        if self.bookInfoList.isEmpty == true || bookSearchView.text!.isEmpty {
-            self.emptyView.isHidden = false
-            self.bookTableView.isHidden = true
+        if self.bookInfoList.isEmpty || bookSearchView.text!.isEmpty {
+            emptyView.isHidden = false
+            bookTableView.isHidden = true
+            fixedFooterButton.isHidden = true
         } else {
-            self.bookTableView.isHidden = false
-            self.emptyView.isHidden = true
+            emptyView.isHidden = true
+            bookTableView.isHidden = false
+            
+            if bookInfoList.count >= 1 && bookInfoList.count <= 3 {
+                fixedFooterButton.isHidden = false
+                fixedFooterLineView.isHidden = false
+            } else {
+                fixedFooterButton.isHidden = true
+                fixedFooterLineView.isHidden = true
+            }
         }
     }
     
@@ -177,15 +250,27 @@ extension BookSearchVC {
     }
     
     @objc
-    func searchButtonDidTap() {
+    func ReturnDidTap() {
         guard bookSearchView.hasSearchText() else {
             return setView()
         }
         bookSearchView.endEditing()
         if let searchText = bookSearchView.text {
-            getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+            getNaverSearchData(query: searchText, d_isbn: "", display: displayCount)
         }
     }
+    
+    @objc func footerButtonDidTap() {
+        let safariViewController = SFSafariViewController(url: URL(string: ExternalURL.BookSearch.addNewBook)!)
+        self.present(safariViewController, animated: true)
+    }
+    
+    func barcodeButtonDidTap() {
+        let barcodeVC = BarcodeVC()
+        barcodeVC.modalPresentationStyle = .fullScreen
+        self.present(barcodeVC, animated: true, completion: nil)
+    }
+
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -247,11 +332,18 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
         let scrollViewContentHeight = scrollView.contentSize.height
         let scrollViewHeight = scrollView.frame.size.height
         let scrollViewOffset = scrollView.contentOffset.y
-        if scrollViewOffset + scrollViewHeight == scrollViewContentHeight {
-            displayCount += 10
-            if let searchText = bookSearchView.text {
-                getNaverSearchData(d_titl: searchText, d_isbn: "", display: displayCount)
+        
+        // 스크롤 끝까지 내려갔을 때
+        if scrollViewOffset + scrollViewHeight >= scrollViewContentHeight - 10 {
+            // 마지막 페이지일 때 footer 버튼
+            if isLastPage {
+                self.bookTableView.tableFooterView = UIView(frame: .zero) // footer 숨김
+            } else {
+                self.bookTableView.tableFooterView = self.footerButtonView // footer 보여줌
             }
+        } else {
+            // 스크롤 끝에 안도달 -> footer 숨김
+            self.bookTableView.tableFooterView = UIView(frame: .zero)
         }
     }
 }
@@ -260,21 +352,30 @@ extension BookSearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension BookSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchButtonDidTap()
+        ReturnDidTap()
         bookSearchView.endEditing()
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        bookSearchView.textDidChange(updatedText)
+        return true
+    }
+
 }
 
 // MARK: - Network
 
 extension BookSearchVC {
     
-    private func getNaverSearchData(d_titl: String, d_isbn: String, display: Int) {
-        NaverSearchAPI(viewController: self).getNaverSearchedBooks(d_titl: d_titl, d_isbn: d_isbn, display: display) { response in
+    private func getNaverSearchData(query: String, d_isbn: String, display: Int) {
+        NaverSearchAPI(viewController: self).getNaverSearchedBooks(query: query, d_isbn: d_isbn, display: display) { response in
             self.bookInfoList = []
             
             guard let response = response else { return }
+            self.isLastPage = response.count < display
             
             for i in 0..<response.count {
                 self.bookInfoList.append(BookInfoModel(title: response[i].title, image: response[i].image, author: response[i].author, publisher: response[i].publisher))
@@ -282,12 +383,23 @@ extension BookSearchVC {
             
             DispatchQueue.main.async {
                 self.bookTableView.reloadData()
-                if let searchText = self.bookSearchView.text, !searchText.isEmpty, self.bookInfoList.isEmpty == false {
-                    self.bookTableView.reloadData()
-                } else {
-                    self.setView()
-                }
+                self.setView()
+                self.updateFooterView()
             }
+                
+        }
+    }
+    
+    private func updateFooterView() {
+        if isLastPage {
+            let contentFitsScreen = bookTableView.contentSize.height <= bookTableView.frame.size.height
+            if contentFitsScreen {
+                bookTableView.tableFooterView = UIView(frame: .zero)
+            } else {
+                bookTableView.tableFooterView = footerButtonView
+            }
+        } else {
+            bookTableView.tableFooterView = UIView(frame: .zero)
         }
     }
 }

@@ -32,7 +32,6 @@
 		14C84E3729D439450086F8DF /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C84E3629D439450086F8DF /* SignUpVC.swift */; };
 		14D07E0629E6BF9400C7B99E /* CheckDuplicateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */; };
 		14D07E0829E6C0D500C7B99E /* CheckDuplicateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */; };
-		8E097202296C83C0007731E3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097201296C83C0007731E3 /* Config.swift */; };
 		8E0C3AF229B6D28C00D51E5A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF129B6D28C00D51E5A /* Array+.swift */; };
 		8E0C3AF429B6D44900D51E5A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */; };
 		8E10BA03295FF33200BCF58B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E10BA02295FF33200BCF58B /* SnapKit */; };
@@ -165,6 +164,7 @@
 		98938702296D5C3D00D3A5B8 /* NaverSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */; };
 		98938708296E994700D3A5B8 /* WatchBookDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */; };
 		98A00B9B2968213E002A5A23 /* BarcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A00B9A2968213E002A5A23 /* BarcodeVC.swift */; };
+		98A01A0A2DC85962002CBE64 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A01A092DC85962002CBE64 /* Config.swift */; };
 		98A04202296515ED00081B8E /* ProposalConfirmPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04201296515ED00081B8E /* ProposalConfirmPopUpVC.swift */; };
 		98A042092966496500081B8E /* ProposalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A042082966496500081B8E /* ProposalVC.swift */; };
 		98A04213296691F100081B8E /* BookSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A04212296691F100081B8E /* BookSearchVC.swift */; };
@@ -203,7 +203,6 @@
 		14C84E3629D439450086F8DF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		14D07E0529E6BF9400C7B99E /* CheckDuplicateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateRequest.swift; sourceTree = "<group>"; };
 		14D07E0729E6C0D500C7B99E /* CheckDuplicateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicateResponse.swift; sourceTree = "<group>"; };
-		8E097201296C83C0007731E3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Peekabook/Network/Config.swift; sourceTree = SOURCE_ROOT; };
 		8E0C3AF129B6D28C00D51E5A /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8E0C3AF329B6D44900D51E5A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		8E10BA32295FF80C00BCF58B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -337,6 +336,7 @@
 		98938701296D5C3D00D3A5B8 /* NaverSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchResponse.swift; sourceTree = "<group>"; };
 		98938707296E994700D3A5B8 /* WatchBookDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBookDetailResponse.swift; sourceTree = "<group>"; };
 		98A00B9A2968213E002A5A23 /* BarcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeVC.swift; sourceTree = "<group>"; };
+		98A01A092DC85962002CBE64 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		98A04201296515ED00081B8E /* ProposalConfirmPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalConfirmPopUpVC.swift; sourceTree = "<group>"; };
 		98A042082966496500081B8E /* ProposalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalVC.swift; sourceTree = "<group>"; };
 		98A04212296691F100081B8E /* BookSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchVC.swift; sourceTree = "<group>"; };
@@ -445,7 +445,7 @@
 		8E10BA10295FF44800BCF58B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8E097201296C83C0007731E3 /* Config.swift */,
+				98A01A092DC85962002CBE64 /* Config.swift */,
 				8E10BA23295FF6CB00BCF58B /* Foundation */,
 				8E10BA24295FF6D500BCF58B /* Router */,
 				8EEF8E182969CFE800F37AFD /* API */,
@@ -1244,7 +1244,6 @@
 				8E6F7B8C29651B360013F744 /* FriendsCVC.swift in Sources */,
 				8E81F3E42960835A001815B4 /* UIView+.swift in Sources */,
 				98EAD31829D5AC40000181AF /* LoginVC.swift in Sources */,
-				8E097202296C83C0007731E3 /* Config.swift in Sources */,
 				8E10BA33295FF80C00BCF58B /* TabBarController.swift in Sources */,
 				8E5A30A2295DAE6D00285A15 /* AppDelegate.swift in Sources */,
 				8E81F3DA29608037001815B4 /* setTextStyle.swift in Sources */,
@@ -1284,6 +1283,7 @@
 				8E18506E2969BC130062E92A /* BookShelfRouter.swift in Sources */,
 				98470D8C296C167C00B78724 /* UITextField+.swift in Sources */,
 				8E81F3B029605C93001815B4 /* ColorLiterals.swift in Sources */,
+				98A01A0A2DC85962002CBE64 /* Config.swift in Sources */,
 				981B0B6E2B90600D00BB6B85 /* CheckBookDuplicateResponse.swift in Sources */,
 				8E1850622969B1690062E92A /* URLConstant.swift in Sources */,
 				8E5A30A4295DAE6D00285A15 /* SceneDelegate.swift in Sources */,
@@ -1466,16 +1466,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 23090804;
-				DEVELOPMENT_TEAM = 6SUGCZ4YRX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "피카북";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 인식 및 프로필 등록을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "\"\" UIInterfaceOrientationPortrait";
@@ -1490,6 +1492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "peekabook release";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1505,10 +1508,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Peekabook/Peekabook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = 6SUGCZ4YRX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R6RDNJW78B;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peekabook/Info.plist;
@@ -1516,7 +1521,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_NSCameraUsageDescription = "바코드 인식 및 프로필 등록을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "\"\" UIInterfaceOrientationPortrait";
@@ -1531,6 +1536,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sopt.peekabook.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "peekabook release";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
