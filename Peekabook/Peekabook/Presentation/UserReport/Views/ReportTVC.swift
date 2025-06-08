@@ -78,4 +78,8 @@ extension ReportTVC {
         sender.isSelected = true
         tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
+    
+    func setSelectedState(_ isSelected: Bool) {
+        radioButton.isSelected = isSelected
+    }
 }
