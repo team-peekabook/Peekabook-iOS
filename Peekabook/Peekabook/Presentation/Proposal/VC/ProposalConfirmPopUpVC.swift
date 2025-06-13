@@ -66,7 +66,7 @@ extension ProposalConfirmPopUpVC {
 extension ProposalConfirmPopUpVC {
     
     @objc func cancelButtonDidTap() {
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc func confirmButtonDidTap() {

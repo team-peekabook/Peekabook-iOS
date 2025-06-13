@@ -28,7 +28,7 @@ final class MyNotificationVC: UIViewController {
     
     private lazy var notificationTableView = UITableView().then {
         $0.showsVerticalScrollIndicator = false
-        $0.allowsSelection = false
+//        $0.allowsSelection = false
         $0.backgroundColor = .peekaBeige
         $0.separatorStyle = .none
         $0.delegate = self
@@ -108,7 +108,7 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         let data = serverGetAlarmData[safe: indexPath.row]!
         if data.senderName.count > 4 && serverGetAlarmData[safe: indexPath.row]!.typeID != 1 {
             return 96
-        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) {
+        } else if data.typeID == 1 || (data.senderName.count < 5 && data.typeID == 2) || data.typeID == 4 {
             return 80
         } else {
             return 96
@@ -128,12 +128,59 @@ extension MyNotificationVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.dataBind(model: serverGetAlarmData[safe: indexPath.row]!)
         cell.changeUserNameFont(model: serverGetAlarmData[safe: indexPath.row]!)
-
+        cell.selectionStyle = .none
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = serverGetAlarmData[safe: indexPath.row]!
+        print("---------------------------------")
+        print("-------------------------알림탭 클릭")
+        print(data)
+        print("---------------------------------")
+        navigateToAppropriateVC(for: data)
+    }
+    
+    private func navigateToAppropriateVC(for alarmData: GetAlarmResponse) {
+        var destinationVC: UIViewController?
+        
+        switch alarmData.typeID {
+        case 1:
+            destinationVC = BookShelfVC(isFromNotification: true)
+
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                bookShelfVC.userId = alarmData.senderID
+                print("alarmData.senderID: \(alarmData.senderID)")
+                
+                bookShelfVC.bookShelfType = .friendFollowing
+            }
+        case 2:
+            destinationVC = RecommendVC(isFromNotification: true) // RecommendVC로 이동
+        case 3:
+            destinationVC = BookShelfVC(isFromNotification: true)
+
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.bookShelfType = .friendFollowing
+            }
+        case 4:
+            destinationVC = BookShelfVC(isFromNotification: true)
+            if let bookShelfVC = destinationVC as? BookShelfVC {
+                print("alarmData.senderID: \(alarmData.senderID)")
+                bookShelfVC.userId = alarmData.senderID
+                bookShelfVC.bookShelfType = .friendNotFollowing
+            }
+        default:
+            return
+        }
+        
+        if let destinationVC = destinationVC {
+            self.navigationController?.pushViewController(destinationVC, animated: false)
+        }
+    }
+    
     @objc private func backButtonTapped() {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
 }
 
@@ -143,6 +190,7 @@ extension MyNotificationVC {
     private func getAlarmAPI() {
         AlarmAPI(viewController: self).getAlarmAPI { response in
             guard let response = response, let data = response.data else { return }
+            print(data)
             self.serverGetAlarmData = data
             self.setEmptyView(isEnabled: data.isEmpty)
             self.notificationTableView.reloadData()

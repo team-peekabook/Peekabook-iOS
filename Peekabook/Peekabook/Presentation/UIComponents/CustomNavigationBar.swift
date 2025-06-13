@@ -45,10 +45,10 @@ final class CustomNavigationBar: UIView {
     
     // MARK: - initialization
     
-    init(_ vc: UIViewController, type: NaviType, backgroundColor: UIColor = .peekaBeige) {
+    init(_ vc: UIViewController, type: NaviType, isFromNotification: Bool = false, backgroundColor: UIColor = .peekaBeige) {
         super.init(frame: .zero)
         self.vc = vc
-        self.setUI(type, backgroundColor: backgroundColor)
+        self.setUI(type, backgroundColor: backgroundColor, isFromNotification: isFromNotification)
         self.setLayout(type)
         self.setLeftBackButtonAction()
     }
@@ -108,6 +108,13 @@ extension CustomNavigationBar {
     }
     
     @discardableResult
+    func changeLeftLogoImageToBackButton() -> Self {
+        self.leftButton.isUserInteractionEnabled = true
+        self.leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+        return self
+    }
+    
+    @discardableResult
     func changeLeftBackButtonToXmark() -> Self {
         self.leftButton.setImage(ImageLiterals.Icn.close, for: .normal)
         return self
@@ -156,6 +163,7 @@ extension CustomNavigationBar {
     @objc
     private func popToPreviousVC() {
         self.vc?.navigationController?.popViewController(animated: true)
+        
     }
     
     @objc
@@ -182,14 +190,20 @@ extension CustomNavigationBar {
 
 extension CustomNavigationBar {
     
-    private func setUI(_ type: NaviType, backgroundColor: UIColor) {
+    private func setUI(_ type: NaviType, backgroundColor: UIColor, isFromNotification: Bool = false) {
         self.backgroundColor = backgroundColor
         
-        switch type {
-        case .oneLeftButton, .oneLeftButtonWithTwoRightButtons, .oneLeftButtonWithOneRightButton:
-            leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
-        case .oneRightButton:
-            rightButton.setImage(ImageLiterals.Icn.close, for: .normal)
+        if isFromNotification {
+                self.leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+                self.leftButton.isUserInteractionEnabled = true
+                self.leftButton.addTarget(self, action: #selector(popToPreviousVC), for: .touchUpInside)
+        } else {
+            switch type {
+            case .oneLeftButton, .oneLeftButtonWithTwoRightButtons, .oneLeftButtonWithOneRightButton:
+                leftButton.setImage(ImageLiterals.Icn.back, for: .normal)
+            case .oneRightButton:
+                rightButton.setImage(ImageLiterals.Icn.close, for: .normal)
+            }
         }
     }
     

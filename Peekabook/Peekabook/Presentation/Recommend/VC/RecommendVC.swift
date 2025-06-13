@@ -13,10 +13,10 @@ import Then
 import Moya
 
 final class RecommendVC: UIViewController {
-
     private var recommendTypes: [String] = [I18N.BookRecommend.recommended, I18N.BookRecommend.recommending]
     private var recommendedIsEmpty = false
     private var recommendingIsEmpty = false
+    var isFromNotification: Bool = false
     
     // MARK: - Properties
     
@@ -57,9 +57,18 @@ final class RecommendVC: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButton)
-        .changeLeftBackButtonToLogoImage()
-        .addUnderlineView()
+    private lazy var naviBar: CustomNavigationBar = {
+        if isFromNotification {
+            let bar = CustomNavigationBar(self, type: .oneLeftButton)
+            return bar
+        } else {
+            let bar = CustomNavigationBar(self, type:
+                .oneLeftButton)
+                .changeLeftBackButtonToLogoImage()
+                .addUnderlineView()
+
+            return bar}
+    }()
     
     private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
@@ -90,6 +99,15 @@ final class RecommendVC: UIViewController {
     
     // MARK: - View Life Cycle
 
+    init(isFromNotification: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        self.isFromNotification = isFromNotification
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundColor()

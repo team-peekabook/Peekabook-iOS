@@ -161,9 +161,9 @@ extension AddBookVC {
     @objc private func backButtonDidTap() {
         switch searchType {
         case .camera:
-            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: false)
         case .text:
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: false)
         }
     }
     
@@ -270,8 +270,7 @@ extension AddBookVC {
             if response?.success == true {
                 if response?.data?.isDuplicate == true { // 중복일때
                     let vc = BookDuplicatePopUpVC()
-                    vc.modalPresentationStyle = .overFullScreen
-                    self.present(vc, animated: false)
+                    self.navigationController?.pushViewController(vc, animated: false)
                 }
             }
         }

@@ -20,10 +20,13 @@ final class BottomBookShelfVC: UIViewController {
     private var fullView: CGFloat {
         return SafeAreaHeight.safeAreaTopInset() + 52
     }
+    var isFromNotification: Bool = false
 
     private var partialView: CGFloat {
         if UIScreen.main.isSmallThan712pt {
             return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 65
+        } else if isFromNotification {
+            return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 110 - 165
         } else {
             return UIScreen.main.bounds.height - view.safeAreaInsets.bottom - 110
         }
@@ -99,8 +102,7 @@ final class BottomBookShelfVC: UIViewController {
     @objc
     private func addBookButtonDidTap() {
         let nextVC = BookSearchVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(nextVC, animated: false)
     }
     
     @objc
@@ -262,13 +264,13 @@ extension BottomBookShelfVC {
     
     func changeLayout(isUser: Bool) {
         addBookButton.isHidden = isUser
-        bookShelfType = .friend
+        bookShelfType = .friendFollowing
     }
     
     func setEmptyLayout(_ isEnabled: Bool) {
         emptyDescriptionLabel.isHidden = !isEnabled
         
-        if bookShelfType == .friend {
+        if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
             emptyDescriptionImage.isHidden = !isEnabled
             emptyDescriptionLabel.text = I18N.BookShelf.emptyFriendBottomBookShelfDescription
         } else {
@@ -306,7 +308,7 @@ extension BottomBookShelfVC: UICollectionViewDelegate, UICollectionViewDataSourc
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = books[safe: indexPath.row]!.id
             navigationController?.pushViewController(bookDetailVC, animated: true)
-            if bookShelfType == .friend {
+            if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
         }

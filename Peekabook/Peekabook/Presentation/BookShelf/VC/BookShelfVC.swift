@@ -12,27 +12,67 @@ import SnapKit
 
 enum BookShelfType: CaseIterable {
     case user
-    case friend
+    case friendFollowing
+    case friendNotFollowing
 }
 
 final class BookShelfVC: UIViewController {
     
-    var isFollowingStatus: Bool = false
+    var userId: Int = 0 {
+        didSet {
+            bookShelfType = .friendFollowing
+            bottomShelfVC.bookShelfType = .friendFollowing
+        }
+    }
     
+    var notificationId: Int = 0 {
+        didSet {
+            guard let alarmType = AlarmType(id: notificationId) else { return }
+            
+            switch alarmType {
+            case .follow_mutual:
+                bookShelfType = .friendFollowing
+                bottomShelfVC.bookShelfType = .friendFollowing
+            case .follow_received_only:
+                bookShelfType = .friendNotFollowing
+                bottomShelfVC.bookShelfType = .friendNotFollowing
+            default:
+                break
+            }
+
+            print("notificationId \(notificationId)")
+        }
+    }
+    var isFollowingStatus: Bool = false
+    var isFromNotification: Bool = false
+
     // MARK: - Properties
     
-    private var bookShelfType: BookShelfType = .user {
+    var bookShelfType: BookShelfType = .user {
         didSet {
             switch bookShelfType {
             case .user:
                 bottomShelfVC.changeLayout(isUser: false)
                 editOrRecommendButton.setTitle(I18N.BookShelf.editPick, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaRed, for: .normal)
+                editOrRecommendButton.backgroundColor = .white.withAlphaComponent(0.4)
                 moreButton.isHidden = true
-            case .friend:
+            case .friendFollowing:
                 editOrRecommendButton.isEnabled = true
                 bottomShelfVC.changeLayout(isUser: true)
                 editOrRecommendButton.setTitle(I18N.BookShelf.recommendBook, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaRed, for: .normal)
+                editOrRecommendButton.backgroundColor = .white.withAlphaComponent(0.4)
                 moreButton.isHidden = false
+            case .friendNotFollowing:
+                editOrRecommendButton.isEnabled = true
+                bottomShelfVC.changeLayout(isUser: true)
+                editOrRecommendButton.setTitle(I18N.BookShelf.follow, for: .normal)
+                editOrRecommendButton.setTitleColor(.peekaBeige, for: .normal)
+                editOrRecommendButton.backgroundColor = .peekaRed
+                moreButton.isHidden = false
+                friendsListContainerView.isHidden = true
+                
             }
         }
     }
@@ -52,8 +92,8 @@ final class BookShelfVC: UIViewController {
                 bottomShelfVC.bookShelfType = .user
             } else {
                 getFriendBookShelfInfo(userId: friends[selectedUserIndex ?? 0].id)
-                bookShelfType = .friend
-                bottomShelfVC.bookShelfType = .friend
+                bookShelfType = .friendFollowing
+                bottomShelfVC.bookShelfType = .friendFollowing
             }
         }
     }
@@ -62,16 +102,25 @@ final class BookShelfVC: UIViewController {
     
     private let bottomShelfVC = BottomBookShelfVC()
     private let containerScrollView = UIScrollView()
-    private lazy var naviBar = CustomNavigationBar(self, type: .oneLeftButtonWithTwoRightButtons)
-        .changeLeftBackButtonToLogoImage()
-        .addRightButton(with: ImageLiterals.Icn.notification)
-        .addOtherRightButton(with: ImageLiterals.Icn.friend)
-        .addRightButtonAction {
-            self.presentNotiVC()
+    private lazy var naviBar: CustomNavigationBar = {
+        if isFromNotification {
+            let bar = CustomNavigationBar(self, type: .oneLeftButton)
+            return bar
+        } else {
+            let bar = CustomNavigationBar(self, type:
+                .oneLeftButtonWithTwoRightButtons)
+                .addRightButton(with: ImageLiterals.Icn.notification)
+                .addOtherRightButton(with: ImageLiterals.Icn.friend)
+                .addRightButtonAction {
+                    self.presentNotiVC()
+                }
+                .addOtherRightButtonAction {
+                    self.pushUserSearchVC()
+                }
+                .changeLeftBackButtonToLogoImage()
+            return bar
         }
-        .addOtherRightButtonAction {
-            self.pushUserSearchVC()
-        }
+    }()
     
     private let friendsListContainerView = UIView()
     private let introProfileView = UIView()
@@ -148,12 +197,12 @@ final class BookShelfVC: UIViewController {
     }()
     
     private lazy var editOrRecommendButton: UIButton = {
-        let bt = UIButton(type: .system)
+        let bt = UIButton(type: .custom)
         bt.titleLabel!.font = .c1
         bt.setTitle(I18N.BookShelf.editPick, for: .normal)
-        bt.setTitleColor(.peekaRed, for: .normal)
         bt.layer.borderWidth = 1
         bt.layer.borderColor = UIColor.peekaRed.cgColor
+        bt.setTitleColor(.peekaRed, for: .normal)
         bt.addTarget(self, action: #selector(editOrRecommendButtonDidTap), for: .touchUpInside)
         return bt
     }()
@@ -189,6 +238,21 @@ final class BookShelfVC: UIViewController {
     
     // MARK: - View Life Cycle
     
+    init(isFromNotification: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        self.isFromNotification = isFromNotification
+        
+        if isFromNotification {
+            self.friendsListContainerView.isHidden = true
+        } else {
+            self.friendsListContainerView.isHidden = false
+        }
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -202,9 +266,12 @@ final class BookShelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if selectedUserIndex == nil {
+        if userId != 0 {
+            getFriendBookShelfInfo(userId: userId)
+        } else if selectedUserIndex == nil {
             getMyBookShelfInfo() // 백그라운드에서 서버로부터 최신 데이터 가져오기
         }
+        
         updateLatestMyProfile() // 나의 미니 프로필 데이터 최신화
     }
     
@@ -214,31 +281,50 @@ final class BookShelfVC: UIViewController {
     private func moreButtonDidTap(_ sender: UIButton) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
-            
-            let unfollowPopUpVC = UnfollowPopUpVC()
-            unfollowPopUpVC.modalPresentationStyle = .overFullScreen
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            unfollowPopUpVC.personName = friend.nickname
-            unfollowPopUpVC.personId = friend.id
-            self.present(unfollowPopUpVC, animated: false)
-        }))
+        if bookShelfType == .friendFollowing {
+            actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.unfollow, style: .default, handler: {(ACTION: UIAlertAction) in
+                
+                let unfollowPopUpVC = UnfollowPopUpVC()
+                unfollowPopUpVC.modalPresentationStyle = .overFullScreen
+                if self.isFromNotification {
+                    unfollowPopUpVC.personId = self.userId
+                    unfollowPopUpVC.personName = self.introNameLabel.text ?? ""
+                } else {
+                    guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                    unfollowPopUpVC.personId = friend.id
+                    unfollowPopUpVC.personName = friend.nickname
+                }
+                self.present(unfollowPopUpVC, animated: false)
+            }))
+        }
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.report, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let reportVC = ReportVC()
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            reportVC.personId = friend.id
+            
+            if self.isFromNotification {
+                reportVC.personId = self.userId
+
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                reportVC.personId = friend.id
+            }
             reportVC.hidesBottomBarWhenPushed = true
+            
             self.navigationController?.pushViewController(reportVC, animated: true)
         }))
         
         actionSheet.addAction(UIAlertAction(title: I18N.BookShelf.block, style: .destructive, handler: {(ACTION: UIAlertAction) in
             
             let blockPopUpVC = BlockPopUpVC()
-            guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
-            blockPopUpVC.personId = friend.id
-            blockPopUpVC.personName = friend.nickname
+            if self.isFromNotification {
+                blockPopUpVC.personId = self.userId
+                blockPopUpVC.personName = self.introNameLabel.text ?? ""
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                blockPopUpVC.personId = friend.id
+                blockPopUpVC.personName = friend.nickname
+            }
             blockPopUpVC.modalPresentationStyle = .overFullScreen
             self.present(blockPopUpVC, animated: false)
         }))
@@ -255,15 +341,33 @@ final class BookShelfVC: UIViewController {
             let editPickVC = EditMyPickVC()
             editPickVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(editPickVC, animated: true)
-        case .friend:
+        case .friendFollowing:
             let bookSearchVC = BookSearchVC()
-            bookSearchVC.bookShelfType = .friend
-            guard let friend = serverMyBookShelfInfo?.friendList[selectedUserIndex!] else { return }
-            bookSearchVC.personName = friend.nickname
-            bookSearchVC.personId = friend.id
+            bookSearchVC.bookShelfType = .friendFollowing
+            
+            if self.isFromNotification {
+                bookSearchVC.personId = self.userId
+                bookSearchVC.personName = self.introNameLabel.text ?? ""
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                bookSearchVC.personId = friend.id
+                bookSearchVC.personName = friend.nickname
+            }
             bookSearchVC.hidesBottomBarWhenPushed = true
-            bookSearchVC.modalPresentationStyle = .fullScreen
-            present(bookSearchVC, animated: true)
+            navigationController?.pushViewController(bookSearchVC, animated: false)
+        case .friendNotFollowing:
+            if self.isFromNotification {
+                let followPopUpVC = FollowPopUpVC(friendId: self.userId)
+                followPopUpVC.setData(nickName: self.introNameLabel.text ?? "")
+                followPopUpVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(followPopUpVC, animated: false)
+            } else {
+                guard let friend = self.serverMyBookShelfInfo?.friendList[self.selectedUserIndex!] else { return }
+                let followPopUpVC = FollowPopUpVC(friendId: friend.id)
+                followPopUpVC.setData(nickName: friend.nickname)
+                followPopUpVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(followPopUpVC, animated: false)
+            }
         }
     }
     
@@ -272,7 +376,6 @@ final class BookShelfVC: UIViewController {
         selectedUserIndex = nil
     }
 }
-
 // MARK: - UI & Layout
 
 extension BookShelfVC {
@@ -284,7 +387,6 @@ extension BookShelfVC {
         verticalLine.backgroundColor = .peekaRed
         myProfileView.backgroundColor = .peekaBeige
         introProfileView.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
-        editOrRecommendButton.backgroundColor = .peekaWhite.withAlphaComponent(0.4)
         friendsCollectionView.backgroundColor = .peekaBeige
         pickCollectionView.backgroundColor = .peekaBeige
         containerScrollView.showsVerticalScrollIndicator = false
@@ -310,6 +412,9 @@ extension BookShelfVC {
         self.checkEmptyPickView(description: I18N.BookShelf.emptyPickViewDescription, bool: data.picks.isEmpty)
         self.editPickButtonState(with: data.books.isEmpty)
         self.bottomShelfVC.setEmptyLayout(data.books.isEmpty)
+            
+        checkFriendListView(isFromNotification: self.isFromNotification)
+        
         self.friendsCollectionView.reloadData()
         self.pickCollectionView.reloadData()
     }
@@ -466,6 +571,15 @@ extension BookShelfVC {
         friendsCollectionView.layoutIfNeeded()
         pickCollectionView.layoutIfNeeded()
     }
+    
+    private func updateLayoutWithoutFriendList() {
+        introProfileView.snp.remakeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(70)
+        }
+    }
 }
 
 // MARK: - Methods
@@ -474,8 +588,8 @@ extension BookShelfVC {
     
     private func presentNotiVC() {
         let vc = MyNotificationVC()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     private func pushUserSearchVC() {
@@ -488,7 +602,7 @@ extension BookShelfVC {
         self.view.addSubview(bottomShelfVC.view)
         self.addChild(bottomShelfVC)
         bottomShelfVC.didMove(toParent: self)
-        
+        bottomShelfVC.isFromNotification = self.isFromNotification
         bottomShelfVC.view.frame = CGRect(x: 0,
                                           y: view.frame.maxY,
                                           width: view.frame.width,
@@ -559,6 +673,14 @@ extension BookShelfVC {
         }
     }
     
+    private func checkFriendListView(isFromNotification: Bool) {
+        if isFromNotification {
+            self.friendsCollectionView.isHidden = isFromNotification
+            
+            updateLayoutWithoutFriendList()
+        }
+    }
+    
     func scrollToTop() {
         if bottomShelfVC.checkBottomShelfUp(y: bottomShelfVC.view.frame.minY) == true {
             print("바텀시트가 올라가있어서 내릴게요")
@@ -571,6 +693,12 @@ extension BookShelfVC {
     
     func setEditOrRecommendButtonHidden(_ isHidden: Bool) {
         editOrRecommendButton.isHidden = isHidden
+    }
+    
+    func setFriendListHidden(_ isHidden: Bool) {
+        friendsListContainerView.isHidden = isHidden
+        myProfileView.isHidden = isHidden
+        naviBar.changeLeftLogoImageToBackButton()
     }
 }
 
@@ -613,8 +741,27 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == friendsCollectionView {
             guard let cell = collectionView.cellForItem(at: indexPath) as? FriendsCVC else { return }
-            cell.changeBorderLayout(isSelected: true)
-            selectedUserIndex = indexPath.row
+            // 수빈 여기서 fromAlarm true 이면 알림에서 오면 index 찾아
+            
+            if isFromNotification {
+                // friends 중에 id가 alrmIdx 랑 같은 사람을 찾아서 해당 인덱스로 이동
+                
+                if let targetIndex = friends.firstIndex(where: { $0.id == userId }) {
+                    let targetIndexPath = IndexPath(item: targetIndex, section: 0)
+                    collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
+                    
+                    // 선택된 셀도 갱신
+                    if let targetCell = collectionView.cellForItem(at: targetIndexPath) as? FriendsCVC {
+                        targetCell.changeBorderLayout(isSelected: true)
+                    }
+                    selectedUserIndex = targetIndex
+                }
+                
+            } else {
+                cell.changeBorderLayout(isSelected: true)
+                selectedUserIndex = indexPath.row
+                
+            }
         }
         
         if collectionView == pickCollectionView {
@@ -624,8 +771,9 @@ extension BookShelfVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             bookDetailVC.hidesBottomBarWhenPushed = true
             bookDetailVC.selectedBookIndex = picks[safe: indexPath.row]!.id
-            navigationController?.pushViewController(bookDetailVC, animated: true)
-            if bookShelfType == .friend {
+            self.navigationController?.pushViewController(bookDetailVC, animated: false)
+            
+            if bookShelfType == .friendFollowing || bookShelfType == .friendNotFollowing {
                 bookDetailVC.updateMemoView()
             }
         }
@@ -731,7 +879,7 @@ import SwiftUI
 
 struct BookShelfVCPrevieew: PreviewProvider {
     static var previews: some View {
-        BookShelfVC().toPreview()
+        BookShelfVC(isFromNotification: true).toPreview()
     }
 }
 #endif

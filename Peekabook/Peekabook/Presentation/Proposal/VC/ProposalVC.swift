@@ -143,12 +143,11 @@ extension ProposalVC {
     }
     
     @objc private func backButtonDidTap() {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc private func checkButtonDidTap() {
         let popupViewController = ProposalConfirmPopUpVC()
-        popupViewController.modalPresentationStyle = .overFullScreen
         popupViewController.recommendDesc = peekaProposalView.text == I18N.PlaceHolder.recommend ?  "" : peekaProposalView.text
         popupViewController.bookTitle = nameLabel.text!
         popupViewController.bookImage = imageUrl
@@ -157,7 +156,7 @@ extension ProposalVC {
         popupViewController.personName = personName
         popupViewController.bookImage = imageUrl
         popupViewController.publisher = publisher
-        self.present(popupViewController, animated: false)
+        self.navigationController?.pushViewController(popupViewController, animated: false)
     }
     
     private func addKeyboardObserver() {

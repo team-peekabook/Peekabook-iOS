@@ -19,6 +19,7 @@ enum ButtonLabelStyle: CaseIterable {
     case forceUpdate
     case deleteRecommend
     case bookDuplicate
+    case follow
 }
 
 final class CustomPopUpView: UIView {
@@ -83,7 +84,7 @@ extension CustomPopUpView {
             self.setTwoButtonAndTwoLineLabelLayout()
         case .block, .unblock, .deleteRecommend:
             self.setTwoButtonAndDetailLabelLayout()
-        case .report:
+        case .report, .follow:
             self.setOneButtonLayout()
         case .logout:
             self.setTwoButtonAndOneLineLabelLayout()
@@ -249,6 +250,11 @@ extension CustomPopUpView {
                 blockDetailLabel.text = detailComment
                 changeFontToBold()
             }
+        case .follow:
+            if let personName = personName {
+                confirmLabel.text = "'\(personName)'" + I18N.Follow.followComment
+                changeFontToBold()
+            }
         }
     }
     
@@ -276,7 +282,7 @@ extension CustomPopUpView {
             confirmButton.addTarget(viewController, action: #selector(UnblockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .report:
             confirmButton.setTitle(I18N.Report.backTohome, for: .normal)
-            confirmButton.addTarget(viewController, action: #selector(BlockPopUpVC.confirmButtonDidTap), for: .touchUpInside)
+            confirmButton.addTarget(viewController, action: #selector(ReportPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         case .logout:
             confirmButton.setTitle(I18N.Logout.logout, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(BlockPopUpVC.cancelButtonDidTap), for: .touchUpInside)
@@ -295,6 +301,9 @@ extension CustomPopUpView {
             confirmButton.setTitle(I18N.Confirm.delete, for: .normal)
             cancelButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.cancelButtonDidTap), for: .touchUpInside)
             confirmButton.addTarget(viewController, action: #selector(RecommendDeletePopUpVC.confirmButtonDidTap), for: .touchUpInside)
+        case .follow:
+            confirmButton.setTitle(I18N.Follow.confirm, for: .normal)
+            confirmButton.addTarget(viewController, action: #selector(FollowPopUpVC.confirmButtonDidTap), for: .touchUpInside)
         }
     }
     

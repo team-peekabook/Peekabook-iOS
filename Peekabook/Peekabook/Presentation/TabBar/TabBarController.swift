@@ -30,7 +30,7 @@ final class TabBarController: UITabBarController {
         let bookShelfNVC = makeNavigationController(
             unselectedImage: ImageLiterals.TabBar.bookshelf,
             selectedImage: ImageLiterals.TabBar.bookshelfSelected,
-            rootViewController: BookShelfVC(), title: I18N.Tabbar.bookshelf)
+            rootViewController: BookShelfVC(isFromNotification: false), title: I18N.Tabbar.bookshelf)
         
         let recommendNVC = makeNavigationController(
             unselectedImage: ImageLiterals.TabBar.recommend,
